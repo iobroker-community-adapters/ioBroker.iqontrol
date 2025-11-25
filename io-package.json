@@ -128,7 +128,6 @@
     "mode": "daemon",
     "tier": 3,
     "type": "visualization",
-    "highlight": true,
     "compact": true,
     "singleton": false,
     "materialize": true,
