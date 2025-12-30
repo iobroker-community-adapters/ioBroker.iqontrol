@@ -2,15 +2,9 @@
   "name": "iobroker.iqontrol",
   "version": "3.0.0",
   "description": "Fast Web-App for Visualization",
-  "author": {
-    "name": "Sebastian Bormann",
-    "email": "sebastian@bormann.net"
-  },
+  "author": "Sebastian Bormann <sebastian@bormann.net>",
   "contributors": [
-    {
-      "name": "iobroker-community-adapters",
-      "email": "iobroker-community-adapters@gmx.de"
-    }
+    "iobroker-community-adapters <iobroker-community-adapters@gmx.de>"
   ],
   "homepage": "https://github.com/iobroker-community-adapters/ioBroker.iqontrol",
   "license": "MIT",
