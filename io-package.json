@@ -146,7 +146,6 @@
         "zh-cn": "iQontrol"
       },
       "singleton": false,
-      "fa-icon": "blur_on",
       "link": "/adapter/iqontrol/index_m.html?noCloseButtons"
     },
     "onlyWWW": false,
