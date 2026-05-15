@@ -1870,6 +1870,8 @@ This device has some special predefined size- and display-settings to show a tex
 * (sbormann) Added more timestamp options to datapoint-detection of json-table-widget.
 * (sbormann) Enhanced sorting of lists.
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## License
 MIT License
 
