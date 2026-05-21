@@ -1,0 +1,39 @@
+{
+  "i18n": true,
+  "type": "panel",
+  "items": {
+    "startHeader": {
+      "type": "header",
+      "text": "Start",
+      "size": 2,
+      "xs": 12,
+      "sm": 12,
+      "md": 12,
+      "lg": 12,
+      "xl": 12
+    },
+    "startInfo": {
+      "type": "staticText",
+      "text": "Start setting up your interface by:",
+      "newLine": true,
+      "xs": 12,
+      "sm": 12,
+      "md": 12,
+      "lg": 12,
+      "xl": 12
+    },
+    "openIqontrol": {
+      "type": "staticLink",
+      "label": "Open iQontrol",
+      "href": "%web_protocol%://%ip%:%web_port%/iqontrol/index.html?namespace=iqontrol.${data.number}",
+      "button": true,
+      "variant": "contained",
+      "newLine": true,
+      "xs": 12,
+      "sm": 12,
+      "md": 6,
+      "lg": 4,
+      "xl": 3
+    }
+  }
+}
