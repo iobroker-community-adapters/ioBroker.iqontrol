@@ -130,7 +130,6 @@
     "type": "visualization",
     "compact": true,
     "singleton": false,
-    "materialize": true,
     "materializeTab": true,
     "adminTab": {
       "name": {
@@ -185,7 +184,10 @@
       {
         "admin": ">=7.7.22"
       }
-    ]
+    ],
+    "adminUI": {
+      "config": "materialize"
+    }
   },
   "native": {
     "demotoolbar": [
