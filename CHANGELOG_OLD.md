@@ -1,4 +1,12 @@
 # Older changes
+## 2.0.1 (2022-03-09)
+* (sbormann) Fixed json-table sorting order.
+* (sbormann) Added placeholder-option for empty tables to json-table-widget.
+* (sbormann) Fixed 'switch to this widget button' for widgets with replace-URL.
+* (sbormann) Added more timestamp options to datapoint-detection of json-table-widget.
+* (sbormann) Enhanced sorting of lists.
+
+
 ## 2.0.0 (2022-02-25)
 * (sbormann) Minor fixes.
 

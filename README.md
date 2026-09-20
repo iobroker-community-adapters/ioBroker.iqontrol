@@ -1810,8 +1810,7 @@ This device has some special predefined size- and display-settings to show a tex
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 3.1.0 (2026-09-20)
 - (mguc) Some polish translations have been adapted
 - (copilot) Adapter requires node.js >= 22 now
 - (copilot) Adapter requires admin >= 7.7.22 now
@@ -1863,13 +1862,6 @@ This device has some special predefined size- and display-settings to show a tex
 * (sbormann) You can now click on linked devices.
 * (sbormann) Prevented back-swiping for safari.
 * (sbormann) Updated some dependencies.
-
-### 2.0.1 (2022-03-09)
-* (sbormann) Fixed json-table sorting order.
-* (sbormann) Added placeholder-option for empty tables to json-table-widget.
-* (sbormann) Fixed 'switch to this widget button' for widgets with replace-URL.
-* (sbormann) Added more timestamp options to datapoint-detection of json-table-widget.
-* (sbormann) Enhanced sorting of lists.
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 

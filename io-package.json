@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "iqontrol",
-    "version": "3.0.0",
+    "version": "3.1.0",
     "news": {
+      "3.1.0": {
+        "en": "Some polish translations have been adapted\nAdapter requires node.js >= 22 now\nAdapter requires admin >= 7.7.22 now\nAdapter requires js-controller >= 6.0.11 now",
+        "de": "Einige polnische Texte wurden angepasst\nAdapter benötigt jetzt node.js >= 22\nAdapter benötigt jetzt admin >= 7.7.22\nAdapter benötigt jetzt JS-Controller >= 6.0.11",
+        "ru": "Некоторые польские переводы были адаптированы\nТеперь для адаптера требуется файл node.js >= 22\nДля адаптера теперь требуется администратор >= 7.7.22\nТеперь для адаптера требуется js-контроллер >= 6.0.11",
+        "pt": "Algumas traduções polacas foram adaptadas\nO adaptador exige node.js >= 2\nAgora o adaptador exige admin >= 7.7.2\nO adaptador exige js-controller >= 6.0.11",
+        "nl": "Sommige Poolse vertalingen zijn aangepast\nVoor de adapter is nu node.js >= 22 nodig\nAdapter vereist nu admin >= 7.7.22\nVoor de adapter is nu een js-controller >= 6.0.11 nodig",
+        "fr": "Certaines traductions polonaises ont été adaptées\nAdapter nécessite node.js >= 22\nAdapter nécessite admin >= 7.7.22\nAdapter nécessite JS-Controller >= 6.0.11",
+        "it": "Alcune traduzioni polacche sono adattate\nAdapter richiede node.js =2 ora\nAdapter richiede admin >= 7.7.2 ora\nAdapter richiede js-controller >= 6.0.11 ora",
+        "es": "Se han adaptado algunas traducciones al polaco\nEl adaptador necesita node.js >= 22 ahora\nEl adaptador necesita admin >= 7.7.22 ahora\nEl adaptador ahora requiere js-controller >= 6.0.11",
+        "pl": "Niektóre polskie tłumaczenia zostały dostosowane\nAdapter wymaga teraz node.js >= 22\nAdapter wymaga administratora >= 7.7.22 teraz\nAdapter wymaga kontrolera js->= 6.0.11 teraz",
+        "uk": "Деякі польські переклади були адаптовані\nАдаптер вимагає node.js >= 22 зараз\nАдаптер вимагає адміністратора >= 7.7.22 зараз\nАдаптер вимагає js-контролера >= 6.0.11 зараз",
+        "zh-cn": "一些波兰语译本已改编\n适配器现在需要 node.js >= 22\n适配器现在需要管理员 >= 7.7.22\n适配器现在需要 js-controller >= 6.0.11"
+      },
       "3.0.0": {
         "en": "Adapter has been moved to iobroker-community-adapter organisation.\nAdapter requires js-controller 5, admin 6 and node.js 20 now.\nDependencies have been updated.",
         "de": "Adapter wurde in die iobroker-community-Adapter-Organisation verschoben.\nAdapter benötigt jetzt js-controller 5, admin 6 und node.js 20.\nAbhängigkeiten wurden aktualisiert.",
