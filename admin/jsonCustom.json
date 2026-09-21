@@ -1,458 +1,524 @@
 {
-	"i18n": true,
-	"items": {
-		"readonly": {
-			"type": "checkbox",
-			"sm": 12,
-			"lg": 4,
-			"label":"Readonly",
-			"defaultFunc": "(customObj && customObj.native && customObj.native.write == false) || (customObj && customObj.common && customObj.common.write == false) || false"
-		},
-		"invert": {
-			"type": "checkbox",
-			"sm": 12,
-			"lg": 4,
-			"label":"Invert",
-			"help": "(this is only supported for booleans and for numbers with defined min and max)",
-			"default": false
-		},
-		"confirm": {
-			"type": "checkbox",
-			"sm": 12,
-			"lg": 4,
-			"label":"Confirm",
-			"help": "(before sending a state a confirmation-box is showed)",
-			"default": false
-		},
-		"pincode": {
-			"type": "text",
-			"sm": 12,
-			"lg": 12,
-			"label":"PIN-Code",
-			"help": "(before sending a state you have to enter this code)",
-			"default": ""
-		},
-		"dividerUnits": {
-			"type": "divider"
-		},
-		"unit": {
-			"newLine": true,
-			"type": "text",
-			"sm": 12,
-			"lg": 12,
-			"label":"Unit",
-			"defaultFunc": "(customObj && customObj.common && customObj.common.unit) || ''"
-		},
-		"unit_zero": {
-			"type": "text",
-			"sm": 12,
-			"lg": 12,
-			"label":"Unit (if value is 0)",
-			"help": "(this is only supported for numbers)",
-			"defaultFunc": "(customObj && customObj.common && customObj.common.unit) || ''"
-		},
-		"unit_one": {
-			"type": "text",
-			"sm": 12,
-			"lg": 12,
-			"label":"Unit (if value is 1)",
-			"help": "(this is only supported for numbers)",
-			"defaultFunc": "(customObj && customObj.common && customObj.common.unit) || ''"
-		},
-		"dividerNumbers": {
-			"type": "divider"
-		},
-		"min": {
-			"newLine": true,
-			"type": "number",
-			"sm": 12,
-			"lg": 6,
-			"label":"Minimum",
-			"help": "(this is only supported for numbers)",
-			"defaultFunc": "(customObj && customObj.common && typeof customObj.common.min !== 'undefined' && !isNaN(Number(customObj.common.min))) ? Number(customObj.common.min) : ''"
-		},
-		"max": {
-			"type": "number",
-			"sm": 12,
-			"lg": 6,
-			"label":"Maximum",
-			"help": "(this is only supported for numbers)",
-			"defaultFunc": "(customObj && customObj.common && typeof customObj.common.max !== 'undefined' && !isNaN(Number(customObj.common.max))) ? Number(customObj.common.max) : ''"
-		},
-		"step": {
-			"type": "number",
-			"min": 0,
-			"max": 100000,
-			"step": 0.0001,
-			"sm": 12,
-			"lg": 6,
-			"label":"Step",
-			"help": "(this is only supported for numbers)",
-			"defaultFunc": "(customObj && customObj.common && typeof customObj.common.step !== 'undefined' && !isNaN(Number(customObj.common.step))) ? Number(customObj.common.step) : ''"
-		},
-		"roundDigits": {
-			"type": "number",
-			"min": 0,
-			"max": 10,
-			"sm": 12,
-			"lg": 6,
-			"label":"Round to this number of digits",
-			"help": "(this is only supported for numbers)",
-			"default": 2
-		},
-		"dividerTime": {
-			"type": "divider"
-		},
-		"timeFormat": {
-			"newLine": true,
-			"type": "autocomplete",
-			"freeSolo": true,
-			"sm": 12,
-			"lg": 12,
-			"label":"Format of Time (as stored in the datapoint, see readme)",
-			"help": "(this is only supported if datapoint has the role time)",
-			"default": "x",
-			"options": [
-				{
-					"value": "x",
-					"label": "Timestamp"
-				}, {
-					"value": "YYYY-MM-DDTHH:mm:ss.SSSZ",
-					"label": "YYYY-MM-DDTHH:mm:ss.SSSZ"
-				}, {
-					"value": "ddd MMM DD YYYY HH:mm:ss ZZ",
-					"label": "ddd MMM DD YYYY HH:mm:ss ZZ"
-				}, {
-					"value": "HH:mm",
-					"label": "HH:mm"
-				}, {
-					"value": "HH:mm:ss",
-					"label": "HH:mm:ss"
-				}, {
-					"value": "DD.MM.YYYY",
-					"label": "DD.MM.YYYY"
-				}, {
-					"value": "DD.MM.YYYY HH:mm",
-					"label": "DD.MM.YYYY HH:mm"
-				}, {
-					"value": "DD.MM.YYYY HH:mm:ss",
-					"label": "DD.MM.YYYY HH:mm:ss"
-				}, {
-					"value": "ddd, DD.MM.YYYY",
-					"label": "ddd, DD.MM.YYYY"
-				}, {
-					"value": "ddd, DD.MM.YYYY HH:mm",
-					"label": "ddd, DD.MM.YYYY HH:mm"
-				}, {
-					"value": "ddd, DD.MM.YYYY HH:mm:ss",
-					"label": "ddd, DD.MM.YYYY HH:mm:ss"
-				}, {
-					"value": "dddd, DD.MM.YYYY",
-					"label": "dddd, DD.MM.YYYY"
-				}, {
-					"value": "dddd, DD.MM.YYYY HH:mm",
-					"label": "dddd, DD.MM.YYYY HH:mm"
-				}, {
-					"value": "dddd, DD.MM.YYYY HH:mm:ss",
-					"label": "dddd, DD.MM.YYYY HH:mm:ss"
-				}, {
-					"value": "hh:mm a",
-					"label": "hh:mm a"
-				}, {
-					"value": "hh:mm:ss a",
-					"label": "hh:mm:ss a"
-				}, {
-					"value": "YYYY-MM-DD",
-					"label": "YYYY-MM-DD"
-				}, {
-					"value": "YYYY-MM-DD hh:mm a",
-					"label": "YYYY-MM-DD hh:mm a"
-				}, {
-					"value": "YYYY-MM-DD hh:mm:ss a",
-					"label": "YYYY-MM-DD hh:mm:ss a"
-				}, {
-					"value": "ddd, YYYY-MM-DD",
-					"label": "ddd, YYYY-MM-DD"
-				}, {
-					"value": "ddd, YYYY-MM-DD hh:mm a",
-					"label": "ddd, YYYY-MM-DD hh:mm a"
-				}, {
-					"value": "ddd, YYYY-MM-DD hh:mm:ss a",
-					"label": "ddd, YYYY-MM-DD hh:mm:ss a"
-				}, {
-					"value": "dddd, YYYY-MM-DD",
-					"label": "dddd, YYYY-MM-DD"
-				}, {
-					"value": "dddd, YYYY-MM-DD hh:mm a",
-					"label": "dddd, YYYY-MM-DD hh:mm a"
-				}, {
-					"value": "dddd, YYYY-MM-DD hh:mm:ss a",
-					"label": "dddd, YYYY-MM-DD hh:mm:ss a"
-				}, {
-					"value": "P",
-					"label": "Period"
-				}, {
-					"value": "Pms",
-					"label": "Period in milliseconds"
-				}, {
-					"value": "Ps",
-					"label": "Period in seconds"
-				}, {
-					"value": "Pm",
-					"label": "Period in minutes"
-				}
-			]
-		},
-		"timeDisplayFormat": {
-			"type": "autocomplete",
-			"freeSolo": true,
-			"sm": 12,
-			"lg": 12,
-			"label":"Display-Format of Time (how it should be displayed, see readme)",
-			"help": "(this is only supported if datapoint has the role time)",
-			"default": "dddd, DD.MM.YYYY HH:mm:ss",
-			"options": [
-				{
-					"value": "HH:mm",
-					"label": "HH:mm"
-				}, {
-					"value": "HH:mm:ss",
-					"label": "HH:mm:ss"
-				}, {
-					"value": "DD.MM.YYYY",
-					"label": "DD.MM.YYYY"
-				}, {
-					"value": "DD.MM.YYYY HH:mm",
-					"label": "DD.MM.YYYY HH:mm"
-				}, {
-					"value": "DD.MM.YYYY HH:mm:ss",
-					"label": "DD.MM.YYYY HH:mm:ss"
-				}, {
-					"value": "ddd, DD.MM.YYYY",
-					"label": "ddd, DD.MM.YYYY"
-				}, {
-					"value": "ddd, DD.MM.YYYY HH:mm",
-					"label": "ddd, DD.MM.YYYY HH:mm"
-				}, {
-					"value": "ddd, DD.MM.YYYY HH:mm:ss",
-					"label": "ddd, DD.MM.YYYY HH:mm:ss"
-				}, {
-					"value": "dddd, DD.MM.YYYY",
-					"label": "dddd, DD.MM.YYYY"
-				}, {
-					"value": "dddd, DD.MM.YYYY HH:mm",
-					"label": "dddd, DD.MM.YYYY HH:mm"
-				}, {
-					"value": "dddd, DD.MM.YYYY HH:mm:ss",
-					"label": "dddd, DD.MM.YYYY HH:mm:ss"
-				}, {
-					"value": "hh:mm a",
-					"label": "hh:mm a"
-				}, {
-					"value": "hh:mm:ss a",
-					"label": "hh:mm:ss a"
-				}, {
-					"value": "YYYY-MM-DD",
-					"label": "YYYY-MM-DD"
-				}, {
-					"value": "YYYY-MM-DD hh:mm a",
-					"label": "YYYY-MM-DD hh:mm a"
-				}, {
-					"value": "YYYY-MM-DD hh:mm:ss a",
-					"label": "YYYY-MM-DD hh:mm:ss a"
-				}, {
-					"value": "ddd, YYYY-MM-DD",
-					"label": "ddd, YYYY-MM-DD"
-				}, {
-					"value": "ddd, YYYY-MM-DD hh:mm a",
-					"label": "ddd, YYYY-MM-DD hh:mm a"
-				}, {
-					"value": "ddd, YYYY-MM-DD hh:mm:ss a",
-					"label": "ddd, YYYY-MM-DD hh:mm:ss a"
-				}, {
-					"value": "dddd, YYYY-MM-DD",
-					"label": "dddd, YYYY-MM-DD"
-				}, {
-					"value": "dddd, YYYY-MM-DD hh:mm a",
-					"label": "dddd, YYYY-MM-DD hh:mm a"
-				}, {
-					"value": "dddd, YYYY-MM-DD hh:mm:ss a",
-					"label": "dddd, YYYY-MM-DD hh:mm:ss a"
-				}, {
-					"value": "D [Day(s)], H:m:s",
-					"label": "D [Day(s)], H:m:s (for Periods)"
-				}, {
-					"value": "D [Day(s)], HH:mm:ss",
-					"label": "D [Day(s)], HH:mm:ss (for Periods)"
-				}
-			]
-		},
-		"timeDisplayDontShowDistance": {
-			"type": "checkbox",
-			"sm": 12,
-			"lg": 4,
-			"label":"Don't Show Distance",
-			"default": false
-		},
+    "i18n": true,
+    "items": {
+        "readonly": {
+            "type": "checkbox",
+            "sm": 12,
+            "lg": 4,
+            "label": "Readonly",
+            "defaultFunc": "(customObj && customObj.native && customObj.native.write == false) || (customObj && customObj.common && customObj.common.write == false) || false"
+        },
+        "invert": {
+            "type": "checkbox",
+            "sm": 12,
+            "lg": 4,
+            "label": "Invert",
+            "help": "(this is only supported for booleans and for numbers with defined min and max)",
+            "default": false
+        },
+        "confirm": {
+            "type": "checkbox",
+            "sm": 12,
+            "lg": 4,
+            "label": "Confirm",
+            "help": "(before sending a state a confirmation-box is showed)",
+            "default": false
+        },
+        "pincode": {
+            "type": "text",
+            "sm": 12,
+            "lg": 12,
+            "label": "PIN-Code",
+            "help": "(before sending a state you have to enter this code)",
+            "default": ""
+        },
+        "dividerUnits": {
+            "type": "divider"
+        },
+        "unit": {
+            "newLine": true,
+            "type": "text",
+            "sm": 12,
+            "lg": 12,
+            "label": "Unit",
+            "defaultFunc": "(customObj && customObj.common && customObj.common.unit) || ''"
+        },
+        "unit_zero": {
+            "type": "text",
+            "sm": 12,
+            "lg": 12,
+            "label": "Unit (if value is 0)",
+            "help": "(this is only supported for numbers)",
+            "defaultFunc": "(customObj && customObj.common && customObj.common.unit) || ''"
+        },
+        "unit_one": {
+            "type": "text",
+            "sm": 12,
+            "lg": 12,
+            "label": "Unit (if value is 1)",
+            "help": "(this is only supported for numbers)",
+            "defaultFunc": "(customObj && customObj.common && customObj.common.unit) || ''"
+        },
+        "dividerNumbers": {
+            "type": "divider"
+        },
+        "min": {
+            "newLine": true,
+            "type": "number",
+            "sm": 12,
+            "lg": 6,
+            "label": "Minimum",
+            "help": "(this is only supported for numbers)",
+            "defaultFunc": "(customObj && customObj.common && typeof customObj.common.min !== 'undefined' && !isNaN(Number(customObj.common.min))) ? Number(customObj.common.min) : ''"
+        },
+        "max": {
+            "type": "number",
+            "sm": 12,
+            "lg": 6,
+            "label": "Maximum",
+            "help": "(this is only supported for numbers)",
+            "defaultFunc": "(customObj && customObj.common && typeof customObj.common.max !== 'undefined' && !isNaN(Number(customObj.common.max))) ? Number(customObj.common.max) : ''"
+        },
+        "step": {
+            "type": "number",
+            "min": 0,
+            "max": 100000,
+            "step": 0.0001,
+            "sm": 12,
+            "lg": 6,
+            "label": "Step",
+            "help": "(this is only supported for numbers)",
+            "defaultFunc": "(customObj && customObj.common && typeof customObj.common.step !== 'undefined' && !isNaN(Number(customObj.common.step))) ? Number(customObj.common.step) : ''"
+        },
+        "roundDigits": {
+            "type": "number",
+            "min": 0,
+            "max": 10,
+            "sm": 12,
+            "lg": 6,
+            "label": "Round to this number of digits",
+            "help": "(this is only supported for numbers)",
+            "default": 2
+        },
+        "dividerTime": {
+            "type": "divider"
+        },
+        "timeFormat": {
+            "newLine": true,
+            "type": "autocomplete",
+            "freeSolo": true,
+            "sm": 12,
+            "lg": 12,
+            "label": "Format of Time (as stored in the datapoint, see readme)",
+            "help": "(this is only supported if datapoint has the role time)",
+            "default": "x",
+            "options": [
+                {
+                    "value": "x",
+                    "label": "Timestamp"
+                },
+                {
+                    "value": "YYYY-MM-DDTHH:mm:ss.SSSZ",
+                    "label": "YYYY-MM-DDTHH:mm:ss.SSSZ"
+                },
+                {
+                    "value": "ddd MMM DD YYYY HH:mm:ss ZZ",
+                    "label": "ddd MMM DD YYYY HH:mm:ss ZZ"
+                },
+                {
+                    "value": "HH:mm",
+                    "label": "HH:mm"
+                },
+                {
+                    "value": "HH:mm:ss",
+                    "label": "HH:mm:ss"
+                },
+                {
+                    "value": "DD.MM.YYYY",
+                    "label": "DD.MM.YYYY"
+                },
+                {
+                    "value": "DD.MM.YYYY HH:mm",
+                    "label": "DD.MM.YYYY HH:mm"
+                },
+                {
+                    "value": "DD.MM.YYYY HH:mm:ss",
+                    "label": "DD.MM.YYYY HH:mm:ss"
+                },
+                {
+                    "value": "ddd, DD.MM.YYYY",
+                    "label": "ddd, DD.MM.YYYY"
+                },
+                {
+                    "value": "ddd, DD.MM.YYYY HH:mm",
+                    "label": "ddd, DD.MM.YYYY HH:mm"
+                },
+                {
+                    "value": "ddd, DD.MM.YYYY HH:mm:ss",
+                    "label": "ddd, DD.MM.YYYY HH:mm:ss"
+                },
+                {
+                    "value": "dddd, DD.MM.YYYY",
+                    "label": "dddd, DD.MM.YYYY"
+                },
+                {
+                    "value": "dddd, DD.MM.YYYY HH:mm",
+                    "label": "dddd, DD.MM.YYYY HH:mm"
+                },
+                {
+                    "value": "dddd, DD.MM.YYYY HH:mm:ss",
+                    "label": "dddd, DD.MM.YYYY HH:mm:ss"
+                },
+                {
+                    "value": "hh:mm a",
+                    "label": "hh:mm a"
+                },
+                {
+                    "value": "hh:mm:ss a",
+                    "label": "hh:mm:ss a"
+                },
+                {
+                    "value": "YYYY-MM-DD",
+                    "label": "YYYY-MM-DD"
+                },
+                {
+                    "value": "YYYY-MM-DD hh:mm a",
+                    "label": "YYYY-MM-DD hh:mm a"
+                },
+                {
+                    "value": "YYYY-MM-DD hh:mm:ss a",
+                    "label": "YYYY-MM-DD hh:mm:ss a"
+                },
+                {
+                    "value": "ddd, YYYY-MM-DD",
+                    "label": "ddd, YYYY-MM-DD"
+                },
+                {
+                    "value": "ddd, YYYY-MM-DD hh:mm a",
+                    "label": "ddd, YYYY-MM-DD hh:mm a"
+                },
+                {
+                    "value": "ddd, YYYY-MM-DD hh:mm:ss a",
+                    "label": "ddd, YYYY-MM-DD hh:mm:ss a"
+                },
+                {
+                    "value": "dddd, YYYY-MM-DD",
+                    "label": "dddd, YYYY-MM-DD"
+                },
+                {
+                    "value": "dddd, YYYY-MM-DD hh:mm a",
+                    "label": "dddd, YYYY-MM-DD hh:mm a"
+                },
+                {
+                    "value": "dddd, YYYY-MM-DD hh:mm:ss a",
+                    "label": "dddd, YYYY-MM-DD hh:mm:ss a"
+                },
+                {
+                    "value": "P",
+                    "label": "Period"
+                },
+                {
+                    "value": "Pms",
+                    "label": "Period in milliseconds"
+                },
+                {
+                    "value": "Ps",
+                    "label": "Period in seconds"
+                },
+                {
+                    "value": "Pm",
+                    "label": "Period in minutes"
+                }
+            ]
+        },
+        "timeDisplayFormat": {
+            "type": "autocomplete",
+            "freeSolo": true,
+            "sm": 12,
+            "lg": 12,
+            "label": "Display-Format of Time (how it should be displayed, see readme)",
+            "help": "(this is only supported if datapoint has the role time)",
+            "default": "dddd, DD.MM.YYYY HH:mm:ss",
+            "options": [
+                {
+                    "value": "HH:mm",
+                    "label": "HH:mm"
+                },
+                {
+                    "value": "HH:mm:ss",
+                    "label": "HH:mm:ss"
+                },
+                {
+                    "value": "DD.MM.YYYY",
+                    "label": "DD.MM.YYYY"
+                },
+                {
+                    "value": "DD.MM.YYYY HH:mm",
+                    "label": "DD.MM.YYYY HH:mm"
+                },
+                {
+                    "value": "DD.MM.YYYY HH:mm:ss",
+                    "label": "DD.MM.YYYY HH:mm:ss"
+                },
+                {
+                    "value": "ddd, DD.MM.YYYY",
+                    "label": "ddd, DD.MM.YYYY"
+                },
+                {
+                    "value": "ddd, DD.MM.YYYY HH:mm",
+                    "label": "ddd, DD.MM.YYYY HH:mm"
+                },
+                {
+                    "value": "ddd, DD.MM.YYYY HH:mm:ss",
+                    "label": "ddd, DD.MM.YYYY HH:mm:ss"
+                },
+                {
+                    "value": "dddd, DD.MM.YYYY",
+                    "label": "dddd, DD.MM.YYYY"
+                },
+                {
+                    "value": "dddd, DD.MM.YYYY HH:mm",
+                    "label": "dddd, DD.MM.YYYY HH:mm"
+                },
+                {
+                    "value": "dddd, DD.MM.YYYY HH:mm:ss",
+                    "label": "dddd, DD.MM.YYYY HH:mm:ss"
+                },
+                {
+                    "value": "hh:mm a",
+                    "label": "hh:mm a"
+                },
+                {
+                    "value": "hh:mm:ss a",
+                    "label": "hh:mm:ss a"
+                },
+                {
+                    "value": "YYYY-MM-DD",
+                    "label": "YYYY-MM-DD"
+                },
+                {
+                    "value": "YYYY-MM-DD hh:mm a",
+                    "label": "YYYY-MM-DD hh:mm a"
+                },
+                {
+                    "value": "YYYY-MM-DD hh:mm:ss a",
+                    "label": "YYYY-MM-DD hh:mm:ss a"
+                },
+                {
+                    "value": "ddd, YYYY-MM-DD",
+                    "label": "ddd, YYYY-MM-DD"
+                },
+                {
+                    "value": "ddd, YYYY-MM-DD hh:mm a",
+                    "label": "ddd, YYYY-MM-DD hh:mm a"
+                },
+                {
+                    "value": "ddd, YYYY-MM-DD hh:mm:ss a",
+                    "label": "ddd, YYYY-MM-DD hh:mm:ss a"
+                },
+                {
+                    "value": "dddd, YYYY-MM-DD",
+                    "label": "dddd, YYYY-MM-DD"
+                },
+                {
+                    "value": "dddd, YYYY-MM-DD hh:mm a",
+                    "label": "dddd, YYYY-MM-DD hh:mm a"
+                },
+                {
+                    "value": "dddd, YYYY-MM-DD hh:mm:ss a",
+                    "label": "dddd, YYYY-MM-DD hh:mm:ss a"
+                },
+                {
+                    "value": "D [Day(s)], H:m:s",
+                    "label": "D [Day(s)], H:m:s (for Periods)"
+                },
+                {
+                    "value": "D [Day(s)], HH:mm:ss",
+                    "label": "D [Day(s)], HH:mm:ss (for Periods)"
+                }
+            ]
+        },
+        "timeDisplayDontShowDistance": {
+            "type": "checkbox",
+            "sm": 12,
+            "lg": 4,
+            "label": "Don't Show Distance",
+            "default": false
+        },
 
-		"dividerTypeAndRole": {
-			"type": "divider"
-		},
-		"type": {
-			"newLine": true,
-			"type": "select",
-			"options": [
-				{
-					"value": "",
-					"label": ""
-				}, {
-					"value": "string",
-					"label": "String"
-				}, {
-					"value": "number",
-					"label": "Number"
-				}, {
-					"value": "boolean",
-					"label": "Boolean"
-				}
-			],
-			"sm": 12,
-			"lg": 6,
-			"label":"Type",
-			"help": "(overwrites common.type property)",
-			"defaultFunc": "(customObj && customObj.common && customObj.common.type) || ''"
-		},
-		"role": {
-			"type": "select",
-			"options": [
-				{
-					"value": "",
-					"label": ""
-				}, {
-					"value": "state",
-					"label": "State (state)"
-				}, {
-					"value": "level",
-					"label": "Level (level)"
-				}, {
-					"value": "switch",
-					"label": "Switch (switch)"
-				}, {
-					"value": "button",
-					"label": "Button (button)"
-				}, {
-					"value": "sensor.window",
-					"label": "Window/Door sensor (sensor.window)"
-				}, {
-					"value": "sensor.alarm",
-					"label": "Alarmsensor (sensor.alarm)"
-				}, {
-					"value": "sensor.alarm.fire",
-					"label": "Firesensor (sensor.alarm.fire)"
-				}, {
-					"value": "value.time",
-					"label": "Time (value.time)"
-				}, {
-					"value": "level.timer",
-					"label": "Timer (level.timer)"
-				}
-			],
-			"sm": 12,
-			"lg": 6,
-			"label":"Role",
-			"help": "(overwrites common.role property)",
-			"defaultFunc": "(customObj && customObj.common && customObj.common.role) || ''"
-		},
-		"dividerTargetValue": {
-			"type": "divider"
-		},
-		"targetValueId": {
-			"newLine": true,
-			"type": "text",
-			"sm": 12,
-			"lg": 12,
-			"label":"Write target values to this Datapoint ID",
-			"help": "(if you have different data points for the actual and the target value)",
-			"default": ""
-		},
-		"dividerValueList": {
-			"type": "divider"
-		},
-		"states": {
-			"type": "table",
-			"items": [
-				{
-					"type": "text",
-					"attr": "key",
-					"title": "Key"
-				}, {
-					"type": "text",
-					"attr": "value",
-					"title": "Value"
-				}
-			],
-			"objKeyName": "key",
-			"objValueName": "value",
-			"sm": 12,
-			"lg": 12,
-			"label":"Value-List",
-			"help": "",
-			"defaultFunc": "(customObj && customObj.native && customObj.native.states) || (customObj && customObj.common && customObj.common.states)"
-		},
-		"statesAddInput": {
-			"newLine": true,
-			"type": "checkbox",
-			"sm": 12,
-			"lg": 6,
-			"label":"Add option to enter free text",
-			"default": false
-		},
-		"statesAddInputCaption": {
-			"type": "text",
-			"sm": 12,
-			"lg": 6,
-			"label":"Name of this option",
-			"default": "Enter other value..."
-		},
-		"dividerTargetValues": {
-			"type": "divider"
-		},
-		"targetValues": {
-			"newLine": true,
-			"type": "table",
-			"items": [
-				{
-					"type": "text",
-					"attr": "key",
-					"title": "Key",
-					"default": ""
-				}, {
-					"type": "text",
-					"attr": "targetDatapointId",
-					"title": "Target-Datapoint ID",
-					"default": ""
-				}, {
-					"type": "text",
-					"attr": "targetValue",
-					"title": "Target-Value",
-					"default": ""
-				}
-			],
-			"objKeyName": "key",
-			"sm": 12,
-			"lg": 12,
-			"label":"Target-Value-List",
-			"help": "(If the user enters one of these keys in iQontrol, the defined Target-Value will be sent to the defined Target-Datapoint ID)",
-			"defaultFunc": ""
-		},
-		"showOnlyTargetValues": {
-			"newLine": true,
-			"type": "checkbox",
-			"sm": 12,
-			"lg": 6,
-			"label":"Show only these keys in dropdown-fiels",
-			"help": "(otherwise all keys from the value-list are shown in drop-downs)",
-			"default": false
-		}
-	}
+        "dividerTypeAndRole": {
+            "type": "divider"
+        },
+        "type": {
+            "newLine": true,
+            "type": "select",
+            "options": [
+                {
+                    "value": "",
+                    "label": ""
+                },
+                {
+                    "value": "string",
+                    "label": "String"
+                },
+                {
+                    "value": "number",
+                    "label": "Number"
+                },
+                {
+                    "value": "boolean",
+                    "label": "Boolean"
+                }
+            ],
+            "sm": 12,
+            "lg": 6,
+            "label": "Type",
+            "help": "(overwrites common.type property)",
+            "defaultFunc": "(customObj && customObj.common && customObj.common.type) || ''"
+        },
+        "role": {
+            "type": "select",
+            "options": [
+                {
+                    "value": "",
+                    "label": ""
+                },
+                {
+                    "value": "state",
+                    "label": "State (state)"
+                },
+                {
+                    "value": "level",
+                    "label": "Level (level)"
+                },
+                {
+                    "value": "switch",
+                    "label": "Switch (switch)"
+                },
+                {
+                    "value": "button",
+                    "label": "Button (button)"
+                },
+                {
+                    "value": "sensor.window",
+                    "label": "Window/Door sensor (sensor.window)"
+                },
+                {
+                    "value": "sensor.alarm",
+                    "label": "Alarmsensor (sensor.alarm)"
+                },
+                {
+                    "value": "sensor.alarm.fire",
+                    "label": "Firesensor (sensor.alarm.fire)"
+                },
+                {
+                    "value": "value.time",
+                    "label": "Time (value.time)"
+                },
+                {
+                    "value": "level.timer",
+                    "label": "Timer (level.timer)"
+                }
+            ],
+            "sm": 12,
+            "lg": 6,
+            "label": "Role",
+            "help": "(overwrites common.role property)",
+            "defaultFunc": "(customObj && customObj.common && customObj.common.role) || ''"
+        },
+        "dividerTargetValue": {
+            "type": "divider"
+        },
+        "targetValueId": {
+            "newLine": true,
+            "type": "text",
+            "sm": 12,
+            "lg": 12,
+            "label": "Write target values to this Datapoint ID",
+            "help": "(if you have different data points for the actual and the target value)",
+            "default": ""
+        },
+        "dividerValueList": {
+            "type": "divider"
+        },
+        "states": {
+            "type": "table",
+            "items": [
+                {
+                    "type": "text",
+                    "attr": "key",
+                    "title": "Key"
+                },
+                {
+                    "type": "text",
+                    "attr": "value",
+                    "title": "Value"
+                }
+            ],
+            "objKeyName": "key",
+            "objValueName": "value",
+            "sm": 12,
+            "lg": 12,
+            "label": "Value-List",
+            "help": "",
+            "defaultFunc": "(customObj && customObj.native && customObj.native.states) || (customObj && customObj.common && customObj.common.states)"
+        },
+        "statesAddInput": {
+            "newLine": true,
+            "type": "checkbox",
+            "sm": 12,
+            "lg": 6,
+            "label": "Add option to enter free text",
+            "default": false
+        },
+        "statesAddInputCaption": {
+            "type": "text",
+            "sm": 12,
+            "lg": 6,
+            "label": "Name of this option",
+            "default": "Enter other value..."
+        },
+        "dividerTargetValues": {
+            "type": "divider"
+        },
+        "targetValues": {
+            "newLine": true,
+            "type": "table",
+            "items": [
+                {
+                    "type": "text",
+                    "attr": "key",
+                    "title": "Key",
+                    "default": ""
+                },
+                {
+                    "type": "text",
+                    "attr": "targetDatapointId",
+                    "title": "Target-Datapoint ID",
+                    "default": ""
+                },
+                {
+                    "type": "text",
+                    "attr": "targetValue",
+                    "title": "Target-Value",
+                    "default": ""
+                }
+            ],
+            "objKeyName": "key",
+            "sm": 12,
+            "lg": 12,
+            "label": "Target-Value-List",
+            "help": "(If the user enters one of these keys in iQontrol, the defined Target-Value will be sent to the defined Target-Datapoint ID)",
+            "defaultFunc": ""
+        },
+        "showOnlyTargetValues": {
+            "newLine": true,
+            "type": "checkbox",
+            "sm": 12,
+            "lg": 6,
+            "label": "Show only these keys in dropdown-fiels",
+            "help": "(otherwise all keys from the value-list are shown in drop-downs)",
+            "default": false
+        }
+    }
 }

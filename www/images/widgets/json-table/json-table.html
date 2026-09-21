@@ -1,8 +1,13 @@
 <!doctype html>
-<html style="width: 100%; height: 100%; margin: 0px;">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<meta name="widget-description" content =  'This is a JSON to table widget. It will display JSON-data of the datapoint linked to STATE or LEVEL as a table.<br>
+<html style="width: 100%; height: 100%; margin: 0px">
+    <head>
+        <meta
+            http-equiv="Content-Type"
+            content="text/html; charset=UTF-8"
+        />
+        <meta
+            name="widget-description"
+            content='This is a JSON to table widget. It will display JSON-data of the datapoint linked to STATE or LEVEL as a table.<br>
 												Example JSON: [{"Col 1": "My Value in row 1", "Col two": "My Value two"}, {"Col 1": "My Value in row 2", "Col two": "Another val"}]<br> 
 												<br>
 												You can customize <b>display modes</b> of the table, <b>sorting</b> and <b>filter</b> of columns and <b>translations</b>.<br>
@@ -18,8 +23,11 @@
 												Then you can define cols in which <b>toggling</b> of the datapoint is enabled.<br>
 												<br>
 												(C) by Sebastian Bormann
-	'/> 
-	<meta name="widget-urlparameters" content= "heading//Heading (optional);
+	'
+        />
+        <meta
+            name="widget-urlparameters"
+            content="heading//Heading (optional);
 												placeholder//Placeholder (will be shown, if table is empty, optional);
 												tableMode/columntoggle/Table Mode (mode how small screens are handled)/select/columntoggle,Hide columns as needed/reflow,Display the table stacked/none,Keep table as it is;
 												colsSort//Order of headings (semioclon-separated list of column headers, optional);
@@ -100,8 +108,11 @@
 												datapointExtendTableCols/parentName%3BplainText/Add these columns with attributes of the datapoint to the table (semicolon-separated list of attributes, see info text above, - for none);
 												datapointExtendTableColsDefaultTranslationLanguage//Add standard translations for these columns/language;
 												datapointToggleCols/plainText/Enable toggling of the datapoint in this columns (semicolon-separated list with column headers, - for none);
-	"/>
-	<meta name="widget-options" content=	"{
+	"
+        />
+        <meta
+            name="widget-options"
+            content="{
 												'noZoomOnHover': 'true', 
 												'hideDeviceName': 'true', 
 												'sizeInactive': 'xwideIfInactive highIfInactive', 
@@ -130,1376 +141,1991 @@
 												'tileEnlargeShowInPressureMenuInactive': 'true', 
 												'tileEnlargeShowInPressureMenuActive': 'true'
 												}"
-	/>
- 
-	<link rel="stylesheet" href="/iqontrol/jquery/jquery.mobile-1.4.5.min.css"/>
-	<script type="text/javascript" src="/iqontrol/jquery/jquery-1.11.3.min.js"></script>
-	<script type="text/javascript" src="/iqontrol/jquery/jquery.mobile-1.4.5.min.js"></script>
-	<script type="text/javascript" src="/iqontrol/jquery/plugins/moment/moment-with-locales.min.js"></script> 
-	<!--script type="text/javascript" src="/iqontrol/../../lib/js/translate.js"></script-->
-	<style>
-		::-webkit-scrollbar {
-		  width: 5px;
-		  height: 5px;
-		}
-		::-webkit-scrollbar-track {
-		  background: #eee;
-		}
-		::-webkit-scrollbar-thumb {
-		  background: #aaa; 
-		}
-		::-webkit-scrollbar-thumb:hover {
-		  background: #888; 
-		}
-		document {
-			overflow: hidden !important;
-			background: transparent !important;
-		}
-		html {
-			overflow: hidden !important;
-			background: transparent !important;
-			-webkit-transition: all 1s;
-			   -moz-transition: all 1s;
-					transition: all 1s;
-		}
-		#heading {
-			font-size: smaller;
-			font-weight: bold;
-			margin: 5px 5px 0 5px;
-		}
-		#placeholder {
-			font-size: smaller;
-			margin: 0;
-			padding: 5px;
-		}
-		.ui-page {
-			overflow-y: auto !important;
-			overflow-x: hidden !important;
-			background: transparent !important;
-			-webkit-user-select: none !important;
-			   -moz-user-select: none !important; 
-					user-select: none !important;
-			-webkit-touch-callout: none !important;
-			min-height: unset !important;
-			height: 100% !important;
-			margin: 0;
-			padding: 0;
-		}
-		.ui-content {
-			margin: 0;
-			padding: 0;
-		}
-		.ui-table-columntoggle-btn {
-			border: none !important;
-			box-shadow: none !important;
-			padding: 9px 20px 8px 20px !important;
-			background: transparent !important;
-			position: absolute !important;
-			top: -8px !important;
-			right: -8px !important;
-			font-weight: 900 !important;
-		}
-		.ui-table-columntoggle-btn:hover {
-			background: rgba(0,0,0,0.1) !important;
-		}
-		thead tr td {
-			white-space: nowrap;
-		}
-		.jsonTableIcon {
-			width: 24px;
-			height: 24px;
-			border: 0;
-			margin: -3px 0px -8px 0px;
-		}
-		html.color-mode-dark .ui-overlay-a, html.color-mode-dark .ui-page-theme-a, html.color-mode-dark .ui-page-theme-a .ui-panel-wrapper, html.color-mode-dark #heading {
-			background-color: #454545;
-			color: #b9b9b9;
-			text-shadow: 0 1px 0 #3c3c3c;
-		}
-		html.color-mode-dark .table-stripe tbody tr:nth-child(odd) td, html.color-mode-dark .table-stripe tbody tr:nth-child(odd) th {
-			background-color: #555555;
-			color: #b9b9b9;
-			text-shadow: 0 1px 0 #3c3c3c;
-		}
-	</style>
-	<title>iQontrol JSON to TABLE Widget</title>
-</head>
-<body style="width: 100%; height: 100%; margin: 0; overflow: auto;">
-	<div data-role="page" id="jsonTablePage">
-		<div data-role="content" id="jsonTableContent">
-			<div id="heading" style="display: none;"></div>
-			<div id="jsonTableContainer" style="width: 100%; height: 100%; overflow: auto;"></div>
-			<div id="loadMoreButtonContainer" style="display: none; padding: 0px; margin: -7px -10px -5px -10px;"><a href="" data-role="button" data-mini="true" id="loadMoreButton" style="height: 1.3em;">...</a></div>
-			<div id="placeholder" style="display: none;"></div>
-		</div>
-	</div>
-	<script type="text/javascript">
-		//Declarations
-		var USE_THIS_DATAPOINT;
-		var STATE;
-		var LEVEL;
-		var options;
-		var lastColsSortedAndFilteredStringified;
-		var breakpointsCount = -1;
-		var datapointRegex = new RegExp('.*\\.[0-9]+\\..*');
-		var colsSortedAndFiltered = [];
-		var datapoints = {};
-		var datapointsParentNames = {};
-		var datapointsToUpdatePeriodically = [];
-		var datapointsToUpdatePeriodicallyInterval = false;
-		var tableDatapoints = {};
-		var collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'});
-		var datapointExtendTableColsDefaultTranslationWords = {
-		  "val": {
-			"en": "Value",
-			"de": "Wert",
-			"ru": "Ценить",
-			"pt": "Valor",
-			"nl": "Waarde",
-			"fr": "Valeur",
-			"it": "Valore",
-			"es": "Valor",
-			"pl": "Wartość",
-			"zh-cn": "价值"
-		  },
-		  "unit": {
-			"en": "Unit",
-			"de": "Einheit",
-			"ru": "Ед. изм",
-			"pt": "Unidade",
-			"nl": "Eenheid",
-			"fr": "Unité",
-			"it": "Unità",
-			"es": "Unidad",
-			"pl": "Jednostka",
-			"zh-cn": "单元"
-		  },
-		  "valFull": {
-			"en": "Complete Value",
-			"de": "Vollständiger Wert",
-			"ru": "Полная ценность",
-			"pt": "Valor Completo",
-			"nl": "Volledige waarde",
-			"fr": "Valeur complète",
-			"it": "Valore completo",
-			"es": "Valor completo",
-			"pl": "Pełna wartość",
-			"zh-cn": "完整的价值"
-		  },
-		  "plainText": {
-			"en": "Status",
-			"de": "Status",
-			"ru": "Положение дел",
-			"pt": "Status",
-			"nl": "Toestand",
-			"fr": "Statut",
-			"it": "Stato",
-			"es": "Estado",
-			"pl": "Status",
-			"zh-cn": "地位"
-		  },
-		  "min": {
-			"en": "Minimum",
-			"de": "Minimum",
-			"ru": "Минимум",
-			"pt": "Mínimo",
-			"nl": "Minimum",
-			"fr": "Le minimum",
-			"it": "Minimo",
-			"es": "Mínimo",
-			"pl": "Minimum",
-			"zh-cn": "最低限度"
-		  },
-		  "max": {
-			"en": "Maximum",
-			"de": "Maximum",
-			"ru": "Максимум",
-			"pt": "Máximo",
-			"nl": "Maximaal",
-			"fr": "Maximum",
-			"it": "Massimo",
-			"es": "Máximo",
-			"pl": "Maksymalny",
-			"zh-cn": "最大值"
-		  },
-		  "step": {
-			"en": "Step Width",
-			"de": "Schrittweite",
-			"ru": "Ширина шага",
-			"pt": "Largura do Passo",
-			"nl": "Stapbreedte",
-			"fr": "Largeur de pas",
-			"it": "Larghezza passo",
-			"es": "Ancho de paso",
-			"pl": "Szerokość kroku",
-			"zh-cn": "步宽"
-		  },
-		  "valueList": {
-			"en": "Value List",
-			"de": "Werteliste",
-			"ru": "Список значений",
-			"pt": "Lista de Valores",
-			"nl": "Waardelijst",
-			"fr": "Liste de valeurs",
-			"it": "Lista valori",
-			"es": "Lista de valores",
-			"pl": "Lista wartości",
-			"zh-cn": "值列表"
-		  },
-		  "targetValues": {
-			"en": "Target Values",
-			"de": "Zielwerte",
-			"ru": "Целевые значения",
-			"pt": "Valores Alvo",
-			"nl": "Doelwaarden",
-			"fr": "Valeurs cibles",
-			"it": "Valori target",
-			"es": "Valores objetivo",
-			"pl": "Wartości docelowe",
-			"zh-cn": "目标值"
-		  },
-		  "ack": {
-			"en": "Acknowledged",
-			"de": "Anerkannt",
-			"ru": "Признано",
-			"pt": "Reconhecido",
-			"nl": "Erkend",
-			"fr": "Reconnu",
-			"it": "Riconosciuto",
-			"es": "Admitido",
-			"pl": "Potwierdzony",
-			"zh-cn": "确认"
-		  },
-		  "readonly": {
-			"en": "Readonly",
-			"de": "Schreibgeschützt",
-			"ru": "Только чтение",
-			"pt": "Somente leitura",
-			"nl": "Alleen lezen",
-			"fr": "Lecture seulement",
-			"it": "Sola lettura",
-			"es": "Solo lectura",
-			"pl": "Tylko czytać",
-			"zh-cn": "只读"
-		  },
-		  "custom": {
-			"en": "Custom",
-			"de": "Benutzerdefiniert",
-			"ru": "Обычай",
-			"pt": "Personalizado",
-			"nl": "Aangepast",
-			"fr": "Personnalisé",
-			"it": "Costume",
-			"es": "Personalizado",
-			"pl": "Zwyczaj",
-			"zh-cn": "风俗"
-		  },
-		  "id": {
-			"en": "Datapoint",
-			"de": "Datenpunkt",
-			"ru": "Datapoint",
-			"pt": "Datapoint",
-			"nl": "Data punt",
-			"fr": "Point de données",
-			"it": "Datapoint",
-			"es": "Punto de datos",
-			"pl": "Punkt danych",
-			"zh-cn": "数据点"
-		  },
-		  "from": {
-			"en": "From",
-			"de": "Von",
-			"ru": "Из",
-			"pt": "A partir de",
-			"nl": "Van",
-			"fr": "De",
-			"it": "A partire dal",
-			"es": "De",
-			"pl": "Z",
-			"zh-cn": "从"
-		  },
-		  "lc": {
-			"en": "Last Change",
-			"de": "Letzte Änderung",
-			"ru": "Последнее изменение",
-			"pt": "Última mudança",
-			"nl": "Laatste wijziging",
-			"fr": "Dernier changement",
-			"it": "Ultima modifica",
-			"es": "Ultimo cambio",
-			"pl": "Ostatnia zmiana",
-			"zh-cn": "最后一次变更"
-		  },
-		  "lcE": {
-			"en": "Last Change",
-			"de": "Letzte Änderung",
-			"ru": "Последнее изменение",
-			"pt": "Última mudança",
-			"nl": "Laatste wijziging",
-			"fr": "Dernier changement",
-			"it": "Ultima modifica",
-			"es": "Ultimo cambio",
-			"pl": "Ostatnia zmiana",
-			"zh-cn": "最后一次变更"
-		  },
-		  "lcE.": {
-			"en": "Last Change",
-			"de": "Letzte Änderung",
-			"ru": "Последнее изменение",
-			"pt": "Última mudança",
-			"nl": "Laatste wijziging",
-			"fr": "Dernier changement",
-			"it": "Ultima modifica",
-			"es": "Ultimo cambio",
-			"pl": "Ostatnia zmiana",
-			"zh-cn": "最后一次变更"
-		  },
-		  "lce": {
-			"en": "Last Change",
-			"de": "Letzte Änderung",
-			"ru": "Последнее изменение",
-			"pt": "Última mudança",
-			"nl": "Laatste wijziging",
-			"fr": "Dernier changement",
-			"it": "Ultima modifica",
-			"es": "Ultimo cambio",
-			"pl": "Ostatnia zmiana",
-			"zh-cn": "最后一次变更"
-		  },
-		  "ts": {
-			"en": "Timestamp",
-			"de": "Zeitstempel",
-			"ru": "Отметка времени",
-			"pt": "Timestamp",
-			"nl": "Tijdstempel",
-			"fr": "Horodatage",
-			"it": "Timestamp",
-			"es": "Marca de tiempo",
-			"pl": "Znak czasu",
-			"zh-cn": "时间戳"
-		  },
-		  "tsE": {
-			"en": "Timestamp",
-			"de": "Zeitstempel",
-			"ru": "Отметка времени",
-			"pt": "Timestamp",
-			"nl": "Tijdstempel",
-			"fr": "Horodatage",
-			"it": "Timestamp",
-			"es": "Marca de tiempo",
-			"pl": "Znak czasu",
-			"zh-cn": "时间戳"
-		  },
-		  "tsE.": {
-			"en": "Timestamp",
-			"de": "Zeitstempel",
-			"ru": "Отметка времени",
-			"pt": "Timestamp",
-			"nl": "Tijdstempel",
-			"fr": "Horodatage",
-			"it": "Timestamp",
-			"es": "Marca de tiempo",
-			"pl": "Znak czasu",
-			"zh-cn": "时间戳"
-		  },
-		  "tse": {
-			"en": "Timestamp",
-			"de": "Zeitstempel",
-			"ru": "Отметка времени",
-			"pt": "Timestamp",
-			"nl": "Tijdstempel",
-			"fr": "Horodatage",
-			"it": "Timestamp",
-			"es": "Marca de tiempo",
-			"pl": "Znak czasu",
-			"zh-cn": "时间戳"
-		  },
-		  "q": {
-			"en": "Quality",
-			"de": "Qualität",
-			"ru": "Качественный",
-			"pt": "Qualidade",
-			"nl": "Kwaliteit",
-			"fr": "Qualité",
-			"it": "Qualità",
-			"es": "Calidad",
-			"pl": "Jakość",
-			"zh-cn": "质量"
-		  },
-		  "role": {
-			"en": "Role",
-			"de": "Rolle",
-			"ru": "Роль",
-			"pt": "Função",
-			"nl": "Rol",
-			"fr": "Rôle",
-			"it": "Ruolo",
-			"es": "Papel",
-			"pl": "Rola",
-			"zh-cn": "角色"
-		  },
-		  "type": {
-			"en": "Type",
-			"de": "Typ",
-			"ru": "Тип",
-			"pt": "Modelo",
-			"nl": "Type",
-			"fr": "Taper",
-			"it": "Tipo",
-			"es": "Escribe",
-			"pl": "Rodzaj",
-			"zh-cn": "类型"
-		  },
-		  "name": {
-			"en": "Name",
-			"de": "Name",
-			"ru": "Имя",
-			"pt": "Nome",
-			"nl": "Naam",
-			"fr": "Nom",
-			"it": "Nome",
-			"es": "Nombre",
-			"pl": "Nazwa",
-			"zh-cn": "姓名"
-		  },
-		  "parentName":  {
-			"en": "Device Name",
-			"de": "Gerätename",
-			"ru": "Имя устройства",
-			"pt": "Nome do dispositivo",
-			"nl": "Toestelnaam",
-			"fr": "Nom de l'appareil",
-			"it": "Nome del dispositivo",
-			"es": "Nombre del dispositivo",
-			"pl": "Nazwa urządzenia",
-			"zh-cn": "设备名称"
-		  },
-		  "desc": {
-			"en": "Description",
-			"de": "Beschreibung",
-			"ru": "Описание",
-			"pt": "Descrição",
-			"nl": "Beschrijving",
-			"fr": "La description",
-			"it": "Descrizione",
-			"es": "Descripción",
-			"pl": "Opis",
-			"zh-cn": "描述"
-		  },
-		  "deviceName": {
-			"en": "Device Name",
-			"de": "Gerätename",
-			"ru": "Имя устройства",
-			"pt": "Nome do dispositivo",
-			"nl": "Toestelnaam",
-			"fr": "Nom de l'appareil",
-			"it": "Nome del dispositivo",
-			"es": "Nombre del dispositivo",
-			"pl": "Nazwa urządzenia",
-			"zh-cn": "设备名称"
-		  },
-		  "%s days ago": {                                 "en": "%s days ago",                                     "de": "vor %s Tagen",                                    "ru": "%s дней назад",                                   "pt": "%s dias atrás",                                   "nl": "%s dagen geleden",                                "fr": "%s jours",                                        "it": "%s giorni fa",                                    "es": "%s días",                                         "pl": "%s dni temu",                                     "zh-cn": "%s天前"},
-		  "%s days and %s h. ago": {                       "en": "%s days and %s h. ago",                           "de": "vor %s Tagen und %s Stunden",                 	 "ru": "%s дней и %s час(ов) назад",                      "pt": "%s dias e %s h. atrás",                           "nl": "%s dagen ' en ' %s-h. geleden",                   "fr": "%s jours et %s h. il y a",                        "it": "%s giorni e %s h. fa",                            "es": "%s días y %s h. hace",                            "pl": "dni %s i %S sekund. temu",                        "zh-cn": "%s天%s小时前"},
-		  "%s h. and %s m. ago": {                         "en": "%s h. and %s m. ago",                             "de": "vor %s Stunden und %s Minuten",               	 "ru": "%s час(ов) и %s минут(у) назад",                  "pt": "%s h. e %s m. atrás",                             "nl": "%s-h. en er zijn %s m. geleden",                  "fr": "%s h. et %s m. il y a",                           "it": "%s h. e %s m. fa",                                "es": "%s h. y %s m. hace",                              "pl": "%s. i %S. M. temu",                               "zh-cn": "%s小时%s分钟前"},
-		  "%s hours ago": {                                "en": "%s hours ago",                                    "de": "vor %s Stunden",                                  "ru": "%s час(ов) назад",                                "pt": "%s horas atrás",                                  "nl": "%s uren geleden",                                 "fr": "%s heures",                                       "it": "%s ore fa",                                       "es": "%s horas",                                        "pl": "na %S godzin temu",                               "zh-cn": "%s小时前"},
-		  "%s minutes ago": {                              "en": "%s minutes ago",                                  "de": "vor %s Minuten",                                  "ru": "%s минут(у) назад",                               "pt": "%s minutos atrás",                                "nl": "%s minuten geleden",                              "fr": "%s minutes ago",                                  "it": "%s minuti fa",                                    "es": "%s minutos",                                      "pl": "%s minut temu",                                   "zh-cn": "%s分钟前"},
-		  "%s seconds ago": {                              "en": "%s days ago",                                     "de": "vor %s Sekunden",                                 "ru": "%s секунд(у) назад",                              "pt": "%s dias atrás",                                   "nl": "%s dagen geleden",                                "fr": "%s jours",                                        "it": "%s giorni fa",                                    "es": "%s días",                                         "pl": "%s dni temu",                                     "zh-cn": "%s秒前"},
-		  "1 day ago": {                                   "en": "1 day ago",                                       "de": "vor 1 Tag",                                       "ru": "1 день назад",                                    "pt": "1 dia atrás",                                     "nl": "1 dag geleden",                                   "fr": "il y a 1 jour",                                   "it": "1 giorno fa",                                     "es": "Hace 1 día",                                      "pl": "1 dzień temu",                                    "zh-cn": "1天前"},
-		  "1 hour ago": {                                  "en": "1 day ago",                                       "de": "vor 1 Stunde",                                    "ru": "1 день назад",                                    "pt": "1 dia atrás",                                     "nl": "1 dag geleden",                                   "fr": "il y a 1 jour",                                   "it": "1 giorno fa",                                     "es": "Hace 1 día",                                      "pl": "1 dzień temu",                                    "zh-cn": "1天前"},
-		  "1 minute ago": {                                "en": "1 minute ago",                                    "de": "vor 1 Minute",                                    "ru": "1 минуту назад",                                  "pt": "1 minuto atrás",                                  "nl": "1 minuut geleden",                                "fr": "il y a 1 minute",                                 "it": "1 minuto fa",                                     "es": "Hace 1 minuto",                                   "pl": "1 minuta temu",                                   "zh-cn": "1分钟前"},
-		  "<1 minute ago": {                               "en": "<1 minute ago",                                   "de": "vor <1 Minute",                                   "ru": "<1 минуту назад",                                 "pt": "1 minuto atrás",                                  "nl": "<1 minuut geleden",                               "fr": "Il y a moins d'une minute",                       "it": "<1 minuto fa",                                    "es": "<Hace 1 minuto",                                  "pl": "<1 minutę temu",                                  "zh-cn": "<1分钟前"},
-		  "since %s day": {                                "en": "since %s day",                                    "de": "seit %s Tag",                                     "ru": "с% s дня",                                        "pt": "desde% s dia",                                    "nl": "sinds% s dag",                                    "fr": "depuis% s jour",                                  "it": "dal giorno di% s",                                "es": "desde% s día",                                    "pl": "od dnia% s",                                      "zh-cn": "从％s天开始"},
-		  "since %s days": {                               "en": "since %s days",                                   "de": "seit %s Tagen",                                   "ru": "с% s дней",                                       "pt": "desde% s dias",                                   "nl": "sinds% s dagen",                                  "fr": "depuis% s jours",                                 "it": "da% s giorni",                                    "es": "desde% s días",                                   "pl": "od% s dni",                                       "zh-cn": "自％s天以来"},
-		  "since %s hour": {                               "en": "since %s hour",                                   "de": "seit %s Stunde",                                  "ru": "с% s час",                                        "pt": "desde% s hora",                                   "nl": "sinds% s uur",                                    "fr": "depuis% s heure",                                 "it": "da% s ora",                                       "es": "desde% s hora",                                   "pl": "od% s godziny",                                   "zh-cn": "从％s小时开始"},
-		  "since %s hours": {                              "en": "since %s hours",                                  "de": "seit %s Stunden",                                 "ru": "с% s часов",                                      "pt": "desde% s horas",                                  "nl": "sinds% s uur",                                    "fr": "depuis% s heures",                                "it": "da% s ore",                                       "es": "desde% s horas",                                  "pl": "od% s godzin",                                    "zh-cn": "从％s小时开始"},
-		  "since %s minute": {                             "en": "since %s minute",                                 "de": "seit %s Minute",                                  "ru": "с% s минуты",                                     "pt": "desde% s minuto",                                 "nl": "sinds% s minuut",                                 "fr": "depuis% s minute",                                "it": "da% s minuto",                                    "es": "desde% s minuto",                                 "pl": "od% s minuty",                                    "zh-cn": "自％s分钟以来"},
-		  "since %s minutes": {                            "en": "since %s minutes",                                "de": "seit %s Minuten",                                 "ru": "с% s минут",                                      "pt": "desde% s minutos",                                "nl": "sinds% s minuten",                                "fr": "depuis% s minutes",                               "it": "da% s minuti",                                    "es": "desde% s minutos",                                "pl": "od% s minut",                                     "zh-cn": "自％s分钟以来"},
-		  "since %s second": {                             "en": "since %s second",                                 "de": "seit %s Sekunde",                                 "ru": "с% s второй",                                     "pt": "desde% s segundo",                                "nl": "sinds% s seconde",                                "fr": "depuis% s seconde",                               "it": "da% s secondo",                                   "es": "desde% s segundo",                                "pl": "od% s sekund",                                    "zh-cn": "自％s秒以来"},
-		  "since %s seconds": {                            "en": "since %s seconds",                                "de": "seit %s Sekunden",                                "ru": "с% s секунд",                                     "pt": "desde% s segundos",                               "nl": "sinds% s seconden",                               "fr": "depuis% s secondes",                              "it": "da% s secondi",                                   "es": "desde% s segundos",                               "pl": "od% s sekund",                                    "zh-cn": "从％s秒开始"},
-		  "since 1 days": {                                "en": "since 1 day",                                     "de": "seit 1 Tag",                                      "ru": "с 1 дня",                                         "pt": "desde 1 dia",                                     "nl": "sinds 1 dag",                                     "fr": "depuis 1 jour",                                   "it": "da 1 giorno",                                     "es": "desde 1 dia",                                     "pl": "od 1 dnia",                                       "zh-cn": "从1天开始"},
-		  "since 1 hour": {                                "en": "since 1 hour",                                    "de": "seit 1 Stunde",                                   "ru": "с 1 часа",                                        "pt": "desde 1 hora",                                    "nl": "sinds 1 uur",                                     "fr": "depuis 1 heure",                                  "it": "da 1 ora",                                        "es": "desde 1 hora",                                    "pl": "od 1 godziny",                                    "zh-cn": "1小时以来"},
-		  "since 1 minute": {                              "en": "since 1 minute",                                  "de": "seit 1 Minute",                                   "ru": "с 1 минуты",                                      "pt": "desde 1 minuto",                                  "nl": "sinds 1 minuut",                                  "fr": "depuis 1 minute",                                 "it": "da 1 minuto",                                     "es": "desde 1 minuto",                                  "pl": "od 1 minuty",                                     "zh-cn": "1分钟以来"},
-		  "since <1 minute": {                             "en": "since <1 minute",                                 "de": "seit <1 Minute",                                  "ru": "с <1 минуты",                                     "pt": "desde <1 minuto",                                 "nl": "sinds <1 minuut",                                 "fr": "depuis <1 minute",                                "it": "da <1 minuto",                                    "es": "desde <1 minuto",                                 "pl": "od <1 minuty",                                    "zh-cn": "小于1分钟"}
-		};
+        />
 
-		//UrlParameters
-		var heading = getUrlParameter("heading") || "";
-		var headingVariable = false;
-		var placeholder = getUrlParameter("placeholder") || "";
-		var placeholderVariable = false;
-		var tableMode = getUrlParameter("tableMode") || "columntoggle";
-		var colsSort = (getUrlParameter("colsSort") || "").split(';');
-		var colsFilter = (getUrlParameter("colsFilter") || "").split(';');
-		var colsAlwaysVisible = (getUrlParameter("colsAlwaysVisible") || "").split(';');
-		var colsPreferablyVisible = (getUrlParameter("colsPreferablyVisible") || "").split(';');
-		var colsPreferablyVisibleAreVisibleAtStart = getUrlParameter("colsPreferablyVisibleAreVisibleAtStart") == "true";
-		var breakpoints = (getUrlParameter("breakpoints") || "20;30;40;50;60;70").split(';');
-		var translations = (getUrlParameter("translations") || "").split(';');
-		var dataTranspose = (getUrlParameter("dataTranspose") == "true");
-		var dataTransposeKeycolCaption = getUrlParameter("dataTransposeKeycolCaption") || "Key";
-		var dataTransposeValcolsPrefix = getUrlParameter("dataTransposeValcolsPrefix") || "Value ";
-		var dataConvertObjectToArrayKeycolCaption = getUrlParameter("dataConvertObjectToArrayKeycolCaption") || "Row";
-		var dataConvertListToTableKeycolCaption = getUrlParameter("dataConvertListToTableKeycolCaption") || "Row";
-		var columnSortEnabled = getUrlParameter("columnSortEnabled") == "true";
-		var columnSortEnabledColsFilter = (getUrlParameter("columnSortEnabledColsFilter") || "").split(';');
-		var columnSortCol = getUrlParameter("columnSortCol");
-		var columnSortColDesc = getUrlParameter("columnSortColDesc") == "true";
-		var columnSortColHideIndicator = getUrlParameter("columnSortColHideIndicator") == "true";
-		var rowsLimit = parseInt(getUrlParameter("rowsLimit") || "0") || 0;
-		var rowsLimitLoadMore = !(getUrlParameter("rowsLimitLoadMore") == "false");
-		var rowsLimitLoadMoreCaption = getUrlParameter("rowsLimitLoadMoreCaption") || "...";
-		var adjustHeight = getUrlParameter("adjustHeight") == "true";
-		var headHide = getUrlParameter("headHide") == "true";
-		var headHideColumntoggleButton = getUrlParameter("headHideColumntoggleButton") == "true";
-		var scrollbarHide = getUrlParameter("scrollbarHide") == "true";
-		var replaceCRwithBR = !getUrlParameter("replaceCRwithBR") == "false";
-		var fontFamily = getUrlParameter("fontFamily") || "";
-		var fontSize = getUrlParameter("fontSize") || "";
-		var fontWeight = getUrlParameter("fontWeight") || "";
-		var fontStyle = getUrlParameter("fontStyle") || "";
-		var colorBackground = getUrlParameter("colorBackground");
-		var colorBackgroundOdd = getUrlParameter("colorBackgroundOdd");
-		var colorBorders = getUrlParameter("colorBorders");
-		var colorText = getUrlParameter("colorText");
-		var colorTextOdd = getUrlParameter("colorTextOdd");
-		var colorTextShadow = getUrlParameter("colorTextShadow");
-		var colorTextShadowOdd = getUrlParameter("colorTextShadowOdd");
-		if (colorBackground) addCustomCSS(".ui-overlay-a {background-color: " + colorBackground + ";}", "color");
-		if (colorBackgroundOdd || colorBackground) addCustomCSS(".table-stripe tbody tr:nth-child(odd) td, .table-stripe tbody tr:nth-child(odd) th {background-color: " + colorBackgroundOdd || colorBackground + ";}", "color");
-		if (colorBorders) addCustomCSS(".table-stroke tbody td, .table-stroke thead th {border-bottom-color: " + colorBorders + ";}", "color");
-		if (colorText) addCustomCSS(".ui-page-theme-a, .ui-page-theme-a .ui-panel-wrapper, #heading, #placeholder {color: " + colorText + ";}", "color");
-		if (colorTextOdd || colorText) addCustomCSS(".table-stripe tbody tr:nth-child(odd) td, .table-stripe tbody tr:nth-child(odd) th {color: " + colorTextOdd || colorText + ";}", "color");
-		if (colorTextShadow) addCustomCSS(".ui-page-theme-a, .ui-page-theme-a .ui-panel-wrapper, #heading, #placeholder {text-shadow: 0 1px 0 " + colorTextShadow + ";}", "color");
-		if (colorTextShadowOdd || colorTextShadow) addCustomCSS(".table-stripe tbody tr:nth-child(odd) td, .table-stripe tbody tr:nth-child(odd) th {text-shadow: 0 1px 0 " + colorTextShadowOdd || colorTextShadow + ";}", "color");
-		var colorBackgroundDark = getUrlParameter("colorBackgroundDark");
-		var colorBackgroundOddDark = getUrlParameter("colorBackgroundOddDark");
-		var colorTextDark = getUrlParameter("colorTextDark");
-		var colorTextOddDark = getUrlParameter("colorTextOddDark");
-		var colorTextShadowDark = getUrlParameter("colorTextShadowDark");
-		var colorTextShadowOddDark = getUrlParameter("colorTextShadowOddDark");
-		if (colorBackgroundDark) addCustomCSS("html.color-mode-dark .ui-overlay-a {background-color: " + colorBackgroundDark + ";}", "color");
-		if (colorBackgroundOddDark || colorBackgroundDark) addCustomCSS("html.color-mode-dark .table-stripe tbody tr:nth-child(odd) td, html.color-mode-dark .table-stripe tbody tr:nth-child(odd) th {background-color: " + colorBackgroundOddDark || colorBackgroundDark + ";}", "color");
-		if (colorTextDark) addCustomCSS("html.color-mode-dark .ui-page-theme-a, html.color-mode-dark .ui-page-theme-a .ui-panel-wrapper, html.color-mode-dark #heading {color: " + colorTextDark + ";}", "color");
-		if (colorTextOddDark || colorTextDark) addCustomCSS("html.color-mode-dark .table-stripe tbody tr:nth-child(odd) td, html.color-mode-dark .table-stripe tbody tr:nth-child(odd) th {color: " + colorTextOddDark || colorTextDark + ";}", "color");
-		if (colorTextShadowDark) addCustomCSS("html.color-mode-dark .ui-page-theme-a, html.color-mode-dark .ui-page-theme-a .ui-panel-wrapper, html.color-mode-dark #heading {text-shadow: 0 1px 0 " + colorTextShadowDark + ";}", "color");
-		if (colorTextShadowOddDark || colorTextShadowDark) addCustomCSS("html.color-mode-dark .table-stripe tbody tr:nth-child(odd) td, html.color-mode-dark .table-stripe tbody tr:nth-child(odd) th {text-shadow: 0 1px 0 " + colorTextShadowOddDark || colorTextShadowDark + ";}", "color");
-		for(var i = 0; i < translations.length; i++){
-			let entry = translations[i].split(',');
-			if (entry.length < 2) entry.push(entry[0]);
-			translations[i] = {searchValue: entry[0], newValue: entry[1], exactMatch: true};
-		}
-		var iconCols = (getUrlParameter("iconCols") || "").split(';');		
-		var iconReplacements = [];
-		for(var i = 1; i <= 12; i++){
-			var iconUrl = getUrlParameter("icon" + i + "Url");
-            if (iconUrl && iconUrl.indexOf('http') !== 0) iconUrl = '/iqontrol/' + iconUrl
-			var caption = getUrlParameter("icon" + i + "Caption");
-			var string = getUrlParameter("icon" + i + "String");
-			if (iconUrl && string) iconReplacements.push({searchValue: string, newValue: "<img src='" + iconUrl + "' class='jsonTableIcon'>" + (caption ? "&nbsp;" + caption : ""), caseInsensitive: true});
-		}
-		var translationsAndIconReplacements = iconReplacements.concat(translations);
-		var datapointDetectionEnabled = !(getUrlParameter("datapointDetectionEnabled") == "false");
-		var datapointIdCol = getUrlParameter("datapointIdCol");
-		datapointIdCol = (datapointIdCol ? datapointIdCol : "id");
-		var datapointIdColFilter = !(getUrlParameter("datapointIdColFilter") == "false");
-		if (datapointDetectionEnabled && datapointIdColFilter && datapointIdCol) colsFilter.push(datapointIdCol);
-		var datapointExtendTableCols = (getUrlParameter("datapointExtendTableCols") || "parentName;plainText").split(';');
-		var datapointExtendTableColsDefaultTranslationLanguage = getUrlParameter("datapointExtendTableColsDefaultTranslationLanguage");
-		datapointExtendTableColsDefaultTranslationLanguage = (datapointExtendTableColsDefaultTranslationLanguage ? datapointExtendTableColsDefaultTranslationLanguage : "en");
-		if (datapointExtendTableColsDefaultTranslationLanguage && datapointExtendTableColsDefaultTranslationLanguage != " "){
-			for(word in datapointExtendTableColsDefaultTranslationWords){
-				translations.push({searchValue: word, newValue: datapointExtendTableColsDefaultTranslationWords[word][datapointExtendTableColsDefaultTranslationLanguage], exactMatch: true});
-			}
-		}
-		var datapointToggleCols = (getUrlParameter("datapointToggleCols") || "plainText").split(';');
+        <link
+            rel="stylesheet"
+            href="/iqontrol/jquery/jquery.mobile-1.4.5.min.css"
+        />
+        <script
+            type="text/javascript"
+            src="/iqontrol/jquery/jquery-1.11.3.min.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="/iqontrol/jquery/jquery.mobile-1.4.5.min.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="/iqontrol/jquery/plugins/moment/moment-with-locales.min.js"
+        ></script>
+        <!--script type="text/javascript" src="/iqontrol/../../lib/js/translate.js"></script-->
+        <style>
+            ::-webkit-scrollbar {
+                width: 5px;
+                height: 5px;
+            }
+            ::-webkit-scrollbar-track {
+                background: #eee;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: #aaa;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: #888;
+            }
+            document {
+                overflow: hidden !important;
+                background: transparent !important;
+            }
+            html {
+                overflow: hidden !important;
+                background: transparent !important;
+                -webkit-transition: all 1s;
+                -moz-transition: all 1s;
+                transition: all 1s;
+            }
+            #heading {
+                font-size: smaller;
+                font-weight: bold;
+                margin: 5px 5px 0 5px;
+            }
+            #placeholder {
+                font-size: smaller;
+                margin: 0;
+                padding: 5px;
+            }
+            .ui-page {
+                overflow-y: auto !important;
+                overflow-x: hidden !important;
+                background: transparent !important;
+                -webkit-user-select: none !important;
+                -moz-user-select: none !important;
+                user-select: none !important;
+                -webkit-touch-callout: none !important;
+                min-height: unset !important;
+                height: 100% !important;
+                margin: 0;
+                padding: 0;
+            }
+            .ui-content {
+                margin: 0;
+                padding: 0;
+            }
+            .ui-table-columntoggle-btn {
+                border: none !important;
+                box-shadow: none !important;
+                padding: 9px 20px 8px 20px !important;
+                background: transparent !important;
+                position: absolute !important;
+                top: -8px !important;
+                right: -8px !important;
+                font-weight: 900 !important;
+            }
+            .ui-table-columntoggle-btn:hover {
+                background: rgba(0, 0, 0, 0.1) !important;
+            }
+            thead tr td {
+                white-space: nowrap;
+            }
+            .jsonTableIcon {
+                width: 24px;
+                height: 24px;
+                border: 0;
+                margin: -3px 0px -8px 0px;
+            }
+            html.color-mode-dark .ui-overlay-a,
+            html.color-mode-dark .ui-page-theme-a,
+            html.color-mode-dark .ui-page-theme-a .ui-panel-wrapper,
+            html.color-mode-dark #heading {
+                background-color: #454545;
+                color: #b9b9b9;
+                text-shadow: 0 1px 0 #3c3c3c;
+            }
+            html.color-mode-dark .table-stripe tbody tr:nth-child(odd) td,
+            html.color-mode-dark .table-stripe tbody tr:nth-child(odd) th {
+                background-color: #555555;
+                color: #b9b9b9;
+                text-shadow: 0 1px 0 #3c3c3c;
+            }
+        </style>
+        <title>iQontrol JSON to TABLE Widget</title>
+    </head>
+    <body style="width: 100%; height: 100%; margin: 0; overflow: auto">
+        <div
+            data-role="page"
+            id="jsonTablePage"
+        >
+            <div
+                data-role="content"
+                id="jsonTableContent"
+            >
+                <div
+                    id="heading"
+                    style="display: none"
+                ></div>
+                <div
+                    id="jsonTableContainer"
+                    style="width: 100%; height: 100%; overflow: auto"
+                ></div>
+                <div
+                    id="loadMoreButtonContainer"
+                    style="display: none; padding: 0px; margin: -7px -10px -5px -10px"
+                >
+                    <a
+                        href=""
+                        data-role="button"
+                        data-mini="true"
+                        id="loadMoreButton"
+                        style="height: 1.3em"
+                        >...</a
+                    >
+                </div>
+                <div
+                    id="placeholder"
+                    style="display: none"
+                ></div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            //Declarations
+            var USE_THIS_DATAPOINT;
+            var STATE;
+            var LEVEL;
+            var options;
+            var lastColsSortedAndFilteredStringified;
+            var breakpointsCount = -1;
+            var datapointRegex = new RegExp('.*\\.[0-9]+\\..*');
+            var colsSortedAndFiltered = [];
+            var datapoints = {};
+            var datapointsParentNames = {};
+            var datapointsToUpdatePeriodically = [];
+            var datapointsToUpdatePeriodicallyInterval = false;
+            var tableDatapoints = {};
+            var collator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
+            var datapointExtendTableColsDefaultTranslationWords = {
+                val: {
+                    en: 'Value',
+                    de: 'Wert',
+                    ru: 'Ценить',
+                    pt: 'Valor',
+                    nl: 'Waarde',
+                    fr: 'Valeur',
+                    it: 'Valore',
+                    es: 'Valor',
+                    pl: 'Wartość',
+                    'zh-cn': '价值',
+                },
+                unit: {
+                    en: 'Unit',
+                    de: 'Einheit',
+                    ru: 'Ед. изм',
+                    pt: 'Unidade',
+                    nl: 'Eenheid',
+                    fr: 'Unité',
+                    it: 'Unità',
+                    es: 'Unidad',
+                    pl: 'Jednostka',
+                    'zh-cn': '单元',
+                },
+                valFull: {
+                    en: 'Complete Value',
+                    de: 'Vollständiger Wert',
+                    ru: 'Полная ценность',
+                    pt: 'Valor Completo',
+                    nl: 'Volledige waarde',
+                    fr: 'Valeur complète',
+                    it: 'Valore completo',
+                    es: 'Valor completo',
+                    pl: 'Pełna wartość',
+                    'zh-cn': '完整的价值',
+                },
+                plainText: {
+                    en: 'Status',
+                    de: 'Status',
+                    ru: 'Положение дел',
+                    pt: 'Status',
+                    nl: 'Toestand',
+                    fr: 'Statut',
+                    it: 'Stato',
+                    es: 'Estado',
+                    pl: 'Status',
+                    'zh-cn': '地位',
+                },
+                min: {
+                    en: 'Minimum',
+                    de: 'Minimum',
+                    ru: 'Минимум',
+                    pt: 'Mínimo',
+                    nl: 'Minimum',
+                    fr: 'Le minimum',
+                    it: 'Minimo',
+                    es: 'Mínimo',
+                    pl: 'Minimum',
+                    'zh-cn': '最低限度',
+                },
+                max: {
+                    en: 'Maximum',
+                    de: 'Maximum',
+                    ru: 'Максимум',
+                    pt: 'Máximo',
+                    nl: 'Maximaal',
+                    fr: 'Maximum',
+                    it: 'Massimo',
+                    es: 'Máximo',
+                    pl: 'Maksymalny',
+                    'zh-cn': '最大值',
+                },
+                step: {
+                    en: 'Step Width',
+                    de: 'Schrittweite',
+                    ru: 'Ширина шага',
+                    pt: 'Largura do Passo',
+                    nl: 'Stapbreedte',
+                    fr: 'Largeur de pas',
+                    it: 'Larghezza passo',
+                    es: 'Ancho de paso',
+                    pl: 'Szerokość kroku',
+                    'zh-cn': '步宽',
+                },
+                valueList: {
+                    en: 'Value List',
+                    de: 'Werteliste',
+                    ru: 'Список значений',
+                    pt: 'Lista de Valores',
+                    nl: 'Waardelijst',
+                    fr: 'Liste de valeurs',
+                    it: 'Lista valori',
+                    es: 'Lista de valores',
+                    pl: 'Lista wartości',
+                    'zh-cn': '值列表',
+                },
+                targetValues: {
+                    en: 'Target Values',
+                    de: 'Zielwerte',
+                    ru: 'Целевые значения',
+                    pt: 'Valores Alvo',
+                    nl: 'Doelwaarden',
+                    fr: 'Valeurs cibles',
+                    it: 'Valori target',
+                    es: 'Valores objetivo',
+                    pl: 'Wartości docelowe',
+                    'zh-cn': '目标值',
+                },
+                ack: {
+                    en: 'Acknowledged',
+                    de: 'Anerkannt',
+                    ru: 'Признано',
+                    pt: 'Reconhecido',
+                    nl: 'Erkend',
+                    fr: 'Reconnu',
+                    it: 'Riconosciuto',
+                    es: 'Admitido',
+                    pl: 'Potwierdzony',
+                    'zh-cn': '确认',
+                },
+                readonly: {
+                    en: 'Readonly',
+                    de: 'Schreibgeschützt',
+                    ru: 'Только чтение',
+                    pt: 'Somente leitura',
+                    nl: 'Alleen lezen',
+                    fr: 'Lecture seulement',
+                    it: 'Sola lettura',
+                    es: 'Solo lectura',
+                    pl: 'Tylko czytać',
+                    'zh-cn': '只读',
+                },
+                custom: {
+                    en: 'Custom',
+                    de: 'Benutzerdefiniert',
+                    ru: 'Обычай',
+                    pt: 'Personalizado',
+                    nl: 'Aangepast',
+                    fr: 'Personnalisé',
+                    it: 'Costume',
+                    es: 'Personalizado',
+                    pl: 'Zwyczaj',
+                    'zh-cn': '风俗',
+                },
+                id: {
+                    en: 'Datapoint',
+                    de: 'Datenpunkt',
+                    ru: 'Datapoint',
+                    pt: 'Datapoint',
+                    nl: 'Data punt',
+                    fr: 'Point de données',
+                    it: 'Datapoint',
+                    es: 'Punto de datos',
+                    pl: 'Punkt danych',
+                    'zh-cn': '数据点',
+                },
+                from: {
+                    en: 'From',
+                    de: 'Von',
+                    ru: 'Из',
+                    pt: 'A partir de',
+                    nl: 'Van',
+                    fr: 'De',
+                    it: 'A partire dal',
+                    es: 'De',
+                    pl: 'Z',
+                    'zh-cn': '从',
+                },
+                lc: {
+                    en: 'Last Change',
+                    de: 'Letzte Änderung',
+                    ru: 'Последнее изменение',
+                    pt: 'Última mudança',
+                    nl: 'Laatste wijziging',
+                    fr: 'Dernier changement',
+                    it: 'Ultima modifica',
+                    es: 'Ultimo cambio',
+                    pl: 'Ostatnia zmiana',
+                    'zh-cn': '最后一次变更',
+                },
+                lcE: {
+                    en: 'Last Change',
+                    de: 'Letzte Änderung',
+                    ru: 'Последнее изменение',
+                    pt: 'Última mudança',
+                    nl: 'Laatste wijziging',
+                    fr: 'Dernier changement',
+                    it: 'Ultima modifica',
+                    es: 'Ultimo cambio',
+                    pl: 'Ostatnia zmiana',
+                    'zh-cn': '最后一次变更',
+                },
+                'lcE.': {
+                    en: 'Last Change',
+                    de: 'Letzte Änderung',
+                    ru: 'Последнее изменение',
+                    pt: 'Última mudança',
+                    nl: 'Laatste wijziging',
+                    fr: 'Dernier changement',
+                    it: 'Ultima modifica',
+                    es: 'Ultimo cambio',
+                    pl: 'Ostatnia zmiana',
+                    'zh-cn': '最后一次变更',
+                },
+                lce: {
+                    en: 'Last Change',
+                    de: 'Letzte Änderung',
+                    ru: 'Последнее изменение',
+                    pt: 'Última mudança',
+                    nl: 'Laatste wijziging',
+                    fr: 'Dernier changement',
+                    it: 'Ultima modifica',
+                    es: 'Ultimo cambio',
+                    pl: 'Ostatnia zmiana',
+                    'zh-cn': '最后一次变更',
+                },
+                ts: {
+                    en: 'Timestamp',
+                    de: 'Zeitstempel',
+                    ru: 'Отметка времени',
+                    pt: 'Timestamp',
+                    nl: 'Tijdstempel',
+                    fr: 'Horodatage',
+                    it: 'Timestamp',
+                    es: 'Marca de tiempo',
+                    pl: 'Znak czasu',
+                    'zh-cn': '时间戳',
+                },
+                tsE: {
+                    en: 'Timestamp',
+                    de: 'Zeitstempel',
+                    ru: 'Отметка времени',
+                    pt: 'Timestamp',
+                    nl: 'Tijdstempel',
+                    fr: 'Horodatage',
+                    it: 'Timestamp',
+                    es: 'Marca de tiempo',
+                    pl: 'Znak czasu',
+                    'zh-cn': '时间戳',
+                },
+                'tsE.': {
+                    en: 'Timestamp',
+                    de: 'Zeitstempel',
+                    ru: 'Отметка времени',
+                    pt: 'Timestamp',
+                    nl: 'Tijdstempel',
+                    fr: 'Horodatage',
+                    it: 'Timestamp',
+                    es: 'Marca de tiempo',
+                    pl: 'Znak czasu',
+                    'zh-cn': '时间戳',
+                },
+                tse: {
+                    en: 'Timestamp',
+                    de: 'Zeitstempel',
+                    ru: 'Отметка времени',
+                    pt: 'Timestamp',
+                    nl: 'Tijdstempel',
+                    fr: 'Horodatage',
+                    it: 'Timestamp',
+                    es: 'Marca de tiempo',
+                    pl: 'Znak czasu',
+                    'zh-cn': '时间戳',
+                },
+                q: {
+                    en: 'Quality',
+                    de: 'Qualität',
+                    ru: 'Качественный',
+                    pt: 'Qualidade',
+                    nl: 'Kwaliteit',
+                    fr: 'Qualité',
+                    it: 'Qualità',
+                    es: 'Calidad',
+                    pl: 'Jakość',
+                    'zh-cn': '质量',
+                },
+                role: {
+                    en: 'Role',
+                    de: 'Rolle',
+                    ru: 'Роль',
+                    pt: 'Função',
+                    nl: 'Rol',
+                    fr: 'Rôle',
+                    it: 'Ruolo',
+                    es: 'Papel',
+                    pl: 'Rola',
+                    'zh-cn': '角色',
+                },
+                type: {
+                    en: 'Type',
+                    de: 'Typ',
+                    ru: 'Тип',
+                    pt: 'Modelo',
+                    nl: 'Type',
+                    fr: 'Taper',
+                    it: 'Tipo',
+                    es: 'Escribe',
+                    pl: 'Rodzaj',
+                    'zh-cn': '类型',
+                },
+                name: {
+                    en: 'Name',
+                    de: 'Name',
+                    ru: 'Имя',
+                    pt: 'Nome',
+                    nl: 'Naam',
+                    fr: 'Nom',
+                    it: 'Nome',
+                    es: 'Nombre',
+                    pl: 'Nazwa',
+                    'zh-cn': '姓名',
+                },
+                parentName: {
+                    en: 'Device Name',
+                    de: 'Gerätename',
+                    ru: 'Имя устройства',
+                    pt: 'Nome do dispositivo',
+                    nl: 'Toestelnaam',
+                    fr: "Nom de l'appareil",
+                    it: 'Nome del dispositivo',
+                    es: 'Nombre del dispositivo',
+                    pl: 'Nazwa urządzenia',
+                    'zh-cn': '设备名称',
+                },
+                desc: {
+                    en: 'Description',
+                    de: 'Beschreibung',
+                    ru: 'Описание',
+                    pt: 'Descrição',
+                    nl: 'Beschrijving',
+                    fr: 'La description',
+                    it: 'Descrizione',
+                    es: 'Descripción',
+                    pl: 'Opis',
+                    'zh-cn': '描述',
+                },
+                deviceName: {
+                    en: 'Device Name',
+                    de: 'Gerätename',
+                    ru: 'Имя устройства',
+                    pt: 'Nome do dispositivo',
+                    nl: 'Toestelnaam',
+                    fr: "Nom de l'appareil",
+                    it: 'Nome del dispositivo',
+                    es: 'Nombre del dispositivo',
+                    pl: 'Nazwa urządzenia',
+                    'zh-cn': '设备名称',
+                },
+                '%s days ago': {
+                    en: '%s days ago',
+                    de: 'vor %s Tagen',
+                    ru: '%s дней назад',
+                    pt: '%s dias atrás',
+                    nl: '%s dagen geleden',
+                    fr: '%s jours',
+                    it: '%s giorni fa',
+                    es: '%s días',
+                    pl: '%s dni temu',
+                    'zh-cn': '%s天前',
+                },
+                '%s days and %s h. ago': {
+                    en: '%s days and %s h. ago',
+                    de: 'vor %s Tagen und %s Stunden',
+                    ru: '%s дней и %s час(ов) назад',
+                    pt: '%s dias e %s h. atrás',
+                    nl: "%s dagen ' en ' %s-h. geleden",
+                    fr: '%s jours et %s h. il y a',
+                    it: '%s giorni e %s h. fa',
+                    es: '%s días y %s h. hace',
+                    pl: 'dni %s i %S sekund. temu',
+                    'zh-cn': '%s天%s小时前',
+                },
+                '%s h. and %s m. ago': {
+                    en: '%s h. and %s m. ago',
+                    de: 'vor %s Stunden und %s Minuten',
+                    ru: '%s час(ов) и %s минут(у) назад',
+                    pt: '%s h. e %s m. atrás',
+                    nl: '%s-h. en er zijn %s m. geleden',
+                    fr: '%s h. et %s m. il y a',
+                    it: '%s h. e %s m. fa',
+                    es: '%s h. y %s m. hace',
+                    pl: '%s. i %S. M. temu',
+                    'zh-cn': '%s小时%s分钟前',
+                },
+                '%s hours ago': {
+                    en: '%s hours ago',
+                    de: 'vor %s Stunden',
+                    ru: '%s час(ов) назад',
+                    pt: '%s horas atrás',
+                    nl: '%s uren geleden',
+                    fr: '%s heures',
+                    it: '%s ore fa',
+                    es: '%s horas',
+                    pl: 'na %S godzin temu',
+                    'zh-cn': '%s小时前',
+                },
+                '%s minutes ago': {
+                    en: '%s minutes ago',
+                    de: 'vor %s Minuten',
+                    ru: '%s минут(у) назад',
+                    pt: '%s minutos atrás',
+                    nl: '%s minuten geleden',
+                    fr: '%s minutes ago',
+                    it: '%s minuti fa',
+                    es: '%s minutos',
+                    pl: '%s minut temu',
+                    'zh-cn': '%s分钟前',
+                },
+                '%s seconds ago': {
+                    en: '%s days ago',
+                    de: 'vor %s Sekunden',
+                    ru: '%s секунд(у) назад',
+                    pt: '%s dias atrás',
+                    nl: '%s dagen geleden',
+                    fr: '%s jours',
+                    it: '%s giorni fa',
+                    es: '%s días',
+                    pl: '%s dni temu',
+                    'zh-cn': '%s秒前',
+                },
+                '1 day ago': {
+                    en: '1 day ago',
+                    de: 'vor 1 Tag',
+                    ru: '1 день назад',
+                    pt: '1 dia atrás',
+                    nl: '1 dag geleden',
+                    fr: 'il y a 1 jour',
+                    it: '1 giorno fa',
+                    es: 'Hace 1 día',
+                    pl: '1 dzień temu',
+                    'zh-cn': '1天前',
+                },
+                '1 hour ago': {
+                    en: '1 day ago',
+                    de: 'vor 1 Stunde',
+                    ru: '1 день назад',
+                    pt: '1 dia atrás',
+                    nl: '1 dag geleden',
+                    fr: 'il y a 1 jour',
+                    it: '1 giorno fa',
+                    es: 'Hace 1 día',
+                    pl: '1 dzień temu',
+                    'zh-cn': '1天前',
+                },
+                '1 minute ago': {
+                    en: '1 minute ago',
+                    de: 'vor 1 Minute',
+                    ru: '1 минуту назад',
+                    pt: '1 minuto atrás',
+                    nl: '1 minuut geleden',
+                    fr: 'il y a 1 minute',
+                    it: '1 minuto fa',
+                    es: 'Hace 1 minuto',
+                    pl: '1 minuta temu',
+                    'zh-cn': '1分钟前',
+                },
+                '<1 minute ago': {
+                    en: '<1 minute ago',
+                    de: 'vor <1 Minute',
+                    ru: '<1 минуту назад',
+                    pt: '1 minuto atrás',
+                    nl: '<1 minuut geleden',
+                    fr: "Il y a moins d'une minute",
+                    it: '<1 minuto fa',
+                    es: '<Hace 1 minuto',
+                    pl: '<1 minutę temu',
+                    'zh-cn': '<1分钟前',
+                },
+                'since %s day': {
+                    en: 'since %s day',
+                    de: 'seit %s Tag',
+                    ru: 'с% s дня',
+                    pt: 'desde% s dia',
+                    nl: 'sinds% s dag',
+                    fr: 'depuis% s jour',
+                    it: 'dal giorno di% s',
+                    es: 'desde% s día',
+                    pl: 'od dnia% s',
+                    'zh-cn': '从％s天开始',
+                },
+                'since %s days': {
+                    en: 'since %s days',
+                    de: 'seit %s Tagen',
+                    ru: 'с% s дней',
+                    pt: 'desde% s dias',
+                    nl: 'sinds% s dagen',
+                    fr: 'depuis% s jours',
+                    it: 'da% s giorni',
+                    es: 'desde% s días',
+                    pl: 'od% s dni',
+                    'zh-cn': '自％s天以来',
+                },
+                'since %s hour': {
+                    en: 'since %s hour',
+                    de: 'seit %s Stunde',
+                    ru: 'с% s час',
+                    pt: 'desde% s hora',
+                    nl: 'sinds% s uur',
+                    fr: 'depuis% s heure',
+                    it: 'da% s ora',
+                    es: 'desde% s hora',
+                    pl: 'od% s godziny',
+                    'zh-cn': '从％s小时开始',
+                },
+                'since %s hours': {
+                    en: 'since %s hours',
+                    de: 'seit %s Stunden',
+                    ru: 'с% s часов',
+                    pt: 'desde% s horas',
+                    nl: 'sinds% s uur',
+                    fr: 'depuis% s heures',
+                    it: 'da% s ore',
+                    es: 'desde% s horas',
+                    pl: 'od% s godzin',
+                    'zh-cn': '从％s小时开始',
+                },
+                'since %s minute': {
+                    en: 'since %s minute',
+                    de: 'seit %s Minute',
+                    ru: 'с% s минуты',
+                    pt: 'desde% s minuto',
+                    nl: 'sinds% s minuut',
+                    fr: 'depuis% s minute',
+                    it: 'da% s minuto',
+                    es: 'desde% s minuto',
+                    pl: 'od% s minuty',
+                    'zh-cn': '自％s分钟以来',
+                },
+                'since %s minutes': {
+                    en: 'since %s minutes',
+                    de: 'seit %s Minuten',
+                    ru: 'с% s минут',
+                    pt: 'desde% s minutos',
+                    nl: 'sinds% s minuten',
+                    fr: 'depuis% s minutes',
+                    it: 'da% s minuti',
+                    es: 'desde% s minutos',
+                    pl: 'od% s minut',
+                    'zh-cn': '自％s分钟以来',
+                },
+                'since %s second': {
+                    en: 'since %s second',
+                    de: 'seit %s Sekunde',
+                    ru: 'с% s второй',
+                    pt: 'desde% s segundo',
+                    nl: 'sinds% s seconde',
+                    fr: 'depuis% s seconde',
+                    it: 'da% s secondo',
+                    es: 'desde% s segundo',
+                    pl: 'od% s sekund',
+                    'zh-cn': '自％s秒以来',
+                },
+                'since %s seconds': {
+                    en: 'since %s seconds',
+                    de: 'seit %s Sekunden',
+                    ru: 'с% s секунд',
+                    pt: 'desde% s segundos',
+                    nl: 'sinds% s seconden',
+                    fr: 'depuis% s secondes',
+                    it: 'da% s secondi',
+                    es: 'desde% s segundos',
+                    pl: 'od% s sekund',
+                    'zh-cn': '从％s秒开始',
+                },
+                'since 1 days': {
+                    en: 'since 1 day',
+                    de: 'seit 1 Tag',
+                    ru: 'с 1 дня',
+                    pt: 'desde 1 dia',
+                    nl: 'sinds 1 dag',
+                    fr: 'depuis 1 jour',
+                    it: 'da 1 giorno',
+                    es: 'desde 1 dia',
+                    pl: 'od 1 dnia',
+                    'zh-cn': '从1天开始',
+                },
+                'since 1 hour': {
+                    en: 'since 1 hour',
+                    de: 'seit 1 Stunde',
+                    ru: 'с 1 часа',
+                    pt: 'desde 1 hora',
+                    nl: 'sinds 1 uur',
+                    fr: 'depuis 1 heure',
+                    it: 'da 1 ora',
+                    es: 'desde 1 hora',
+                    pl: 'od 1 godziny',
+                    'zh-cn': '1小时以来',
+                },
+                'since 1 minute': {
+                    en: 'since 1 minute',
+                    de: 'seit 1 Minute',
+                    ru: 'с 1 минуты',
+                    pt: 'desde 1 minuto',
+                    nl: 'sinds 1 minuut',
+                    fr: 'depuis 1 minute',
+                    it: 'da 1 minuto',
+                    es: 'desde 1 minuto',
+                    pl: 'od 1 minuty',
+                    'zh-cn': '1分钟以来',
+                },
+                'since <1 minute': {
+                    en: 'since <1 minute',
+                    de: 'seit <1 Minute',
+                    ru: 'с <1 минуты',
+                    pt: 'desde <1 minuto',
+                    nl: 'sinds <1 minuut',
+                    fr: 'depuis <1 minute',
+                    it: 'da <1 minuto',
+                    es: 'desde <1 minuto',
+                    pl: 'od <1 minuty',
+                    'zh-cn': '小于1分钟',
+                },
+            };
 
-		//Document ready
-		$(document).ready(function(){
-			//Heading
-			if (heading && heading.split('|').length > 1 && (heading.split('|').slice(1).join('|').match(/\{([^}]+)\}/) || [])[0].length > 2){ //found variable. regex explanation: { (everything but '}' }
-				headingVariable = heading.split('|').slice(1).join('|').match(/\{([^}]+)\}/);
-				let id = headingVariable[1].split('|')[0];
-				if (id.substr(0, 1) == "[" && id.substr(-1) == "]"){
-					id = id.substring(1, id.length - 1);
-					headingVariable.noUnit = true;
-				}
-				headingVariable.id = id;
-				sendPostMessage("getStateSubscribed", id);
-				heading = heading.split('|')[0];
-			}
-			if (heading){
-				$('#heading').html(heading).show();
-			}
-			
-			//Placeholder
-			if (placeholder && placeholder.split('|').length > 1 && (placeholder.split('|').slice(1).join('|').match(/\{([^}]+)\}/) || [])[0].length > 2){ //found variable. regex explanation: { (everything but '}' }
-				placeholderVariable = placeholder.split('|').slice(1).join('|').match(/\{([^}]+)\}/);
-				let id = placeholderVariable[1].split('|')[0];
-				if (id.substr(0, 1) == "[" && id.substr(-1) == "]"){
-					id = id.substring(1, id.length - 1);
-					placeholderVariable.noUnit = true;
-				}
-				placeholderVariable.id = id;
-				sendPostMessage("getStateSubscribed", id);
-				placeholder = placeholder.split('|')[0];
-			}
-			if (placeholder){
-				$('#placeholder').html(placeholder);
-			}
-			
-			//Apply some styling
-			$('#loadMoreButton').html(rowsLimitLoadMoreCaption);
-			if (headHide) addCustomCSS('#jsonTable { margin-top: -2.3em; } @media (max-width: 35em) { #jsonTable.ui-table-reflow.ui-responsive { margin-top: 0 !important; } #jsonTable.ui-table-reflow.ui-responsive .ui-table-cell-label { display: none; } }', 'headHide');
-			if (headHideColumntoggleButton) addCustomCSS('.ui-table-columntoggle-btn { display: none; }', 'headHideColumntoggleButton');
-			if (scrollbarHide) addCustomCSS('::-webkit-scrollbar { display: none; } html { scrollbar-width: none; }', 'scrollbarHide');
-			if (fontFamily) {
-				fontFamily = getFontFamilyAndAddFontFace(fontFamily);
-				addCustomCSS('* { font-family: ' + fontFamily + ' !important;}', 'fontFamily');
-			};
-			//@font-face
-			function getFontFamilyAndAddFontFace(option){
-				var fontFamily = encodeURIComponent(option.split('@')[0].replace(/\\/g,"").replace(/\//g,"").replace(/ /g,"").replace(/\./g,""));
-				if (option.indexOf("/userfonts/") == 0 && option.split('@').length > 1){
-					var format = option.slice(option.lastIndexOf('.') + 1);
-					switch(format){
-						case "otf": format = "opentype"; break;
-						case "ttf": format = "truetype"; break;
-					}
-					var fontFaceUrl = encodeURI(option.split('@')[1].replace(/\\/g,"/"))
-					if (fontFaceUrl && fontFaceUrl.indexOf('http') !== 0) fontFaceUrl = '/iqontrol/' + fontFaceUrl;
-					var customCSSFontFace = "@font-face{";
-					customCSSFontFace += "	font-family: '" + fontFamily + "';"
-					customCSSFontFace += "	src: url('" + fontFaceUrl + "') format('" + format + "');"
-					customCSSFontFace += "}";
-					if ($('style.customCSS_default').text().indexOf(customCSSFontFace) == -1) addCustomCSS(customCSSFontFace);
-					return fontFamily;
-				}
-				return option;
-			}
-			if (fontSize) addCustomCSS('* { font-size: ' + fontSize + 'px !important;}', 'fontSize');
-			if (fontWeight) addCustomCSS('* { font-weight: ' + fontWeight + ' !important;}', 'fontWeight');
-			if (fontStyle) addCustomCSS('* { font-style: ' + fontStyle + ' !important;}', 'fontStyle');
+            //UrlParameters
+            var heading = getUrlParameter('heading') || '';
+            var headingVariable = false;
+            var placeholder = getUrlParameter('placeholder') || '';
+            var placeholderVariable = false;
+            var tableMode = getUrlParameter('tableMode') || 'columntoggle';
+            var colsSort = (getUrlParameter('colsSort') || '').split(';');
+            var colsFilter = (getUrlParameter('colsFilter') || '').split(';');
+            var colsAlwaysVisible = (getUrlParameter('colsAlwaysVisible') || '').split(';');
+            var colsPreferablyVisible = (getUrlParameter('colsPreferablyVisible') || '').split(';');
+            var colsPreferablyVisibleAreVisibleAtStart =
+                getUrlParameter('colsPreferablyVisibleAreVisibleAtStart') == 'true';
+            var breakpoints = (getUrlParameter('breakpoints') || '20;30;40;50;60;70').split(';');
+            var translations = (getUrlParameter('translations') || '').split(';');
+            var dataTranspose = getUrlParameter('dataTranspose') == 'true';
+            var dataTransposeKeycolCaption = getUrlParameter('dataTransposeKeycolCaption') || 'Key';
+            var dataTransposeValcolsPrefix = getUrlParameter('dataTransposeValcolsPrefix') || 'Value ';
+            var dataConvertObjectToArrayKeycolCaption =
+                getUrlParameter('dataConvertObjectToArrayKeycolCaption') || 'Row';
+            var dataConvertListToTableKeycolCaption = getUrlParameter('dataConvertListToTableKeycolCaption') || 'Row';
+            var columnSortEnabled = getUrlParameter('columnSortEnabled') == 'true';
+            var columnSortEnabledColsFilter = (getUrlParameter('columnSortEnabledColsFilter') || '').split(';');
+            var columnSortCol = getUrlParameter('columnSortCol');
+            var columnSortColDesc = getUrlParameter('columnSortColDesc') == 'true';
+            var columnSortColHideIndicator = getUrlParameter('columnSortColHideIndicator') == 'true';
+            var rowsLimit = parseInt(getUrlParameter('rowsLimit') || '0') || 0;
+            var rowsLimitLoadMore = !(getUrlParameter('rowsLimitLoadMore') == 'false');
+            var rowsLimitLoadMoreCaption = getUrlParameter('rowsLimitLoadMoreCaption') || '...';
+            var adjustHeight = getUrlParameter('adjustHeight') == 'true';
+            var headHide = getUrlParameter('headHide') == 'true';
+            var headHideColumntoggleButton = getUrlParameter('headHideColumntoggleButton') == 'true';
+            var scrollbarHide = getUrlParameter('scrollbarHide') == 'true';
+            var replaceCRwithBR = !getUrlParameter('replaceCRwithBR') == 'false';
+            var fontFamily = getUrlParameter('fontFamily') || '';
+            var fontSize = getUrlParameter('fontSize') || '';
+            var fontWeight = getUrlParameter('fontWeight') || '';
+            var fontStyle = getUrlParameter('fontStyle') || '';
+            var colorBackground = getUrlParameter('colorBackground');
+            var colorBackgroundOdd = getUrlParameter('colorBackgroundOdd');
+            var colorBorders = getUrlParameter('colorBorders');
+            var colorText = getUrlParameter('colorText');
+            var colorTextOdd = getUrlParameter('colorTextOdd');
+            var colorTextShadow = getUrlParameter('colorTextShadow');
+            var colorTextShadowOdd = getUrlParameter('colorTextShadowOdd');
+            if (colorBackground) addCustomCSS('.ui-overlay-a {background-color: ' + colorBackground + ';}', 'color');
+            if (colorBackgroundOdd || colorBackground)
+                addCustomCSS(
+                    '.table-stripe tbody tr:nth-child(odd) td, .table-stripe tbody tr:nth-child(odd) th {background-color: ' +
+                        colorBackgroundOdd || colorBackground + ';}',
+                    'color',
+                );
+            if (colorBorders)
+                addCustomCSS(
+                    '.table-stroke tbody td, .table-stroke thead th {border-bottom-color: ' + colorBorders + ';}',
+                    'color',
+                );
+            if (colorText)
+                addCustomCSS(
+                    '.ui-page-theme-a, .ui-page-theme-a .ui-panel-wrapper, #heading, #placeholder {color: ' +
+                        colorText +
+                        ';}',
+                    'color',
+                );
+            if (colorTextOdd || colorText)
+                addCustomCSS(
+                    '.table-stripe tbody tr:nth-child(odd) td, .table-stripe tbody tr:nth-child(odd) th {color: ' +
+                        colorTextOdd || colorText + ';}',
+                    'color',
+                );
+            if (colorTextShadow)
+                addCustomCSS(
+                    '.ui-page-theme-a, .ui-page-theme-a .ui-panel-wrapper, #heading, #placeholder {text-shadow: 0 1px 0 ' +
+                        colorTextShadow +
+                        ';}',
+                    'color',
+                );
+            if (colorTextShadowOdd || colorTextShadow)
+                addCustomCSS(
+                    '.table-stripe tbody tr:nth-child(odd) td, .table-stripe tbody tr:nth-child(odd) th {text-shadow: 0 1px 0 ' +
+                        colorTextShadowOdd || colorTextShadow + ';}',
+                    'color',
+                );
+            var colorBackgroundDark = getUrlParameter('colorBackgroundDark');
+            var colorBackgroundOddDark = getUrlParameter('colorBackgroundOddDark');
+            var colorTextDark = getUrlParameter('colorTextDark');
+            var colorTextOddDark = getUrlParameter('colorTextOddDark');
+            var colorTextShadowDark = getUrlParameter('colorTextShadowDark');
+            var colorTextShadowOddDark = getUrlParameter('colorTextShadowOddDark');
+            if (colorBackgroundDark)
+                addCustomCSS(
+                    'html.color-mode-dark .ui-overlay-a {background-color: ' + colorBackgroundDark + ';}',
+                    'color',
+                );
+            if (colorBackgroundOddDark || colorBackgroundDark)
+                addCustomCSS(
+                    'html.color-mode-dark .table-stripe tbody tr:nth-child(odd) td, html.color-mode-dark .table-stripe tbody tr:nth-child(odd) th {background-color: ' +
+                        colorBackgroundOddDark || colorBackgroundDark + ';}',
+                    'color',
+                );
+            if (colorTextDark)
+                addCustomCSS(
+                    'html.color-mode-dark .ui-page-theme-a, html.color-mode-dark .ui-page-theme-a .ui-panel-wrapper, html.color-mode-dark #heading {color: ' +
+                        colorTextDark +
+                        ';}',
+                    'color',
+                );
+            if (colorTextOddDark || colorTextDark)
+                addCustomCSS(
+                    'html.color-mode-dark .table-stripe tbody tr:nth-child(odd) td, html.color-mode-dark .table-stripe tbody tr:nth-child(odd) th {color: ' +
+                        colorTextOddDark || colorTextDark + ';}',
+                    'color',
+                );
+            if (colorTextShadowDark)
+                addCustomCSS(
+                    'html.color-mode-dark .ui-page-theme-a, html.color-mode-dark .ui-page-theme-a .ui-panel-wrapper, html.color-mode-dark #heading {text-shadow: 0 1px 0 ' +
+                        colorTextShadowDark +
+                        ';}',
+                    'color',
+                );
+            if (colorTextShadowOddDark || colorTextShadowDark)
+                addCustomCSS(
+                    'html.color-mode-dark .table-stripe tbody tr:nth-child(odd) td, html.color-mode-dark .table-stripe tbody tr:nth-child(odd) th {text-shadow: 0 1px 0 ' +
+                        colorTextShadowOddDark || colorTextShadowDark + ';}',
+                    'color',
+                );
+            for (var i = 0; i < translations.length; i++) {
+                let entry = translations[i].split(',');
+                if (entry.length < 2) entry.push(entry[0]);
+                translations[i] = { searchValue: entry[0], newValue: entry[1], exactMatch: true };
+            }
+            var iconCols = (getUrlParameter('iconCols') || '').split(';');
+            var iconReplacements = [];
+            for (var i = 1; i <= 12; i++) {
+                var iconUrl = getUrlParameter('icon' + i + 'Url');
+                if (iconUrl && iconUrl.indexOf('http') !== 0) iconUrl = '/iqontrol/' + iconUrl;
+                var caption = getUrlParameter('icon' + i + 'Caption');
+                var string = getUrlParameter('icon' + i + 'String');
+                if (iconUrl && string)
+                    iconReplacements.push({
+                        searchValue: string,
+                        newValue:
+                            "<img src='" + iconUrl + "' class='jsonTableIcon'>" + (caption ? '&nbsp;' + caption : ''),
+                        caseInsensitive: true,
+                    });
+            }
+            var translationsAndIconReplacements = iconReplacements.concat(translations);
+            var datapointDetectionEnabled = !(getUrlParameter('datapointDetectionEnabled') == 'false');
+            var datapointIdCol = getUrlParameter('datapointIdCol');
+            datapointIdCol = datapointIdCol ? datapointIdCol : 'id';
+            var datapointIdColFilter = !(getUrlParameter('datapointIdColFilter') == 'false');
+            if (datapointDetectionEnabled && datapointIdColFilter && datapointIdCol) colsFilter.push(datapointIdCol);
+            var datapointExtendTableCols = (
+                getUrlParameter('datapointExtendTableCols') || 'parentName;plainText'
+            ).split(';');
+            var datapointExtendTableColsDefaultTranslationLanguage = getUrlParameter(
+                'datapointExtendTableColsDefaultTranslationLanguage',
+            );
+            datapointExtendTableColsDefaultTranslationLanguage = datapointExtendTableColsDefaultTranslationLanguage
+                ? datapointExtendTableColsDefaultTranslationLanguage
+                : 'en';
+            if (
+                datapointExtendTableColsDefaultTranslationLanguage &&
+                datapointExtendTableColsDefaultTranslationLanguage != ' '
+            ) {
+                for (word in datapointExtendTableColsDefaultTranslationWords) {
+                    translations.push({
+                        searchValue: word,
+                        newValue:
+                            datapointExtendTableColsDefaultTranslationWords[word][
+                                datapointExtendTableColsDefaultTranslationLanguage
+                            ],
+                        exactMatch: true,
+                    });
+                }
+            }
+            var datapointToggleCols = (getUrlParameter('datapointToggleCols') || 'plainText').split(';');
 
-			//Subscribe to Datapoints
-			console.log("Subscribe to Datapoints");
-			sendPostMessage("getOptions");
-			if (getUrlParameter("useThisDatapoint")) sendPostMessage("getStateSubscribed", getUrlParameter("useThisDatapoint")); else USE_THIS_DATAPOINT = null;
-			sendPostMessage("getWidgetDeviceStateSubscribed", "STATE");
-			sendPostMessage("getWidgetDeviceStateSubscribed", "LEVEL");
+            //Document ready
+            $(document).ready(function () {
+                //Heading
+                if (
+                    heading &&
+                    heading.split('|').length > 1 &&
+                    (heading
+                        .split('|')
+                        .slice(1)
+                        .join('|')
+                        .match(/\{([^}]+)\}/) || [])[0].length > 2
+                ) {
+                    //found variable. regex explanation: { (everything but '}' }
+                    headingVariable = heading
+                        .split('|')
+                        .slice(1)
+                        .join('|')
+                        .match(/\{([^}]+)\}/);
+                    let id = headingVariable[1].split('|')[0];
+                    if (id.substr(0, 1) == '[' && id.substr(-1) == ']') {
+                        id = id.substring(1, id.length - 1);
+                        headingVariable.noUnit = true;
+                    }
+                    headingVariable.id = id;
+                    sendPostMessage('getStateSubscribed', id);
+                    heading = heading.split('|')[0];
+                }
+                if (heading) {
+                    $('#heading').html(heading).show();
+                }
 
-			//Enhance loadMoreButton
-			$('#loadMoreButton').on('click', function(){
-				let oldRowsLimit = rowsLimit;
-				rowsLimit += (parseInt(getUrlParameter("rowsLimit") || "0") || 0);
-				console.log("New rowsLimit: " + rowsLimit);
-				//$('#jsonTable tbody tr:nth-child(-n+' + rowsLimit + ')').slideDown(500);
-				$('#jsonTable tbody tr:nth-child(n+' + (oldRowsLimit + 1) + '):nth-child(-n+' + rowsLimit + ')').css('display','').children('td, th').wrapInner('<div />').children().css('display','none').slideDown(100);
-				if (dataObject.length <= rowsLimit){
-					$('#loadMoreButtonContainer').hide(500);
-				}				
-			});
-		});
-		
-		//Handle Options
-		function handleOptions(){
-			if (typeof options !== "object") return;
-			//Dark-Mode
-			switch(options.LayoutColorModeDarkEnable){
-				case "disabled":
-				break;
+                //Placeholder
+                if (
+                    placeholder &&
+                    placeholder.split('|').length > 1 &&
+                    (placeholder
+                        .split('|')
+                        .slice(1)
+                        .join('|')
+                        .match(/\{([^}]+)\}/) || [])[0].length > 2
+                ) {
+                    //found variable. regex explanation: { (everything but '}' }
+                    placeholderVariable = placeholder
+                        .split('|')
+                        .slice(1)
+                        .join('|')
+                        .match(/\{([^}]+)\}/);
+                    let id = placeholderVariable[1].split('|')[0];
+                    if (id.substr(0, 1) == '[' && id.substr(-1) == ']') {
+                        id = id.substring(1, id.length - 1);
+                        placeholderVariable.noUnit = true;
+                    }
+                    placeholderVariable.id = id;
+                    sendPostMessage('getStateSubscribed', id);
+                    placeholder = placeholder.split('|')[0];
+                }
+                if (placeholder) {
+                    $('#placeholder').html(placeholder);
+                }
 
-				case "always":
-				applyColorMode('dark');
-				break;
-				
-				default:
-				if (window.matchMedia){
-					var darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-					applyColorMode(darkMode ? 'dark' : '');
-					window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', darkModeEventListenerFunction);
-					window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', darkModeEventListenerFunction);
-					function darkModeEventListenerFunction(e){
-						darkMode = e.matches;
-						applyColorMode(darkMode ? 'dark' : '');
-					}
-				}
-			}
-			function applyColorMode(colorMode){
-				$("html").removeClass(function(index, className){
-					return (className.match (/(^|\s)color-mode-\S+/g) || []).join(' ');
-				});	
-				if (colorMode && colorMode != "") $("html").addClass("color-mode-" + colorMode);
-			}
-		}
-		
-		//Create Table
-		function createTable(){
-			if (typeof USE_THIS_DATAPOINT == "undefined" || typeof STATE == "undefined" || typeof LEVEL == "undefined") return; //Only do this, if all necessary states are fetched
-			datapointsToUpdatePeriodically = [];
-			var dp = USE_THIS_DATAPOINT || LEVEL || STATE || null;
-			if (dp == null || typeof dp.val == "undefined" || dp.val == null || dp.val == "") {
-				$('#jsonTableContainer').html('');
-				if ($('#placeholder').html() != "") $('#placeholder').show();
-				applyAdjustHeight();
-				if (datapointsToUpdatePeriodicallyInterval) clearInterval(datapointsToUpdatePeriodicallyInterval);
-				datapointsToUpdatePeriodicallyInterval = false;
-				return;
-			}
-			dataObject = tryParseJSON(dp.val);
-			console.log("parsed JSON");
-			console.log(dataObject);
-			if (!dataObject) return;
-			//Try to convert object to array
-			if (!Array.isArray(dataObject)){
-				var newDataObject = [];
-				for (key in dataObject){
-					var newRow = {};
-					newRow[dataConvertObjectToArrayKeycolCaption] = key;
-					newRow = Object.assign(newRow, dataObject[key]);
-					newDataObject.push(newRow);
-				}
-				dataObject = newDataObject;
-				if (colsSort.indexOf(dataConvertObjectToArrayKeycolCaption) == -1) colsSort.unshift(dataConvertObjectToArrayKeycolCaption);
-			}
-			//Check, if there are cols in the object or if it is a simple list
-			var cols = [];
-			for (var row = 0; row < dataObject.length; row++) {
-				if (typeof dataObject[row] == 'object') for (var key in dataObject[row]) {
-					if (cols.indexOf(key) === -1) {
-						cols.push(key);
-					}
-				}
-			}
-			if (!cols.length){
-				var newDataObject = [];
-				for (key in dataObject){
-					var newRow = {};
-					newRow[dataConvertListToTableKeycolCaption] = dataObject[key];
-					newDataObject.push(newRow);
-				}
-				dataObject = newDataObject;
-				if (colsSort.indexOf(dataConvertListToTableKeycolCaption) == -1) colsSort.unshift(dataConvertListToTableKeycolCaption);
-				cols.push(dataConvertListToTableKeycolCaption);
-			}
-			//Transpose
-			if (dataTranspose){
-				var newDataObject = [];
-				var keys = [];
-				for (var row = 0; row < dataObject.length; row++) {
-					for (var key in dataObject[row]) {
-						if (keys.indexOf(key) === -1) {
-							keys.push(key);
-						}
-					}
-				}
-				keys.forEach(function(key){
-					var newRow = {};
-					newRow[dataTransposeKeycolCaption] = key;
-					for (var row = 0; row < dataObject.length; row++) {
-						if (typeof dataObject[row][key] != "undefined") newRow[dataTransposeValcolsPrefix.toString() + (row + 1).toString()] = dataObject[row][key];
-					}
-					newDataObject.push(newRow);
-				});
-				dataObject = newDataObject;
-				if (colsSort.indexOf(dataTransposeKeycolCaption) == -1) colsSort.unshift(dataTransposeKeycolCaption);
-			}
-			//Datapoint-Detection
-			tableDatapoints = {};
-			if (cols.length == 1) { //For simplification: if there is only one col (like in lists) always use this col
-				datapointIdCol = cols[0]; 
-				if (datapointDetectionEnabled && datapointIdColFilter && datapointIdCol) colsFilter.push(datapointIdCol);
-			}
-			if (datapointDetectionEnabled && datapointIdCol){
-				for (var row = 0; row < dataObject.length; row++) {
-					var id = dataObject[row][datapointIdCol];
-					if (datapointRegex.test(id)){ //Datapoint id found
-						if (typeof tableDatapoints[id] == "undefined") tableDatapoints[id] = {rows: []};
-						tableDatapoints[id].rows.push(row);
-						//Extend Table
-						datapointExtendTableCols.forEach(function(datapointExtendTableCol){
-							if (typeof dataObject[row][datapointExtendTableCol] == "undefined") {
-								dataObject[row][datapointExtendTableCol] = "";
-								if (datapointExtendTableCol == "parentName"){ //parentName
-									var parentId = id.substring(0, id.lastIndexOf("."));
-									if (typeof datapointsParentNames[parentId] == "undefined") datapointsParentNames[parentId] = {childIds: []};
-									datapointsParentNames[parentId].childIds.push(id);
-									if (typeof tableDatapoints[parentId] == "undefined") tableDatapoints[parentId] = {rows: []};
-								}
-								if (datapointExtendTableCol.indexOf("lcE") == 0 || datapointExtendTableCol.indexOf("lce") == 0 || datapointExtendTableCol.indexOf("tsE") == 0 || datapointExtendTableCol.indexOf("tse") == 0){ //Elapsed time - update periodically
-									datapointsToUpdatePeriodically.push(id);
-								}
-							}
-						});
-					}
-				}
-			}
-			//Get cols
-			cols = [];
-			for (var row = 0; row < dataObject.length; row++) {
-				if (typeof dataObject[row] == 'object') for (var key in dataObject[row]) {
-					if (cols.indexOf(key) === -1) {
-						cols.push(key);
-					}
-				}
-			}
-			//Sort cols
-			var colsSorted = [];			
-			for (var col = 0; col < colsSort.length; col++) {
-				if (cols.indexOf(colsSort[col]) > -1) colsSorted.push(colsSort[col]);
-			}
-			for (var col = 0; col < cols.length; col++) { //add the remaining cols
-				if (colsSorted.indexOf(cols[col]) == -1) colsSorted.push(cols[col]);
-			}
-			//Filter cols
-			colsSortedAndFiltered = [];
-			for (var col = 0; col < colsSorted.length; col++) {
-				if (colsFilter.indexOf(colsSorted[col]) == -1) colsSortedAndFiltered.push(colsSorted[col]);
-			}
-			//Add breakpoints
-			createBreakpoints(colsSortedAndFiltered.length);
-			//Build table and head
-			var alwaysVisibleCount = 0;
-			var preferablyVisibleCount = 0;
-			var colsPreferablyVisibleTranslated = [];
-			for (var col = 0; col < colsSortedAndFiltered.length; col++) {
-				if (colsAlwaysVisible.indexOf(colsSortedAndFiltered[col]) != -1) alwaysVisibleCount++; //Counts how many cols are always Visible
-				if (colsPreferablyVisible.indexOf(colsSortedAndFiltered[col]) != -1) preferablyVisibleCount++; //Counts how many cols are preferably Visible
-			}
-			var tableString = "<table id='jsonTable' data-role='table' data-mode='" + tableMode + "' class='jsonTable ui-responsive table-stroke table-stripe' data-column-btn-mini='true' data-column-btn-text='&#8942;' style='font-size: smaller;'>";
-			tableString += "<thead>";
-			tableString += "<tr>";
-			var priorityPreferablyIndex = alwaysVisibleCount;
-			var priorityNormalIndex = alwaysVisibleCount + preferablyVisibleCount;
-			for (var col = 0; col < colsSortedAndFiltered.length; col++) {
-				tableString += "<th data-priority='";
-				if (col == 0 && alwaysVisibleCount == 0) { //col 0 is made alwaysVisible because no other alwaysVisible is defined
-					priorityNormalIndex++;
-					priorityPreferablyIndex++;
-				} else {
-					if (colsAlwaysVisible.indexOf(colsSortedAndFiltered[col]) == -1) { 
-						if (colsPreferablyVisible.indexOf(colsSortedAndFiltered[col]) == -1) {
-							tableString += priorityNormalIndex;
-							priorityNormalIndex++;
-						} else {
-							tableString += colsPreferablyVisible.indexOf(colsSortedAndFiltered[col]) + priorityPreferablyIndex;
-							colsPreferablyVisibleTranslated.push(multiReplace(colsSortedAndFiltered[col] || (col + 1).toString(), translations));
-						}
-					}
-				}
-				tableString += "' data-col='" + colsSortedAndFiltered[col] + "'";
-				tableString += "' class='";
-				if (columnSortEnabled && columnSortEnabledColsFilter.indexOf(colsSortedAndFiltered[col]) == -1) tableString += "columnSortEnabled ";
-				tableString += "'>";
-				tableString += multiReplace(colsSortedAndFiltered[col] || (col + 1).toString(), translations);
-				tableString += "</th>";
-			}
-			tableString += "</tr>";
-			tableString += "</thead>";
-			tableString += "<tbody>";
-			tableString += "</tbody>";
-			tableString += "</table>";
-			//Build body
-			var bodyString = "";
-			for (var row = 0; row < dataObject.length; row++) {
-				bodyString += "<tr data-row='" + row + "'" + (rowsLimit == 0 || row < rowsLimit ? "" : "style='display:none;'") + ">";
-				for (var col = 0; col < colsSortedAndFiltered.length; col++) {
-					let result = multiReplace(dataObject[row][colsSortedAndFiltered[col]] || "", ((iconCols[0] == "" || iconCols.indexOf(colsSortedAndFiltered[col]) != -1) ? translationsAndIconReplacements : translations));
-					if (replaceCRwithBR) result = result.toString().replace(/\r\n/g, "<br>");
-					bodyString += "<td data-row='" + row + "' data-colname='" + colsSortedAndFiltered[col] + "'>" + result + "</td>";
-				}
-				bodyString += "</tr>";
-			}
-			//Append table
-			if (JSON.stringify(colsSortedAndFiltered) != lastColsSortedAndFilteredStringified){ //New Headings (or first build of table) - completely rebuild table
-				lastColsSortedAndFilteredStringified = JSON.stringify(colsSortedAndFiltered);
-				//Save last manually colsHidden/Visible state
-				var colsHidden = [];
-				var colsVisible = [];
-				var popupVisible = $('#jsonTable-popup-popup').hasClass('ui-popup-active');
-				$('.jsonTable.ui-table-columntoggle th.ui-table-cell-hidden').each(function(){ colsHidden.push($(this).text()); })
-				$('.jsonTable.ui-table-columntoggle th.ui-table-cell-visible').each(function(){ colsVisible.push($(this).text()); })
-				//Completely rebuild table
-				$('#placeholder').hide();
-				$('#jsonTable-popup-popup').remove();
-				$('#jsonTableContainer').html(tableString);
-				$('#jsonTableContainer tbody').html(bodyString);
-				$('#jsonTable').table().trigger('create');
-				//Restore last colsHidden/Visible state
-				$('#jsonTable-popup label').each(function(){ 
-					if (colsVisible.indexOf($(this).text()) != -1 || (colsPreferablyVisibleAreVisibleAtStart && colsPreferablyVisibleTranslated.indexOf($(this).text()) != -1)) {
-						$(this).next('input[type=checkbox]').prop('checked',true).trigger('change').checkboxradio('refresh');
-					} else if (colsHidden.indexOf($(this).text()) != -1) {
-						$(this).next('input[type=checkbox]').prop('checked',false).trigger('change').checkboxradio('refresh');
-					}
-				});
-				colsPreferablyVisibleAreVisibleAtStart = false; //Deactivate after first build of table
-				//jQuery fix for autofocus on first input when clicking on popup (the element is actively positioned to mouse cursor height)
-				$('#jsonTable-popup').prepend("<button id='DialogAutofocusElement' onclick='event.stopPropagation(); event.preventDefault();' style='position:absolute; top:0px; left:-100000px; opacity:0; width:0px !important; height:0px !important;'></button>"); 
-				$('#jsonTablePage').on('scroll', function(event){
-					$('#DialogAutofocusElement').css('top', (-($('#jsonTable-popup').offset() && $('#jsonTable-popup').offset().top || 0) + 20) + 'px');
-				});
-				$('#jsonTable-popup').on('mousemove', function(event){
-					$('#DialogAutofocusElement').css('top', (-($('#jsonTable-popup').offset() && $('#jsonTable-popup').offset().top || 0) + 20) + 'px');
-				});
-				if (popupVisible) setTimeout(function(){ $('.ui-table-columntoggle-btn').click(); }, 100);
-				//Show or hide columntoggleButton
-				if (headHideColumntoggleButton || colsSortedAndFiltered.length <= alwaysVisibleCount){
-					if (!$('.customCSS_headHideColumntoggleButton').length) addCustomCSS('.ui-table-columntoggle-btn { display: none; }', 'headHideColumntoggleButton');
-				} else {
-					if ($('.customCSS_headHideColumntoggleButton').length) removeCustomCSS('headHideColumntoggleButton');
-				}
-				//columnSortEnabled
-				if (columnSortEnabled) {
-					$('th.columnSortEnabled').on('click', function(){
-						var $this = $(this);
-						if ($this.hasClass('columnSortAsc')){
-							columnSortColDesc = true;
-							$this.removeClass('columnSortAsc');
-						} else if ($this.hasClass('columnSortDesc')) {
-							columnSortColDesc = false;
-							$this.removeClass('columnSortDesc');
-						} else {
-							columnSortColDesc = false;
-							columnSortCol = $this.data('col');
-						}
-						columnSortColHideIndicator = false;
-						//createTable();
-						columnSortTable();
-					}).css('cursor', 'pointer');
-				}
-			} else { //Only update body
-				$('#jsonTableContainer tbody').html(bodyString);
-				$('#jsonTable').table('refresh').trigger('create');
-				$('#jsonTable-popup input[type=checkbox]').trigger('change');
-			}
-			//Subscribe to datapoints
-			for(id in tableDatapoints){
-				sendPostMessage("getStateSubscribed", id);
-			}
-			//Show/Hide Load More Button
-			if (!rowsLimitLoadMore || rowsLimit == 0 || dataObject.length <= rowsLimit){
-				$('#loadMoreButtonContainer').hide(500, adjustHeightNow);
-			} else {
-				$('#loadMoreButtonContainer').show(500, adjustHeightNow);
-			}
-			//columnSort
-			columnSortTable();
-			applyAdjustHeight();
-			//set interval zu update datapoints periodically
-			if (datapointsToUpdatePeriodicallyInterval) clearInterval(datapointsToUpdatePeriodicallyInterval);
-			datapointsToUpdatePeriodicallyInterval = setInterval(function(){
-				for(id of datapointsToUpdatePeriodically){
-					sendPostMessage("getState", id);
-				}
-			}, 20000);			
-		}
-		
-		//Update datapoint
-		function updateDatapoint(id){
-			if (!id) return;
-			if (headingVariable && id == headingVariable.id){//variable Heading
-				console.log("Received headingVariable");
-				if (typeof datapoints[id].val != "undefined"){
-					if (typeof datapoints[id].plainText == 'number' && !headingVariable['noUnit']){	//STATE = number
-						var replacement = datapoints[id].val + datapoints[id].unit;
-					} else {																		//STATE = bool or text
-						var replacement = datapoints[id].plainText;
-					}
-					$('#heading').html(headingVariable['input'].replace(headingVariable[0], replacement)).show();
-				} else if (headingVariable[1].split('|').length > 1) {
-					$('#heading').html(headingVariable['input'].replace(headingVariable[0], headingVariable[1].split('|').slice(1).join('|'))).show();
-				}
-			}
-			if (placeholderVariable && id == placeholderVariable.id){//variable Placeholder
-				console.log("Received placeholderVariable");
-				if (typeof datapoints[id].val != "undefined"){
-					if (typeof datapoints[id].plainText == 'number' && !placeholderVariable['noUnit']){	//STATE = number
-						var replacement = datapoints[id].val + datapoints[id].unit;
-					} else {																			//STATE = bool or text
-						var replacement = datapoints[id].plainText;
-					}
-					$('#placeholder').html(placeholderVariable['input'].replace(placeholderVariable[0], replacement));
-				} else if (placeholderVariable[1].split('|').length > 1) {
-					$('#placeholder').html(placeholderVariable['input'].replace(placeholderVariable[0], placeholderVariable[1].split('|').slice(1).join('|')));
-				}
-			}
-			if (typeof datapointsParentNames[id] != "undefined" && typeof datapointsParentNames[id].childIds != "undefined" && datapointsParentNames[id].childIds.length > 0){ //Is parentName-Datapoint
-				datapointsParentNames[id].childIds.forEach(function(childId){
-					if (tableDatapoints[childId]){
-						if (typeof datapoints[childId] == "undefined") datapoints[childId] = {};
-						let parentName = datapoints[id].name; //parentName
-						if (typeof parentName == "object") {
-							if (parentName[datapointExtendTableColsDefaultTranslationLanguage]) parentName = parentName[datapointExtendTableColsDefaultTranslationLanguage];
-							else if (parentName["en"]) parentName = parentName["en"];
-							else if (Object.keys(datapoints[id].name).length && typeof Object.keys(datapoints[id].name)[0] == "string" && parentName[Object.keys(datapoints[id].name)[0]]) parentName = parentName[Object.keys(datapoints[id].name)[0]];
-							else parentName = id;
-						}
-						datapoints[childId].parentName = parentName;
-						updateDatapoint(childId);
-					}
-				});
-			}
-			if (typeof tableDatapoints[id] == "undefined" || typeof tableDatapoints[id].rows == "undefined" || tableDatapoints[id].rows.length == 0) return;
-			tableDatapoints[id].rows.forEach(function(row){
-				datapointExtendTableCols.forEach(function(datapointExtendTableCol){
-					var result = datapoints[id] && datapoints[id][datapointExtendTableCol];
-					if (datapointExtendTableCol == "parentName" && !result) result = datapoints[id].name || id;  //parentName
-					if (datapointExtendTableCol.indexOf("lc") == 0 || datapointExtendTableCol.indexOf("ts") == 0 ) {
-						if (datapointExtendTableCol.indexOf("lc") == 0) result = datapoints[id] && datapoints[id]["lc"];
-						if (datapointExtendTableCol.indexOf("ts") == 0) result = datapoints[id] && datapoints[id]["ts"];
-						result = getElapsedStringFromTimecode(result, datapointExtendTableCol.substr(2));
-					}
-					if (typeof result == "undefined" || result === null) result = ""; else result = result.toString();
-					if (datapointExtendTableCol == "val" && result != "" && datapoints[id].unit) result += (datapoints[id].unit == "%" ? "" : "&nbsp;") + datapoints[id].unit;
-					if (datapointExtendTableCol == "plainText" && result != "" && (datapoints[id].val == datapoints[id].plainText) && datapoints[id].unit) result += (datapoints[id].unit == "%" ? "" : "&nbsp;") + datapoints[id].unit;
-					result = multiReplace(result, ((iconCols[0] == "" || iconCols.indexOf(datapointExtendTableCol) != -1) ? translationsAndIconReplacements : translations));
-					if (replaceCRwithBR) result = result.toString().replace(/\r\n/g, "<br>");
-					$("td[data-row='" + row + "'][data-colname='" + datapointExtendTableCol + "']").html(result);
-					adjustHeightNow();
-				});
-				datapointToggleCols.forEach(function(datpointToggleCol){
-					$("td[data-row='" + row + "'][data-colname='" + datpointToggleCol + "']:not(:has(>span))").each(function(){
-						$(this).html("<span class='datapoint-toggle' data-id='" + id + "' style='cursor: pointer;'>" + $(this).html() + "</span>");
-						adjustHeightNow();
-					});
-				});
-			});
-			columnSortTable();
-			$("span.datapoint-toggle:not(.clickEventBound)").on('click', spanToggleClick).addClass('clickEventBound');
-		}
+                //Apply some styling
+                $('#loadMoreButton').html(rowsLimitLoadMoreCaption);
+                if (headHide)
+                    addCustomCSS(
+                        '#jsonTable { margin-top: -2.3em; } @media (max-width: 35em) { #jsonTable.ui-table-reflow.ui-responsive { margin-top: 0 !important; } #jsonTable.ui-table-reflow.ui-responsive .ui-table-cell-label { display: none; } }',
+                        'headHide',
+                    );
+                if (headHideColumntoggleButton)
+                    addCustomCSS('.ui-table-columntoggle-btn { display: none; }', 'headHideColumntoggleButton');
+                if (scrollbarHide)
+                    addCustomCSS(
+                        '::-webkit-scrollbar { display: none; } html { scrollbar-width: none; }',
+                        'scrollbarHide',
+                    );
+                if (fontFamily) {
+                    fontFamily = getFontFamilyAndAddFontFace(fontFamily);
+                    addCustomCSS('* { font-family: ' + fontFamily + ' !important;}', 'fontFamily');
+                }
+                //@font-face
+                function getFontFamilyAndAddFontFace(option) {
+                    var fontFamily = encodeURIComponent(
+                        option.split('@')[0].replace(/\\/g, '').replace(/\//g, '').replace(/ /g, '').replace(/\./g, ''),
+                    );
+                    if (option.indexOf('/userfonts/') == 0 && option.split('@').length > 1) {
+                        var format = option.slice(option.lastIndexOf('.') + 1);
+                        switch (format) {
+                            case 'otf':
+                                format = 'opentype';
+                                break;
+                            case 'ttf':
+                                format = 'truetype';
+                                break;
+                        }
+                        var fontFaceUrl = encodeURI(option.split('@')[1].replace(/\\/g, '/'));
+                        if (fontFaceUrl && fontFaceUrl.indexOf('http') !== 0) fontFaceUrl = '/iqontrol/' + fontFaceUrl;
+                        var customCSSFontFace = '@font-face{';
+                        customCSSFontFace += "	font-family: '" + fontFamily + "';";
+                        customCSSFontFace += "	src: url('" + fontFaceUrl + "') format('" + format + "');";
+                        customCSSFontFace += '}';
+                        if ($('style.customCSS_default').text().indexOf(customCSSFontFace) == -1)
+                            addCustomCSS(customCSSFontFace);
+                        return fontFamily;
+                    }
+                    return option;
+                }
+                if (fontSize) addCustomCSS('* { font-size: ' + fontSize + 'px !important;}', 'fontSize');
+                if (fontWeight) addCustomCSS('* { font-weight: ' + fontWeight + ' !important;}', 'fontWeight');
+                if (fontStyle) addCustomCSS('* { font-style: ' + fontStyle + ' !important;}', 'fontStyle');
 
-		//columnSort Table
-		var columnSortTableTimeout = false;
-		function columnSortTable(){
-			if (!columnSortTableTimeout) columnSortTableTimeout = setTimeout(function(){
-				columnSortTableTimeout = false;
-				$('.columnSortIndicator').remove();
-				if (columnSortCol && colsSortedAndFiltered.indexOf(columnSortCol) > -1){
-					//columnSort Indicators
-					for (var col = 0; col < colsSortedAndFiltered.length; col++) {
-						$th = $('th[data-col="' + colsSortedAndFiltered[col] + '"]');
-						if (colsSortedAndFiltered[col] == columnSortCol) $th.addClass("columnSort" + (columnSortColDesc ? "Desc " : "Asc ")); else $th.removeClass("columnSortAsc").removeClass("columnSortDesc");
-						if (!columnSortColHideIndicator && colsSortedAndFiltered[col] == columnSortCol) $th.append("<span class='columnSortIndicator'>&nbsp;" + (columnSortColDesc ? "&#9660;" : "&#9650;") + "</span>");
-					}
-					//Start sorting
-					$('tbody tr').sort(function(a, b){
-						if (columnSortColDesc){
-							return collator.compare(getSortValues(b), getSortValues(a));
-						} else {
-							return collator.compare(getSortValues(a), getSortValues(b));
-						}
-						function getSortValues(row){
-							let result = "";
-							let columnSortCols = columnSortCol.split(';');
-							for (col of columnSortCols){
-								result += $(row).find('td[data-colname="' + col + '"]').html();
-							}
-							return result;
-						}
-					}).appendTo($('tbody'));
-					//RowLimit
-					$('tbody tr').each(function(index, element){
-						if (rowsLimit == 0 || index < rowsLimit) $(this).css('display', ''); else $(this).css('display', 'none');
-					});			
-				}
-			}, 20);
-		}
+                //Subscribe to Datapoints
+                console.log('Subscribe to Datapoints');
+                sendPostMessage('getOptions');
+                if (getUrlParameter('useThisDatapoint'))
+                    sendPostMessage('getStateSubscribed', getUrlParameter('useThisDatapoint'));
+                else USE_THIS_DATAPOINT = null;
+                sendPostMessage('getWidgetDeviceStateSubscribed', 'STATE');
+                sendPostMessage('getWidgetDeviceStateSubscribed', 'LEVEL');
 
-		//Toggle datapoint
-		function spanToggleClick(){
-			var id = $(this).data('id');
-			var state = datapoints[id];
-			if (state && state.readonly == false){
-				switch(state.type){
-					case "button":
-					var newVal = true;
-					break;
+                //Enhance loadMoreButton
+                $('#loadMoreButton').on('click', function () {
+                    let oldRowsLimit = rowsLimit;
+                    rowsLimit += parseInt(getUrlParameter('rowsLimit') || '0') || 0;
+                    console.log('New rowsLimit: ' + rowsLimit);
+                    //$('#jsonTable tbody tr:nth-child(-n+' + rowsLimit + ')').slideDown(500);
+                    $('#jsonTable tbody tr:nth-child(n+' + (oldRowsLimit + 1) + '):nth-child(-n+' + rowsLimit + ')')
+                        .css('display', '')
+                        .children('td, th')
+                        .wrapInner('<div />')
+                        .children()
+                        .css('display', 'none')
+                        .slideDown(100);
+                    if (dataObject.length <= rowsLimit) {
+                        $('#loadMoreButtonContainer').hide(500);
+                    }
+                });
+            });
 
-					case "level":
-					var oldVal = state.val;
-					var min = state.min || 0;
-					var max = state.max || 100;
-					var newVal;
-					if (oldVal > min) newVal = min; else newVal = max;
-					break;
+            //Handle Options
+            function handleOptions() {
+                if (typeof options !== 'object') return;
+                //Dark-Mode
+                switch (options.LayoutColorModeDarkEnable) {
+                    case 'disabled':
+                        break;
 
-					case "valueList":
-					var oldVal = state.val;
-					if (oldVal == true || oldVal.toString().toLowerCase() == "true") oldVal = 1;
-					if (oldVal == false || oldVal.toString().toLowerCase() == "false") oldVal = 0;
-					var min = state.min || 0;
-					if (typeof state.valueList !== "undefined" && oldVal + 1 >= Object.keys(state.valueList).length) var newVal = min; else newVal = oldVal + 1;
-					break;
+                    case 'always':
+                        applyColorMode('dark');
+                        break;
 
-					case "switch": default:
-					var oldVal = state.val;
-					var newVal;
-					if (typeof oldVal == 'number'){
-						if (oldVal) newVal = 0; else newVal = 1;
-					} else {
-						if (oldVal.toString().toLowerCase() == "true") newVal = false; else newVal = true;
-					}
-				}
-				if (typeof newVal !== "undefined") sendPostMessage("setState", id, newVal);
-			}
-		}
+                    default:
+                        if (window.matchMedia) {
+                            var darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                            applyColorMode(darkMode ? 'dark' : '');
+                            window
+                                .matchMedia('(prefers-color-scheme: dark)')
+                                .removeEventListener('change', darkModeEventListenerFunction);
+                            window
+                                .matchMedia('(prefers-color-scheme: dark)')
+                                .addEventListener('change', darkModeEventListenerFunction);
+                            function darkModeEventListenerFunction(e) {
+                                darkMode = e.matches;
+                                applyColorMode(darkMode ? 'dark' : '');
+                            }
+                        }
+                }
+                function applyColorMode(colorMode) {
+                    $('html').removeClass(function (index, className) {
+                        return (className.match(/(^|\s)color-mode-\S+/g) || []).join(' ');
+                    });
+                    if (colorMode && colorMode != '') $('html').addClass('color-mode-' + colorMode);
+                }
+            }
 
-		//create Breakpoints
-		function createBreakpoints(numberOfNeededBreakpoints){
-			if (breakpointsCount < numberOfNeededBreakpoints){
-				if (breakpoints.length < numberOfNeededBreakpoints){
-					while(numberOfNeededBreakpoints > breakpoints.length){
-						breakpoints.push(((parseInt(breakpoints[breakpoints.length - 1]) || 10) + 10).toString());
-					}
-				}
-				var customCSS = "";
-				for(i = 0; i < numberOfNeededBreakpoints; i++){
-					//Add breakpoint
-					customCSS += ".ui-table-columntoggle th.ui-table-priority-" + (i + 1) + ",";
-					customCSS += ".ui-table-columntoggle td.ui-table-priority-" + (i + 1) + " {";
-					customCSS += "   display: none;";
-					customCSS += "}";
-					customCSS += "@media screen and (min-width: " + breakpoints[i] + "em) {";
-					customCSS += "   .ui-table-columntoggle th.ui-table-priority-" + (i + 1) + ",";
-					customCSS += "   .ui-table-columntoggle td.ui-table-priority-" + (i + 1) + " {";
-					customCSS += "     display: table-cell;";
-					customCSS += "   }";
-					customCSS += "} ";				
-				}
-				// Manually hidden
-				customCSS += ".ui-table-columntoggle th.ui-table-cell-hidden,";
-				customCSS += ".ui-table-columntoggle td.ui-table-cell-hidden {";
-				customCSS += "  display: none;";
-				customCSS += "} ";			 
-				// Manually shown
-				customCSS += ".ui-table-columntoggle th.ui-table-cell-visible,";
-				customCSS += ".ui-table-columntoggle td.ui-table-cell-visible {";
-				customCSS += "   display: table-cell;";
-				customCSS += "} ";
-				removeCustomCSS("breakpoints");
-				addCustomCSS(customCSS, "breakpoints");
-				breakpointsCount = numberOfNeededBreakpoints;
-			}
-		}
+            //Create Table
+            function createTable() {
+                if (
+                    typeof USE_THIS_DATAPOINT == 'undefined' ||
+                    typeof STATE == 'undefined' ||
+                    typeof LEVEL == 'undefined'
+                )
+                    return; //Only do this, if all necessary states are fetched
+                datapointsToUpdatePeriodically = [];
+                var dp = USE_THIS_DATAPOINT || LEVEL || STATE || null;
+                if (dp == null || typeof dp.val == 'undefined' || dp.val == null || dp.val == '') {
+                    $('#jsonTableContainer').html('');
+                    if ($('#placeholder').html() != '') $('#placeholder').show();
+                    applyAdjustHeight();
+                    if (datapointsToUpdatePeriodicallyInterval) clearInterval(datapointsToUpdatePeriodicallyInterval);
+                    datapointsToUpdatePeriodicallyInterval = false;
+                    return;
+                }
+                dataObject = tryParseJSON(dp.val);
+                console.log('parsed JSON');
+                console.log(dataObject);
+                if (!dataObject) return;
+                //Try to convert object to array
+                if (!Array.isArray(dataObject)) {
+                    var newDataObject = [];
+                    for (key in dataObject) {
+                        var newRow = {};
+                        newRow[dataConvertObjectToArrayKeycolCaption] = key;
+                        newRow = Object.assign(newRow, dataObject[key]);
+                        newDataObject.push(newRow);
+                    }
+                    dataObject = newDataObject;
+                    if (colsSort.indexOf(dataConvertObjectToArrayKeycolCaption) == -1)
+                        colsSort.unshift(dataConvertObjectToArrayKeycolCaption);
+                }
+                //Check, if there are cols in the object or if it is a simple list
+                var cols = [];
+                for (var row = 0; row < dataObject.length; row++) {
+                    if (typeof dataObject[row] == 'object')
+                        for (var key in dataObject[row]) {
+                            if (cols.indexOf(key) === -1) {
+                                cols.push(key);
+                            }
+                        }
+                }
+                if (!cols.length) {
+                    var newDataObject = [];
+                    for (key in dataObject) {
+                        var newRow = {};
+                        newRow[dataConvertListToTableKeycolCaption] = dataObject[key];
+                        newDataObject.push(newRow);
+                    }
+                    dataObject = newDataObject;
+                    if (colsSort.indexOf(dataConvertListToTableKeycolCaption) == -1)
+                        colsSort.unshift(dataConvertListToTableKeycolCaption);
+                    cols.push(dataConvertListToTableKeycolCaption);
+                }
+                //Transpose
+                if (dataTranspose) {
+                    var newDataObject = [];
+                    var keys = [];
+                    for (var row = 0; row < dataObject.length; row++) {
+                        for (var key in dataObject[row]) {
+                            if (keys.indexOf(key) === -1) {
+                                keys.push(key);
+                            }
+                        }
+                    }
+                    keys.forEach(function (key) {
+                        var newRow = {};
+                        newRow[dataTransposeKeycolCaption] = key;
+                        for (var row = 0; row < dataObject.length; row++) {
+                            if (typeof dataObject[row][key] != 'undefined')
+                                newRow[dataTransposeValcolsPrefix.toString() + (row + 1).toString()] =
+                                    dataObject[row][key];
+                        }
+                        newDataObject.push(newRow);
+                    });
+                    dataObject = newDataObject;
+                    if (colsSort.indexOf(dataTransposeKeycolCaption) == -1)
+                        colsSort.unshift(dataTransposeKeycolCaption);
+                }
+                //Datapoint-Detection
+                tableDatapoints = {};
+                if (cols.length == 1) {
+                    //For simplification: if there is only one col (like in lists) always use this col
+                    datapointIdCol = cols[0];
+                    if (datapointDetectionEnabled && datapointIdColFilter && datapointIdCol)
+                        colsFilter.push(datapointIdCol);
+                }
+                if (datapointDetectionEnabled && datapointIdCol) {
+                    for (var row = 0; row < dataObject.length; row++) {
+                        var id = dataObject[row][datapointIdCol];
+                        if (datapointRegex.test(id)) {
+                            //Datapoint id found
+                            if (typeof tableDatapoints[id] == 'undefined') tableDatapoints[id] = { rows: [] };
+                            tableDatapoints[id].rows.push(row);
+                            //Extend Table
+                            datapointExtendTableCols.forEach(function (datapointExtendTableCol) {
+                                if (typeof dataObject[row][datapointExtendTableCol] == 'undefined') {
+                                    dataObject[row][datapointExtendTableCol] = '';
+                                    if (datapointExtendTableCol == 'parentName') {
+                                        //parentName
+                                        var parentId = id.substring(0, id.lastIndexOf('.'));
+                                        if (typeof datapointsParentNames[parentId] == 'undefined')
+                                            datapointsParentNames[parentId] = { childIds: [] };
+                                        datapointsParentNames[parentId].childIds.push(id);
+                                        if (typeof tableDatapoints[parentId] == 'undefined')
+                                            tableDatapoints[parentId] = { rows: [] };
+                                    }
+                                    if (
+                                        datapointExtendTableCol.indexOf('lcE') == 0 ||
+                                        datapointExtendTableCol.indexOf('lce') == 0 ||
+                                        datapointExtendTableCol.indexOf('tsE') == 0 ||
+                                        datapointExtendTableCol.indexOf('tse') == 0
+                                    ) {
+                                        //Elapsed time - update periodically
+                                        datapointsToUpdatePeriodically.push(id);
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }
+                //Get cols
+                cols = [];
+                for (var row = 0; row < dataObject.length; row++) {
+                    if (typeof dataObject[row] == 'object')
+                        for (var key in dataObject[row]) {
+                            if (cols.indexOf(key) === -1) {
+                                cols.push(key);
+                            }
+                        }
+                }
+                //Sort cols
+                var colsSorted = [];
+                for (var col = 0; col < colsSort.length; col++) {
+                    if (cols.indexOf(colsSort[col]) > -1) colsSorted.push(colsSort[col]);
+                }
+                for (var col = 0; col < cols.length; col++) {
+                    //add the remaining cols
+                    if (colsSorted.indexOf(cols[col]) == -1) colsSorted.push(cols[col]);
+                }
+                //Filter cols
+                colsSortedAndFiltered = [];
+                for (var col = 0; col < colsSorted.length; col++) {
+                    if (colsFilter.indexOf(colsSorted[col]) == -1) colsSortedAndFiltered.push(colsSorted[col]);
+                }
+                //Add breakpoints
+                createBreakpoints(colsSortedAndFiltered.length);
+                //Build table and head
+                var alwaysVisibleCount = 0;
+                var preferablyVisibleCount = 0;
+                var colsPreferablyVisibleTranslated = [];
+                for (var col = 0; col < colsSortedAndFiltered.length; col++) {
+                    if (colsAlwaysVisible.indexOf(colsSortedAndFiltered[col]) != -1) alwaysVisibleCount++; //Counts how many cols are always Visible
+                    if (colsPreferablyVisible.indexOf(colsSortedAndFiltered[col]) != -1) preferablyVisibleCount++; //Counts how many cols are preferably Visible
+                }
+                var tableString =
+                    "<table id='jsonTable' data-role='table' data-mode='" +
+                    tableMode +
+                    "' class='jsonTable ui-responsive table-stroke table-stripe' data-column-btn-mini='true' data-column-btn-text='&#8942;' style='font-size: smaller;'>";
+                tableString += '<thead>';
+                tableString += '<tr>';
+                var priorityPreferablyIndex = alwaysVisibleCount;
+                var priorityNormalIndex = alwaysVisibleCount + preferablyVisibleCount;
+                for (var col = 0; col < colsSortedAndFiltered.length; col++) {
+                    tableString += "<th data-priority='";
+                    if (col == 0 && alwaysVisibleCount == 0) {
+                        //col 0 is made alwaysVisible because no other alwaysVisible is defined
+                        priorityNormalIndex++;
+                        priorityPreferablyIndex++;
+                    } else {
+                        if (colsAlwaysVisible.indexOf(colsSortedAndFiltered[col]) == -1) {
+                            if (colsPreferablyVisible.indexOf(colsSortedAndFiltered[col]) == -1) {
+                                tableString += priorityNormalIndex;
+                                priorityNormalIndex++;
+                            } else {
+                                tableString +=
+                                    colsPreferablyVisible.indexOf(colsSortedAndFiltered[col]) + priorityPreferablyIndex;
+                                colsPreferablyVisibleTranslated.push(
+                                    multiReplace(colsSortedAndFiltered[col] || (col + 1).toString(), translations),
+                                );
+                            }
+                        }
+                    }
+                    tableString += "' data-col='" + colsSortedAndFiltered[col] + "'";
+                    tableString += "' class='";
+                    if (columnSortEnabled && columnSortEnabledColsFilter.indexOf(colsSortedAndFiltered[col]) == -1)
+                        tableString += 'columnSortEnabled ';
+                    tableString += "'>";
+                    tableString += multiReplace(colsSortedAndFiltered[col] || (col + 1).toString(), translations);
+                    tableString += '</th>';
+                }
+                tableString += '</tr>';
+                tableString += '</thead>';
+                tableString += '<tbody>';
+                tableString += '</tbody>';
+                tableString += '</table>';
+                //Build body
+                var bodyString = '';
+                for (var row = 0; row < dataObject.length; row++) {
+                    bodyString +=
+                        "<tr data-row='" +
+                        row +
+                        "'" +
+                        (rowsLimit == 0 || row < rowsLimit ? '' : "style='display:none;'") +
+                        '>';
+                    for (var col = 0; col < colsSortedAndFiltered.length; col++) {
+                        let result = multiReplace(
+                            dataObject[row][colsSortedAndFiltered[col]] || '',
+                            iconCols[0] == '' || iconCols.indexOf(colsSortedAndFiltered[col]) != -1
+                                ? translationsAndIconReplacements
+                                : translations,
+                        );
+                        if (replaceCRwithBR) result = result.toString().replace(/\r\n/g, '<br>');
+                        bodyString +=
+                            "<td data-row='" +
+                            row +
+                            "' data-colname='" +
+                            colsSortedAndFiltered[col] +
+                            "'>" +
+                            result +
+                            '</td>';
+                    }
+                    bodyString += '</tr>';
+                }
+                //Append table
+                if (JSON.stringify(colsSortedAndFiltered) != lastColsSortedAndFilteredStringified) {
+                    //New Headings (or first build of table) - completely rebuild table
+                    lastColsSortedAndFilteredStringified = JSON.stringify(colsSortedAndFiltered);
+                    //Save last manually colsHidden/Visible state
+                    var colsHidden = [];
+                    var colsVisible = [];
+                    var popupVisible = $('#jsonTable-popup-popup').hasClass('ui-popup-active');
+                    $('.jsonTable.ui-table-columntoggle th.ui-table-cell-hidden').each(function () {
+                        colsHidden.push($(this).text());
+                    });
+                    $('.jsonTable.ui-table-columntoggle th.ui-table-cell-visible').each(function () {
+                        colsVisible.push($(this).text());
+                    });
+                    //Completely rebuild table
+                    $('#placeholder').hide();
+                    $('#jsonTable-popup-popup').remove();
+                    $('#jsonTableContainer').html(tableString);
+                    $('#jsonTableContainer tbody').html(bodyString);
+                    $('#jsonTable').table().trigger('create');
+                    //Restore last colsHidden/Visible state
+                    $('#jsonTable-popup label').each(function () {
+                        if (
+                            colsVisible.indexOf($(this).text()) != -1 ||
+                            (colsPreferablyVisibleAreVisibleAtStart &&
+                                colsPreferablyVisibleTranslated.indexOf($(this).text()) != -1)
+                        ) {
+                            $(this)
+                                .next('input[type=checkbox]')
+                                .prop('checked', true)
+                                .trigger('change')
+                                .checkboxradio('refresh');
+                        } else if (colsHidden.indexOf($(this).text()) != -1) {
+                            $(this)
+                                .next('input[type=checkbox]')
+                                .prop('checked', false)
+                                .trigger('change')
+                                .checkboxradio('refresh');
+                        }
+                    });
+                    colsPreferablyVisibleAreVisibleAtStart = false; //Deactivate after first build of table
+                    //jQuery fix for autofocus on first input when clicking on popup (the element is actively positioned to mouse cursor height)
+                    $('#jsonTable-popup').prepend(
+                        "<button id='DialogAutofocusElement' onclick='event.stopPropagation(); event.preventDefault();' style='position:absolute; top:0px; left:-100000px; opacity:0; width:0px !important; height:0px !important;'></button>",
+                    );
+                    $('#jsonTablePage').on('scroll', function (event) {
+                        $('#DialogAutofocusElement').css(
+                            'top',
+                            -(($('#jsonTable-popup').offset() && $('#jsonTable-popup').offset().top) || 0) + 20 + 'px',
+                        );
+                    });
+                    $('#jsonTable-popup').on('mousemove', function (event) {
+                        $('#DialogAutofocusElement').css(
+                            'top',
+                            -(($('#jsonTable-popup').offset() && $('#jsonTable-popup').offset().top) || 0) + 20 + 'px',
+                        );
+                    });
+                    if (popupVisible)
+                        setTimeout(function () {
+                            $('.ui-table-columntoggle-btn').click();
+                        }, 100);
+                    //Show or hide columntoggleButton
+                    if (headHideColumntoggleButton || colsSortedAndFiltered.length <= alwaysVisibleCount) {
+                        if (!$('.customCSS_headHideColumntoggleButton').length)
+                            addCustomCSS('.ui-table-columntoggle-btn { display: none; }', 'headHideColumntoggleButton');
+                    } else {
+                        if ($('.customCSS_headHideColumntoggleButton').length)
+                            removeCustomCSS('headHideColumntoggleButton');
+                    }
+                    //columnSortEnabled
+                    if (columnSortEnabled) {
+                        $('th.columnSortEnabled')
+                            .on('click', function () {
+                                var $this = $(this);
+                                if ($this.hasClass('columnSortAsc')) {
+                                    columnSortColDesc = true;
+                                    $this.removeClass('columnSortAsc');
+                                } else if ($this.hasClass('columnSortDesc')) {
+                                    columnSortColDesc = false;
+                                    $this.removeClass('columnSortDesc');
+                                } else {
+                                    columnSortColDesc = false;
+                                    columnSortCol = $this.data('col');
+                                }
+                                columnSortColHideIndicator = false;
+                                //createTable();
+                                columnSortTable();
+                            })
+                            .css('cursor', 'pointer');
+                    }
+                } else {
+                    //Only update body
+                    $('#jsonTableContainer tbody').html(bodyString);
+                    $('#jsonTable').table('refresh').trigger('create');
+                    $('#jsonTable-popup input[type=checkbox]').trigger('change');
+                }
+                //Subscribe to datapoints
+                for (id in tableDatapoints) {
+                    sendPostMessage('getStateSubscribed', id);
+                }
+                //Show/Hide Load More Button
+                if (!rowsLimitLoadMore || rowsLimit == 0 || dataObject.length <= rowsLimit) {
+                    $('#loadMoreButtonContainer').hide(500, adjustHeightNow);
+                } else {
+                    $('#loadMoreButtonContainer').show(500, adjustHeightNow);
+                }
+                //columnSort
+                columnSortTable();
+                applyAdjustHeight();
+                //set interval zu update datapoints periodically
+                if (datapointsToUpdatePeriodicallyInterval) clearInterval(datapointsToUpdatePeriodicallyInterval);
+                datapointsToUpdatePeriodicallyInterval = setInterval(function () {
+                    for (id of datapointsToUpdatePeriodically) {
+                        sendPostMessage('getState', id);
+                    }
+                }, 20000);
+            }
 
-		//Adjust height
-		var tableResizeObserver;
-		var tableResizeObserverTimeout = false;
-		var tableResizeObserverOldHeight = -1;
-		function applyAdjustHeight(){
-			if (adjustHeight && getUrlParameter("allowAdjustHeight") == "true"){
-				console.log("Starting table resize observer to adjust height");
-				if (tableResizeObserver){
-					tableResizeObserver.disconnect();
-				} else {
-					tableResizeObserver = new MutationObserver(adjustHeightFunction);
-				}
-				tableResizeObserver.observe(document.querySelector('#jsonTableContent'), {attributes: true, attributeOldValue: true, childList: false, subtree: true});
-				$(window).off('resize').on('resize', adjustHeightNow);
-				adjustHeightNow();
-			}
-		}
-		function adjustHeightNow(){
-			adjustHeightFunction([{attributeName: 'style'}]);
-		}
-		function adjustHeightFunction(mutationList){
-			mutationList.forEach(function(mutation){
-				if (mutation.attributeName === 'style' && !tableResizeObserverTimeout){
-					tableResizeObserverTimeout = setTimeout(function(){
-						var height = $('#jsonTableContent').innerHeight();
-						if (tableResizeObserverOldHeight != height){
-							if (height == 0) height = -1;
-							console.log("adjustHeight to table: " + height);
-							window.parent.postMessage({ command: "adjustHeight" , value: height }, "*");
-						}
-						tableResizeObserverOldHeight = height;
-						tableResizeObserverTimeout = false;
-					}, 10);
-				}
-			});
-		}
-		
-		//send postMessages
-		function sendPostMessage(command, stateId, value){
-			message = { command: command, stateId: stateId, value: value };
-			window.parent.postMessage(message, "*");
-		}
+            //Update datapoint
+            function updateDatapoint(id) {
+                if (!id) return;
+                if (headingVariable && id == headingVariable.id) {
+                    //variable Heading
+                    console.log('Received headingVariable');
+                    if (typeof datapoints[id].val != 'undefined') {
+                        if (typeof datapoints[id].plainText == 'number' && !headingVariable['noUnit']) {
+                            //STATE = number
+                            var replacement = datapoints[id].val + datapoints[id].unit;
+                        } else {
+                            //STATE = bool or text
+                            var replacement = datapoints[id].plainText;
+                        }
+                        $('#heading').html(headingVariable['input'].replace(headingVariable[0], replacement)).show();
+                    } else if (headingVariable[1].split('|').length > 1) {
+                        $('#heading')
+                            .html(
+                                headingVariable['input'].replace(
+                                    headingVariable[0],
+                                    headingVariable[1].split('|').slice(1).join('|'),
+                                ),
+                            )
+                            .show();
+                    }
+                }
+                if (placeholderVariable && id == placeholderVariable.id) {
+                    //variable Placeholder
+                    console.log('Received placeholderVariable');
+                    if (typeof datapoints[id].val != 'undefined') {
+                        if (typeof datapoints[id].plainText == 'number' && !placeholderVariable['noUnit']) {
+                            //STATE = number
+                            var replacement = datapoints[id].val + datapoints[id].unit;
+                        } else {
+                            //STATE = bool or text
+                            var replacement = datapoints[id].plainText;
+                        }
+                        $('#placeholder').html(
+                            placeholderVariable['input'].replace(placeholderVariable[0], replacement),
+                        );
+                    } else if (placeholderVariable[1].split('|').length > 1) {
+                        $('#placeholder').html(
+                            placeholderVariable['input'].replace(
+                                placeholderVariable[0],
+                                placeholderVariable[1].split('|').slice(1).join('|'),
+                            ),
+                        );
+                    }
+                }
+                if (
+                    typeof datapointsParentNames[id] != 'undefined' &&
+                    typeof datapointsParentNames[id].childIds != 'undefined' &&
+                    datapointsParentNames[id].childIds.length > 0
+                ) {
+                    //Is parentName-Datapoint
+                    datapointsParentNames[id].childIds.forEach(function (childId) {
+                        if (tableDatapoints[childId]) {
+                            if (typeof datapoints[childId] == 'undefined') datapoints[childId] = {};
+                            let parentName = datapoints[id].name; //parentName
+                            if (typeof parentName == 'object') {
+                                if (parentName[datapointExtendTableColsDefaultTranslationLanguage])
+                                    parentName = parentName[datapointExtendTableColsDefaultTranslationLanguage];
+                                else if (parentName['en']) parentName = parentName['en'];
+                                else if (
+                                    Object.keys(datapoints[id].name).length &&
+                                    typeof Object.keys(datapoints[id].name)[0] == 'string' &&
+                                    parentName[Object.keys(datapoints[id].name)[0]]
+                                )
+                                    parentName = parentName[Object.keys(datapoints[id].name)[0]];
+                                else parentName = id;
+                            }
+                            datapoints[childId].parentName = parentName;
+                            updateDatapoint(childId);
+                        }
+                    });
+                }
+                if (
+                    typeof tableDatapoints[id] == 'undefined' ||
+                    typeof tableDatapoints[id].rows == 'undefined' ||
+                    tableDatapoints[id].rows.length == 0
+                )
+                    return;
+                tableDatapoints[id].rows.forEach(function (row) {
+                    datapointExtendTableCols.forEach(function (datapointExtendTableCol) {
+                        var result = datapoints[id] && datapoints[id][datapointExtendTableCol];
+                        if (datapointExtendTableCol == 'parentName' && !result) result = datapoints[id].name || id; //parentName
+                        if (datapointExtendTableCol.indexOf('lc') == 0 || datapointExtendTableCol.indexOf('ts') == 0) {
+                            if (datapointExtendTableCol.indexOf('lc') == 0)
+                                result = datapoints[id] && datapoints[id]['lc'];
+                            if (datapointExtendTableCol.indexOf('ts') == 0)
+                                result = datapoints[id] && datapoints[id]['ts'];
+                            result = getElapsedStringFromTimecode(result, datapointExtendTableCol.substr(2));
+                        }
+                        if (typeof result == 'undefined' || result === null) result = '';
+                        else result = result.toString();
+                        if (datapointExtendTableCol == 'val' && result != '' && datapoints[id].unit)
+                            result += (datapoints[id].unit == '%' ? '' : '&nbsp;') + datapoints[id].unit;
+                        if (
+                            datapointExtendTableCol == 'plainText' &&
+                            result != '' &&
+                            datapoints[id].val == datapoints[id].plainText &&
+                            datapoints[id].unit
+                        )
+                            result += (datapoints[id].unit == '%' ? '' : '&nbsp;') + datapoints[id].unit;
+                        result = multiReplace(
+                            result,
+                            iconCols[0] == '' || iconCols.indexOf(datapointExtendTableCol) != -1
+                                ? translationsAndIconReplacements
+                                : translations,
+                        );
+                        if (replaceCRwithBR) result = result.toString().replace(/\r\n/g, '<br>');
+                        $("td[data-row='" + row + "'][data-colname='" + datapointExtendTableCol + "']").html(result);
+                        adjustHeightNow();
+                    });
+                    datapointToggleCols.forEach(function (datpointToggleCol) {
+                        $("td[data-row='" + row + "'][data-colname='" + datpointToggleCol + "']:not(:has(>span))").each(
+                            function () {
+                                $(this).html(
+                                    "<span class='datapoint-toggle' data-id='" +
+                                        id +
+                                        "' style='cursor: pointer;'>" +
+                                        $(this).html() +
+                                        '</span>',
+                                );
+                                adjustHeightNow();
+                            },
+                        );
+                    });
+                });
+                columnSortTable();
+                $('span.datapoint-toggle:not(.clickEventBound)')
+                    .on('click', spanToggleClick)
+                    .addClass('clickEventBound');
+            }
 
-		//receive postMessages
-		window.addEventListener("message", receivePostMessage, false);
-		function receivePostMessage(event) { //event = {data: message data, origin: url of origin, source: id of sending element}
-			if (event.data && event.data.command) switch(event.data.command){
-				case "getState":
-					if (event.data.stateId) switch(event.data.stateId){
-						case getUrlParameter("useThisDatapoint") || "---undefined---":
-						console.log("Received USE_THIS_DATAPOINT");
-						USE_THIS_DATAPOINT = event.data.value;
-						createTable();
-						break;
+            //columnSort Table
+            var columnSortTableTimeout = false;
+            function columnSortTable() {
+                if (!columnSortTableTimeout)
+                    columnSortTableTimeout = setTimeout(function () {
+                        columnSortTableTimeout = false;
+                        $('.columnSortIndicator').remove();
+                        if (columnSortCol && colsSortedAndFiltered.indexOf(columnSortCol) > -1) {
+                            //columnSort Indicators
+                            for (var col = 0; col < colsSortedAndFiltered.length; col++) {
+                                $th = $('th[data-col="' + colsSortedAndFiltered[col] + '"]');
+                                if (colsSortedAndFiltered[col] == columnSortCol)
+                                    $th.addClass('columnSort' + (columnSortColDesc ? 'Desc ' : 'Asc '));
+                                else $th.removeClass('columnSortAsc').removeClass('columnSortDesc');
+                                if (!columnSortColHideIndicator && colsSortedAndFiltered[col] == columnSortCol)
+                                    $th.append(
+                                        "<span class='columnSortIndicator'>&nbsp;" +
+                                            (columnSortColDesc ? '&#9660;' : '&#9650;') +
+                                            '</span>',
+                                    );
+                            }
+                            //Start sorting
+                            $('tbody tr')
+                                .sort(function (a, b) {
+                                    if (columnSortColDesc) {
+                                        return collator.compare(getSortValues(b), getSortValues(a));
+                                    } else {
+                                        return collator.compare(getSortValues(a), getSortValues(b));
+                                    }
+                                    function getSortValues(row) {
+                                        let result = '';
+                                        let columnSortCols = columnSortCol.split(';');
+                                        for (col of columnSortCols) {
+                                            result += $(row)
+                                                .find('td[data-colname="' + col + '"]')
+                                                .html();
+                                        }
+                                        return result;
+                                    }
+                                })
+                                .appendTo($('tbody'));
+                            //RowLimit
+                            $('tbody tr').each(function (index, element) {
+                                if (rowsLimit == 0 || index < rowsLimit) $(this).css('display', '');
+                                else $(this).css('display', 'none');
+                            });
+                        }
+                    }, 20);
+            }
 
-						case "STATE":
-						console.log("Received STATE");
-						STATE = event.data.value;
-						createTable();
-						break;
+            //Toggle datapoint
+            function spanToggleClick() {
+                var id = $(this).data('id');
+                var state = datapoints[id];
+                if (state && state.readonly == false) {
+                    switch (state.type) {
+                        case 'button':
+                            var newVal = true;
+                            break;
 
-						case "LEVEL":
-						console.log("Received LEVEL");
-						LEVEL = event.data.value;
-						createTable();
-						break;
-						
-						default:
-						if (typeof datapoints[event.data.stateId] == "undefined"){
-							datapoints[event.data.stateId] = event.data.value;
-						} else {
-							datapoints[event.data.stateId] = Object.assign({}, datapoints[event.data.stateId], event.data.value);						
-						}
-						updateDatapoint(event.data.stateId);
-					}
-				break;
-				
-				case "getOptions":
-				console.log("Received OPTIONS");
-				if (event.data.value){
-					options = event.data.value;
-					handleOptions();
-				}
-				break;
-			}
-		}
-		
-		//GetUrlParameter
-		function getUrlParameter(name) {
-			name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-			var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-			var results = regex.exec(location.search);
-			return results === null ? null : decodeURIComponent(results[1].replace(/\+/g, ' '));
-		};
+                        case 'level':
+                            var oldVal = state.val;
+                            var min = state.min || 0;
+                            var max = state.max || 100;
+                            var newVal;
+                            if (oldVal > min) newVal = min;
+                            else newVal = max;
+                            break;
 
-		//tryParseJSON
-		function tryParseJSON(jsonString){ //Returns parsed object or false, if jsonString is not valid
-			try {
-				var o = JSON.parse(jsonString);
-				if (o && typeof o === "object") {
-					return o;
-				}
-			}
-			catch (e) { }
-			return false;
-		};
-		
-		//multiReplace
-		function multiReplace(string, replacementObj, exactMatch){ //Replaces multiple replacements in string. replacementObj = [{searchValue: "", newValue: ""}, ...]
-			replacementObj.forEach(function(replacement){
-				if (replacement.exactMatch){
-					if (replacement.caseInsensitive) {
-						if (string.toString().toLowerCase() == replacement.searchValue.toString().toLowerCase()) string = replacement.newValue;
-					} else {
-						if (string == replacement.searchValue) string = replacement.newValue;
-					}
-				} else {
-					let flags = "";
-					if (replacement.caseInsensitive) flags += "i";
-					flags += "g";
-					var regex = new RegExp(replacement.searchValue, flags);
-					string = string.toString().replace(regex, replacement.newValue);
-				}
-			});
-			return string;
-		}
+                        case 'valueList':
+                            var oldVal = state.val;
+                            if (oldVal == true || oldVal.toString().toLowerCase() == 'true') oldVal = 1;
+                            if (oldVal == false || oldVal.toString().toLowerCase() == 'false') oldVal = 0;
+                            var min = state.min || 0;
+                            if (
+                                typeof state.valueList !== 'undefined' &&
+                                oldVal + 1 >= Object.keys(state.valueList).length
+                            )
+                                var newVal = min;
+                            else newVal = oldVal + 1;
+                            break;
 
-		//Get elapsed String from timecode
-		function getElapsedStringFromTimecode(time, format){
-			let now = new Date();
-			let tcString = "";
-			let elapsedString = "";
-			let elapsedStringSince = "";
-			let elapsedStringShort = "";
-			if (time > 0) {
-				tc = new Date(time);
-				if (now.getFullYear() != tc.getFullYear() || now.getMonth() != tc.getMonth() || now.getDate() != tc.getDate()){
-					tcString = ('0' + tc.getDate()).slice(-2) + "." + ('0' + (tc.getMonth() + 1)).slice(-2) + "." + tc.getFullYear();
-				} else {
-					tcString = ('0' + tc.getHours()).slice(-2) + ":" + ('0' + tc.getMinutes()).slice(-2);
-				}
-				var difference = now - tc;
-				if (difference < 1000 * 60) {
-					//elapsedString = _("%s seconds ago", Math.floor(difference/1000));
-					elapsedString = _("<1 minute ago");
-					elapsedStringSince = _("since <1 minute");
-					elapsedStringShort = _("<1 m");
-				} else if (difference < 1000 * 60 * 60) {
-					if (Math.floor(difference/(1000 * 60)) == 1) {
-						elapsedString = _("1 minute ago");
-						elapsedStringSince = _("since %s minute", 1);
-					} else {
-						elapsedString = _("%s minutes ago", Math.floor(difference/(1000 * 60)));
-						elapsedStringSince = _("since %s minutes", Math.floor(difference/(1000 * 60)));
-					}
-					elapsedStringShort = _("%s m", Math.floor(difference/(1000 * 60)));
-				} else if (difference < 1000 * 60 * 60 * 24) {
-					if (Math.floor(difference/(1000 * 60 * 60)) == 1){
-						elapsedString = _("1 hour ago");
-						elapsedStringSince = _("since %s hour", 1);
-					} else {
-						elapsedString = _("%s hours ago", Math.floor(difference/(1000 * 60 * 60)));
-						elapsedStringSince = _("since %s hours", Math.floor(difference/(1000 * 60 * 60)));
-					}
-					elapsedStringShort = _("%s h", Math.floor(difference/(1000 * 60 * 60)));
-				} else {
-					if (Math.floor(difference/(1000 * 60 * 60 * 24)) == 1){
-						elapsedString = _("1 day ago");
-						elapsedStringSince = _("since %s day", 1);
-					} else {
-						elapsedString = _("%s days ago", Math.floor(difference/(1000 * 60 * 60 * 24)));
-						elapsedStringSince = _("since %s days", Math.floor(difference/(1000 * 60 * 60 * 24)));
-					}
-					elapsedStringShort = _("%s d", Math.floor(difference/(1000 * 60 * 60 * 24)));
-				}
-			}
-			switch (format){
-				case "E":
-				return elapsedString;
-				break;
+                        case 'switch':
+                        default:
+                            var oldVal = state.val;
+                            var newVal;
+                            if (typeof oldVal == 'number') {
+                                if (oldVal) newVal = 0;
+                                else newVal = 1;
+                            } else {
+                                if (oldVal.toString().toLowerCase() == 'true') newVal = false;
+                                else newVal = true;
+                            }
+                    }
+                    if (typeof newVal !== 'undefined') sendPostMessage('setState', id, newVal);
+                }
+            }
 
-				case "E.":
-				return elapsedStringSince;
-				break;
+            //create Breakpoints
+            function createBreakpoints(numberOfNeededBreakpoints) {
+                if (breakpointsCount < numberOfNeededBreakpoints) {
+                    if (breakpoints.length < numberOfNeededBreakpoints) {
+                        while (numberOfNeededBreakpoints > breakpoints.length) {
+                            breakpoints.push(((parseInt(breakpoints[breakpoints.length - 1]) || 10) + 10).toString());
+                        }
+                    }
+                    var customCSS = '';
+                    for (i = 0; i < numberOfNeededBreakpoints; i++) {
+                        //Add breakpoint
+                        customCSS += '.ui-table-columntoggle th.ui-table-priority-' + (i + 1) + ',';
+                        customCSS += '.ui-table-columntoggle td.ui-table-priority-' + (i + 1) + ' {';
+                        customCSS += '   display: none;';
+                        customCSS += '}';
+                        customCSS += '@media screen and (min-width: ' + breakpoints[i] + 'em) {';
+                        customCSS += '   .ui-table-columntoggle th.ui-table-priority-' + (i + 1) + ',';
+                        customCSS += '   .ui-table-columntoggle td.ui-table-priority-' + (i + 1) + ' {';
+                        customCSS += '     display: table-cell;';
+                        customCSS += '   }';
+                        customCSS += '} ';
+                    }
+                    // Manually hidden
+                    customCSS += '.ui-table-columntoggle th.ui-table-cell-hidden,';
+                    customCSS += '.ui-table-columntoggle td.ui-table-cell-hidden {';
+                    customCSS += '  display: none;';
+                    customCSS += '} ';
+                    // Manually shown
+                    customCSS += '.ui-table-columntoggle th.ui-table-cell-visible,';
+                    customCSS += '.ui-table-columntoggle td.ui-table-cell-visible {';
+                    customCSS += '   display: table-cell;';
+                    customCSS += '} ';
+                    removeCustomCSS('breakpoints');
+                    addCustomCSS(customCSS, 'breakpoints');
+                    breakpointsCount = numberOfNeededBreakpoints;
+                }
+            }
 
-				case "e":
-				return elapsedStringShort;
-				break;
-				
-				default:
-				return "<!--" + (typeof time != "undefined" ? time : 0) + "-->" + tcString;
-			}
-		}
-		
-		//_translate
-		function _(string, variable){
-			return multiReplace(string, translations).replace('%s', variable);
-		}
-		
-		//Add custom CSS
-		function addCustomCSS(customCSS, customID){
-			customID = customID || "default";
-			$('head').append('<style class="customCSS_' + customID + '">' + customCSS + '</style>');
-		}
-		
-		//Remove custom CSS
-		function removeCustomCSS(customID){
-			customID = customID || "default";
-			$('.customCSS_' + customID).remove();
-		}
-		
-		//Addon for ioBroker.alexa-shoppinglist
-		function setOnDblClickCustomShop(myvalue) {
-			let id = myvalue.slice(0,myvalue.indexOf(","));
-			let newVal = myvalue.slice(myvalue.indexOf(",")+1, myvalue.length);
-			if (newVal == "true") newVal = true; else if (newVal == "false") newVal = false;
-			if (typeof newVal !== "undefined") sendPostMessage("setState", id, newVal);
-		}		
-	</script>
-</body>
+            //Adjust height
+            var tableResizeObserver;
+            var tableResizeObserverTimeout = false;
+            var tableResizeObserverOldHeight = -1;
+            function applyAdjustHeight() {
+                if (adjustHeight && getUrlParameter('allowAdjustHeight') == 'true') {
+                    console.log('Starting table resize observer to adjust height');
+                    if (tableResizeObserver) {
+                        tableResizeObserver.disconnect();
+                    } else {
+                        tableResizeObserver = new MutationObserver(adjustHeightFunction);
+                    }
+                    tableResizeObserver.observe(document.querySelector('#jsonTableContent'), {
+                        attributes: true,
+                        attributeOldValue: true,
+                        childList: false,
+                        subtree: true,
+                    });
+                    $(window).off('resize').on('resize', adjustHeightNow);
+                    adjustHeightNow();
+                }
+            }
+            function adjustHeightNow() {
+                adjustHeightFunction([{ attributeName: 'style' }]);
+            }
+            function adjustHeightFunction(mutationList) {
+                mutationList.forEach(function (mutation) {
+                    if (mutation.attributeName === 'style' && !tableResizeObserverTimeout) {
+                        tableResizeObserverTimeout = setTimeout(function () {
+                            var height = $('#jsonTableContent').innerHeight();
+                            if (tableResizeObserverOldHeight != height) {
+                                if (height == 0) height = -1;
+                                console.log('adjustHeight to table: ' + height);
+                                window.parent.postMessage({ command: 'adjustHeight', value: height }, '*');
+                            }
+                            tableResizeObserverOldHeight = height;
+                            tableResizeObserverTimeout = false;
+                        }, 10);
+                    }
+                });
+            }
+
+            //send postMessages
+            function sendPostMessage(command, stateId, value) {
+                message = { command: command, stateId: stateId, value: value };
+                window.parent.postMessage(message, '*');
+            }
+
+            //receive postMessages
+            window.addEventListener('message', receivePostMessage, false);
+            function receivePostMessage(event) {
+                //event = {data: message data, origin: url of origin, source: id of sending element}
+                if (event.data && event.data.command)
+                    switch (event.data.command) {
+                        case 'getState':
+                            if (event.data.stateId)
+                                switch (event.data.stateId) {
+                                    case getUrlParameter('useThisDatapoint') || '---undefined---':
+                                        console.log('Received USE_THIS_DATAPOINT');
+                                        USE_THIS_DATAPOINT = event.data.value;
+                                        createTable();
+                                        break;
+
+                                    case 'STATE':
+                                        console.log('Received STATE');
+                                        STATE = event.data.value;
+                                        createTable();
+                                        break;
+
+                                    case 'LEVEL':
+                                        console.log('Received LEVEL');
+                                        LEVEL = event.data.value;
+                                        createTable();
+                                        break;
+
+                                    default:
+                                        if (typeof datapoints[event.data.stateId] == 'undefined') {
+                                            datapoints[event.data.stateId] = event.data.value;
+                                        } else {
+                                            datapoints[event.data.stateId] = Object.assign(
+                                                {},
+                                                datapoints[event.data.stateId],
+                                                event.data.value,
+                                            );
+                                        }
+                                        updateDatapoint(event.data.stateId);
+                                }
+                            break;
+
+                        case 'getOptions':
+                            console.log('Received OPTIONS');
+                            if (event.data.value) {
+                                options = event.data.value;
+                                handleOptions();
+                            }
+                            break;
+                    }
+            }
+
+            //GetUrlParameter
+            function getUrlParameter(name) {
+                name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+                var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+                var results = regex.exec(location.search);
+                return results === null ? null : decodeURIComponent(results[1].replace(/\+/g, ' '));
+            }
+
+            //tryParseJSON
+            function tryParseJSON(jsonString) {
+                //Returns parsed object or false, if jsonString is not valid
+                try {
+                    var o = JSON.parse(jsonString);
+                    if (o && typeof o === 'object') {
+                        return o;
+                    }
+                } catch (e) {}
+                return false;
+            }
+
+            //multiReplace
+            function multiReplace(string, replacementObj, exactMatch) {
+                //Replaces multiple replacements in string. replacementObj = [{searchValue: "", newValue: ""}, ...]
+                replacementObj.forEach(function (replacement) {
+                    if (replacement.exactMatch) {
+                        if (replacement.caseInsensitive) {
+                            if (string.toString().toLowerCase() == replacement.searchValue.toString().toLowerCase())
+                                string = replacement.newValue;
+                        } else {
+                            if (string == replacement.searchValue) string = replacement.newValue;
+                        }
+                    } else {
+                        let flags = '';
+                        if (replacement.caseInsensitive) flags += 'i';
+                        flags += 'g';
+                        var regex = new RegExp(replacement.searchValue, flags);
+                        string = string.toString().replace(regex, replacement.newValue);
+                    }
+                });
+                return string;
+            }
+
+            //Get elapsed String from timecode
+            function getElapsedStringFromTimecode(time, format) {
+                let now = new Date();
+                let tcString = '';
+                let elapsedString = '';
+                let elapsedStringSince = '';
+                let elapsedStringShort = '';
+                if (time > 0) {
+                    tc = new Date(time);
+                    if (
+                        now.getFullYear() != tc.getFullYear() ||
+                        now.getMonth() != tc.getMonth() ||
+                        now.getDate() != tc.getDate()
+                    ) {
+                        tcString =
+                            ('0' + tc.getDate()).slice(-2) +
+                            '.' +
+                            ('0' + (tc.getMonth() + 1)).slice(-2) +
+                            '.' +
+                            tc.getFullYear();
+                    } else {
+                        tcString = ('0' + tc.getHours()).slice(-2) + ':' + ('0' + tc.getMinutes()).slice(-2);
+                    }
+                    var difference = now - tc;
+                    if (difference < 1000 * 60) {
+                        //elapsedString = _("%s seconds ago", Math.floor(difference/1000));
+                        elapsedString = _('<1 minute ago');
+                        elapsedStringSince = _('since <1 minute');
+                        elapsedStringShort = _('<1 m');
+                    } else if (difference < 1000 * 60 * 60) {
+                        if (Math.floor(difference / (1000 * 60)) == 1) {
+                            elapsedString = _('1 minute ago');
+                            elapsedStringSince = _('since %s minute', 1);
+                        } else {
+                            elapsedString = _('%s minutes ago', Math.floor(difference / (1000 * 60)));
+                            elapsedStringSince = _('since %s minutes', Math.floor(difference / (1000 * 60)));
+                        }
+                        elapsedStringShort = _('%s m', Math.floor(difference / (1000 * 60)));
+                    } else if (difference < 1000 * 60 * 60 * 24) {
+                        if (Math.floor(difference / (1000 * 60 * 60)) == 1) {
+                            elapsedString = _('1 hour ago');
+                            elapsedStringSince = _('since %s hour', 1);
+                        } else {
+                            elapsedString = _('%s hours ago', Math.floor(difference / (1000 * 60 * 60)));
+                            elapsedStringSince = _('since %s hours', Math.floor(difference / (1000 * 60 * 60)));
+                        }
+                        elapsedStringShort = _('%s h', Math.floor(difference / (1000 * 60 * 60)));
+                    } else {
+                        if (Math.floor(difference / (1000 * 60 * 60 * 24)) == 1) {
+                            elapsedString = _('1 day ago');
+                            elapsedStringSince = _('since %s day', 1);
+                        } else {
+                            elapsedString = _('%s days ago', Math.floor(difference / (1000 * 60 * 60 * 24)));
+                            elapsedStringSince = _('since %s days', Math.floor(difference / (1000 * 60 * 60 * 24)));
+                        }
+                        elapsedStringShort = _('%s d', Math.floor(difference / (1000 * 60 * 60 * 24)));
+                    }
+                }
+                switch (format) {
+                    case 'E':
+                        return elapsedString;
+                        break;
+
+                    case 'E.':
+                        return elapsedStringSince;
+                        break;
+
+                    case 'e':
+                        return elapsedStringShort;
+                        break;
+
+                    default:
+                        return '<!--' + (typeof time != 'undefined' ? time : 0) + '-->' + tcString;
+                }
+            }
+
+            //_translate
+            function _(string, variable) {
+                return multiReplace(string, translations).replace('%s', variable);
+            }
+
+            //Add custom CSS
+            function addCustomCSS(customCSS, customID) {
+                customID = customID || 'default';
+                $('head').append('<style class="customCSS_' + customID + '">' + customCSS + '</style>');
+            }
+
+            //Remove custom CSS
+            function removeCustomCSS(customID) {
+                customID = customID || 'default';
+                $('.customCSS_' + customID).remove();
+            }
+
+            //Addon for ioBroker.alexa-shoppinglist
+            function setOnDblClickCustomShop(myvalue) {
+                let id = myvalue.slice(0, myvalue.indexOf(','));
+                let newVal = myvalue.slice(myvalue.indexOf(',') + 1, myvalue.length);
+                if (newVal == 'true') newVal = true;
+                else if (newVal == 'false') newVal = false;
+                if (typeof newVal !== 'undefined') sendPostMessage('setState', id, newVal);
+            }
+        </script>
+    </body>
 </html>

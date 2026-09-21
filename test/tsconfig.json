@@ -1,9 +1,7 @@
 {
-	"extends": "../tsconfig.json",
-	"compilerOptions": {
-		"noImplicitAny": false
-	},
-	"include": [
-		"./**/*.js"
-	]
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "noImplicitAny": false
+    },
+    "include": ["./**/*.js"]
 }

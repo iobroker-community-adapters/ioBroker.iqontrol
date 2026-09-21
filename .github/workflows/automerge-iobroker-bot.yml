@@ -5,21 +5,21 @@
 name: Auto-Merge ioBroker-Bot PRs
 
 on:
-  pull_request_target:
-    types: [opened, synchronize, reopened, edited]
+    pull_request_target:
+        types: [opened, synchronize, reopened, edited]
 
 jobs:
-  auto-merge:
-    runs-on: ubuntu-latest
-    if: github.actor == 'ioBroker-Bot'
+    auto-merge:
+        runs-on: ubuntu-latest
+        if: github.actor == 'ioBroker-Bot'
 
-    permissions:
-      contents: write
-      pull-requests: write
+        permissions:
+            contents: write
+            pull-requests: write
 
-    steps:
-      - name: Auto-merge ioBroker-Bot PRs
-        uses: iobroker-bot-orga/action-automerge-iobroker-bot@v1
-        with:
-          github-token: ${{ secrets.AUTO_MERGE_TOKEN_IOBROKER_BOT }}
-          pull-request-ref: ${{ github.event.pull_request.number }}
+        steps:
+            - name: Auto-merge ioBroker-Bot PRs
+              uses: iobroker-bot-orga/action-automerge-iobroker-bot@v1
+              with:
+                  github-token: ${{ secrets.AUTO_MERGE_TOKEN_IOBROKER_BOT }}
+                  pull-request-ref: ${{ github.event.pull_request.number }}

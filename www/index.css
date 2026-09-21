@@ -7,242 +7,246 @@
 }
 
 document {
-	overflow: hidden !important;
-	overscroll-behavior: contain !important;
-	background: transparent !important;
+    overflow: hidden !important;
+    overscroll-behavior: contain !important;
+    background: transparent !important;
 }
 
 html {
-	overflow-y: scroll !important;
-	overflow-x: hidden !important;
-	overscroll-behavior: contain !important;
-	background: transparent !important;
-	-webkit-transition: all 1s;
-	   -moz-transition: all 1s;
-			transition: all 1s;
-	scrollbar-width: thin;
+    overflow-y: scroll !important;
+    overflow-x: hidden !important;
+    overscroll-behavior: contain !important;
+    background: transparent !important;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    transition: all 1s;
+    scrollbar-width: thin;
 }
 html.noscroll {
-	overflow: hidden !important;
+    overflow: hidden !important;
 }
 ::-webkit-scrollbar {
-  width: 5px;
+    width: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #eee;
+    background: #eee;
 }
 ::-webkit-scrollbar-thumb {
-  background: #aaa; 
+    background: #aaa;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #888; 
+    background: #888;
 }
 .isBackgroundView {
-  scrollbar-width: none;
+    scrollbar-width: none;
 }
 .isBackgroundView::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 body {
-	-webkit-user-select: none !important;
-	   -moz-user-select: none !important; 
-	        user-select: none !important;
-	-webkit-touch-callout: none !important;
-	background-size: cover !important;
-	overflow: visible !important;
-	overscroll-behavior: contain !important;
-	background: transparent !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    user-select: none !important;
+    -webkit-touch-callout: none !important;
+    background-size: cover !important;
+    overflow: visible !important;
+    overscroll-behavior: contain !important;
+    background: transparent !important;
 }
-body:not(.isBackgroundView):not(.backstretchLoaded){
-	background: fixed linear-gradient(347deg, rgba(85,13,69,0.5) 0%, rgba(150,19,152,0.5) 27%, rgba(0,212,255,0.5) 100%) !important;
+body:not(.isBackgroundView):not(.backstretchLoaded) {
+    background: fixed
+        linear-gradient(347deg, rgba(85, 13, 69, 0.5) 0%, rgba(150, 19, 152, 0.5) 27%, rgba(0, 212, 255, 0.5) 100%) !important;
 }
 html.noscroll body {
-	touch-action: none;
-	-ms-touch-action: none;
+    touch-action: none;
+    -ms-touch-action: none;
 }
-
 
 .small {
-	font-size: 70%;
+    font-size: 70%;
 }
 
-
-/* ++++++++++ Loader ++++++++++ */ 
+/* ++++++++++ Loader ++++++++++ */
 .loader {
-	-webkit-user-select: none !important;
-	   -moz-user-select: none !important; 
-	        user-select: none !important;
-	-webkit-touch-callout: none !important;
-	border: 16px solid #484848; /* Light grey */
-	border-top: 16px solid #059; /* Blue */
-	-webkit-border-radius: 50%;
-	   -moz-border-radius: 50%;
-			border-radius: 50%;
-	width: 80px;
-	height: 80px;
-	animation: spin 3s linear infinite;
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	left: calc(50% - 16px);
-	margin-top:-40px;
-	margin-left:-40px;
-	z-index: 9999;
-} @keyframes spin {
-	0% { transform: rotate(0deg); }
-	100% { transform: rotate(360deg); }
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    user-select: none !important;
+    -webkit-touch-callout: none !important;
+    border: 16px solid #484848; /* Light grey */
+    border-top: 16px solid #059; /* Blue */
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 3s linear infinite;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    left: calc(50% - 16px);
+    margin-top: -40px;
+    margin-left: -40px;
+    z-index: 9999;
 }
-.isBackgroundView .loader {   
-    border: 5px solid #484848; /* Light grey */	
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.isBackgroundView .loader {
+    border: 5px solid #484848; /* Light grey */
     border-top: 5px solid #059; /* Blue */
     width: 10px;
-	height: 10px;
-	left: 50%;
-	left: calc(50% + 30px);
-	top: 50px;
+    height: 10px;
+    left: 50%;
+    left: calc(50% + 30px);
+    top: 50px;
 }
 
-
-/* ++++++++++ Pincode ++++++++++ */ 
+/* ++++++++++ Pincode ++++++++++ */
 #pincode {
-	display: none;
-	-webkit-user-select: none !important;
-	   -moz-user-select: none !important; 
-	        user-select: none !important;
-	-webkit-touch-callout: none !important;
-	width: 100vw;
-	height: 100vh;
-	position: fixed;
-	top: 0px;
-	left: 0px;
-	margin: 0px;
-	padding: 0px;
-	background-color: rgba(0,0,0,0.4);
-	-webkit-backdrop-filter: blur(5px);
-	   -moz-backdrop-filter: blur(5px);
-		    backdrop-filter: blur(5px);
-	z-index: 9990;
+    display: none;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    user-select: none !important;
+    -webkit-touch-callout: none !important;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    margin: 0px;
+    padding: 0px;
+    background-color: rgba(0, 0, 0, 0.4);
+    -webkit-backdrop-filter: blur(5px);
+    -moz-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    z-index: 9990;
 }
 .pincodeForm {
-	-webkit-user-select: none !important;
-	   -moz-user-select: none !important; 
-	        user-select: none !important;
-	-webkit-touch-callout: none !important;
-	width: 280px; 
-	height: 445px;
-	position: fixed;
-	top: 45%;
-	left: 50%;
-	padding: 0px;
-	margin-left: -140px;
-	margin-top: -215px;
-	background: transparent;
-	border: 0px solid rgba(0,0,0,0.3);
-	border-radius: 15px;	
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    user-select: none !important;
+    -webkit-touch-callout: none !important;
+    width: 280px;
+    height: 445px;
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    padding: 0px;
+    margin-left: -140px;
+    margin-top: -215px;
+    background: transparent;
+    border: 0px solid rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
 }
 .pincodePin {
-	background: transparent;
-	color: white;
-	margin: 10px;
-	padding: 0px;
-	width: 260px;
-	font-size: 3em;
-	text-align: center;
-	letter-spacing: 0.1em;
-	border: none;
-	outline: none;
-	overflow: hidden;
+    background: transparent;
+    color: white;
+    margin: 10px;
+    padding: 0px;
+    width: 260px;
+    font-size: 3em;
+    text-align: center;
+    letter-spacing: 0.1em;
+    border: none;
+    outline: none;
+    overflow: hidden;
 }
 .pincodeButton {
-	background-color: rgba(255,255,255,0.4);
-	display: inline-block;
-	color: #eee;
-	border: none;
-	border-radius: 50%;
-	font-size: 2em;
-	font-weight: bold;
-	text-align: center;
-	width: 70px;
-	height: 70px;
-	line-height: 70px;
-	margin: 7px 10px;
-	padding: 0px;
-	overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.4);
+    display: inline-block;
+    color: #eee;
+    border: none;
+    border-radius: 50%;
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    margin: 7px 10px;
+    padding: 0px;
+    overflow: hidden;
 }
 .pincodeButton:hover {
- 	box-shadow: #506CE8 0 0 1px 1px;
+    box-shadow: #506ce8 0 0 1px 1px;
 }
 .pincodeButton:active {
- 	background: #506CE8;
-	color: #fff;
+    background: #506ce8;
+    color: #fff;
 }
-.pincodeButton.clear, .pincodeButton.enter {
-	font-size: 1em;
-	font-weight: normal;
+.pincodeButton.clear,
+.pincodeButton.enter {
+    font-size: 1em;
+    font-weight: normal;
 }
 .pincodeButton.clear:hover {
- 	box-shadow: #ff3c41 0 0 1px 1px;
+    box-shadow: #ff3c41 0 0 1px 1px;
 }
 .pincodeButton.clear:active {
- 	background: #ff3c41;
-	color: #fff;
+    background: #ff3c41;
+    color: #fff;
 }
 .pincodeButton.enter:hover {
- 	box-shadow: #47cf73 0 0 1px 1px;
+    box-shadow: #47cf73 0 0 1px 1px;
 }
 .pincodeButton.enter:active {
- 	background: #47cf73;
-	color: #fff;
+    background: #47cf73;
+    color: #fff;
 }
 
-
-/* ++++++++++ Toolbar ++++++++++ */ 
+/* ++++++++++ Toolbar ++++++++++ */
 #Toolbar {
-	border-width: 0px !important;
-	background: transparent !important;
+    border-width: 0px !important;
+    background: transparent !important;
 }
 #ToolbarContextMenu {
-	background-color: #ffffffbf;
-	max-height: 80vh;
-	padding: 1px;
-	overflow-y: auto;
+    background-color: #ffffffbf;
+    max-height: 80vh;
+    padding: 1px;
+    overflow-y: auto;
 }
 #ToolbarContextMenu a {
-	min-width: 200px;
-	background-color: #d8d8d899;
-	border-top: 1px solid #9e9b9b82;
-	border-left: none;
-	border-right: none;
-	border-bottom: 1px solid #9e9b9b82;
-	margin: -1px;
-	padding: 20px 40px 20px 10px;
+    min-width: 200px;
+    background-color: #d8d8d899;
+    border-top: 1px solid #9e9b9b82;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #9e9b9b82;
+    margin: -1px;
+    padding: 20px 40px 20px 10px;
 }
-.iQontrolToolbarLink{
-	padding-bottom: max(9px, env(safe-area-inset-bottom)) !important;
+.iQontrolToolbarLink {
+    padding-bottom: max(9px, env(safe-area-inset-bottom)) !important;
 }
 .iQontrolToolbarLink.ui-btn:not(.ui-btn-active) {
-	max-width: 100%;
-	background-color: #333333 !important;
+    max-width: 100%;
+    background-color: #333333 !important;
     border-color: #1f1f1f !important;
-	color: #ffffff !important;
+    color: #ffffff !important;
     text-shadow: 0 1px 0 #111111 !important;
 }
 .iQontrolToolbarLink.ui-btn:not(.ui-btn-active):hover {
-	background-color: #373737 !important;
-	color: #ffffff !important;
+    background-color: #373737 !important;
+    color: #ffffff !important;
 }
-.iQontrolToolbarLink.ui-btn.ui-btn-active, .iQontrolToolbarLink.ui-btn.ui-btn-active:hover {
-	max-width: 100%;
-	z-index: 20;
-	background-color: #0c5088 !important;
+.iQontrolToolbarLink.ui-btn.ui-btn-active,
+.iQontrolToolbarLink.ui-btn.ui-btn-active:hover {
+    max-width: 100%;
+    z-index: 20;
+    background-color: #0c5088 !important;
     border-color: #1f1f1f !important;
-	color: #ffffff !important;
+    color: #ffffff !important;
     box-shadow: 0 0 12px 1px #0c5088 !important;
     text-shadow: 0 1px 0 #111111 !important;
 }
 .iQontrolToolbarLink.ui-btn:after {
-	background-color: transparent !important;
+    background-color: transparent !important;
 }
 .iQontrolToolbarBadge {
     pointer-events: none !important;
@@ -259,7 +263,7 @@ html.noscroll body {
     border-radius: 8px;
     box-shadow: #0000001f 0 0 2px 2px;
     text-align: center;
-    background-color: rgba(255,0,0,0.8);
+    background-color: rgba(255, 0, 0, 0.8);
     padding: 0px 2px 0px 2px;
     font-family: sans-serif;
     font-weight: 500;
@@ -273,83 +277,87 @@ html.noscroll body {
     opacity: 1;
 }
 
-/* ++++++++++ Panel ++++++++++ */ 
+/* ++++++++++ Panel ++++++++++ */
 #Panel {
-	position: fixed;
-	z-index: 2000;
-	background: rgba(255,255,255,0.5);
+    position: fixed;
+    z-index: 2000;
+    background: rgba(255, 255, 255, 0.5);
     clip: unset !important;
-	overflow: hidden;
+    overflow: hidden;
 }
 .ui-panel-wrapper {
-	height: 100vh !important;
-	overflow: visible !important;
-	overscroll-behavior: contain !important;
-	background: transparent !important;
+    height: 100vh !important;
+    overflow: visible !important;
+    overscroll-behavior: contain !important;
+    background: transparent !important;
 }
-.ui-panel, .ui-panel-inner {
-	height: 100vh !important;
-	overflow: visible !important;
-	overscroll-behavior: contain !important;
-	background: transparent !important;
+.ui-panel,
+.ui-panel-inner {
+    height: 100vh !important;
+    overflow: visible !important;
+    overscroll-behavior: contain !important;
+    background: transparent !important;
 }
 .ui-panel-inner {
-	height: 100vh !important;
-	overflow-x: hidden !important;
-	overflow-y: visible !important;
-	overscroll-behavior: contain !important;
-	background: transparent !important;
+    height: 100vh !important;
+    overflow-x: hidden !important;
+    overflow-y: visible !important;
+    overscroll-behavior: contain !important;
+    background: transparent !important;
 }
 .ui-panel-closed {
-	width: 17em !important;
+    width: 17em !important;
 }
 .ui-panel:not(.ui-panel-open) {
-	transform: translate3D(-17em,0,0) !important;	
+    transform: translate3D(-17em, 0, 0) !important;
 }
-.panelOpener, .panelCloser {
-	display: none;
-	opacity: 0;
-	width: 20px;
-	height: 100px;
-	top: 40%;
-	top: calc(50vh - 100px);
-	z-index: 1000;
-	-webkit-border-radius: 10px;
-	   -moz-border-radius: 10px;
-			border-radius: 10px;
-	background: rgba(140,140,140,0.5);	
-	-webkit-transition: all 0.5s;
-	   -moz-transition: all 0.5s;
-			transition: all 0.5s;
+.panelOpener,
+.panelCloser {
+    display: none;
+    opacity: 0;
+    width: 20px;
+    height: 100px;
+    top: 40%;
+    top: calc(50vh - 100px);
+    z-index: 1000;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(140, 140, 140, 0.5);
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
 }
-.panelOpener:before, .panelCloser:before {
-	content: "";
-	position: absolute;
-	top: -40%;
-	left: -100%;
-	width: 300%;
-	height: 180%;
-	background: transparent;
+.panelOpener:before,
+.panelCloser:before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    left: -100%;
+    width: 300%;
+    height: 180%;
+    background: transparent;
 }
-.panelOpener:hover, .panelCloser:hover {
-	background: rgba(150,150,150,0.85);	
-	-webkit-box-shadow: 0px 1px 2px 2px rgba(0,0,0,0.3);
-	   -moz-box-shadow: 0px 1px 2px 2px rgba(0,0,0,0.3);
-			box-shadow: 0px 1px 2px 2px rgba(0,0,0,0.3);
+.panelOpener:hover,
+.panelCloser:hover {
+    background: rgba(150, 150, 150, 0.85);
+    -webkit-box-shadow: 0px 1px 2px 2px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 1px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 1px 2px 2px rgba(0, 0, 0, 0.3);
 }
 .panelOpener.left {
-	position: fixed;	
-	left: -15px;	
+    position: fixed;
+    left: -15px;
 }
 .panelOpener.left:hover {
-	left: -8px;	
+    left: -8px;
 }
 .panelOpener.right {
-	position: fixed;	
-	right: -15px;	
+    position: fixed;
+    right: -15px;
 }
 .panelOpener.right:hover {
-	right: -8px;	
+    right: -8px;
 }
 .panelCloser.left {
     position: relative;
@@ -367,17 +375,18 @@ html.noscroll body {
 .panelCloser.right:hover {
     margin-left: -23px;
 }
-.panelOpenerArrow, .panelCloserArrow {
+.panelOpenerArrow,
+.panelCloserArrow {
     position: relative;
-	width: 20px;
+    width: 20px;
     height: 20px;
     top: 36px;
     background: transparent;
     transform: rotate(45deg);
-    border: 4px solid rgba(255,255,255,0.4);
-	-webkit-border-radius: 2px;
-	   -moz-border-radius: 2px;
-			border-radius: 2px;
+    border: 4px solid rgba(255, 255, 255, 0.4);
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
 }
 .panelOpener.left .panelOpenerArrow {
     right: 13px;
@@ -392,1144 +401,1435 @@ html.noscroll body {
     left: 6px;
 }
 .panelIframeWrapper {
-	-webkit-user-select: none !important;
-	   -moz-user-select: none !important; 
-	        user-select: none !important;
-	-webkit-touch-callout: none !important;
-	position: absolute;	top:0px; left:0px; width:100%; height:100%;
-	display: block;
-	border: none; 
-	overflow: hidden;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    user-select: none !important;
+    -webkit-touch-callout: none !important;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: none;
+    overflow: hidden;
 }
 .panelIframe {
-	width: 100%;
-	min-height: 100%;
-	height: 100%;
-	border: none;
+    width: 100%;
+    min-height: 100%;
+    height: 100%;
+    border: none;
 }
 
-
-/* ++++++++++ View ++++++++++ */ 
-#View { /* #View = .ui-page */
-	overflow: visible !important;
-	overscroll-behavior: contain !important;
-	background: transparent !important;
-	-webkit-user-select: none !important;
-	   -moz-user-select: none !important; 
-	        user-select: none !important;
-	-webkit-touch-callout: none !important;
-	min-height: unset !important;
+/* ++++++++++ View ++++++++++ */
+#View {
+    /* #View = .ui-page */
+    overflow: visible !important;
+    overscroll-behavior: contain !important;
+    background: transparent !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    user-select: none !important;
+    -webkit-touch-callout: none !important;
+    min-height: unset !important;
 }
 #ViewMain {
-	overflow: hidden !important;
-	overscroll-behavior: contain !important;
-	margin: 0px;
-	padding: 0px;
-	padding-left: env(safe-area-inset-left);
-	padding-right: env(safe-area-inset-right);
-	min-height:100vh;
-	color: #FFF;
-	font-size: 11pt;
-	font-weight: bold;
-	font-family: verdana,tahoma,arial,helvetica,sans-serif;
-	text-shadow: none;
-	background-color: transparent;
+    overflow: hidden !important;
+    overscroll-behavior: contain !important;
+    margin: 0px;
+    padding: 0px;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    min-height: 100vh;
+    color: #fff;
+    font-size: 11pt;
+    font-weight: bold;
+    font-family: verdana, tahoma, arial, helvetica, sans-serif;
+    text-shadow: none;
+    background-color: transparent;
 }
 #ViewHeaderTitle {
-	position: relative;
-	background-color: rgba(0,0,0,0.15);
-	margin: 20px 0px 20px -5px;
-	padding: 0px 0px 0px 7px;
-	margin-left: calc(-5px - env(safe-area-inset-left));
-	padding-left: calc(env(safe-area-inset-left) + 7px);
-	width: 200vw;
-	-webkit-transition: all 1s;
-	   -moz-transition: all 1s;
-			transition: all 1s;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.15);
+    margin: 20px 0px 20px -5px;
+    padding: 0px 0px 0px 7px;
+    margin-left: calc(-5px - env(safe-area-inset-left));
+    padding-left: calc(env(safe-area-inset-left) + 7px);
+    width: 200vw;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    transition: all 1s;
 }
 #ViewContent {
-	transform-origin: left top;
-	padding-bottom: 0px;
-	display: inline-block;
-	width: 100%;
-	text-align: left;
-	vertical-align: top;
-	-webkit-transition: all 1s;
-	   -moz-transition: all 1s;
-			transition: all 1s;
+    transform-origin: left top;
+    padding-bottom: 0px;
+    display: inline-block;
+    width: 100%;
+    text-align: left;
+    vertical-align: top;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    transition: all 1s;
 }
 #ViewContent h4 {
-	position: relative;
-	background-color: rgba(0,0,0,0.15);
-	margin: 20px 0px 20px -5px;
-	padding: 0px 0px 0px 7px;
-	margin-left: calc(-5px - env(safe-area-inset-left));
-	padding-left: calc(env(safe-area-inset-left) + 7px);
-	width: 200vw;
-	font-weight: normal;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.15);
+    margin: 20px 0px 20px -5px;
+    padding: 0px 0px 0px 7px;
+    margin-left: calc(-5px - env(safe-area-inset-left));
+    padding-left: calc(env(safe-area-inset-left) + 7px);
+    width: 200vw;
+    font-weight: normal;
 }
-#ViewContent h4 div.subHeaderText{
-	transition: all 1s 0.5s;
+#ViewContent h4 div.subHeaderText {
+    transition: all 1s 0.5s;
 }
 #ViewDeviceContextMenu {
-	background-color: #ffffffbf;
+    background-color: #ffffffbf;
 }
 #ViewDeviceContextMenu a {
-	min-width: 200px;
-	background-color: #d8d8d899;
-	border-top: 1px solid #9e9b9b82;
-	border-left: none;
-	border-right: none;
-	border-bottom: 1px solid #9e9b9b82;
-	margin: -1px;
-	padding: 20px 40px 20px 10px;
+    min-width: 200px;
+    background-color: #d8d8d899;
+    border-top: 1px solid #9e9b9b82;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #9e9b9b82;
+    margin: -1px;
+    padding: 20px 40px 20px 10px;
 }
-.viewSwipeGoal{
-	position: fixed;
-	top: 1px;
-	height: 1.2em;
-	width: 40%;
-	z-index: 1000;
-	overflow: hidden;
-	color: white;
-	font-size: xx-small;
-	text-shadow: 0 0 3px rgba(0,0,0,0.6);
-	opacity: 0.8;
-	visibility: hidden;
+.viewSwipeGoal {
+    position: fixed;
+    top: 1px;
+    height: 1.2em;
+    width: 40%;
+    z-index: 1000;
+    overflow: hidden;
+    color: white;
+    font-size: xx-small;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.6);
+    opacity: 0.8;
+    visibility: hidden;
 }
 .viewSwipeGoal.left {
-	left: 0px;
-	left: env(safe-area-inset-left);
+    left: 0px;
+    left: env(safe-area-inset-left);
 }
 .viewSwipeGoal.right {
-	right: 0px;
-	right: env(safe-area-inset-right);
-	text-align: right;
+    right: 0px;
+    right: env(safe-area-inset-right);
+    text-align: right;
 }
 .isBackgroundView .viewSwipeGoal {
-	display: none;
+    display: none;
 }
-.viewSwipeGoal img{
-	position: absolute;
-	top: 0;
-	height:6px;
-	margin: 2px;
+.viewSwipeGoal img {
+    position: absolute;
+    top: 0;
+    height: 6px;
+    margin: 2px;
 }
-.viewSwipeGoal.left img, .viewSwipeGoal.left span {
-	left: 0;
+.viewSwipeGoal.left img,
+.viewSwipeGoal.left span {
+    left: 0;
 }
-.viewSwipeGoal.right img, .viewSwipeGoal.right span {
-	right: 0px;
+.viewSwipeGoal.right img,
+.viewSwipeGoal.right span {
+    right: 0px;
 }
 .viewSwipeGoal span {
-	padding-left: 10px;
-	padding-right: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 .viewHomeButton {
-	position: fixed;
-	bottom: 5px;
-	bottom: max(5px, env(safe-area-inset-bottom));
-	right: 5px;
-	right: max(5px, env(safe-area-inset-right));
-	height: 3em;
-	width: 3em;
-	z-index: 1100;
-	overflow: hidden;
-	opacity: 0.7;
-	display: none;
-	text-align: right;
-	-webkit-transition: all 0.5s;
-	   -moz-transition: all 0.5s;
-			transition: all 0.5s;
+    position: fixed;
+    bottom: 5px;
+    bottom: max(5px, env(safe-area-inset-bottom));
+    right: 5px;
+    right: max(5px, env(safe-area-inset-right));
+    height: 3em;
+    width: 3em;
+    z-index: 1100;
+    overflow: hidden;
+    opacity: 0.7;
+    display: none;
+    text-align: right;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
 }
 .viewHomeButton:hover {
-	opacity: 0.9;
+    opacity: 0.9;
 }
-.viewHomeButton img{
-	position: absolute;
-	top: 0; left: 0;
-	height: 100%;
-	width: 100%;
-	margin: 0px;
+.viewHomeButton img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    margin: 0px;
 }
 .viewNewLineSpacer {
-	width: 0;
-	height: 0;
+    width: 0;
+    height: 0;
 }
 .viewShuffleContainer {
-	pointer-events:none;
-	overflow: visible !important;
-	margin: 0;
-	width: 100%;
-}
-.viewShuffleContainer.collapsibleAnimationRunning{
-	overflow: hidden !important;
-}
-.viewShuffleContainer.collapsibleContentClosed{
-	display: none;
-}
-.iQontrolSubheaderCollapsible .iQontrolSubheadingCollapsibleIcon{
-	position: absolute; 
-	right: 0; 
-	top: 50%; 
-	transform: translateY(-50%); 
-	height: 1.3em;
-	transition: all 0.15s;
-	opacity: 1;
-}
-.iQontrolSubheaderCollapsible.collapsibleClosed .iQontrolSubheadingCollapsibleIcon.minus{
-	opacity: 0;
-}
-.iQontrolSubheaderCollapsible:not(.collapsibleClosed) .iQontrolSubheadingCollapsibleIcon.plus{
-	opacity: 0;
-}
-.iQontrolSubheaderCollapsible .iQontrolSubheadingCollapsibleIcon img, .iQontrolSubheaderCollapsible  .iQontrolSubheadingCollapsibleIcon span{
-	position: relative; 
+    pointer-events: none;
+    overflow: visible !important;
     margin: 0;
-    padding: 0 2px;;
-    border: 0;
-	height: 1.3em;
-	vertical-align: top;
+    width: 100%;
 }
-.viewNewSectionSpacer{
+.viewShuffleContainer.collapsibleAnimationRunning {
+    overflow: hidden !important;
+}
+.viewShuffleContainer.collapsibleContentClosed {
+    display: none;
+}
+.iQontrolSubheaderCollapsible .iQontrolSubheadingCollapsibleIcon {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
     height: 1.3em;
-	margin: 0;
-    transition: all 500ms;
-	width: 100%;
+    transition: all 0.15s;
+    opacity: 1;
 }
-.viewShuffleContainer.collapsibleClosed + .viewNewSectionSpacer{
-	height: 0.01em;	margin-top: -20px; /* workaround for quirky animation */
+.iQontrolSubheaderCollapsible.collapsibleClosed .iQontrolSubheadingCollapsibleIcon.minus {
+    opacity: 0;
+}
+.iQontrolSubheaderCollapsible:not(.collapsibleClosed) .iQontrolSubheadingCollapsibleIcon.plus {
+    opacity: 0;
+}
+.iQontrolSubheaderCollapsible .iQontrolSubheadingCollapsibleIcon img,
+.iQontrolSubheaderCollapsible .iQontrolSubheadingCollapsibleIcon span {
+    position: relative;
+    margin: 0;
+    padding: 0 2px;
+    border: 0;
+    height: 1.3em;
+    vertical-align: top;
+}
+.viewNewSectionSpacer {
+    height: 1.3em;
+    margin: 0;
+    transition: all 500ms;
+    width: 100%;
+}
+.viewShuffleContainer.collapsibleClosed + .viewNewSectionSpacer {
+    height: 0.01em;
+    margin-top: -20px; /* workaround for quirky animation */
     transition: all 500ms linear;
     transition-delay: 250ms;
-	width: 100%;
+    width: 100%;
 }
-.viewFirstLineNoHeadingSpacer{
-	height: 20px;
+.viewFirstLineNoHeadingSpacer {
+    height: 20px;
 }
 
-
-/* ++++++++++ View / Device ++++++++++ */ 
+/* ++++++++++ View / Device ++++++++++ */
 .iQontrolDeviceShuffleSizer {
-	display: none;
-	height: 0px;
-	margin: 0;
-	width: 61px;
-	-webkit-transition: all 0s;
-	   -moz-transition: all 0s;
-			transition: all 0s;
+    display: none;
+    height: 0px;
+    margin: 0;
+    width: 61px;
+    -webkit-transition: all 0s;
+    -moz-transition: all 0s;
+    transition: all 0s;
 }
 .iQontrolDevicePressureIndicator {
-	-webkit-user-select: none !important;
-	   -moz-user-select: none !important; 
-	        user-select: none !important;
-	-webkit-touch-callout: none !important;
-	display: inline-block;
-	top: 0; left: 0;
-	margin: 6px;
-	padding: 0px;
-	background: transparent;
-	border: 0px solid rgba(255, 255, 255, 1);
-	-webkit-border-radius: 15px;
-	   -moz-border-radius: 15px;
-			border-radius: 15px;
-	text-align: left;
-	overflow: visible;
-	-webkit-box-shadow: 0px 0px 0px 0px rgba(175,175,175,0.85);
-	   -moz-box-shadow: 0px 0px 0px 0px rgba(175,175,175,0.85);
-	        box-shadow: 0px 0px 0px 0px rgba(175,175,175,0.85);
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    user-select: none !important;
+    -webkit-touch-callout: none !important;
+    display: inline-block;
+    top: 0;
+    left: 0;
+    margin: 6px;
+    padding: 0px;
+    background: transparent;
+    border: 0px solid rgba(255, 255, 255, 1);
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    text-align: left;
+    overflow: visible;
+    -webkit-box-shadow: 0px 0px 0px 0px rgba(175, 175, 175, 0.85);
+    -moz-box-shadow: 0px 0px 0px 0px rgba(175, 175, 175, 0.85);
+    box-shadow: 0px 0px 0px 0px rgba(175, 175, 175, 0.85);
 }
-.iQontrolDevicePressureIndicator.hideDeviceIfInactive:not(.active), .iQontrolDevicePressureIndicator.hideDeviceIfActive.active {
-	visibility: hidden !important; 
-	height: 0 !important;
-	-webkit-transition: all 1s;
-	   -moz-transition: all 1s;
-			transition: all 1s;
+.iQontrolDevicePressureIndicator.hideDeviceIfInactive:not(.active),
+.iQontrolDevicePressureIndicator.hideDeviceIfActive.active {
+    visibility: hidden !important;
+    height: 0 !important;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    transition: all 1s;
 }
-.iQontrolDevicePressureIndicator.hideDeviceIfInactive.active, .iQontrolDevicePressureIndicator.hideDeviceIfActive:not(.active) {
-	visibility: visible !important; 
-	height: unset !important;
-	-webkit-transition: all 1s;
-	   -moz-transition: all 1s;
-			transition: all 1s;
+.iQontrolDevicePressureIndicator.hideDeviceIfInactive.active,
+.iQontrolDevicePressureIndicator.hideDeviceIfActive:not(.active) {
+    visibility: visible !important;
+    height: unset !important;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    transition: all 1s;
 }
 .iQontrolDeviceGlow {
-	-webkit-user-select: none !important;
-	   -moz-user-select: none !important; 
-	        user-select: none !important;
-	-webkit-touch-callout: none !important;
-	pointer-events: none !important;
-	display: inline-block;
-	position: absolute;
-	top: 0; left: 0;
-	width: 100%; height: 100%;
-	margin: 0px;
-	padding: 0px;
-	background: transparent;
-	-webkit-border-radius: 15px;
-	   -moz-border-radius: 15px;
-			border-radius: 15px;
-	text-align: left;
-	overflow: visible;
-	-webkit-box-shadow: none;
-	   -moz-box-shadow: none;
-	        box-shadow: none;
-	-webkit-transition: all 1s;
-	   -moz-transition: all 1s;
-			transition: all 1s;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    user-select: none !important;
+    -webkit-touch-callout: none !important;
+    pointer-events: none !important;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    background: transparent;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    text-align: left;
+    overflow: visible;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    transition: all 1s;
 }
 .iQontrolDevicePressureIndicator.active .iQontrolDeviceGlow:not(.active) {
-	opacity: 0 !important;
+    opacity: 0 !important;
 }
 .iQontrolDevicePressureIndicator:not(.active) .iQontrolDeviceGlow.active {
-	opacity: 0 !important;
+    opacity: 0 !important;
 }
 .iQontrolDevice {
-	-webkit-user-select: none !important;
-	   -moz-user-select: none !important; 
-	        user-select: none !important;
-	-webkit-touch-callout: none !important;
-	pointer-events:auto;
-	display: block;
-	top: 0; left:0;
-	width: 104px; max-width: 104px;
-	height: 104px; max-height: 104px; min-height: 104px;
-	margin: 0px;
-	padding: 3px 3px 3px 3px;
-	background: transparent;
-	border: 0px solid rgba(255, 255, 255, 0.5);
-	-webkit-border-radius: 15px;
-	   -moz-border-radius: 15px;
-			border-radius: 15px;
-	-webkit-box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.2);
-	   -moz-box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.2);
-			box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.2);
-	-webkit-transform: translate3d(0px,0px,0);
-	   -moz-transform: translate3d(0px,0px,0);
-			transform: translate3d(0px,0px,0);
-	-webkit-transition: all 1s;
-	   -moz-transition: all 1s;
-			transition: all 1s;
-	text-align: left;
-	overflow: hidden;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    user-select: none !important;
+    -webkit-touch-callout: none !important;
+    pointer-events: auto;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 104px;
+    max-width: 104px;
+    height: 104px;
+    max-height: 104px;
+    min-height: 104px;
+    margin: 0px;
+    padding: 3px 3px 3px 3px;
+    background: transparent;
+    border: 0px solid rgba(255, 255, 255, 0.5);
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    -webkit-box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.2);
+    -webkit-transform: translate3d(0px, 0px, 0);
+    -moz-transform: translate3d(0px, 0px, 0);
+    transform: translate3d(0px, 0px, 0);
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    transition: all 1s;
+    text-align: left;
+    overflow: hidden;
 }
-.iQontrolDevice.narrow, .iQontrolDevice:not(.active).narrowIfInactive, .iQontrolDevice.active.narrowIfActive, .iQontrolDevice.enlarged.narrowIfEnlarged {
-	width: 43px; max-width: 43px;
-}
-.iQontrolDevice.enlarged.normalIfEnlarged {
-	width: 104px; max-width: 104px;
-}
-.iQontrolDevice.wide, .iQontrolDevice:not(.active).wideIfInactive, .iQontrolDevice.active.wideIfActive, .iQontrolDevice.enlarged.wideIfEnlarged {
-	width: 226px; max-width: 226px;
-}
-.iQontrolDevice.xwide, .iQontrolDevice:not(.active).xwideIfInactive, .iQontrolDevice.active.xwideIfActive, .iQontrolDevice.enlarged.xwideIfEnlarged {
-	width: 348px; max-width: 348px;
-}
-.iQontrolDevice.short, .iQontrolDevice:not(.active).shortIfInactive, .iQontrolDevice.active.shortIfActive, .iQontrolDevice.enlarged.shortIfEnlarged {
-	height: 43px; max-height: 43px; min-height: 43px;
+.iQontrolDevice.narrow,
+.iQontrolDevice:not(.active).narrowIfInactive,
+.iQontrolDevice.active.narrowIfActive,
+.iQontrolDevice.enlarged.narrowIfEnlarged {
+    width: 43px;
+    max-width: 43px;
 }
 .iQontrolDevice.enlarged.normalIfEnlarged {
-	height: 104px; max-height: 104px; min-height: 104px;
+    width: 104px;
+    max-width: 104px;
 }
-.iQontrolDevice.high, .iQontrolDevice:not(.active).highIfInactive, .iQontrolDevice.active.highIfActive, .iQontrolDevice.enlarged.highIfEnlarged {
-	height: 226px; max-height: 226px; min-height: 226px;
+.iQontrolDevice.wide,
+.iQontrolDevice:not(.active).wideIfInactive,
+.iQontrolDevice.active.wideIfActive,
+.iQontrolDevice.enlarged.wideIfEnlarged {
+    width: 226px;
+    max-width: 226px;
 }
-.iQontrolDevice.xhigh, .iQontrolDevice:not(.active).xhighIfInactive, .iQontrolDevice.active.xhighIfActive, .iQontrolDevice.enlarged.xhighIfEnlarged {
-	height: 348px; max-height: 348px; min-height: 348px;
+.iQontrolDevice.xwide,
+.iQontrolDevice:not(.active).xwideIfInactive,
+.iQontrolDevice.active.xwideIfActive,
+.iQontrolDevice.enlarged.xwideIfEnlarged {
+    width: 348px;
+    max-width: 348px;
 }
-.iQontrolDevice.fullWidth, .iQontrolDevice:not(.active).fullWidthIfInactive, .iQontrolDevice.active.fullWidthIfActive, .iQontrolDevice.enlarged.fullWidthIfEnlarged {
-	width: 95vw; width: calc(100vw - 40px); max-width: 95vw; max-width: calc(100vw - 40px); /* is activly changed by resizeFullWidthDevicesToFitScreen() */
+.iQontrolDevice.short,
+.iQontrolDevice:not(.active).shortIfInactive,
+.iQontrolDevice.active.shortIfActive,
+.iQontrolDevice.enlarged.shortIfEnlarged {
+    height: 43px;
+    max-height: 43px;
+    min-height: 43px;
 }
-.iQontrolDevice.aspect-1-1, .iQontrolDevice:not(.active).aspect-1-1IfInactive, .iQontrolDevice.active.aspect-1-1IfActive, .iQontrolDevice.enlarged.aspect-1-1IfEnlarged {
-	padding-bottom: 100%; padding-bottom: calc(100% - 104px);
+.iQontrolDevice.enlarged.normalIfEnlarged {
+    height: 104px;
+    max-height: 104px;
+    min-height: 104px;
 }
-.iQontrolDevice.aspect-4-3, .iQontrolDevice:not(.active).aspect-4-3IfInactive, .iQontrolDevice.active.aspect-4-3IfActive, .iQontrolDevice.enlarged.aspect-4-3IfEnlarged {
-	padding-bottom: 75%; padding-bottom: calc(75% - 104px);
+.iQontrolDevice.high,
+.iQontrolDevice:not(.active).highIfInactive,
+.iQontrolDevice.active.highIfActive,
+.iQontrolDevice.enlarged.highIfEnlarged {
+    height: 226px;
+    max-height: 226px;
+    min-height: 226px;
 }
-.iQontrolDevice.aspect-3-2, .iQontrolDevice:not(.active).aspect-3-2IfInactive, .iQontrolDevice.active.aspect-3-2IfActive, .iQontrolDevice.enlarged.aspect-3-3IfEnlarged {
-	padding-bottom: 66.66%; padding-bottom: calc(66.66% - 104px);
+.iQontrolDevice.xhigh,
+.iQontrolDevice:not(.active).xhighIfInactive,
+.iQontrolDevice.active.xhighIfActive,
+.iQontrolDevice.enlarged.xhighIfEnlarged {
+    height: 348px;
+    max-height: 348px;
+    min-height: 348px;
 }
-.iQontrolDevice.aspect-16-9, .iQontrolDevice:not(.active).aspect-16-9IfInactive, .iQontrolDevice.active.aspect-16-9IfActive, .iQontrolDevice.enlarged.aspect-16-9IfEnlarged {
-	padding-bottom: 56.25%; padding-bottom: calc(56.25% - 104px);
+.iQontrolDevice.fullWidth,
+.iQontrolDevice:not(.active).fullWidthIfInactive,
+.iQontrolDevice.active.fullWidthIfActive,
+.iQontrolDevice.enlarged.fullWidthIfEnlarged {
+    width: 95vw;
+    width: calc(100vw - 40px);
+    max-width: 95vw;
+    max-width: calc(100vw - 40px); /* is activly changed by resizeFullWidthDevicesToFitScreen() */
 }
-.iQontrolDevice.aspect-21-9, .iQontrolDevice:not(.active).aspect-21-9IfInactive, .iQontrolDevice.active.aspect-21-9IfActive, .iQontrolDevice.enlarged.aspect-21-9IfEnlarged {
-	padding-bottom: 42.86%; padding-bottom: calc(42.86% - 104px);
+.iQontrolDevice.aspect-1-1,
+.iQontrolDevice:not(.active).aspect-1-1IfInactive,
+.iQontrolDevice.active.aspect-1-1IfActive,
+.iQontrolDevice.enlarged.aspect-1-1IfEnlarged {
+    padding-bottom: 100%;
+    padding-bottom: calc(100% - 104px);
 }
-.iQontrolDevice.aspect-1-1-limited, .iQontrolDevice:not(.active).aspect-1-1-limitedIfInactive, .iQontrolDevice.active.aspect-1-1-limitedIfActive, .iQontrolDevice.enlarged.aspect-1-1-limitedIfEnlarged {
-	padding-bottom: 100%; padding-bottom: calc(100% - 104px); padding-bottom: min(calc(100% - 104px), calc(100vh - 174px)); /* is activly changed by resizeFullWidthDevicesToFitScreen() */
+.iQontrolDevice.aspect-4-3,
+.iQontrolDevice:not(.active).aspect-4-3IfInactive,
+.iQontrolDevice.active.aspect-4-3IfActive,
+.iQontrolDevice.enlarged.aspect-4-3IfEnlarged {
+    padding-bottom: 75%;
+    padding-bottom: calc(75% - 104px);
 }
-.iQontrolDevice.aspect-4-3-limited, .iQontrolDevice:not(.active).aspect-4-3-limitedIfInactive, .iQontrolDevice.active.aspect-4-3-limitedIfActive, .iQontrolDevice.enlarged.aspect-4-3-limitedIfEnlarged {
-	padding-bottom: 75%; padding-bottom: calc(75% - 104px); padding-bottom: min(calc(75% - 104px), calc(100vh - 174px)); /* is activly changed by resizeFullWidthDevicesToFitScreen() */
+.iQontrolDevice.aspect-3-2,
+.iQontrolDevice:not(.active).aspect-3-2IfInactive,
+.iQontrolDevice.active.aspect-3-2IfActive,
+.iQontrolDevice.enlarged.aspect-3-3IfEnlarged {
+    padding-bottom: 66.66%;
+    padding-bottom: calc(66.66% - 104px);
 }
-.iQontrolDevice.aspect-3-2-limited, .iQontrolDevice:not(.active).aspect-3-2-limitedIfInactive, .iQontrolDevice.active.aspect-3-2-limitedIfActive, .iQontrolDevice.enlarged.aspect-3-3-limitedIfEnlarged {
-	padding-bottom: 66.66%; padding-bottom: calc(66.66% - 104px); padding-bottom: min(calc(66.66% - 104px), calc(100vh - 174px)); /* is activly changed by resizeFullWidthDevicesToFitScreen() */
+.iQontrolDevice.aspect-16-9,
+.iQontrolDevice:not(.active).aspect-16-9IfInactive,
+.iQontrolDevice.active.aspect-16-9IfActive,
+.iQontrolDevice.enlarged.aspect-16-9IfEnlarged {
+    padding-bottom: 56.25%;
+    padding-bottom: calc(56.25% - 104px);
 }
-.iQontrolDevice.aspect-16-9-limited, .iQontrolDevice:not(.active).aspect-16-9-limitedIfInactive, .iQontrolDevice.active.aspect-16-9-limitedIfActive, .iQontrolDevice.enlarged.aspect-16-9-limitedIfEnlarged {
-	padding-bottom: 56.25%; padding-bottom: calc(56.25% - 104px); padding-bottom: min(calc(56.25% - 104px), calc(100vh - 174px)); /* is activly changed by resizeFullWidthDevicesToFitScreen() */
+.iQontrolDevice.aspect-21-9,
+.iQontrolDevice:not(.active).aspect-21-9IfInactive,
+.iQontrolDevice.active.aspect-21-9IfActive,
+.iQontrolDevice.enlarged.aspect-21-9IfEnlarged {
+    padding-bottom: 42.86%;
+    padding-bottom: calc(42.86% - 104px);
 }
-.iQontrolDevice.aspect-21-9-limited, .iQontrolDevice:not(.active).aspect-21-9-limitedIfInactive, .iQontrolDevice.active.aspect-21-9-limitedIfActive, .iQontrolDevice.enlarged.aspect-21-9-limitedIfEnlarged {
-	padding-bottom: 42.86%; padding-bottom: calc(42.86% - 104px); padding-bottom: min(calc(42.86% - 104px), calc(100vh - 174px)); /* is activly changed by resizeFullWidthDevicesToFitScreen() */
+.iQontrolDevice.aspect-1-1-limited,
+.iQontrolDevice:not(.active).aspect-1-1-limitedIfInactive,
+.iQontrolDevice.active.aspect-1-1-limitedIfActive,
+.iQontrolDevice.enlarged.aspect-1-1-limitedIfEnlarged {
+    padding-bottom: 100%;
+    padding-bottom: calc(100% - 104px);
+    padding-bottom: min(
+        calc(100% - 104px),
+        calc(100vh - 174px)
+    ); /* is activly changed by resizeFullWidthDevicesToFitScreen() */
 }
-.iQontrolDevice.fullHeight, .iQontrolDevice:not(.active).fullHeightIfInactive, .iQontrolDevice.active.fullHeightIfActive, .iQontrolDevice.enlarged.fullHeightIfEnlarged {
-	height: 85vh; height: calc(100vh - 70px); max-height: 85vh; max-height: calc(100vh - 70px); min-height: 85vh; min-height: calc(100vh - 70px); /* is activly changed by resizeFullWidthDevicesToFitScreen() */
-	padding-bottom: unset !important;
+.iQontrolDevice.aspect-4-3-limited,
+.iQontrolDevice:not(.active).aspect-4-3-limitedIfInactive,
+.iQontrolDevice.active.aspect-4-3-limitedIfActive,
+.iQontrolDevice.enlarged.aspect-4-3-limitedIfEnlarged {
+    padding-bottom: 75%;
+    padding-bottom: calc(75% - 104px);
+    padding-bottom: min(
+        calc(75% - 104px),
+        calc(100vh - 174px)
+    ); /* is activly changed by resizeFullWidthDevicesToFitScreen() */
 }
-.iQontrolDevice.adaptsHeight, .iQontrolDevice:not(.active).adaptsHeightIfInactive, .iQontrolDevice.active.adaptsHeightIfActive, .iQontrolDevice.enlarged.adaptsHeightIfEnlarged {
-	height: unset; max-height: 85vh; max-height: calc(100vh - 70px);
+.iQontrolDevice.aspect-3-2-limited,
+.iQontrolDevice:not(.active).aspect-3-2-limitedIfInactive,
+.iQontrolDevice.active.aspect-3-2-limitedIfActive,
+.iQontrolDevice.enlarged.aspect-3-3-limitedIfEnlarged {
+    padding-bottom: 66.66%;
+    padding-bottom: calc(66.66% - 104px);
+    padding-bottom: min(
+        calc(66.66% - 104px),
+        calc(100vh - 174px)
+    ); /* is activly changed by resizeFullWidthDevicesToFitScreen() */
+}
+.iQontrolDevice.aspect-16-9-limited,
+.iQontrolDevice:not(.active).aspect-16-9-limitedIfInactive,
+.iQontrolDevice.active.aspect-16-9-limitedIfActive,
+.iQontrolDevice.enlarged.aspect-16-9-limitedIfEnlarged {
+    padding-bottom: 56.25%;
+    padding-bottom: calc(56.25% - 104px);
+    padding-bottom: min(
+        calc(56.25% - 104px),
+        calc(100vh - 174px)
+    ); /* is activly changed by resizeFullWidthDevicesToFitScreen() */
+}
+.iQontrolDevice.aspect-21-9-limited,
+.iQontrolDevice:not(.active).aspect-21-9-limitedIfInactive,
+.iQontrolDevice.active.aspect-21-9-limitedIfActive,
+.iQontrolDevice.enlarged.aspect-21-9-limitedIfEnlarged {
+    padding-bottom: 42.86%;
+    padding-bottom: calc(42.86% - 104px);
+    padding-bottom: min(
+        calc(42.86% - 104px),
+        calc(100vh - 174px)
+    ); /* is activly changed by resizeFullWidthDevicesToFitScreen() */
+}
+.iQontrolDevice.fullHeight,
+.iQontrolDevice:not(.active).fullHeightIfInactive,
+.iQontrolDevice.active.fullHeightIfActive,
+.iQontrolDevice.enlarged.fullHeightIfEnlarged {
+    height: 85vh;
+    height: calc(100vh - 70px);
+    max-height: 85vh;
+    max-height: calc(100vh - 70px);
+    min-height: 85vh;
+    min-height: calc(100vh - 70px); /* is activly changed by resizeFullWidthDevicesToFitScreen() */
+    padding-bottom: unset !important;
+}
+.iQontrolDevice.adaptsHeight,
+.iQontrolDevice:not(.active).adaptsHeightIfInactive,
+.iQontrolDevice.active.adaptsHeightIfActive,
+.iQontrolDevice.enlarged.adaptsHeightIfEnlarged {
+    height: unset;
+    max-height: 85vh;
+    max-height: calc(100vh - 70px);
 }
 .iQontrolDevice:hover {
-	border: 0px solid rgba(255, 255, 255, 0.8);
-	-webkit-box-shadow: 0px 1px 2px 2px rgba(0,0,0,0.3);
-	   -moz-box-shadow: 0px 1px 2px 2px rgba(0,0,0,0.3);
-			box-shadow: 0px 1px 2px 2px rgba(0,0,0,0.3);
+    border: 0px solid rgba(255, 255, 255, 0.8);
+    -webkit-box-shadow: 0px 1px 2px 2px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 1px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 1px 2px 2px rgba(0, 0, 0, 0.3);
 }
-.iQontrolDevice:not(.active).transparentIfInactive, .iQontrolDevice.active.transparentIfActive, .iQontrolDevice.enlarged.transparentIfEnlarged {
-	-webkit-box-shadow: none !important;
-	   -moz-box-shadow: none !important;
-			box-shadow: none !important;
-} 
+.iQontrolDevice:not(.active).transparentIfInactive,
+.iQontrolDevice.active.transparentIfActive,
+.iQontrolDevice.enlarged.transparentIfEnlarged {
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+}
 .iQontrolDeviceBadge {
-	pointer-events:none !important;
-	position: absolute;	left: -5px;	top: -5px;
+    pointer-events: none !important;
+    position: absolute;
+    left: -5px;
+    top: -5px;
     height: 18px;
-	overflow: hidden;
+    overflow: hidden;
     z-index: 1000;
-    min-width: 14px; max-width: 61px;
+    min-width: 14px;
+    max-width: 61px;
     border-radius: 8px;
     box-shadow: #0000001f 0 0 2px 2px;
     text-align: center;
-    background-color: rgba(255,0,0,0.8);
+    background-color: rgba(255, 0, 0, 0.8);
     padding: 0px 2px 0px 2px;
     font-family: sans-serif;
     font-weight: 500;
     font-size: 14px;
-	opacity: 0.00000000001;
-	-webkit-transition: all 0.5s;
-	   -moz-transition: all 0.5s;
-			transition: all 0.5s;
+    opacity: 0.00000000001;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
 }
 .iQontrolDeviceBadge.active {
-	opacity: 1;
+    opacity: 1;
 }
 .iQontrolDeviceLink {
-	-webkit-user-select: none !important;
-	   -moz-user-select: none !important; 
-	        user-select: none !important;
-	-webkit-touch-callout: default !important;
-	cursor: default;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    user-select: none !important;
+    -webkit-touch-callout: default !important;
+    cursor: default;
 }
 .iQontrolDeviceLink.dialog {
-	cursor: default;
+    cursor: default;
 }
 .iQontrolDeviceLink.linkedView {
-	cursor: alias;
+    cursor: alias;
 }
 .iQontrolDeviceLink.externalLink {
-	cursor: copy;
+    cursor: copy;
 }
 .iQontrolDeviceLink.toggle {
-	cursor: pointer;
+    cursor: pointer;
 }
 .iQontrolDeviceLink.enlarge {
-	cursor: zoom-in;
+    cursor: zoom-in;
 }
 .iQontrolDevice.enlarged .iQontrolDeviceLink.enlarge {
-	cursor: zoom-out;
+    cursor: zoom-out;
 }
 .iQontrolDeviceLinkToToggle {
-	-webkit-user-select: none !important;
-	   -moz-user-select: none !important; 
-	        user-select: none !important;
-	-webkit-touch-callout: none !important;
-	cursor: pointer;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    user-select: none !important;
+    -webkit-touch-callout: none !important;
+    cursor: pointer;
 }
 .iQontrolDeviceLinkToToggle.dialog {
-	cursor: default;
+    cursor: default;
 }
 .iQontrolDeviceLinkToToggle.linkedView {
-	cursor: alias;
+    cursor: alias;
 }
 .iQontrolDeviceLinkToToggle.externalLink {
-	cursor: copy;
+    cursor: copy;
 }
 .iQontrolDeviceLinkToToggle.toggle {
-	cursor: pointer;
+    cursor: pointer;
 }
 .iQontrolDeviceLinkToToggle.enlarge {
-	cursor: zoom-in;
+    cursor: zoom-in;
 }
 .iQontrolDevice.enlarged .iQontrolDeviceLinkToToggle.enlarge {
-	cursor: zoom-out;
+    cursor: zoom-out;
 }
 .iQontrolDeviceBackgroundIframeWrapper {
-	-webkit-user-select: none !important;
-	   -moz-user-select: none !important; 
-	        user-select: none !important;
-	-webkit-touch-callout: none !important;
-	position: absolute;	top:0px; left:0px; width:100%; height:100%;
-	display: block;
-	border: none; 
-	-webkit-border-radius: 15px;
-	   -moz-border-radius: 15px;
-			border-radius: 15px;
-	-webkit-transform: scale3d(1.0,1.0,1);
-	   -moz-transform: scale3d(1.0,1.0,1);
-			transform: scale3d(1.0,1.0,1);
-	-webkit-transition: all 1s;
-	   -moz-transition: all 1s;
-			transition: all 1s;
-	overflow: hidden;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    user-select: none !important;
+    -webkit-touch-callout: none !important;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: none;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    -webkit-transform: scale3d(1, 1, 1);
+    -moz-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    transition: all 1s;
+    overflow: hidden;
 }
 .iQontrolDeviceBackgroundIframeWrapper:hover {
-	-webkit-transform: scale3d(1.05,1.05,1);
-	   -moz-transform: scale3d(1.05,1.05,1);
-			transform: scale3d(1.05,1.05,1);
+    -webkit-transform: scale3d(1.05, 1.05, 1);
+    -moz-transform: scale3d(1.05, 1.05, 1);
+    transform: scale3d(1.05, 1.05, 1);
 }
 .iQontrolDeviceBackgroundIframeWrapper.noZoomOnHover:hover {
-	-webkit-transform: scale3d(1.0,1.0,1);
-	   -moz-transform: scale3d(1.0,1.0,1);
-			transform: scale3d(1.0,1.0,1);
+    -webkit-transform: scale3d(1, 1, 1);
+    -moz-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
 }
 .iQontrolDeviceBackgroundIframe {
-	width: 100%;
-	min-height: 100%;
-	height: 100%;
-	border: none;
-	-webkit-transition: all 1s;
-	   -moz-transition: all 1s;
-			transition: all 1s;
+    width: 100%;
+    min-height: 100%;
+    height: 100%;
+    border: none;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    transition: all 1s;
 }
 .iQontrolDeviceBackgroundImage {
-	-webkit-user-select: none !important;
-	   -moz-user-select: none !important; 
-	        user-select: none !important;
-	-webkit-touch-callout: none !important;
-	position: absolute;	top:0px; left:0px; width:100%; height:100%;
-	display: block;
-	background-size:cover; background-position:center;	
-	border: none; 
-	-webkit-border-radius: 15px;
-	   -moz-border-radius: 15px;
-			border-radius: 15px;
-	-webkit-transform: scale3d(1.0,1.0,1);
-	   -moz-transform: scale3d(1.0,1.0,1);
-			transform: scale3d(1.0,1.0,1);
-	-webkit-transition: all 1s;
-	   -moz-transition: all 1s;
-			transition: all 1s;
-	overflow: hidden;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    user-select: none !important;
+    -webkit-touch-callout: none !important;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    display: block;
+    background-size: cover;
+    background-position: center;
+    border: none;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    -webkit-transform: scale3d(1, 1, 1);
+    -moz-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    transition: all 1s;
+    overflow: hidden;
 }
 .iQontrolDeviceBackgroundImage:hover {
-	-webkit-transform: scale3d(1.05,1.05,1);
-	   -moz-transform: scale3d(1.05,1.05,1);
-			transform: scale3d(1.05,1.05,1);
+    -webkit-transform: scale3d(1.05, 1.05, 1);
+    -moz-transform: scale3d(1.05, 1.05, 1);
+    transform: scale3d(1.05, 1.05, 1);
 }
 .iQontrolDeviceBackgroundImage.noZoomOnHover:hover {
-	-webkit-transform: scale3d(1.0,1.0,1);
-	   -moz-transform: scale3d(1.0,1.0,1);
-			transform: scale3d(1.0,1.0,1);
+    -webkit-transform: scale3d(1, 1, 1);
+    -moz-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
 }
-.iQontrolDevice.active .iQontrolDeviceBackgroundImage:not(.active), .iQontrolDevice:not(.active) .iQontrolDeviceBackgroundImage.active {
-	pointer-events:none !important;
-	opacity: 0 !important;
-	-webkit-transition: opacity 1.25s ease-in;
-	   -moz-transition: opacity 1.25s ease-in;
-			transition: opacity 1.25s ease-in;
+.iQontrolDevice.active .iQontrolDeviceBackgroundImage:not(.active),
+.iQontrolDevice:not(.active) .iQontrolDeviceBackgroundImage.active {
+    pointer-events: none !important;
+    opacity: 0 !important;
+    -webkit-transition: opacity 1.25s ease-in;
+    -moz-transition: opacity 1.25s ease-in;
+    transition: opacity 1.25s ease-in;
 }
 .iQontrolDeviceBackgroundImage:not(.active) {
-	background-color: rgba(255, 255, 255, 0.6);
-	opacity: 0.99;
+    background-color: rgba(255, 255, 255, 0.6);
+    opacity: 0.99;
 }
 .iQontrolDeviceBackgroundImage:not(.active):hover {
-	background-color: rgba(255, 255, 255, 0.6);
-	opacity: 0.99;
+    background-color: rgba(255, 255, 255, 0.6);
+    opacity: 0.99;
 }
 .iQontrolDeviceBackgroundImage.active {
-	background-color: rgba(255, 255, 255, 0.6);
-	opacity: 0.99;
+    background-color: rgba(255, 255, 255, 0.6);
+    opacity: 0.99;
 }
 .iQontrolDeviceBackgroundImage.active:hover {
-	background-color: rgba(255, 255, 255, 0.6);
-	opacity: 0.99;
+    background-color: rgba(255, 255, 255, 0.6);
+    opacity: 0.99;
 }
-.iQontrolDevice:not(.active).transparentIfInactive .iQontrolDeviceBackgroundImage, .iQontrolDevice.active.transparentIfActive .iQontrolDeviceBackgroundImage, .iQontrolDevice.enlarged.transparentIfEnlarged .iQontrolDeviceBackgroundImage {
-	background-color: transparent !important;
-} 
+.iQontrolDevice:not(.active).transparentIfInactive .iQontrolDeviceBackgroundImage,
+.iQontrolDevice.active.transparentIfActive .iQontrolDeviceBackgroundImage,
+.iQontrolDevice.enlarged.transparentIfEnlarged .iQontrolDeviceBackgroundImage {
+    background-color: transparent !important;
+}
 .iQontrolDeviceBackground {
-	pointer-events: none !important;	
-	-webkit-user-select: none !important;
-	   -moz-user-select: none !important; 
-	        user-select: none !important;
-	-webkit-touch-callout: none !important;
-	position: absolute;	top:0px; left:0px; width:100%; height:100%;
-	display: block;
-	border: none;
-	-webkit-transform: scale3d(1.1,1.1,2);
-	   -moz-transform: scale3d(1.1,1.1,2);
-			transform: scale3d(1.1,1.1,2);
-	-webkit-border-radius: 15px;
-	   -moz-border-radius: 15px;
-			border-radius: 15px;
-	-webkit-transition: all 1s;
-	   -moz-transition: all 1s;
-			transition: all 1s;
-	overflow: hidden;
+    pointer-events: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    user-select: none !important;
+    -webkit-touch-callout: none !important;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: none;
+    -webkit-transform: scale3d(1.1, 1.1, 2);
+    -moz-transform: scale3d(1.1, 1.1, 2);
+    transform: scale3d(1.1, 1.1, 2);
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    transition: all 1s;
+    overflow: hidden;
 }
-.iQontrolDevice.active .iQontrolDeviceBackground:not(.active), .iQontrolDevice:not(.active) .iQontrolDeviceBackground.active {
-	opacity: 0 !important;
+.iQontrolDevice.active .iQontrolDeviceBackground:not(.active),
+.iQontrolDevice:not(.active) .iQontrolDeviceBackground.active {
+    opacity: 0 !important;
 }
 .iQontrolDevice.enlarged .iQontrolDeviceBackground.hideIfEnlarged {
-	opacity: 0 !important;
+    opacity: 0 !important;
 }
 .iQontrolDeviceBackground:not(.active) {
-	background-color: rgb(180, 180, 180);
-	opacity: 0.5;
+    background-color: rgb(180, 180, 180);
+    opacity: 0.5;
 }
 .iQontrolDevice:hover .iQontrolDeviceBackground:not(.active) {
-	background-color: rgb(190, 190, 190);
-	opacity: 0.9;
+    background-color: rgb(190, 190, 190);
+    opacity: 0.9;
 }
 .iQontrolDeviceBackground.active {
-	background-color: rgb(255, 255, 255);
-	opacity: 0.82;
+    background-color: rgb(255, 255, 255);
+    opacity: 0.82;
 }
 .iQontrolDevice:hover .iQontrolDeviceBackground.active {
-	background-color: rgb(255, 255, 255);
-	opacity: 0.95;
+    background-color: rgb(255, 255, 255);
+    opacity: 0.95;
 }
 .iQontrolDeviceIcon {
-	pointer-events:none !important;
-	position:absolute; left: 5px; top: 5px; width: 38px; height: 38px;
-	margin: 3px;
-	overflow: hidden;
-	-webkit-transform: scale3d(1.0,1.0,1);
-	   -moz-transform: scale3d(1.0,1.0,1);
-			transform: scale3d(1.0,1.0,1);
-	-webkit-transition: all 0.5s;
-	   -moz-transition: all 0.5s;
-			transition: all 0.5s;
-	opacity: 0;
-	display: none;
+    pointer-events: none !important;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    width: 38px;
+    height: 38px;
+    margin: 3px;
+    overflow: hidden;
+    -webkit-transform: scale3d(1, 1, 1);
+    -moz-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+    opacity: 0;
+    display: none;
 }
-.iQontrolDevice.narrow .iQontrolDeviceIcon, .iQontrolDevice:not(.active).narrowIfInactive .iQontrolDeviceIcon, .iQontrolDevice.active.narrowIfActive .iQontrolDeviceIcon, .iQontrolDevice.enlarged.narrowIfEnlarged .iQontrolDeviceIcon {
-	left:2.5px;
+.iQontrolDevice.narrow .iQontrolDeviceIcon,
+.iQontrolDevice:not(.active).narrowIfInactive .iQontrolDeviceIcon,
+.iQontrolDevice.active.narrowIfActive .iQontrolDeviceIcon,
+.iQontrolDevice.enlarged.narrowIfEnlarged .iQontrolDeviceIcon {
+    left: 2.5px;
 }
-.iQontrolDevice.short .iQontrolDeviceIcon, .iQontrolDevice:not(.active).shortIfInactive .iQontrolDeviceIcon, .iQontrolDevice.active.shortIfActive .iQontrolDeviceIcon, .iQontrolDevice.enlarged.shortIfEnlarged .iQontrolDeviceIcon {
-    top:2.5px;
+.iQontrolDevice.short .iQontrolDeviceIcon,
+.iQontrolDevice:not(.active).shortIfInactive .iQontrolDeviceIcon,
+.iQontrolDevice.active.shortIfActive .iQontrolDeviceIcon,
+.iQontrolDevice.enlarged.shortIfEnlarged .iQontrolDeviceIcon {
+    top: 2.5px;
 }
-.iQontrolDevice.bigIcon .iQontrolDeviceIcon, .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceIcon, .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceIcon, .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceIcon {
-	width: 94px; height: 94px;
+.iQontrolDevice.bigIcon .iQontrolDeviceIcon,
+.iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceIcon,
+.iQontrolDevice.active.bigIconIfActive .iQontrolDeviceIcon,
+.iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceIcon {
+    width: 94px;
+    height: 94px;
 }
 .iQontrolDeviceIcon.active {
-	pointer-events:auto !important;
-	opacity: 1;
-	display: block;
+    pointer-events: auto !important;
+    opacity: 1;
+    display: block;
 }
 .iQontrolDeviceIcon.overlay {
-	pointer-events:none !important;
+    pointer-events: none !important;
 }
 .iQontrolDeviceIcon:not(.noZoomOnHover):hover {
-	-webkit-transform: scale3d(1.2,1.2,1);
-	   -moz-transform: scale3d(1.2,1.2,1);
-			transform: scale3d(1.2,1.2,1);
+    -webkit-transform: scale3d(1.2, 1.2, 1);
+    -moz-transform: scale3d(1.2, 1.2, 1);
+    transform: scale3d(1.2, 1.2, 1);
 }
 .iQontrolDevice.enlarged .iQontrolDeviceIcon.hideIfEnlarged {
-	pointer-events: none !important;
-	opacity:0 !important;
+    pointer-events: none !important;
+    opacity: 0 !important;
 }
-.iQontrolDevice.active .iQontrolDeviceIcon.noPointerEventsIfActive, .iQontrolDevice:not(.active) .iQontrolDeviceIcon.noPointerEventsIfInactive, .iQontrolDevice.enlarged .iQontrolDeviceIcon.noPointerEventsIfEnlarged {
-	pointer-events: none !important;
+.iQontrolDevice.active .iQontrolDeviceIcon.noPointerEventsIfActive,
+.iQontrolDevice:not(.active) .iQontrolDeviceIcon.noPointerEventsIfInactive,
+.iQontrolDevice.enlarged .iQontrolDeviceIcon.noPointerEventsIfEnlarged {
+    pointer-events: none !important;
 }
 .iQontrolDeviceLoading {
-	pointer-events:none !important;
-	position:absolute; left: 15px; top: 15px; width: 24px; height: 24px;
-	overflow: hidden;
-	z-index: 1000;
-	opacity: 0;
-	-webkit-transition: all 0.2s ease 0.25s;
-	   -moz-transition: all 0.2s ease 0.25s;
-			transition: all 0.2s ease 0.25s;
+    pointer-events: none !important;
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+    z-index: 1000;
+    opacity: 0;
+    -webkit-transition: all 0.2s ease 0.25s;
+    -moz-transition: all 0.2s ease 0.25s;
+    transition: all 0.2s ease 0.25s;
 }
-.iQontrolDevice.narrow .iQontrolDeviceLoading, .iQontrolDevice:not(.active).narrowIfInactive .iQontrolDeviceLoading, .iQontrolDevice.active.narrowIfActive .iQontrolDeviceLoading, .iQontrolDevice.enlarged.narrowIfEnlarged .iQontrolDeviceLoading {
-	left:12.5px;
+.iQontrolDevice.narrow .iQontrolDeviceLoading,
+.iQontrolDevice:not(.active).narrowIfInactive .iQontrolDeviceLoading,
+.iQontrolDevice.active.narrowIfActive .iQontrolDeviceLoading,
+.iQontrolDevice.enlarged.narrowIfEnlarged .iQontrolDeviceLoading {
+    left: 12.5px;
 }
-.iQontrolDevice.short .iQontrolDeviceLoading, .iQontrolDevice:not(.active).shortIfInactive .iQontrolDeviceLoading, .iQontrolDevice.active.shortIfActive .iQontrolDeviceLoading, .iQontrolDevice.enlarged.shortIfEnlarged .iQontrolDeviceLoading {
-    top:12.5px;
+.iQontrolDevice.short .iQontrolDeviceLoading,
+.iQontrolDevice:not(.active).shortIfInactive .iQontrolDeviceLoading,
+.iQontrolDevice.active.shortIfActive .iQontrolDeviceLoading,
+.iQontrolDevice.enlarged.shortIfEnlarged .iQontrolDeviceLoading {
+    top: 12.5px;
 }
-.iQontrolDevice.bigIcon .iQontrolDeviceLoading, .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceLoading, .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceLoading, .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceLoading {
-	width: 80px; height: 80px;
+.iQontrolDevice.bigIcon .iQontrolDeviceLoading,
+.iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceLoading,
+.iQontrolDevice.active.bigIconIfActive .iQontrolDeviceLoading,
+.iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceLoading {
+    width: 80px;
+    height: 80px;
 }
 .iQontrolDeviceLoading.active {
-	opacity: 0.9;
+    opacity: 0.9;
 }
 .iQontrolDeviceError {
-	pointer-events:none !important;
-	position:absolute; left: 52px; top: 2px; width: 16px; height: 16px;
-	overflow: hidden;
-	opacity: 0;
-	-webkit-transition: all 1s;
-	   -moz-transition: all 1s;
-			transition: all 1s;
+    pointer-events: none !important;
+    position: absolute;
+    left: 52px;
+    top: 2px;
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    opacity: 0;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    transition: all 1s;
 }
-.iQontrolDevice.bigIcon .iQontrolDeviceError, .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceError, .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceError, .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceError {
-	left: 108px; 
+.iQontrolDevice.bigIcon .iQontrolDeviceError,
+.iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceError,
+.iQontrolDevice.active.bigIconIfActive .iQontrolDeviceError,
+.iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceError {
+    left: 108px;
 }
 .iQontrolDeviceError.active {
-	opacity: 1;
+    opacity: 1;
 }
 .iQontrolDeviceUnreach {
-	pointer-events:none !important;
-	position:absolute; left: 68px; top: 2px; width: 16px; height: 16px;
-	overflow: hidden;
-	opacity: 0;
-	-webkit-transition: all 1s;
-	   -moz-transition: all 1s;
-			transition: all 1s;
+    pointer-events: none !important;
+    position: absolute;
+    left: 68px;
+    top: 2px;
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    opacity: 0;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    transition: all 1s;
 }
-.iQontrolDevice.bigIcon .iQontrolDeviceUnreach, .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceUnreach, .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceUnreach, .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceUnreach {
-	left: 124px; 
+.iQontrolDevice.bigIcon .iQontrolDeviceUnreach,
+.iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceUnreach,
+.iQontrolDevice.active.bigIconIfActive .iQontrolDeviceUnreach,
+.iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceUnreach {
+    left: 124px;
 }
 .iQontrolDeviceUnreach.active {
-	opacity: 1;
+    opacity: 1;
 }
 .iQontrolDevice:not(.active) .iQontrolDeviceUnreach.hideUnreachIfInactive {
-	opacity: 0 !important;
+    opacity: 0 !important;
 }
 .iQontrolDeviceBattery {
-	pointer-events:none !important;
-	position:absolute; left: 84px; top: 2px; width: 16px; height: 16px;
-	overflow: hidden;
-	opacity: 0;
-	-webkit-transition: all 1s;
-	   -moz-transition: all 1s;
-			transition: all 1s;
+    pointer-events: none !important;
+    position: absolute;
+    left: 84px;
+    top: 2px;
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    opacity: 0;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    transition: all 1s;
 }
-.iQontrolDevice.bigIcon .iQontrolDeviceBattery, .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceBattery, .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceBattery, .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceBattery {
-	left: 140px; 
+.iQontrolDevice.bigIcon .iQontrolDeviceBattery,
+.iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceBattery,
+.iQontrolDevice.active.bigIconIfActive .iQontrolDeviceBattery,
+.iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceBattery {
+    left: 140px;
 }
 .iQontrolDeviceBattery.active {
-	opacity: 1;
+    opacity: 1;
 }
 .iQontrolDeviceEnlargeButton {
-	pointer-events:none !important;
-	cursor: zoom-in;
-	position:absolute; right: -1px; top: 0px; width: 10px; height: 10px;
-	background-image: url("./images/maximize.png");
-	background-position: 1px 4px;
-	background-repeat: no-repeat;
-	background-size: 50%;
-	background-color: lightgrey;
-	border:lightgrey 1px solid;
-	opacity:0;
-	-webkit-border-radius: 0px 0px 0px 5px;
-	   -moz-border-radius: 0px 0px 0px 5px;
-	        border-radius: 0px 0px 0px 5px;
-	-webkit-box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.3);
-	   -moz-box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.3);
-	        box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.3);
-	-webkit-transition: all 0.5s;
-	   -moz-transition: all 0.5s;
-			transition: all 0.5s;
+    pointer-events: none !important;
+    cursor: zoom-in;
+    position: absolute;
+    right: -1px;
+    top: 0px;
+    width: 10px;
+    height: 10px;
+    background-image: url('./images/maximize.png');
+    background-position: 1px 4px;
+    background-repeat: no-repeat;
+    background-size: 50%;
+    background-color: lightgrey;
+    border: lightgrey 1px solid;
+    opacity: 0;
+    -webkit-border-radius: 0px 0px 0px 5px;
+    -moz-border-radius: 0px 0px 0px 5px;
+    border-radius: 0px 0px 0px 5px;
+    -webkit-box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.3);
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
 }
 .iQontrolDeviceEnlargeButton:before {
-	content: "";
-	position: absolute;
-	top: -100%;
-	left: -100%;
-	width: 300%;
-	height: 300%;
-	background: transparent;
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    width: 300%;
+    height: 300%;
+    background: transparent;
 }
 .iQontrolDevice.enlarged .iQontrolDeviceEnlargeButton {
-	cursor: zoom-out;
-	background-image: url("./images/minimize.png");
-	background-position: 1px 4px;
+    cursor: zoom-out;
+    background-image: url('./images/minimize.png');
+    background-position: 1px 4px;
 }
-.iQontrolDevice:not(.active) .iQontrolDeviceEnlargeButton.showIfInactive, .iQontrolDevice.active .iQontrolDeviceEnlargeButton.showIfActive, .iQontrolDevice.enlarged .iQontrolDeviceEnlargeButton {
-	pointer-events:auto !important;
-	opacity: 0.5;
+.iQontrolDevice:not(.active) .iQontrolDeviceEnlargeButton.showIfInactive,
+.iQontrolDevice.active .iQontrolDeviceEnlargeButton.showIfActive,
+.iQontrolDevice.enlarged .iQontrolDeviceEnlargeButton {
+    pointer-events: auto !important;
+    opacity: 0.5;
 }
 .iQontrolDeviceEnlargeButton:hover {
-	opacity: 0.6;
-	border: lightgrey 4px solid;
+    opacity: 0.6;
+    border: lightgrey 4px solid;
 }
 .iQontrolDeviceInfoAIcon {
-	pointer-events:none !important;
-	position:absolute; left: 52px; top: 20px; width: 12px; height: 12px;
-	overflow: hidden;
-	-webkit-transition: all 1s;
-	   -moz-transition: all 1s;
-			transition: all 1s;
+    pointer-events: none !important;
+    position: absolute;
+    left: 52px;
+    top: 20px;
+    width: 12px;
+    height: 12px;
+    overflow: hidden;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    transition: all 1s;
 }
-.iQontrolDevice.bigIcon .iQontrolDeviceInfoAIcon, .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceInfoAIcon, .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceInfoAIcon, .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceInfoAIcon {
-	left: 108px; 
+.iQontrolDevice.bigIcon .iQontrolDeviceInfoAIcon,
+.iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceInfoAIcon,
+.iQontrolDevice.active.bigIconIfActive .iQontrolDeviceInfoAIcon,
+.iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceInfoAIcon {
+    left: 108px;
 }
 .iQontrolDeviceInfoAText {
-	pointer-events:none !important;
-	position:absolute; left: 65px; top: 19px; 
-	width: 45px; width: calc(100% - 64px); 
-	height: 16px;
-	overflow: hidden;
-	background: transparent;
-	color: black;
-	font-size: 7.5pt;
-	font-weight: normal;
-	text-shadow: 0px 1px 2px rgba(0,0,0,0.3);
-	text-align: left;
-	-webkit-transition: all 1s;
-	   -moz-transition: all 1s;
-			transition: all 1s;
+    pointer-events: none !important;
+    position: absolute;
+    left: 65px;
+    top: 19px;
+    width: 45px;
+    width: calc(100% - 64px);
+    height: 16px;
+    overflow: hidden;
+    background: transparent;
+    color: black;
+    font-size: 7.5pt;
+    font-weight: normal;
+    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+    text-align: left;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    transition: all 1s;
 }
-.iQontrolDevice:not(.active).transparentIfInactive .iQontrolDeviceInfoAText, .iQontrolDevice.active.transparentIfActive .iQontrolDeviceInfoAText, .iQontrolDevice.enlarged.transparentIfEnlarged .iQontrolDeviceInfoAText {
-	color: white;
+.iQontrolDevice:not(.active).transparentIfInactive .iQontrolDeviceInfoAText,
+.iQontrolDevice.active.transparentIfActive .iQontrolDeviceInfoAText,
+.iQontrolDevice.enlarged.transparentIfEnlarged .iQontrolDeviceInfoAText {
+    color: white;
 }
-.iQontrolDevice.bigIcon .iQontrolDeviceInfoAText, .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceInfoAText, .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceInfoAText, .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceInfoAText {
-	left: 121px; 
-	width: calc(100% - 120px); 
+.iQontrolDevice.bigIcon .iQontrolDeviceInfoAText,
+.iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceInfoAText,
+.iQontrolDevice.active.bigIconIfActive .iQontrolDeviceInfoAText,
+.iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceInfoAText {
+    left: 121px;
+    width: calc(100% - 120px);
 }
-.iQontrolDeviceInfoATextHue, .iQontrolDeviceInfoATextCt { 
-	border: none;
-	box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.15);
+.iQontrolDeviceInfoATextHue,
+.iQontrolDeviceInfoATextCt {
+    border: none;
+    box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.15);
 }
 .iQontrolDeviceInfoBIcon {
-	pointer-events:none !important;
-	position:absolute; left: 52px; top: 39px; width: 12px; height: 12px;
-	overflow: hidden;
-	-webkit-transition: all 1s;
-	   -moz-transition: all 1s;
-			transition: all 1s;
+    pointer-events: none !important;
+    position: absolute;
+    left: 52px;
+    top: 39px;
+    width: 12px;
+    height: 12px;
+    overflow: hidden;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    transition: all 1s;
 }
-.iQontrolDevice.bigIcon .iQontrolDeviceInfoBIcon, .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceInfoBIcon, .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceInfoBIcon, .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceInfoBIcon {
-	left: 108px; 
+.iQontrolDevice.bigIcon .iQontrolDeviceInfoBIcon,
+.iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceInfoBIcon,
+.iQontrolDevice.active.bigIconIfActive .iQontrolDeviceInfoBIcon,
+.iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceInfoBIcon {
+    left: 108px;
 }
-.iQontrolDevice.short .iQontrolDeviceInfoBIcon, .iQontrolDevice:not(.active):not(.enlarged).shortIfInactive .iQontrolDeviceInfoBIcon, .iQontrolDevice.active:not(.enlarged).shortIfActive .iQontrolDeviceInfoBIcon, .iQontrolDevice.enlarged.shortIfEnlarged .iQontrolDeviceInfoBIcon {
+.iQontrolDevice.short .iQontrolDeviceInfoBIcon,
+.iQontrolDevice:not(.active):not(.enlarged).shortIfInactive .iQontrolDeviceInfoBIcon,
+.iQontrolDevice.active:not(.enlarged).shortIfActive .iQontrolDeviceInfoBIcon,
+.iQontrolDevice.enlarged.shortIfEnlarged .iQontrolDeviceInfoBIcon {
     top: 35px;
 }
 .iQontrolDeviceInfoBText {
-	pointer-events:none !important;
-	position:absolute; left: 65px; top: 38px; 
-	width: 45px; width: calc(100% - 64px); 
-	height: 16px;
-	overflow: hidden;
-	background: transparent;
-	color: black;
-	font-size: 7.5pt;
-	font-weight: normal;
-	text-shadow: 0px 1px 2px rgba(0,0,0,0.3);
-	text-align: left;
-	-webkit-transition: all 1s;
-	   -moz-transition: all 1s;
-			transition: all 1s;
+    pointer-events: none !important;
+    position: absolute;
+    left: 65px;
+    top: 38px;
+    width: 45px;
+    width: calc(100% - 64px);
+    height: 16px;
+    overflow: hidden;
+    background: transparent;
+    color: black;
+    font-size: 7.5pt;
+    font-weight: normal;
+    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+    text-align: left;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    transition: all 1s;
 }
-.iQontrolDevice:not(.active).transparentIfInactive .iQontrolDeviceInfoBText, .iQontrolDevice.active.transparentIfActive .iQontrolDeviceInfoBText, .iQontrolDevice.enlarged.transparentIfEnlarged .iQontrolDeviceInfoBText {
-	color: white;
+.iQontrolDevice:not(.active).transparentIfInactive .iQontrolDeviceInfoBText,
+.iQontrolDevice.active.transparentIfActive .iQontrolDeviceInfoBText,
+.iQontrolDevice.enlarged.transparentIfEnlarged .iQontrolDeviceInfoBText {
+    color: white;
 }
-.iQontrolDevice.bigIcon .iQontrolDeviceInfoBText, .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceInfoBText, .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceInfoBText, .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceInfoBText {
-	left: 121px;
-	width: calc(100% - 120px); 
+.iQontrolDevice.bigIcon .iQontrolDeviceInfoBText,
+.iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceInfoBText,
+.iQontrolDevice.active.bigIconIfActive .iQontrolDeviceInfoBText,
+.iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceInfoBText {
+    left: 121px;
+    width: calc(100% - 120px);
 }
-.iQontrolDevice.short .iQontrolDeviceInfoBText, .iQontrolDevice:not(.active):not(.enlarged).shortIfInactive .iQontrolDeviceInfoBText, .iQontrolDevice.active:not(.enlarged).shortIfActive .iQontrolDeviceInfoBText, .iQontrolDevice.enlarged.shortIfEnlarged .iQontrolDeviceInfoBText {
+.iQontrolDevice.short .iQontrolDeviceInfoBText,
+.iQontrolDevice:not(.active):not(.enlarged).shortIfInactive .iQontrolDeviceInfoBText,
+.iQontrolDevice.active:not(.enlarged).shortIfActive .iQontrolDeviceInfoBText,
+.iQontrolDevice.enlarged.shortIfEnlarged .iQontrolDeviceInfoBText {
     top: 34px;
 }
 .iQontrolDeviceName {
-	pointer-events:none !important;
-	position:absolute; left: 5px; top: 58px; 
-	width: 103px; width: calc(100% - 5px);
-	height: 30px;
-	overflow: hidden;
-	background: transparent;
-	color: black;
-	font-size: 9pt;
-	font-weight: bold;
-	text-shadow: 0px 1px 2px rgba(0,0,0,0.3);	
-	-webkit-transition: all 1s;
-	   -moz-transition: all 1s;
-			transition: all 1s;
+    pointer-events: none !important;
+    position: absolute;
+    left: 5px;
+    top: 58px;
+    width: 103px;
+    width: calc(100% - 5px);
+    height: 30px;
+    overflow: hidden;
+    background: transparent;
+    color: black;
+    font-size: 9pt;
+    font-weight: bold;
+    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    transition: all 1s;
 }
-.iQontrolDevice:not(.active).transparentIfInactive .iQontrolDeviceName, .iQontrolDevice.active.transparentIfActive .iQontrolDeviceName, .iQontrolDevice.enlarged.transparentIfEnlarged .iQontrolDeviceName {
-	color: white;
+.iQontrolDevice:not(.active).transparentIfInactive .iQontrolDeviceName,
+.iQontrolDevice.active.transparentIfActive .iQontrolDeviceName,
+.iQontrolDevice.enlarged.transparentIfEnlarged .iQontrolDeviceName {
+    color: white;
 }
-.iQontrolDevice.bigIcon .iQontrolDeviceName, .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceName, .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceName, .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceName {
-	top: 114px; 
+.iQontrolDevice.bigIcon .iQontrolDeviceName,
+.iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceName,
+.iQontrolDevice.active.bigIconIfActive .iQontrolDeviceName,
+.iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceName {
+    top: 114px;
 }
 .iQontrolDeviceState {
-	pointer-events:none !important;
-	position:absolute; left: 5px; top: 90px; 
-	width: 103px; width: calc(100% - 5px);
-	height: 17px; height: calc(100% - 90px);
-	overflow: hidden;
-	background: transparent;
-	color: black;
-	font-size: 9pt;
-	font-weight: normal;
-	text-shadow: 0px 1px 2px rgba(0,0,0,0.3);	
-	-webkit-transition: all 1s;
-	   -moz-transition: all 1s;
-			transition: all 1s;
-	display: block;
-	word-wrap: break-word;
+    pointer-events: none !important;
+    position: absolute;
+    left: 5px;
+    top: 90px;
+    width: 103px;
+    width: calc(100% - 5px);
+    height: 17px;
+    height: calc(100% - 90px);
+    overflow: hidden;
+    background: transparent;
+    color: black;
+    font-size: 9pt;
+    font-weight: normal;
+    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    transition: all 1s;
+    display: block;
+    word-wrap: break-word;
 }
-.iQontrolDeviceState.bigFont, .iQontrolDevice.active .iQontrolDeviceState.bigFontIfActive, .iQontrolDevice:not(.active) .iQontrolDeviceState.bigFontIfInactive, .iQontrolDevice.enlarged .iQontrolDeviceState.bigFontIfEnlarged {
-	font-size: 11pt;
-	font-weight: bold;
+.iQontrolDeviceState.bigFont,
+.iQontrolDevice.active .iQontrolDeviceState.bigFontIfActive,
+.iQontrolDevice:not(.active) .iQontrolDeviceState.bigFontIfInactive,
+.iQontrolDevice.enlarged .iQontrolDeviceState.bigFontIfEnlarged {
+    font-size: 11pt;
+    font-weight: bold;
 }
-.iQontrolDevice:not(.active).transparentIfInactive .iQontrolDeviceState, .iQontrolDevice.active.transparentIfActive .iQontrolDeviceState, .iQontrolDevice.enlarged.transparentIfEnlarged .iQontrolDeviceState {
-	color: white;
+.iQontrolDevice:not(.active).transparentIfInactive .iQontrolDeviceState,
+.iQontrolDevice.active.transparentIfActive .iQontrolDeviceState,
+.iQontrolDevice.enlarged.transparentIfEnlarged .iQontrolDeviceState {
+    color: white;
 }
-.iQontrolDevice.high .iQontrolDeviceState, .iQontrolDevice:not(.active).highIfInactive .iQontrolDeviceState, .iQontrolDevice.active.highIfActive .iQontrolDeviceState, .iQontrolDevice.enlarged.highIfEnlarged .iQontrolDeviceState,
-.iQontrolDevice.xhigh .iQontrolDeviceState, .iQontrolDevice:not(.active).xhighIfInactive .iQontrolDeviceState, .iQontrolDevice.active.xhighIfActive .iQontrolDeviceState, .iQontrolDevice.enlarged.xhighIfEnlarged .iQontrolDeviceState {
-	word-wrap: break-word;
+.iQontrolDevice.high .iQontrolDeviceState,
+.iQontrolDevice:not(.active).highIfInactive .iQontrolDeviceState,
+.iQontrolDevice.active.highIfActive .iQontrolDeviceState,
+.iQontrolDevice.enlarged.highIfEnlarged .iQontrolDeviceState,
+.iQontrolDevice.xhigh .iQontrolDeviceState,
+.iQontrolDevice:not(.active).xhighIfInactive .iQontrolDeviceState,
+.iQontrolDevice.active.xhighIfActive .iQontrolDeviceState,
+.iQontrolDevice.enlarged.xhighIfEnlarged .iQontrolDeviceState {
+    word-wrap: break-word;
 }
-.iQontrolDevice.bigIcon .iQontrolDeviceState, .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceState, .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceState, .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceState {
-	top: 146px; 
-	height: calc(100% - 146px); 
+.iQontrolDevice.bigIcon .iQontrolDeviceState,
+.iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceState,
+.iQontrolDevice.active.bigIconIfActive .iQontrolDeviceState,
+.iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceState {
+    top: 146px;
+    height: calc(100% - 146px);
 }
-.iQontrolDeviceState.stateFillsDevice, .iQontrolDevice:not(.active) .iQontrolDeviceState.stateFillsDeviceIfInactive, .iQontrolDevice.active .iQontrolDeviceState.stateFillsDeviceIfActive, .iQontrolDevice.enlarged .iQontrolDeviceState.stateFillsDeviceIfEnlarged {
-	top: 0px; 
-	height: 100%; 
+.iQontrolDeviceState.stateFillsDevice,
+.iQontrolDevice:not(.active) .iQontrolDeviceState.stateFillsDeviceIfInactive,
+.iQontrolDevice.active .iQontrolDeviceState.stateFillsDeviceIfActive,
+.iQontrolDevice.enlarged .iQontrolDeviceState.stateFillsDeviceIfEnlarged {
+    top: 0px;
+    height: 100%;
 }
-.iQontrolDeviceState.adaptsHeight, .iQontrolDevice:not(.active) .iQontrolDeviceState.adaptsHeightIfInactive, .iQontrolDevice.active .iQontrolDeviceState.adaptsHeightIfActive, .iQontrolDevice.enlarged .iQontrolDeviceState.adaptsHeightIfEnlarged {
+.iQontrolDeviceState.adaptsHeight,
+.iQontrolDevice:not(.active) .iQontrolDeviceState.adaptsHeightIfInactive,
+.iQontrolDevice.active .iQontrolDeviceState.adaptsHeightIfActive,
+.iQontrolDevice.enlarged .iQontrolDeviceState.adaptsHeightIfEnlarged {
     position: relative;
     left: 0;
     top: 0;
     margin: 87px 0 0 3px;
-	-webkit-transition: all 1s;
-	   -moz-transition: all 1s;
-			transition: all 1s;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    transition: all 1s;
 }
-.iQontrolDevice.bigIcon .iQontrolDeviceState.adaptsHeight, .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceState.adaptsHeightIfInactive, .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceState.adaptsHeightIfActive, .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceState.adaptsHeightIfEnlarged {
+.iQontrolDevice.bigIcon .iQontrolDeviceState.adaptsHeight,
+.iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceState.adaptsHeightIfInactive,
+.iQontrolDevice.active.bigIconIfActive .iQontrolDeviceState.adaptsHeightIfActive,
+.iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceState.adaptsHeightIfEnlarged {
     top: 0;
     margin: 143px 0 0 3px;
 }
-.iQontrolDeviceState.adaptsHeight.stateFillsDevice, .iQontrolDevice:not(.active) .iQontrolDeviceState.adaptsHeightIfInactive.stateFillsDeviceIfInactive, .iQontrolDevice.active .iQontrolDeviceState.adaptsHeightIfActive.stateFillsDeviceIfActive, .iQontrolDevice.enlarged .iQontrolDeviceState.adaptsHeightIfEnlarged.stateFillsDeviceIfEnlarged {
-	margin-top: 3px;
+.iQontrolDeviceState.adaptsHeight.stateFillsDevice,
+.iQontrolDevice:not(.active) .iQontrolDeviceState.adaptsHeightIfInactive.stateFillsDeviceIfInactive,
+.iQontrolDevice.active .iQontrolDeviceState.adaptsHeightIfActive.stateFillsDeviceIfActive,
+.iQontrolDevice.enlarged .iQontrolDeviceState.adaptsHeightIfEnlarged.stateFillsDeviceIfEnlarged {
+    margin-top: 3px;
 }
 .iQontrolDeviceStateIconFloatPlaceholder {
-	float: left; 
-	pointer-events:none !important;
-	-webkit-user-select: none !important;
-	   -moz-user-select: none !important; 
-	        user-select: none !important;
-	-webkit-touch-callout: none !important;
-	width: 43px; height: 39px;
+    float: left;
+    pointer-events: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    user-select: none !important;
+    -webkit-touch-callout: none !important;
+    width: 43px;
+    height: 39px;
 }
-.iQontrolDevice.bigIcon .iQontrolDeviceStateIconFloatPlaceholder, .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceStateIconFloatPlaceholder, .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceStateIconFloatPlaceholder, .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceStateIconFloatPlaceholder {
-	width: 94px; height: 94px;
+.iQontrolDevice.bigIcon .iQontrolDeviceStateIconFloatPlaceholder,
+.iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceStateIconFloatPlaceholder,
+.iQontrolDevice.active.bigIconIfActive .iQontrolDeviceStateIconFloatPlaceholder,
+.iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceStateIconFloatPlaceholder {
+    width: 94px;
+    height: 94px;
 }
 
-.iQontrolDevice:not(.active) .hideIfInactive, .iQontrolDevice.active .hideIfActive, .iQontrolDevice.enlarged .hideIfEnlarged {
-	pointer-events:none !important;
-	opacity: 0 !important;
+.iQontrolDevice:not(.active) .hideIfInactive,
+.iQontrolDevice.active .hideIfActive,
+.iQontrolDevice.enlarged .hideIfEnlarged {
+    pointer-events: none !important;
+    opacity: 0 !important;
 }
 .iQontrolDevice.enlarged .visibleIfEnlarged {
-	pointer-events:unset !important;
-	opacity: 1 !important;
+    pointer-events: unset !important;
+    opacity: 1 !important;
 }
 
-
-/* ++++++++++ Dialog ++++++++++ */ 
+/* ++++++++++ Dialog ++++++++++ */
 #Dialog {
-	min-width: 300px;
-	max-width: 100%;
+    min-width: 300px;
+    max-width: 100%;
 }
 .isBackgroundView #Dialog {
-	min-width: 240px;
+    min-width: 240px;
 }
 #Dialog-popup {
-	max-width: 90vw!important;
-	margin-bottom: 150px;
+    max-width: 90vw !important;
+    margin-bottom: 150px;
 }
 #Dialog-popup .ui-content {
-	padding: 0.5em;
+    padding: 0.5em;
 }
 #DialogContent {
-	max-height: calc(80vh - 60px);
-	padding: 0 0.5em;
-	overflow-y: auto;
-	overflow-x: hidden;
-	overscroll-behavior: contain !important;
+    max-height: calc(80vh - 60px);
+    padding: 0 0.5em;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain !important;
 }
 .iQontrolDialogTimestampSwitch {
-	position: absolute;
-	right: 3px;
-	top: 2px;
-	width: 16px;	
-	cursor: pointer;
+    position: absolute;
+    right: 3px;
+    top: 2px;
+    width: 16px;
+    cursor: pointer;
 }
 /* -- jqte */
-.jqte { 
-    width:300px; 
-    max-width:100%;
-	margin: 0px !important;
-    border-color: rgb(221,221,221) !important;
-	-webkit-box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px 0px !important; 
-	   -moz-box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px 0px !important;
-	        box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px 0px !important; 
-	-webkit-border-radius: 6px !important;
-	   -moz-border-radius: 6px !important;
-			border-radius: 6px !important;
+.jqte {
+    width: 300px;
+    max-width: 100%;
+    margin: 0px !important;
+    border-color: rgb(221, 221, 221) !important;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px 0px !important;
+    -moz-box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px 0px !important;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px 0px !important;
+    -webkit-border-radius: 6px !important;
+    -moz-border-radius: 6px !important;
+    border-radius: 6px !important;
 }
-.jqte.DialogAdditionalControlsString{
-	width: 266px;
+.jqte.DialogAdditionalControlsString {
+    width: 266px;
 }
 .jqte_focused {
-    border-color: rgb(221,221,221) !important;
-	-webkit-box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px 0px !important; 
-	   -moz-box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px 0px !important;
-	        box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px 0px !important; 
+    border-color: rgb(221, 221, 221) !important;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px 0px !important;
+    -moz-box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px 0px !important;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px 0px !important;
 }
 .jqte_toolbar {
-	position: unset !important;
-	z-index: unset !important;	
+    position: unset !important;
+    z-index: unset !important;
 }
 .jqte_tool:not(.jqte_tool_1) {
-	width: 20px !important;
-	height: 20px !important;
+    width: 20px !important;
+    height: 20px !important;
 }
 .jqte_tool_1 {
-	height: 20px;
+    height: 20px;
 }
 .jqte_tool_icon {
-	background-size:stretch !important;
-	opacity: 0.6 !important;
+    background-size: stretch !important;
+    opacity: 0.6 !important;
 }
-.jqte_formats, .jqte_fontsizes, .jqte_cpalette {
-	position: absolute !important;
-	z-index: 10000 !important;
+.jqte_formats,
+.jqte_fontsizes,
+.jqte_cpalette {
+    position: absolute !important;
+    z-index: 10000 !important;
 }
 .jqte_editor {
     -webkit-user-select: text;
-	-webkit-touch-callout: none;
+    -webkit-touch-callout: none;
     user-select: text;
 }
 .jqte_source {
-	background-color: white !important;
+    background-color: white !important;
 }
 .jqte_source textarea {
-	top: 0px !important;
-	height: 100% !important;
-	overflow-y: scroll !important;
-	-webkit-box-shadow: none !important; 
-	   -moz-box-shadow: none !important;
-	        box-shadow: none !important; 
+    top: 0px !important;
+    height: 100% !important;
+    overflow-y: scroll !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
 }
 /* --- anypicker -- */
-.ap-theme-ios .ap-button:last-child, .ap-theme-ios .ap-button:not(:last-child)  {
-	color: #000000;
+.ap-theme-ios .ap-button:last-child,
+.ap-theme-ios .ap-button:not(:last-child) {
+    color: #000000;
 }
 .ap-theme-ios .ap-content-switch-tab {
-	border: 1px solid #5a5a5a;
-	font-size: 0.7em;
-	color: #5a5a5a;
-	text-shadow: none;
+    border: 1px solid #5a5a5a;
+    font-size: 0.7em;
+    color: #5a5a5a;
+    text-shadow: none;
 }
 .ap-theme-ios .ap-content-switch-selected {
-	background: #5a5a5a;
-	color: #FFFFFF;
-	text-shadow: none;
+    background: #5a5a5a;
+    color: #ffffff;
+    text-shadow: none;
 }
 .ap-theme-ios .ap-component-label {
-	color: #5a5a5a;
+    color: #5a5a5a;
 }
 .iQontrolDialogIframeWrapper {
-	-webkit-overflow-scrolling: touch;
-	height: 85vh;
-	max-height: 100%;
-	min-height:100px;
-	width: 85vw;
-	max-width: 100%;
-	min-width: 300px;
-	margin-left: auto;
-	margin-right: auto;
-	padding: 0px;
-	border: 2px inset #eee;
-	-webkit-border-radius: 5px;
-	   -moz-border-radius: 5px;
-			border-radius: 5px;
-	scrolling: auto;
-	overflow: hidden;
-	position: relative;
+    -webkit-overflow-scrolling: touch;
+    height: 85vh;
+    max-height: 100%;
+    min-height: 100px;
+    width: 85vw;
+    max-width: 100%;
+    min-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px;
+    border: 2px inset #eee;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    scrolling: auto;
+    overflow: hidden;
+    position: relative;
 }
 .iQontrolDialogIframe {
-	scrolling: none;
-	overflow: visible;
-	min-width:100%;
-	max-width:100%;
-	width: 100%;
-	height: 100%;
-	border: none;
+    scrolling: none;
+    overflow: visible;
+    min-width: 100%;
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    border: none;
 }
-.iQontrolDialogTime, .iQontrolDialogSecondTime {
-	font-weight: bold;
+.iQontrolDialogTime,
+.iQontrolDialogSecondTime {
+    font-weight: bold;
 }
-.iQontrolDialogTimeDistance, .iQontrolDialogSecondTimeDistance {
-	position: relative;
+.iQontrolDialogTimeDistance,
+.iQontrolDialogSecondTimeDistance {
+    position: relative;
     margin-top: -7px;
     width: 100%;
     text-align: right;
 }
 .iQontrolDialogMediaText.artist {
-	font-weight: bold;
+    font-weight: bold;
 }
 .iQontrolDialogMediaText.title {
-	font-style: italic;
+    font-style: italic;
 }
 .iQontrolDialogAdditionalInfoList:not(.ui-listview) {
-	list-style-position: outside;
-	padding-left: 10px;
+    list-style-position: outside;
+    padding-left: 10px;
 }
 .iQontrolDialogAdditionalInfoList.ui-listview {
     border-bottom: 1px solid #cccccc;
-	margin-top:-9px;
+    margin-top: -9px;
     column-fill: balance;
     gap: 1px;
     column-rule: 1px solid #ccc;
 }
 .ui-collapsible-content .iQontrolDialogAdditionalInfoList.ui-listview {
-	padding-bottom: 8px;	
-	border-bottom: none;
+    padding-bottom: 8px;
+    border-bottom: none;
 }
 .iQontrolDialogAdditionalInfoList li {
-	break-inside: avoid;
-	background:transparent !important;
+    break-inside: avoid;
+    background: transparent !important;
 }
 .iQontrolDialogAdditionalInfoList.ui-listview li {
-    border-bottom: none;	
+    border-bottom: none;
     border-top: 1px solid #cccccc;
 }
 .iQontrolDialogAdditionalInfoList.ui-listview li:hover {
-    background: rgba(0,0,0,0.05) !important;	
+    background: rgba(0, 0, 0, 0.05) !important;
 }
 .colorPicker + .ui-slider-track {
-	background-image: url(./images/hue.png) !important;
-	background-repeat: repeat-y !important;
-	background-size: 100%, auto !important;
+    background-image: url(./images/hue.png) !important;
+    background-repeat: repeat-y !important;
+    background-size: 100%, auto !important;
 }
 .colorTemperaturePicker + .ui-slider-track {
-	background-image: url(./images/ct.png) !important;
-	background-repeat: repeat-y !important;
-	background-size: 100%, auto !important;
+    background-image: url(./images/ct.png) !important;
+    background-repeat: repeat-y !important;
+    background-size: 100%, auto !important;
 }
 .colorTemperaturePicker.invert + .ui-slider-track {
-	background-image: url(./images/ct_invert.png) !important;
-	background-repeat: repeat-y !important;
-	background-size: 100%, auto !important;
+    background-image: url(./images/ct_invert.png) !important;
+    background-repeat: repeat-y !important;
+    background-size: 100%, auto !important;
 }
 .colorSaturationPicker + .ui-slider-track {
-	background-image: linear-gradient(to right, white, black) !important;
-	background-repeat: repeat-y !important;
-	background-size: 100%, auto !important;
+    background-image: linear-gradient(to right, white, black) !important;
+    background-repeat: repeat-y !important;
+    background-size: 100%, auto !important;
 }
 .fullWidthSlider .ui-slider-input {
-	display: none;
+    display: none;
 }
 .fullWidthSlider .ui-slider-track {
-	margin-left: 15px !important;
+    margin-left: 15px !important;
 }
 .fullWidthSlider .ui-mini .ui-slider-track {
-	margin-left: 0px !important;
+    margin-left: 0px !important;
 }
 .ui-slider-track .ui-btn.ui-slider-handle {
-    font-size: .7em !important;
+    font-size: 0.7em !important;
 }
 .ui-slider-popup {
     font-size: 29px !important;
@@ -1540,534 +1840,754 @@ html.noscroll body {
 .ui-slider-popup.extraLongText {
     font-size: 16px !important;
 }
-.ui-listview a {  
-/* Link-Listview nicht fett und ohne Umbruch */
-	font-weight: normal !important;
-	white-space: normal !important;
+.ui-listview a {
+    /* Link-Listview nicht fett und ohne Umbruch */
+    font-weight: normal !important;
+    white-space: normal !important;
 }
-.ui-listview > .ui-li-static, .ui-listview > .ui-li-divider, .ui-listview > li > a.ui-btn {
-/* Listview ohne Umbruch */
-	white-space: normal !important;
+.ui-listview > .ui-li-static,
+.ui-listview > .ui-li-divider,
+.ui-listview > li > a.ui-btn {
+    /* Listview ohne Umbruch */
+    white-space: normal !important;
 }
 .ui-state-disabled {
-	opacity: 0.75 !important;
+    opacity: 0.75 !important;
 }
 .ui-state-disabled.ui-btn.ui-btn-icon-right:after {
-	display: none !important;
+    display: none !important;
 }
 .ui-state-disabled.ui-slider-track .ui-btn.ui-slider-handle {
-	border: none;
-	background: none;
-	box-shadow: none;
-	text-align: right;
-	margin-left: -33px;
-	color: black;
-	text-shadow: 0 1px 0 grey;
+    border: none;
+    background: none;
+    box-shadow: none;
+    text-align: right;
+    margin-left: -33px;
+    color: black;
+    text-shadow: 0 1px 0 grey;
 }
 
-
-/* ++++++++++ Popup ++++++++++ */ 
+/* ++++++++++ Popup ++++++++++ */
 .ui-popup-screen {
-	-webkit-user-select: none !important;
-	   -moz-user-select: none !important; 
-	        user-select: none !important;
-	-webkit-touch-callout: none !important;
-	position:fixed;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    user-select: none !important;
+    -webkit-touch-callout: none !important;
+    position: fixed;
 }
-
 
 /* ++++++++++++++ COLOR-MODE DARK ++++++++++++++ */
 html.color-mode-dark ::-webkit-scrollbar-track {
-	background: #777 !important;
+    background: #777 !important;
 }
 html.color-mode-dark ::-webkit-scrollbar-thumb {
-	background: #555555 !important; 
+    background: #555555 !important;
 }
 html.color-mode-dark ::-webkit-scrollbar-thumb:hover {
-	background: #666666 !important; 
+    background: #666666 !important;
 }
 @media (prefers-color-scheme: dark) {
-	body:not(.isBackgroundView):not(.backstretchLoaded):after{
-		content: "";
-		background: rgba(0,0,0,0.5);
-		position: absolute;
-		width: 100%;
-		height: 100%;
-	}
+    body:not(.isBackgroundView):not(.backstretchLoaded):after {
+        content: '';
+        background: rgba(0, 0, 0, 0.5);
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
 }
-html.color-mode-dark body:not(.backstretchLoaded):after, html.color-mode-dark .backstretch:after{
-	content: "";
-	background: rgba(0,0,0,0.5);
-	position: absolute;
-	width: 100%;
-	height: 100%;
+html.color-mode-dark body:not(.backstretchLoaded):after,
+html.color-mode-dark .backstretch:after {
+    content: '';
+    background: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }
-html.color-mode-dark #Toolbar{
-	filter: brightness(66%);	
+html.color-mode-dark #Toolbar {
+    filter: brightness(66%);
 }
-html.color-mode-dark #ViewHeaderTitle{
-	filter: brightness(75%);	
+html.color-mode-dark #ViewHeaderTitle {
+    filter: brightness(75%);
 }
-html.color-mode-dark #ViewContent h4{
-	filter: brightness(75%);	
+html.color-mode-dark #ViewContent h4 {
+    filter: brightness(75%);
 }
-html.color-mode-dark .iQontrolDevice{
-	filter: brightness(80%);	
+html.color-mode-dark .iQontrolDevice {
+    filter: brightness(80%);
 }
-html.color-mode-dark .iQontrolDeviceBadge{
-	filter: brightness(80%);
+html.color-mode-dark .iQontrolDeviceBadge {
+    filter: brightness(80%);
 }
 html.color-mode-dark .iQontrolDeviceBackgroundIframe.isBackgroundView {
-	filter: brightness(125%);
+    filter: brightness(125%);
 }
 html.color-mode-dark #ToolbarContextMenu {
-	border-color: #000000bf !important;
+    border-color: #000000bf !important;
 }
 html.color-mode-dark #ViewDeviceContextMenu {
-	border-color: #000000bf !important;
+    border-color: #000000bf !important;
 }
-html.color-mode-dark #Dialog{
-	background: #898888 !important;
-	border-color: #5f5f5f !important;
-	text-shadow: 0 1px 0 #999 !important;
+html.color-mode-dark #Dialog {
+    background: #898888 !important;
+    border-color: #5f5f5f !important;
+    text-shadow: 0 1px 0 #999 !important;
 }
 html.color-mode-dark .iQontrolDialogTimestampSwitch {
-	filter: brightness(55%);
+    filter: brightness(55%);
 }
-html.color-mode-dark .ui-input-text{
-	color: #222 !important;
-	text-shadow: 0 1px 0 #999 !important;
-	background-color: #b9b9b9 !important;
+html.color-mode-dark .ui-input-text {
+    color: #222 !important;
+    text-shadow: 0 1px 0 #999 !important;
+    background-color: #b9b9b9 !important;
 }
-html.color-mode-dark .ui-btn{
-	color: #222 !important;
-	text-shadow: 0 1px 0 #999 !important;
-	background-color: #b9b9b9 !important;
-	border-color: #777777 !important;
+html.color-mode-dark .ui-btn {
+    color: #222 !important;
+    text-shadow: 0 1px 0 #999 !important;
+    background-color: #b9b9b9 !important;
+    border-color: #777777 !important;
 }
 html.color-mode-dark .ui-btn:hover {
-	background-color: #b0b0b0 !important;
+    background-color: #b0b0b0 !important;
 }
 html.color-mode-dark .ui-btn:active:not(.ui-radio-on) {
-	background-color: #a9a9a9 !important;
+    background-color: #a9a9a9 !important;
 }
-html.color-mode-dark .ui-btn-active, html.color-mode-dark .ui-btn-active:hover {
-	color: #858585 !important;
-	text-shadow: 0 1px 0 #1a1a1a !important;
-	background-color: #083559 !important;
-	border-color: #0a4575 !important;
+html.color-mode-dark .ui-btn-active,
+html.color-mode-dark .ui-btn-active:hover {
+    color: #858585 !important;
+    text-shadow: 0 1px 0 #1a1a1a !important;
+    background-color: #083559 !important;
+    border-color: #0a4575 !important;
 }
 html.color-mode-dark .ui-collapsible-content {
-	text-shadow: 0 1px 0 #747474 !important;    	
-	background: #787878 !important;
-	border-color: #707070 !important;
+    text-shadow: 0 1px 0 #747474 !important;
+    background: #787878 !important;
+    border-color: #707070 !important;
 }
 html.color-mode-dark .ui-listview li {
-	color: #222 !important;
-	text-shadow: 0 1px 0 #747474 !important;    	
-	border-color: #606060 !important;
+    color: #222 !important;
+    text-shadow: 0 1px 0 #747474 !important;
+    border-color: #606060 !important;
 }
-html.color-mode-dark hr{
-	border-color: #a6a6a6 !important;    	
+html.color-mode-dark hr {
+    border-color: #a6a6a6 !important;
 }
-html.color-mode-dark .ui-flipswitch{
-	background-color: #b9b9b9 !important;    	
-	border-color: #777777 !important;
+html.color-mode-dark .ui-flipswitch {
+    background-color: #b9b9b9 !important;
+    border-color: #777777 !important;
 }
 html.color-mode-dark .ui-flipswitch span {
-	color: #222 !important;
-	text-shadow: 0 1px 0 #999 !important;
+    color: #222 !important;
+    text-shadow: 0 1px 0 #999 !important;
 }
-html.color-mode-dark .ui-flipswitch-active{
-	background-color: #083559 !important;
-	border-color: #0a4575 !important;
+html.color-mode-dark .ui-flipswitch-active {
+    background-color: #083559 !important;
+    border-color: #0a4575 !important;
 }
 html.color-mode-dark .ui-flipswitch-active a {
-	color: #858585 !important;
-	text-shadow: 0 1px 0 #1a1a1a !important;
+    color: #858585 !important;
+    text-shadow: 0 1px 0 #1a1a1a !important;
 }
-html.color-mode-dark .ui-slider-track{
-	border-color: #777777 !important;    	
+html.color-mode-dark .ui-slider-track {
+    border-color: #777777 !important;
 }
-html.color-mode-dark .DialogRemotePadArea{
-	color: #222 !important;
-	border-color: #777777 !important;
-	background-color: #b9b9b9 !important;
+html.color-mode-dark .DialogRemotePadArea {
+    color: #222 !important;
+    border-color: #777777 !important;
+    background-color: #b9b9b9 !important;
 }
-html.color-mode-dark .ap-cont:after{
-	content: "";
-	background: rgba(0,0,0,0.4);
-	position: absolute;
-	left: -1px;
-	top:-1px;
-	width: 100%;
-	width: calc(100% + 2px);
-	height: 100%;
-	height: calc(100% + 2px);
-	pointer-events: none;
+html.color-mode-dark .ap-cont:after {
+    content: '';
+    background: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    left: -1px;
+    top: -1px;
+    width: 100%;
+    width: calc(100% + 2px);
+    height: 100%;
+    height: calc(100% + 2px);
+    pointer-events: none;
 }
 html.color-mode-dark #popup:after {
-	content: "";
-	background: rgba(0,0,0,0.4);
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	pointer-events: none;	
+    content: '';
+    background: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
 }
 html.color-mode-dark .ui-state-disabled.ui-slider-track .ui-btn.ui-slider-handle {
-	border: none !important;
-	background: none !important;
-	box-shadow: none !important;
-	text-align: right !important;
-	margin-left: -33px !important;
-	color: #858585 !important;
-	text-shadow: 0 1px 0 #1a1a1a !important;
+    border: none !important;
+    background: none !important;
+    box-shadow: none !important;
+    text-align: right !important;
+    margin-left: -33px !important;
+    color: #858585 !important;
+    text-shadow: 0 1px 0 #1a1a1a !important;
 }
-
 
 /* ++++++++++++++ RESPONSIVE DESIGN FOR BIGGER SCREENS ++++++++++++++ */
 @media screen and (max-width: 17em) {
-	#Dialog {
-		width: 90vw;
-		min-width: 10em;
-		max-width: 16em;
-	}
-	.jqte { 
-		min-width: 10em;
-		max-width: 16em;
-	}
-	.jqte.DialogAdditionalControlsString { 
-		min-width: 10em;
-		max-width: 16em;
-	}
-	.iQontrolDialogIframeWrapper {
-		min-width: 10em;
-		max-width: 16em;
-	}
+    #Dialog {
+        width: 90vw;
+        min-width: 10em;
+        max-width: 16em;
+    }
+    .jqte {
+        min-width: 10em;
+        max-width: 16em;
+    }
+    .jqte.DialogAdditionalControlsString {
+        min-width: 10em;
+        max-width: 16em;
+    }
+    .iQontrolDialogIframeWrapper {
+        min-width: 10em;
+        max-width: 16em;
+    }
 }
 
 @media screen and (min-width: 600px) {
-	#Dialog {
-		min-width: 500px;
-	}
-	.jqte { 
-		min-width:500px; 
-	}
-	.jqte.DialogAdditionalControlsString { 
-		min-width:466px; 
-	}
-	.iQontrolDialogIframeWrapper {
-		min-width: 500px;
-	}
+    #Dialog {
+        min-width: 500px;
+    }
+    .jqte {
+        min-width: 500px;
+    }
+    .jqte.DialogAdditionalControlsString {
+        min-width: 466px;
+    }
+    .iQontrolDialogIframeWrapper {
+        min-width: 500px;
+    }
 }
-
 
 /* ++++++++++++++ BIG MODE ++++++++++++++ */
 html.bigMode #ViewMain {
-	xxxfont-size: 22pt;
+    xxxfont-size: 22pt;
 }
 html.bigMode #ViewHeaderTitle {
-	font-size: 22pt;
+    font-size: 22pt;
 }
 html.bigMode #ViewContent h4 {
-	font-size: 15pt;
+    font-size: 15pt;
 }
 
 html.bigMode .iQontrolDeviceShuffleSizer {
-	width: 93px;
+    width: 93px;
 }
 html.bigMode .iQontrolDevicePressureIndicator {
-	margin: 12px;
-	-webkit-border-radius: 22px;
-	   -moz-border-radius: 22px;
-			border-radius: 22px;
+    margin: 12px;
+    -webkit-border-radius: 22px;
+    -moz-border-radius: 22px;
+    border-radius: 22px;
 }
 html.bigMode .iQontrolDeviceGlow {
-	-webkit-border-radius: 22px;
-	   -moz-border-radius: 22px;
-			border-radius: 22px;
+    -webkit-border-radius: 22px;
+    -moz-border-radius: 22px;
+    border-radius: 22px;
 }
 html.bigMode .iQontrolDevice {
-	width: 156px; max-width: 156px;
-	height: 156px; max-height: 156px; min-height: 156px;
-	padding: 3px 3px 3px 3px;
-	-webkit-border-radius: 22px;
-	   -moz-border-radius: 22px;
-			border-radius: 22px;
-	-webkit-box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.2);
-	   -moz-box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.2);
-			box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.2);
+    width: 156px;
+    max-width: 156px;
+    height: 156px;
+    max-height: 156px;
+    min-height: 156px;
+    padding: 3px 3px 3px 3px;
+    -webkit-border-radius: 22px;
+    -moz-border-radius: 22px;
+    border-radius: 22px;
+    -webkit-box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.2);
 }
-html.bigMode .iQontrolDevice.narrow, html.bigMode .iQontrolDevice:not(.active).narrowIfInactive, html.bigMode .iQontrolDevice.active.narrowIfActive, html.bigMode .iQontrolDevice.enlarged.narrowIfEnlarged {
-	width: 63px; max-width: 63px;
-}
-html.bigMode .iQontrolDevice.enlarged.normalIfEnlarged {
-	width: 156px; max-width: 156px;
-}
-html.bigMode .iQontrolDevice.wide, html.bigMode .iQontrolDevice:not(.active).wideIfInactive, html.bigMode .iQontrolDevice.active.wideIfActive, html.bigMode .iQontrolDevice.enlarged.wideIfEnlarged {
-	width: 342px; max-width: 342px;
-}
-html.bigMode .iQontrolDevice.xwide, html.bigMode .iQontrolDevice:not(.active).xwideIfInactive, html.bigMode .iQontrolDevice.active.xwideIfActive, html.bigMode .iQontrolDevice.enlarged.xwideIfEnlarged {
-	width: 528px; max-width: 528px;
-}
-html.bigMode .iQontrolDevice.short, html.bigMode .iQontrolDevice:not(.active).shortIfInactive, html.bigMode .iQontrolDevice.active.shortIfActive, html.bigMode .iQontrolDevice.enlarged.shortIfEnlarged {
-	height: 63px; max-height: 63px; min-height: 63px;
+html.bigMode .iQontrolDevice.narrow,
+html.bigMode .iQontrolDevice:not(.active).narrowIfInactive,
+html.bigMode .iQontrolDevice.active.narrowIfActive,
+html.bigMode .iQontrolDevice.enlarged.narrowIfEnlarged {
+    width: 63px;
+    max-width: 63px;
 }
 html.bigMode .iQontrolDevice.enlarged.normalIfEnlarged {
-	height: 156px; max-height: 156px; min-height: 156px;
+    width: 156px;
+    max-width: 156px;
 }
-html.bigMode .iQontrolDevice.high, html.bigMode .iQontrolDevice:not(.active).highIfInactive, html.bigMode .iQontrolDevice.active.highIfActive, html.bigMode .iQontrolDevice.enlarged.highIfEnlarged {
-	height: 342px; max-height: 342px; min-height: 342px;
+html.bigMode .iQontrolDevice.wide,
+html.bigMode .iQontrolDevice:not(.active).wideIfInactive,
+html.bigMode .iQontrolDevice.active.wideIfActive,
+html.bigMode .iQontrolDevice.enlarged.wideIfEnlarged {
+    width: 342px;
+    max-width: 342px;
 }
-html.bigMode .iQontrolDevice.xhigh, html.bigMode .iQontrolDevice:not(.active).xhighIfInactive, html.bigMode .iQontrolDevice.active.xhighIfActive, html.bigMode .iQontrolDevice.enlarged.xhighIfEnlarged {
-	height: 528px; max-height: 528px; min-height: 528px;
+html.bigMode .iQontrolDevice.xwide,
+html.bigMode .iQontrolDevice:not(.active).xwideIfInactive,
+html.bigMode .iQontrolDevice.active.xwideIfActive,
+html.bigMode .iQontrolDevice.enlarged.xwideIfEnlarged {
+    width: 528px;
+    max-width: 528px;
 }
-html.bigMode .iQontrolDevice.fullWidth, html.bigMode .iQontrolDevice:not(.active).fullWidthIfInactive, html.bigMode .iQontrolDevice.active.fullWidthIfActive, html.bigMode .iQontrolDevice.enlarged.fullWidthIfEnlarged {
-	width: 95vw; width: calc(100vw - 40px); max-width: 95vw; max-width: calc(100vw - 40px); /* is activly changed by resizeFullWidthDevicesToFitScreen() */
+html.bigMode .iQontrolDevice.short,
+html.bigMode .iQontrolDevice:not(.active).shortIfInactive,
+html.bigMode .iQontrolDevice.active.shortIfActive,
+html.bigMode .iQontrolDevice.enlarged.shortIfEnlarged {
+    height: 63px;
+    max-height: 63px;
+    min-height: 63px;
 }
-html.bigMode .iQontrolDevice.aspect-1-1, html.bigMode .iQontrolDevice:not(.active).aspect-1-1IfInactive, html.bigMode .iQontrolDevice.active.aspect-1-1IfActive, html.bigMode .iQontrolDevice.enlarged.aspect-1-1IfEnlarged {
-	padding-bottom: calc(100% - 156px);
+html.bigMode .iQontrolDevice.enlarged.normalIfEnlarged {
+    height: 156px;
+    max-height: 156px;
+    min-height: 156px;
 }
-html.bigMode .iQontrolDevice.aspect-4-3, html.bigMode .iQontrolDevice:not(.active).aspect-4-3IfInactive, html.bigMode .iQontrolDevice.active.aspect-4-3IfActive, html.bigMode .iQontrolDevice.enlarged.aspect-4-3IfEnlarged {
-	padding-bottom: calc(75% - 156px);
+html.bigMode .iQontrolDevice.high,
+html.bigMode .iQontrolDevice:not(.active).highIfInactive,
+html.bigMode .iQontrolDevice.active.highIfActive,
+html.bigMode .iQontrolDevice.enlarged.highIfEnlarged {
+    height: 342px;
+    max-height: 342px;
+    min-height: 342px;
 }
-html.bigMode .iQontrolDevice.aspect-3-2, html.bigMode .iQontrolDevice:not(.active).aspect-3-2IfInactive, html.bigMode .iQontrolDevice.active.aspect-3-2IfActive, html.bigMode .iQontrolDevice.enlarged.aspect-3-2IfEnlarged {
-	padding-bottom: calc(66.66% - 156px);
+html.bigMode .iQontrolDevice.xhigh,
+html.bigMode .iQontrolDevice:not(.active).xhighIfInactive,
+html.bigMode .iQontrolDevice.active.xhighIfActive,
+html.bigMode .iQontrolDevice.enlarged.xhighIfEnlarged {
+    height: 528px;
+    max-height: 528px;
+    min-height: 528px;
 }
-html.bigMode .iQontrolDevice.aspect-16-9, html.bigMode .iQontrolDevice:not(.active).aspect-16-9IfInactive, html.bigMode .iQontrolDevice.active.aspect-16-9IfActive, html.bigMode .iQontrolDevice.enlarged.aspect-16-9IfEnlarged {
-	padding-bottom: calc(56.25% - 156px);
+html.bigMode .iQontrolDevice.fullWidth,
+html.bigMode .iQontrolDevice:not(.active).fullWidthIfInactive,
+html.bigMode .iQontrolDevice.active.fullWidthIfActive,
+html.bigMode .iQontrolDevice.enlarged.fullWidthIfEnlarged {
+    width: 95vw;
+    width: calc(100vw - 40px);
+    max-width: 95vw;
+    max-width: calc(100vw - 40px); /* is activly changed by resizeFullWidthDevicesToFitScreen() */
 }
-html.bigMode .iQontrolDevice.aspect-21-9, html.bigMode .iQontrolDevice:not(.active).aspect-21-9IfInactive, html.bigMode .iQontrolDevice.active.aspect-21-9IfActive, html.bigMode .iQontrolDevice.enlarged.aspect-21-9IfEnlarged {
-	padding-bottom: calc(42.86% - 156px);
+html.bigMode .iQontrolDevice.aspect-1-1,
+html.bigMode .iQontrolDevice:not(.active).aspect-1-1IfInactive,
+html.bigMode .iQontrolDevice.active.aspect-1-1IfActive,
+html.bigMode .iQontrolDevice.enlarged.aspect-1-1IfEnlarged {
+    padding-bottom: calc(100% - 156px);
 }
-html.bigMode .iQontrolDevice.aspect-1-1-limited, html.bigMode .iQontrolDevice:not(.active).aspect-1-1-limitedIfInactive, html.bigMode .iQontrolDevice.active.aspect-1-1-limitedIfActive, html.bigMode .iQontrolDevice.enlarged.aspect-1-1-limitedIfEnlarged {
-	padding-bottom: calc(100% - 156px); padding-bottom: min(calc(100% - 156px), calc(100vh - 226px)); /* is activly changed by resizeFullWidthDevicesToFitScreen() */
+html.bigMode .iQontrolDevice.aspect-4-3,
+html.bigMode .iQontrolDevice:not(.active).aspect-4-3IfInactive,
+html.bigMode .iQontrolDevice.active.aspect-4-3IfActive,
+html.bigMode .iQontrolDevice.enlarged.aspect-4-3IfEnlarged {
+    padding-bottom: calc(75% - 156px);
 }
-html.bigMode .iQontrolDevice.aspect-4-3-limited, html.bigMode .iQontrolDevice:not(.active).aspect-4-3-limitedIfInactive, html.bigMode .iQontrolDevice.active.aspect-4-3-limitedIfActive, html.bigMode .iQontrolDevice.enlarged.aspect-4-3-limitedIfEnlarged {
-	padding-bottom: calc(75% - 156px); padding-bottom: min(calc(75% - 156px), calc(100vh - 226px)); /* is activly changed by resizeFullWidthDevicesToFitScreen() */
+html.bigMode .iQontrolDevice.aspect-3-2,
+html.bigMode .iQontrolDevice:not(.active).aspect-3-2IfInactive,
+html.bigMode .iQontrolDevice.active.aspect-3-2IfActive,
+html.bigMode .iQontrolDevice.enlarged.aspect-3-2IfEnlarged {
+    padding-bottom: calc(66.66% - 156px);
 }
-html.bigMode .iQontrolDevice.aspect-3-2-limited, html.bigMode .iQontrolDevice:not(.active).aspect-3-2-limitedIfInactive, html.bigMode .iQontrolDevice.active.aspect-3-2-limitedIfActive, html.bigMode .iQontrolDevice.enlarged.aspect-3-3-limitedIfEnlarged {
-	padding-bottom: calc(66.66% - 156px); padding-bottom: min(calc(66.66% - 156px), calc(100vh - 226px)); /* is activly changed by resizeFullWidthDevicesToFitScreen() */
+html.bigMode .iQontrolDevice.aspect-16-9,
+html.bigMode .iQontrolDevice:not(.active).aspect-16-9IfInactive,
+html.bigMode .iQontrolDevice.active.aspect-16-9IfActive,
+html.bigMode .iQontrolDevice.enlarged.aspect-16-9IfEnlarged {
+    padding-bottom: calc(56.25% - 156px);
 }
-html.bigMode .iQontrolDevice.aspect-16-9-limited, html.bigMode .iQontrolDevice:not(.active).aspect-16-9-limitedIfInactive, html.bigMode .iQontrolDevice.active.aspect-16-9-limitedIfActive, html.bigMode .iQontrolDevice.enlarged.aspect-16-9-limitedIfEnlarged {
-	padding-bottom: calc(56.25% - 156px); padding-bottom: min(calc(56.25% - 156px), calc(100vh - 226px)); /* is activly changed by resizeFullWidthDevicesToFitScreen() */
+html.bigMode .iQontrolDevice.aspect-21-9,
+html.bigMode .iQontrolDevice:not(.active).aspect-21-9IfInactive,
+html.bigMode .iQontrolDevice.active.aspect-21-9IfActive,
+html.bigMode .iQontrolDevice.enlarged.aspect-21-9IfEnlarged {
+    padding-bottom: calc(42.86% - 156px);
 }
-html.bigMode .iQontrolDevice.aspect-21-9-limited, html.bigMode .iQontrolDevice:not(.active).aspect-21-9-limitedIfInactive, html.bigMode .iQontrolDevice.active.aspect-21-9-limitedIfActive, html.bigMode .iQontrolDevice.enlarged.aspect-21-9-limitedIfEnlarged {
-	padding-bottom: calc(42.86% - 156px); padding-bottom: min(calc(42.86% - 156px), calc(100vh - 226px)); /* is activly changed by resizeFullWidthDevicesToFitScreen() */
+html.bigMode .iQontrolDevice.aspect-1-1-limited,
+html.bigMode .iQontrolDevice:not(.active).aspect-1-1-limitedIfInactive,
+html.bigMode .iQontrolDevice.active.aspect-1-1-limitedIfActive,
+html.bigMode .iQontrolDevice.enlarged.aspect-1-1-limitedIfEnlarged {
+    padding-bottom: calc(100% - 156px);
+    padding-bottom: min(
+        calc(100% - 156px),
+        calc(100vh - 226px)
+    ); /* is activly changed by resizeFullWidthDevicesToFitScreen() */
 }
-html.bigMode .iQontrolDevice.fullHeight, html.bigMode .iQontrolDevice:not(.active).fullHeightIfInactive, html.bigMode .iQontrolDevice.active.fullHeightIfActive, html.bigMode .iQontrolDevice.enlarged.fullHeightIfEnlarged {
-	height: 85vh; height: calc(100vh - 70px); max-height: 85vh; max-height: calc(100vh - 70px); min-height: 85vh; min-height: calc(100vh - 70px); /* is activly changed by resizeFullWidthDevicesToFitScreen() */
-	padding-bottom: unset !important;
+html.bigMode .iQontrolDevice.aspect-4-3-limited,
+html.bigMode .iQontrolDevice:not(.active).aspect-4-3-limitedIfInactive,
+html.bigMode .iQontrolDevice.active.aspect-4-3-limitedIfActive,
+html.bigMode .iQontrolDevice.enlarged.aspect-4-3-limitedIfEnlarged {
+    padding-bottom: calc(75% - 156px);
+    padding-bottom: min(
+        calc(75% - 156px),
+        calc(100vh - 226px)
+    ); /* is activly changed by resizeFullWidthDevicesToFitScreen() */
 }
-html.bigMode .iQontrolDevice.adaptsHeight, html.bigMode .iQontrolDevice:not(.active).adaptsHeightIfInactive, html.bigMode .iQontrolDevice.active.adaptsHeightIfActive, html.bigMode .iQontrolDevice.enlarged.adaptsHeightIfEnlarged {
-	height: unset; max-height: unset;
+html.bigMode .iQontrolDevice.aspect-3-2-limited,
+html.bigMode .iQontrolDevice:not(.active).aspect-3-2-limitedIfInactive,
+html.bigMode .iQontrolDevice.active.aspect-3-2-limitedIfActive,
+html.bigMode .iQontrolDevice.enlarged.aspect-3-3-limitedIfEnlarged {
+    padding-bottom: calc(66.66% - 156px);
+    padding-bottom: min(
+        calc(66.66% - 156px),
+        calc(100vh - 226px)
+    ); /* is activly changed by resizeFullWidthDevicesToFitScreen() */
+}
+html.bigMode .iQontrolDevice.aspect-16-9-limited,
+html.bigMode .iQontrolDevice:not(.active).aspect-16-9-limitedIfInactive,
+html.bigMode .iQontrolDevice.active.aspect-16-9-limitedIfActive,
+html.bigMode .iQontrolDevice.enlarged.aspect-16-9-limitedIfEnlarged {
+    padding-bottom: calc(56.25% - 156px);
+    padding-bottom: min(
+        calc(56.25% - 156px),
+        calc(100vh - 226px)
+    ); /* is activly changed by resizeFullWidthDevicesToFitScreen() */
+}
+html.bigMode .iQontrolDevice.aspect-21-9-limited,
+html.bigMode .iQontrolDevice:not(.active).aspect-21-9-limitedIfInactive,
+html.bigMode .iQontrolDevice.active.aspect-21-9-limitedIfActive,
+html.bigMode .iQontrolDevice.enlarged.aspect-21-9-limitedIfEnlarged {
+    padding-bottom: calc(42.86% - 156px);
+    padding-bottom: min(
+        calc(42.86% - 156px),
+        calc(100vh - 226px)
+    ); /* is activly changed by resizeFullWidthDevicesToFitScreen() */
+}
+html.bigMode .iQontrolDevice.fullHeight,
+html.bigMode .iQontrolDevice:not(.active).fullHeightIfInactive,
+html.bigMode .iQontrolDevice.active.fullHeightIfActive,
+html.bigMode .iQontrolDevice.enlarged.fullHeightIfEnlarged {
+    height: 85vh;
+    height: calc(100vh - 70px);
+    max-height: 85vh;
+    max-height: calc(100vh - 70px);
+    min-height: 85vh;
+    min-height: calc(100vh - 70px); /* is activly changed by resizeFullWidthDevicesToFitScreen() */
+    padding-bottom: unset !important;
+}
+html.bigMode .iQontrolDevice.adaptsHeight,
+html.bigMode .iQontrolDevice:not(.active).adaptsHeightIfInactive,
+html.bigMode .iQontrolDevice.active.adaptsHeightIfActive,
+html.bigMode .iQontrolDevice.enlarged.adaptsHeightIfEnlarged {
+    height: unset;
+    max-height: unset;
 }
 html.bigMode .iQontrolDevice:hover {
-	-webkit-box-shadow: 0px 1px 2px 2px rgba(0,0,0,0.3);
-	   -moz-box-shadow: 0px 1px 2px 2px rgba(0,0,0,0.3);
-			box-shadow: 0px 1px 2px 2px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0px 1px 2px 2px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 1px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 1px 2px 2px rgba(0, 0, 0, 0.3);
 }
 html.bigMode .iQontrolDeviceBadge {
-	max-width: 80px;
+    max-width: 80px;
 }
 html.bigMode .iQontrolDeviceBackgroundIframeWrapper {
-	-webkit-border-radius: 22px;
-	   -moz-border-radius: 22px;
-			border-radius: 22px;
+    -webkit-border-radius: 22px;
+    -moz-border-radius: 22px;
+    border-radius: 22px;
 }
 html.bigMode .iQontrolDeviceBackgroundImage {
-	-webkit-transform: scale3d(1.0,1.0,1);
-	   -moz-transform: scale3d(1.0,1.0,1);
-			transform: scale3d(1.0,1.0,1);
-	-webkit-border-radius: 22px;
-	   -moz-border-radius: 22px;
-			border-radius: 22px;
+    -webkit-transform: scale3d(1, 1, 1);
+    -moz-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+    -webkit-border-radius: 22px;
+    -moz-border-radius: 22px;
+    border-radius: 22px;
 }
 html.bigMode .iQontrolDeviceBackgroundImage:hover {
-	-webkit-transform: scale3d(1.05,1.05,1);
-	   -moz-transform: scale3d(1.05,1.05,1);
-			transform: scale3d(1.05,1.05,1);
+    -webkit-transform: scale3d(1.05, 1.05, 1);
+    -moz-transform: scale3d(1.05, 1.05, 1);
+    transform: scale3d(1.05, 1.05, 1);
 }
 html.bigMode .iQontrolDeviceBackground {
-	-webkit-border-radius: 22px;
-	   -moz-border-radius: 22px;
-			border-radius: 22px;
+    -webkit-border-radius: 22px;
+    -moz-border-radius: 22px;
+    border-radius: 22px;
 }
 html.bigMode .iQontrolDeviceIcon {
-	position:absolute; left: 5px; top: 5px; width: 57px; height: 57px;
-	margin: 3px;
-	-webkit-transform: scale3d(1.0,1.0,1);
-	   -moz-transform: scale3d(1.0,1.0,1);
-			transform: scale3d(1.0,1.0,1);
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    width: 57px;
+    height: 57px;
+    margin: 3px;
+    -webkit-transform: scale3d(1, 1, 1);
+    -moz-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
 }
-html.bigMode .iQontrolDevice.narrow .iQontrolDeviceIcon, html.bigMode .iQontrolDevice:not(.active).narrowIfInactive .iQontrolDeviceIcon, html.bigMode .iQontrolDevice.active.narrowIfActive .iQontrolDeviceIcon, html.bigMode .iQontrolDevice.enlarged.narrowIfEnlarged .iQontrolDeviceIcon {
-	left:3px;
+html.bigMode .iQontrolDevice.narrow .iQontrolDeviceIcon,
+html.bigMode .iQontrolDevice:not(.active).narrowIfInactive .iQontrolDeviceIcon,
+html.bigMode .iQontrolDevice.active.narrowIfActive .iQontrolDeviceIcon,
+html.bigMode .iQontrolDevice.enlarged.narrowIfEnlarged .iQontrolDeviceIcon {
+    left: 3px;
 }
-html.bigMode .iQontrolDevice.short .iQontrolDeviceIcon, html.bigMode .iQontrolDevice:not(.active).shortIfInactive .iQontrolDeviceIcon, html.bigMode .iQontrolDevice.active.shortIfActive .iQontrolDeviceIcon, html.bigMode .iQontrolDevice.enlarged.shortIfEnlarged .iQontrolDeviceIcon {
-	top:3px;
+html.bigMode .iQontrolDevice.short .iQontrolDeviceIcon,
+html.bigMode .iQontrolDevice:not(.active).shortIfInactive .iQontrolDeviceIcon,
+html.bigMode .iQontrolDevice.active.shortIfActive .iQontrolDeviceIcon,
+html.bigMode .iQontrolDevice.enlarged.shortIfEnlarged .iQontrolDeviceIcon {
+    top: 3px;
 }
-html.bigMode .iQontrolDevice.bigIcon .iQontrolDeviceIcon, html.bigMode .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceIcon, html.bigMode .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceIcon, html.bigMode .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceIcon {
-	width: 146px; height: 146px; 
+html.bigMode .iQontrolDevice.bigIcon .iQontrolDeviceIcon,
+html.bigMode .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceIcon,
+html.bigMode .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceIcon,
+html.bigMode .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceIcon {
+    width: 146px;
+    height: 146px;
 }
 html.bigMode .iQontrolDeviceIcon:not(.noZoomOnHover):hover {
-	-webkit-transform: scale3d(1.2,1.2,1);
-	   -moz-transform: scale3d(1.2,1.2,1);
-			transform: scale3d(1.2,1.2,1);
+    -webkit-transform: scale3d(1.2, 1.2, 1);
+    -moz-transform: scale3d(1.2, 1.2, 1);
+    transform: scale3d(1.2, 1.2, 1);
 }
 html.bigMode .iQontrolDeviceLoading {
-	position:absolute; left: 18px; top: 18px; width: 36px; height: 36px;
+    position: absolute;
+    left: 18px;
+    top: 18px;
+    width: 36px;
+    height: 36px;
 }
-html.bigMode .iQontrolDevice.narrow .iQontrolDeviceLoading, html.bigMode .iQontrolDevice:not(.active).narrowIfInactive .iQontrolDeviceLoading, html.bigMode .iQontrolDevice.active.narrowIfActive .iQontrolDeviceLoading, html.bigMode .iQontrolDevice.enlarged.narrowIfEnlarged .iQontrolDeviceLoading {
-	left:16.5px;
+html.bigMode .iQontrolDevice.narrow .iQontrolDeviceLoading,
+html.bigMode .iQontrolDevice:not(.active).narrowIfInactive .iQontrolDeviceLoading,
+html.bigMode .iQontrolDevice.active.narrowIfActive .iQontrolDeviceLoading,
+html.bigMode .iQontrolDevice.enlarged.narrowIfEnlarged .iQontrolDeviceLoading {
+    left: 16.5px;
 }
-html.bigMode .iQontrolDevice.short .iQontrolDeviceLoading, html.bigMode .iQontrolDevice:not(.active).shortIfInactive .iQontrolDeviceLoading, html.bigMode .iQontrolDevice.active.shortIfActive .iQontrolDeviceLoading, html.bigMode .iQontrolDevice.enlarged.shortIfEnlarged .iQontrolDeviceLoading {
-	top:16.5px;
+html.bigMode .iQontrolDevice.short .iQontrolDeviceLoading,
+html.bigMode .iQontrolDevice:not(.active).shortIfInactive .iQontrolDeviceLoading,
+html.bigMode .iQontrolDevice.active.shortIfActive .iQontrolDeviceLoading,
+html.bigMode .iQontrolDevice.enlarged.shortIfEnlarged .iQontrolDeviceLoading {
+    top: 16.5px;
 }
-html.bigMode .iQontrolDevice.bigIcon .iQontrolDeviceLoading, html.bigMode .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceLoading, html.bigMode .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceLoading, html.bigMode .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceLoading {
-	width: 126px; height: 126px; 
+html.bigMode .iQontrolDevice.bigIcon .iQontrolDeviceLoading,
+html.bigMode .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceLoading,
+html.bigMode .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceLoading,
+html.bigMode .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceLoading {
+    width: 126px;
+    height: 126px;
 }
 html.bigMode .iQontrolDeviceError {
-	position:absolute; left: 72px; top: 4px; width: 24px; height: 24px;
+    position: absolute;
+    left: 72px;
+    top: 4px;
+    width: 24px;
+    height: 24px;
 }
-html.bigMode .iQontrolDevice.bigIcon .iQontrolDeviceError, html.bigMode .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceError, html.bigMode .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceError, html.bigMode .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceError {
-	left: 161px; 
+html.bigMode .iQontrolDevice.bigIcon .iQontrolDeviceError,
+html.bigMode .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceError,
+html.bigMode .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceError,
+html.bigMode .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceError {
+    left: 161px;
 }
 html.bigMode .iQontrolDeviceUnreach {
-	position:absolute; left: 100px; top: 4px; width: 24px; height: 24px;
+    position: absolute;
+    left: 100px;
+    top: 4px;
+    width: 24px;
+    height: 24px;
 }
-html.bigMode .iQontrolDevice.bigIcon .iQontrolDeviceUnreach, html.bigMode .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceUnreach, html.bigMode .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceUnreach, html.bigMode .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceUnreach {
-	left: 189px; 
+html.bigMode .iQontrolDevice.bigIcon .iQontrolDeviceUnreach,
+html.bigMode .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceUnreach,
+html.bigMode .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceUnreach,
+html.bigMode .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceUnreach {
+    left: 189px;
 }
 html.bigMode .iQontrolDeviceBattery {
-	position:absolute; left: 129px; top: 4px; width: 24px; height: 24px;
+    position: absolute;
+    left: 129px;
+    top: 4px;
+    width: 24px;
+    height: 24px;
 }
-html.bigMode .iQontrolDevice.bigIcon .iQontrolDeviceBattery, html.bigMode .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceBattery, html.bigMode .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceBattery, html.bigMode .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceBattery {
-	left: 218px; 
+html.bigMode .iQontrolDevice.bigIcon .iQontrolDeviceBattery,
+html.bigMode .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceBattery,
+html.bigMode .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceBattery,
+html.bigMode .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceBattery {
+    left: 218px;
 }
 html.bigMode .iQontrolDeviceInfoAIcon {
-	position:absolute; left: 72px; top: 30px; width: 18px; height: 18px;
+    position: absolute;
+    left: 72px;
+    top: 30px;
+    width: 18px;
+    height: 18px;
 }
-html.bigMode .iQontrolDevice.bigIcon .iQontrolDeviceInfoAIcon, html.bigMode .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceInfoAIcon, html.bigMode .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceInfoAIcon, html.bigMode .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceInfoAIcon {
-	left: 161px; 
+html.bigMode .iQontrolDevice.bigIcon .iQontrolDeviceInfoAIcon,
+html.bigMode .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceInfoAIcon,
+html.bigMode .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceInfoAIcon,
+html.bigMode .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceInfoAIcon {
+    left: 161px;
 }
 html.bigMode .iQontrolDeviceEnlargeButton {
-	right: 1px; top: 2px;
+    right: 1px;
+    top: 2px;
 }
 html.bigMode .iQontrolDeviceInfoAText {
-	position:absolute; left: 90px; top: 30px; height: 22px;
-	width: 72px; width: calc(100% - 89px); 
-	font-size: 10.5pt;
+    position: absolute;
+    left: 90px;
+    top: 30px;
+    height: 22px;
+    width: 72px;
+    width: calc(100% - 89px);
+    font-size: 10.5pt;
 }
-html.bigMode .iQontrolDevice.bigIcon .iQontrolDeviceInfoAText, html.bigMode .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceInfoAText, html.bigMode .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceInfoAText, html.bigMode .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceInfoAText {
-	left: 179px; 
-	width: calc(100% - 178px); 
+html.bigMode .iQontrolDevice.bigIcon .iQontrolDeviceInfoAText,
+html.bigMode .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceInfoAText,
+html.bigMode .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceInfoAText,
+html.bigMode .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceInfoAText {
+    left: 179px;
+    width: calc(100% - 178px);
 }
 html.bigMode .iQontrolDeviceInfoBIcon {
-	position:absolute; left: 72px; top: 58px; width: 18px; height: 18px;
+    position: absolute;
+    left: 72px;
+    top: 58px;
+    width: 18px;
+    height: 18px;
 }
-html.bigMode .iQontrolDevice.bigIcon .iQontrolDeviceInfoBIcon, html.bigMode .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceInfoBIcon, html.bigMode .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceInfoBIcon, html.bigMode .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceInfoBIcon {
-	left: 161px; 
+html.bigMode .iQontrolDevice.bigIcon .iQontrolDeviceInfoBIcon,
+html.bigMode .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceInfoBIcon,
+html.bigMode .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceInfoBIcon,
+html.bigMode .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceInfoBIcon {
+    left: 161px;
 }
-html.bigMode .iQontrolDevice.short .iQontrolDeviceInfoBIcon, html.bigMode .iQontrolDevice:not(.active):not(.enlarged).shortIfInactive .iQontrolDeviceInfoBIcon, html.bigMode .iQontrolDevice.active:not(.enlarged).shortIfActive .iQontrolDeviceInfoBIcon, html.bigMode .iQontrolDevice.enlarged.shortIfEnlarged .iQontrolDeviceInfoBIcon {
-	top: 49px;
+html.bigMode .iQontrolDevice.short .iQontrolDeviceInfoBIcon,
+html.bigMode .iQontrolDevice:not(.active):not(.enlarged).shortIfInactive .iQontrolDeviceInfoBIcon,
+html.bigMode .iQontrolDevice.active:not(.enlarged).shortIfActive .iQontrolDeviceInfoBIcon,
+html.bigMode .iQontrolDevice.enlarged.shortIfEnlarged .iQontrolDeviceInfoBIcon {
+    top: 49px;
 }
 html.bigMode .iQontrolDeviceInfoBText {
-	position:absolute; left: 90px; top: 58px; height: 22px;
-	width: 72px; width: calc(100% - 89px); 
-	font-size: 10.5pt;
+    position: absolute;
+    left: 90px;
+    top: 58px;
+    height: 22px;
+    width: 72px;
+    width: calc(100% - 89px);
+    font-size: 10.5pt;
 }
-html.bigMode .iQontrolDevice.bigIcon .iQontrolDeviceInfoBText, html.bigMode .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceInfoBText, html.bigMode .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceInfoBText, html.bigMode .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceInfoBText {
-	left: 179px; 
-	width: calc(100% - 178px); 
+html.bigMode .iQontrolDevice.bigIcon .iQontrolDeviceInfoBText,
+html.bigMode .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceInfoBText,
+html.bigMode .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceInfoBText,
+html.bigMode .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceInfoBText {
+    left: 179px;
+    width: calc(100% - 178px);
 }
-html.bigMode .iQontrolDevice.short .iQontrolDeviceInfoBText, html.bigMode .iQontrolDevice:not(.active):not(.enlarged).shortIfInactive .iQontrolDeviceInfoBText, html.bigMode .iQontrolDevice.active:not(.enlarged).shortIfActive .iQontrolDeviceInfoBText, html.bigMode .iQontrolDevice.enlarged.shortIfEnlarged .iQontrolDeviceInfoBText {
-	top: 49px;
+html.bigMode .iQontrolDevice.short .iQontrolDeviceInfoBText,
+html.bigMode .iQontrolDevice:not(.active):not(.enlarged).shortIfInactive .iQontrolDeviceInfoBText,
+html.bigMode .iQontrolDevice.active:not(.enlarged).shortIfActive .iQontrolDeviceInfoBText,
+html.bigMode .iQontrolDevice.enlarged.shortIfEnlarged .iQontrolDeviceInfoBText {
+    top: 49px;
 }
 html.bigMode .iQontrolDeviceName {
-	position:absolute; left: 10px; top: 84px; height: 45px;
-	width: 155px; width: calc(100% - 10px);
-	font-size: 13pt;
+    position: absolute;
+    left: 10px;
+    top: 84px;
+    height: 45px;
+    width: 155px;
+    width: calc(100% - 10px);
+    font-size: 13pt;
 }
-html.bigMode .iQontrolDevice.bigIcon .iQontrolDeviceName, html.bigMode .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceName, html.bigMode .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceName, html.bigMode .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceName {
-	top: 173px; 
+html.bigMode .iQontrolDevice.bigIcon .iQontrolDeviceName,
+html.bigMode .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceName,
+html.bigMode .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceName,
+html.bigMode .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceName {
+    top: 173px;
 }
 html.bigMode .iQontrolDeviceState {
-	position:absolute; left: 10px; top: 132px;
-	width: 155px; width: calc(100% - 10px);
-	height: 30px; height: calc(100% - 131px);
-	font-size: 13pt;
+    position: absolute;
+    left: 10px;
+    top: 132px;
+    width: 155px;
+    width: calc(100% - 10px);
+    height: 30px;
+    height: calc(100% - 131px);
+    font-size: 13pt;
 }
-html.bigMode .iQontrolDeviceState.bigFont, html.bigMode .iQontrolDevice.active .iQontrolDeviceState.bigFontIfActive, html.bigMode .iQontrolDevice:not(.active) .iQontrolDeviceState.bigFontIfInactive, html.bigMode .iQontrolDevice.enlarged .iQontrolDeviceState.bigFontIfEnlarged {
-	font-size: 15pt;
-	font-weight: bold;
+html.bigMode .iQontrolDeviceState.bigFont,
+html.bigMode .iQontrolDevice.active .iQontrolDeviceState.bigFontIfActive,
+html.bigMode .iQontrolDevice:not(.active) .iQontrolDeviceState.bigFontIfInactive,
+html.bigMode .iQontrolDevice.enlarged .iQontrolDeviceState.bigFontIfEnlarged {
+    font-size: 15pt;
+    font-weight: bold;
 }
-html.bigMode .iQontrolDevice.bigIcon .iQontrolDeviceState, html.bigMode .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceState, html.bigMode .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceState, html.bigMode .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceState {
-	top: 221px; 
-	height: 30px; height: calc(100% - 220px);		
+html.bigMode .iQontrolDevice.bigIcon .iQontrolDeviceState,
+html.bigMode .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceState,
+html.bigMode .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceState,
+html.bigMode .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceState {
+    top: 221px;
+    height: 30px;
+    height: calc(100% - 220px);
 }
-html.bigMode .iQontrolDeviceState.adaptsHeight, html.bigMode .iQontrolDevice:not(.active) .iQontrolDeviceState.adaptsHeightIfInactive, html.bigMode .iQontrolDevice.active .iQontrolDeviceState.adaptsHeightIfActive, html.bigMode .iQontrolDevice.enlarged .iQontrolDeviceState.adaptsHeightIfEnlarged {
-	position: relative;
-	left: 0;
-	top: 0;
-	margin: 129px 0 0 7px;
+html.bigMode .iQontrolDeviceState.adaptsHeight,
+html.bigMode .iQontrolDevice:not(.active) .iQontrolDeviceState.adaptsHeightIfInactive,
+html.bigMode .iQontrolDevice.active .iQontrolDeviceState.adaptsHeightIfActive,
+html.bigMode .iQontrolDevice.enlarged .iQontrolDeviceState.adaptsHeightIfEnlarged {
+    position: relative;
+    left: 0;
+    top: 0;
+    margin: 129px 0 0 7px;
 }
-html.bigMode .iQontrolDevice.bigIcon .iQontrolDeviceState.adaptsHeight, html.bigMode .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceState.adaptsHeightIfInactive, html.bigMode .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceState.adaptsHeightIfActive, html.bigMode .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceState.adaptsHeightIfEnlarged {
-	margin-top: 218px;
+html.bigMode .iQontrolDevice.bigIcon .iQontrolDeviceState.adaptsHeight,
+html.bigMode .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceState.adaptsHeightIfInactive,
+html.bigMode .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceState.adaptsHeightIfActive,
+html.bigMode .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceState.adaptsHeightIfEnlarged {
+    margin-top: 218px;
 }
-html.bigMode .iQontrolDeviceState.adaptsHeight.stateFillsDevice, html.bigMode .iQontrolDevice:not(.active) .iQontrolDeviceState.adaptsHeightIfInactive.stateFillsDeviceIfInactive, html.bigMode .iQontrolDevice.active .iQontrolDeviceState.adaptsHeightIfActive.stateFillsDeviceIfActive, html.bigMode .iQontrolDevice.enlarged .iQontrolDeviceState.adaptsHeightIfEnlarged.stateFillsDeviceIfEnlarged {
-	margin-top: 3px;
+html.bigMode .iQontrolDeviceState.adaptsHeight.stateFillsDevice,
+html.bigMode .iQontrolDevice:not(.active) .iQontrolDeviceState.adaptsHeightIfInactive.stateFillsDeviceIfInactive,
+html.bigMode .iQontrolDevice.active .iQontrolDeviceState.adaptsHeightIfActive.stateFillsDeviceIfActive,
+html.bigMode .iQontrolDevice.enlarged .iQontrolDeviceState.adaptsHeightIfEnlarged.stateFillsDeviceIfEnlarged {
+    margin-top: 3px;
 }
 html.bigMode .iQontrolDeviceStateIconFloatPlaceholder {
-	width: 57px; height: 57px;
+    width: 57px;
+    height: 57px;
 }
-html.bigMode .iQontrolDevice.bigIcon .iQontrolDeviceStateIconFloatPlaceholder, html.bigMode .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceStateIconFloatPlaceholder, html.bigMode .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceStateIconFloatPlaceholder, html.bigMode .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceStateIconFloatPlaceholder {
-	width: 146px; height: 146px;
+html.bigMode .iQontrolDevice.bigIcon .iQontrolDeviceStateIconFloatPlaceholder,
+html.bigMode .iQontrolDevice:not(.active).bigIconIfInactive .iQontrolDeviceStateIconFloatPlaceholder,
+html.bigMode .iQontrolDevice.active.bigIconIfActive .iQontrolDeviceStateIconFloatPlaceholder,
+html.bigMode .iQontrolDevice.enlarged.bigIconIfEnlarged .iQontrolDeviceStateIconFloatPlaceholder {
+    width: 146px;
+    height: 146px;
 }
 
 html.bigMode #Dialog {
-	min-width: 800px;
+    min-width: 800px;
 }
-html.bigMode .jqte { 
-	min-width: 800px; 
+html.bigMode .jqte {
+    min-width: 800px;
 }
-html.bigMode .jqte.DialogAdditionalControlsString { 
-	min-width: 766px; 
+html.bigMode .jqte.DialogAdditionalControlsString {
+    min-width: 766px;
 }
 html.bigMode .iQontrolDialogIframeWrapper {
-	min-width: 800px;
+    min-width: 800px;
 }
-
 
 /* ++++++++++++++ ADJUST HEIGHT ++++++++++++++ */
 html.adjustHeightToBackgroundView {
-	overflow-y: hidden !important;
+    overflow-y: hidden !important;
 }
 .adjustHeightToBackgroundView #ViewMain {
-	min-height: unset !important;
+    min-height: unset !important;
 }
 .adjustHeightToBackgroundView #ViewMainBottomSpacer {
-	display: none;
+    display: none;
 }
 .iQontrolDeviceBackgroundIframe.adjustHeight {
-	transition: none;
+    transition: none;
 }
 .iQontrolDeviceBackgroundIframe.limitAdjustHeightToScreen:not(.isBackgroundView) {
-	max-height: 85vh; max-height: calc(100vh - 70px);
+    max-height: 85vh;
+    max-height: calc(100vh - 70px);
 }
 .iQontrolDeviceBackgroundIframeWrapper.adjustHeight {
-	height: unset !important;
-	position: relative !important;
-	left: -3px;
-	width: calc(100% + 6px);
-	top: -3px;
-	margin-bottom: -15px;
-	padding: 0px 0px 5px 0px;
-	transition: none;
+    height: unset !important;
+    position: relative !important;
+    left: -3px;
+    width: calc(100% + 6px);
+    top: -3px;
+    margin-bottom: -15px;
+    padding: 0px 0px 5px 0px;
+    transition: none;
 }
-.iQontrolDevice.adjustHeight, .iQontrolDevice.active.adjustHeightIfActive:not(.enlarged:not(adjustHeightIfEnlarged)), .iQontrolDevice:not(.active).adjustHeightIfInactive:not(.enlarged:not(adjustHeightIfEnlarged)), .iQontrolDevice.enlarged.adjustHeightIfEnlarged {
-	height: unset !important;
-	min-height: unset !important;
-	max-height: unset !important;
+.iQontrolDevice.adjustHeight,
+.iQontrolDevice.active.adjustHeightIfActive:not(.enlarged:not(adjustHeightIfEnlarged)),
+.iQontrolDevice:not(.active).adjustHeightIfInactive:not(.enlarged:not(adjustHeightIfEnlarged)),
+.iQontrolDevice.enlarged.adjustHeightIfEnlarged {
+    height: unset !important;
+    min-height: unset !important;
+    max-height: unset !important;
 }

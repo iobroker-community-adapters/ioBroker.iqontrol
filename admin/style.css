@@ -1,13 +1,13 @@
 /* You can delete those if you want. I just found them very helpful */
 * {
-	box-sizing: border-box
+    box-sizing: border-box;
 }
 .m {
-	/* Don't cut off dropdowns! */
-	overflow: initial;
+    /* Don't cut off dropdowns! */
+    overflow: initial;
 }
 
 /* Add your styles here */
 .multiple-select-dropdown li span .combobox .combobox {
-	pointer-events: none;
+    pointer-events: none;
 }

@@ -1,875 +1,869 @@
 {
-  "common": {
-    "name": "iqontrol",
-    "version": "3.1.0",
-    "news": {
-      "3.1.0": {
-        "en": "Some polish translations have been adapted\nAdapter requires node.js >= 22 now\nAdapter requires admin >= 7.7.22 now\nAdapter requires js-controller >= 6.0.11 now",
-        "de": "Einige polnische Texte wurden angepasst\nAdapter benötigt jetzt node.js >= 22\nAdapter benötigt jetzt admin >= 7.7.22\nAdapter benötigt jetzt JS-Controller >= 6.0.11",
-        "ru": "Некоторые польские переводы были адаптированы\nТеперь для адаптера требуется файл node.js >= 22\nДля адаптера теперь требуется администратор >= 7.7.22\nТеперь для адаптера требуется js-контроллер >= 6.0.11",
-        "pt": "Algumas traduções polacas foram adaptadas\nO adaptador exige node.js >= 2\nAgora o adaptador exige admin >= 7.7.2\nO adaptador exige js-controller >= 6.0.11",
-        "nl": "Sommige Poolse vertalingen zijn aangepast\nVoor de adapter is nu node.js >= 22 nodig\nAdapter vereist nu admin >= 7.7.22\nVoor de adapter is nu een js-controller >= 6.0.11 nodig",
-        "fr": "Certaines traductions polonaises ont été adaptées\nAdapter nécessite node.js >= 22\nAdapter nécessite admin >= 7.7.22\nAdapter nécessite JS-Controller >= 6.0.11",
-        "it": "Alcune traduzioni polacche sono adattate\nAdapter richiede node.js =2 ora\nAdapter richiede admin >= 7.7.2 ora\nAdapter richiede js-controller >= 6.0.11 ora",
-        "es": "Se han adaptado algunas traducciones al polaco\nEl adaptador necesita node.js >= 22 ahora\nEl adaptador necesita admin >= 7.7.22 ahora\nEl adaptador ahora requiere js-controller >= 6.0.11",
-        "pl": "Niektóre polskie tłumaczenia zostały dostosowane\nAdapter wymaga teraz node.js >= 22\nAdapter wymaga administratora >= 7.7.22 teraz\nAdapter wymaga kontrolera js->= 6.0.11 teraz",
-        "uk": "Деякі польські переклади були адаптовані\nАдаптер вимагає node.js >= 22 зараз\nАдаптер вимагає адміністратора >= 7.7.22 зараз\nАдаптер вимагає js-контролера >= 6.0.11 зараз",
-        "zh-cn": "一些波兰语译本已改编\n适配器现在需要 node.js >= 22\n适配器现在需要管理员 >= 7.7.22\n适配器现在需要 js-controller >= 6.0.11"
-      },
-      "3.0.0": {
-        "en": "Adapter has been moved to iobroker-community-adapter organisation.\nAdapter requires js-controller 5, admin 6 and node.js 20 now.\nDependencies have been updated.",
-        "de": "Adapter wurde in die iobroker-community-Adapter-Organisation verschoben.\nAdapter benötigt jetzt js-controller 5, admin 6 und node.js 20.\nAbhängigkeiten wurden aktualisiert.",
-        "ru": "Адаптер был перемещен в организацию iobroker-community-adapter.\nAdapter requires js-controller 5, admin 6 and node.js 20 now.\nЗависимость была обновлена.",
-        "pt": "Adapter foi transferido para a organização iobroker-community-adapter.\nAdaptador requer js-controller 5, admin 6 e node.js 20 agora.\nAs dependências foram atualizadas.",
-        "nl": "Adapter is verplaatst naar iobroker-community-adapter organisatie.\nAdapter vereist js-controller 5, admin 6 en node.js 20 nu.\nAfhankelijkheden zijn bijgewerkt.",
-        "fr": "L'adaptateur a été transféré à l'organisation iobroker-community-adaptateur.\nAdaptateur nécessite js-controller 5, admin 6 et node.js 20 maintenant.\nLes dépendances ont été actualisées.",
-        "it": "L'adattatore è stato spostato nell'organizzazione di iobroker-community-adapter.\nAdattatore richiede js-controller 5, admin 6 e node.js 20 ora.\nLe dipendenze sono state aggiornate.",
-        "es": "El adaptador ha sido trasladado a la organización yobroker-community-adapter.\nAdaptador requiere js-controller 5, admin 6 y node.js 20 ahora.\nSe han actualizado las dependencias.",
-        "pl": "Adapter został przeniesiony do organizacji iobroker- community- adapter.\nAdapter wymaga sterownika js- controller 5, admin 6 i node.js 20.\nZaktualizowano zależność.",
-        "uk": "Переміщено перехід на iobroker-community-adapter.\nАдаптер вимагає js-controller 5, admin 6 і node.js 20 тепер.\nОновлено залежність.",
-        "zh-cn": "适应者已经转移到了职业经纪人-社区适应者组织.\n适配器现在需要js控制器5,admin 6和节点20.js.\n附属关系已经更新."
-      },
-      "2.3.0": {
-        "en": "Fixes for new js-controller",
-        "de": "Fixes für neuen js-controller",
-        "ru": "Исправления для нового JS-контроллера",
-        "pt": "Correções para novos js-controller",
-        "nl": "Vertaling:",
-        "fr": "Fixes pour un nouveau contrôleur js",
-        "it": "Fissazioni per nuovo js-controller",
-        "es": "Arreglos para nuevo js-controller",
-        "pl": "Fiksy dla nowego js-kontrolera",
-        "uk": "Виправлення нових js-controller",
-        "zh-cn": "新的控制容忍的先决条件"
-      },
-      "2.2.0": {
-        "en": "You can now chose destination when copying devices.\nAdded new options for media, badge and sliders (see readme).\nAdded ability to set links to other views with anchor to sub-headings.\nAdded new options for popup-messages and introduced persistent popups.\nUploading of userfiles via ZIP-File is now possible.\nFixed CONTROL_MODE of HP-IP-Thermostat.",
-        "de": "Sie können nun das Ziel beim Kopieren von Geräten wählen.\nNeue Optionen für Medien, Badge und Slider hinzugefügt (siehe readme.).\nZusätzlich Fähigkeit, Links zu anderen Ansichten mit Anker zu Unterköpfen zu setzen.\nNeue Optionen für Popup-Nachrichten und eingeführte persistente Popups.\nDas Hochladen von Benutzerdateien über ZIP-File ist jetzt möglich.\nFixed CONTROL_MODE von HP-IP-Thermostat.",
-        "ru": "Теперь вы можете выбрать пункт назначения при копировании устройств.\nДобавлены новые опции для медиа, бейдж и слайдеров (см. readme.).\nДобавлена возможность установки ссылок на другие виды с анкером на подзаголовки.\nДобавлены новые опции для popup-messages и ввели настойчивые попапы.\nЗагрузка пользовательских файлов через ZIP-File теперь возможно.\nФиксированный CONTROL_MODE HP-IP-Thermostat.",
-        "pt": "Agora você pode escolher o destino ao copiar dispositivos.\nAdicionado novas opções para mídia, crachá e controles deslizantes (veja readme.).\nAdicionado capacidade de definir links para outras vistas com âncora para sub-cabeças.\nAdicionado novas opções para popup-messages e introduziu popups persistentes.\nO upload de arquivos de usuário via ZIP-File agora é possível.\nCONTROL_MODE fixo de HP-IP-Thermostat.",
-        "nl": "Je kunt nu de bestemming kiezen als kopieerapparatuur.\nIk heb nieuwe opties toegevoegd voor media, badge en glinsteraars.\nToegevoegd vermogen om verbanden te leggen met een anker naar sub-headings.\nVoegde nieuwe opties toe voor popup-messages en stelde volhardende popups voor.\nHet uploaden van gebruikers via ZIP-File is nu mogelijk.\nGerepareerd CONTROLDE van HP-IP-IP-Thermostat.",
-        "fr": "Vous pouvez maintenant choisir la destination lors de la copie des appareils.\nAjout de nouvelles options pour les médias, les badges et les curseurs (voir readme.).\nPossibilité d'ajouter des liens à d'autres vues avec ancre aux sous-positions.\nAjout de nouvelles options pour les popup-messages et les popups persistants introduits.\nLe téléchargement de fichiers utilisateur via ZIP-File est maintenant possible.\nFixed CONTROL_MODE of HP-IP-Thermostat.",
-        "it": "Ora è possibile scegliere la destinazione quando si copiano i dispositivi.\nAggiunte nuove opzioni per media, badge e cursori (vedi readme.).\nAggiunta la capacità di impostare collegamenti ad altre viste con ancora a sotto-headings.\nAggiunto nuove opzioni per popup-messages e introdotto popup persistenti.\nIl caricamento dei file utente tramite ZIP-File è ora possibile.\nCONTROL_MODE fisso di HP-IP-Thermostat.",
-        "es": "Ahora puede elegir el destino al copiar dispositivos.\nSe agregaron nuevas opciones para los medios de comunicación, placa y deslizadores (ver readme.).\nPosibilidad de establecer enlaces a otras vistas con ancla a subpartidas.\nSe agregaron nuevas opciones para los mensajes popup e introdujo popups persistentes.\nLa carga de los archivos de usuario a través de ZIP-File es ahora posible.\nCONTROL_MODE fijo de HP-IP-Thermostat.",
-        "pl": "Obecnie można wybrać docelowo, gdy urządzenie kopiowające.\nDodano nowe opcje dla mediów, odznaki i odznaki (zob.\nZadaniowe zdolności do tworzenia linków do innych poglądów z kotwicowiskiem.\nDodano nowe opcje dotyczące tematów pop-upu i wprowadziły uporczywe popupy.\nObecnie możliwe jest pobieranie plików przez ZIP-File.\nCONTROL_MODE of HP-IP-Thermostat (ang.).",
-        "uk": "Ви можете вибрати пункт призначення при копіюванні пристроїв.\nДодано нові можливості для медіа, значок та слайдерів (див. читати).\nДодано можливість встановити посилання на інші види з анкером на підголовки.\nДодано нові параметри для спливаючих вікон і введених персистентних спливаючих вікон.\nЗавантаження файлів користувача через ZIP-File тепер можливо.\nВиправлено CONTROL_MODE HP-IP-Thermostat.",
-        "zh-cn": "你现在可以选择印件的目的地。.\n增加新的媒体、恶英和黑暗的备选办法(见读者)。.\n提高与其他观点建立联系的能力,以分派为主。.\n增加新的人口方案,并引进了长期人口。.\n现在有可能通过ZIP-File进行用户渗透。.\nFixedCONTROL_MODE of HP-IP-Themostat."
-      },
-      "2.1.0": {
-        "en": "Added option to hide STATE and LEVEL in dialog.\nAdded DISCHARGE to Battery.\nEnhanced JSON-Table to work with alexa-shoppinglist-adapter.\nAdded badges to toolbar.\nAdded option to protect instance by passphrase.\nEnhanced FLOT-Chart-Widget to display more Datapoints.\nAdded option to set favorite values for LEVEL.\nMany more fixes and changes, see changelog",
-        "de": "Hinzugefügt Option, STATE und LEVEL im Dialog zu verstecken.\nHinzugefügt DISCHARGE zu Battery.\nVerbessert JSON-Table, um mit alexa-shoppinglist-Adapter zu arbeiten.\nHinzugefügt Abzeichen zu toolbar.\nOption zum Schutz der Instanz durch Passphrase.\nVerbessertes FLOT-Chart-Widget, um mehr Datapoints anzuzeigen.\nOption hinzugefügt, um Lieblingswerte für LEVEL einzustellen.\nViele weitere Korrekturen und Änderungen, siehe changelog",
-        "ru": "Добавлена возможность скрыть ГОСУДАРСТВО и LEVEL в диалоге.\nДобавлен DISCHARGE в аккумулятор.\nУлучшенный JSON-Table для работы с alexa-shoppinglist-adapter.\nДобавлены значки в панель инструментов.\nДобавлена опция для защиты экземпляра с помощью passphrase.\nУвеличенный FLOT-Chart-Widget для отображения больше точек данных.\nДобавлена возможность установить любимые значения для LEVEL.\nМножество исправлений и изменений, см. changelog",
-        "pt": "Adicionado opção para esconder ESTADO e LEVEL em diálogo.\nAdicionado DISCHARGE à bateria.\nMelhorado JSON-Table para trabalhar com alexa-shoppinglist-adapter.\nAdicionados crachás à barra de ferramentas.\nOpção adicionada para proteger instância por senha.\nFLOT-Chart-Widget aprimorado para exibir mais Datapoints.\nOpção adicionada para definir valores favoritos para LEVEL.\nMuitas mais correções e mudanças, veja changelog",
-        "nl": "Voeg de optie toe om STATE en LeveL in dialog te verbergen.\nVoegde DISCHARGE toe aan Battery.\nVerbeterde JSON-Table om te werken met Alexa-shoppinglist-papier.\nVoeg badges toe.\nToegevoegd optie te beschermen door passphrase.\nVerbeterde FLOT-Chart-Widget om meer Datapoints te laten zien.\nToegevoegd optie om favoriete waarden voor LEVL te zetten.\nVeel meer reparaties en veranderingen",
-        "fr": "Ajout de l'option pour cacher STATE et LEVEL dans le dialogue.\nAjouté DISCHARGE à Battery.\nJSON-Table améliorée pour travailler avec l'adaptateur alexa-shoppinglist.\nAjout de badges à la barre d'outils.\nAjout d'option pour protéger l'instance par passphrase.\nFLOT-Chart-Widget amélioré pour afficher plus de points de données.\nAjout de l'option pour définir les valeurs favorites pour LEVEL.\nBeaucoup plus de corrections et de changements, voir changelog",
-        "it": "Aggiunta opzione per nascondere STATO e LEVEL nella finestra di dialogo.\nAggiunta DISCHARGE a batteria.\nJSON-Table migliorato per lavorare con alexa-shoppinglist-adapter.\nAggiunto distintivi alla barra degli strumenti.\nAggiunta opzione per proteggere l'istanza da passphrase.\nFLOT-Chart-Widget migliorato per visualizzare più Datapoint.\nAggiunta opzione per impostare i valori preferiti per LEVEL.\nMolte altre correzioni e modifiche, vedi changelog",
-        "es": "Añadido opción para ocultar STATE y LEVEL en diálogo.\nAgregado DISCHARGE a la batería.\nMejorado JSON-Tabla para trabajar con alexa-shoppinglist-adapter.\nInsignias agregadas a la barra de herramientas.\nAñadido opción para proteger instancia por contraseña.\nEnhanced FLOT-Chart-Widget para mostrar más Puntos de datos.\nAñadido opción para establecer valores favoritos para LEVEL.\nMuchos más correcciones y cambios, ver cambio",
-        "pl": "W trybie dialogowym ukrywamy STATE i LEVEL.\nAdded DISCHARGE to Battery (ang.).\nJSON-Table współpracował z alexa-shoppinglist.\nOdznaki do narzędzia.\nWstępna opcja do ochrony przykładu poprzez hasło.\nEnhanced FLOT-Chart-Widget wyświetla więcej danych.\nWstępna opcja, aby utworzyć ulubione wartości dla LEVEL.\nWiele zmian i zmian widzących zmiany",
-        "uk": "Додано варіант, щоб приховати ДЕРЖАВИ і LEVEL у діалоговому вікні.\nДодано DISCHARGE до акумулятора.\nРозширений JSON-Table для роботи з alexa-shoppinglist-adapter.\nДодано значки до панелі інструментів.\nДодана опція захисту екземпляра при проході.\nРозширений FLOT-Chart-Widget для відображення більше точок даних.\nДодана можливість встановити улюблені значення для LEVEL.\nБільшість виправлень і змін див. статтю",
-        "zh-cn": "增加在口号里掩藏国家和LEVEL的选择。.\n添加了综合安全分遣队到Battery。.\n增强联合协商会的作用是与单一的商议名单。.\n增加工具包的缺点。.\n增加保护通行证的备选办法。.\n增加FLOT-Chart-Widget以展示更多的数据点。.\n增加确定LEVEL的有利价值的选择。.\n许多缺陷和变化,见改变口号。"
-      },
-      "2.0.1": {
-        "en": "Fixed json-table sorting order.\nAdded placeholder-option for empty tables to json-table-widget.\nFixed 'switch to this widget button' for widgets with replace-url.\nAdded more timestamp options to datapoint-detection of json-table-widget.\nEnhanced sorting of lists.",
-        "de": "Die Sortierreihenfolge der json-Tabelle wurde korrigiert.\nPlatzhalter-Option für leere Tabellen zu json-table-widget hinzugefügt.\n„Zu diesem Widget wechseln“-Button für Widgets mit Ersetzungs-URL behoben.\nWeitere Zeitstempeloptionen zur Datenpunkterkennung von json-table-widget hinzugefügt.\nVerbesserte Sortierung von Listen.",
-        "ru": "Исправлен порядок сортировки json-таблицы.\nВ json-table-widget добавлен параметр-заполнитель для пустых таблиц.\nИсправлено «переключиться на эту кнопку виджета» для виджетов с заменой-url.\nДобавлено больше параметров временной метки для определения точек данных json-table-widget.\nУлучшенная сортировка списков.",
-        "pt": "Corrigida a ordem de classificação da tabela json.\nAdicionada opção de espaço reservado para tabelas vazias ao json-table-widget.\nCorrigido 'mudar para este botão de widget' para widgets com URL de substituição.\nAdicionadas mais opções de carimbo de data/hora para detecção de ponto de dados de json-table-widget.\nClassificação aprimorada de listas.",
-        "nl": "Vaste json-tabel sorteervolgorde.\nTijdelijke aanduiding-optie voor lege tabellen toegevoegd aan json-table-widget.\nVaste 'overschakelen naar deze widget-knop' voor widgets met vervang-url.\nMeer tijdstempelopties toegevoegd aan datapuntdetectie van json-table-widget.\nVerbeterde sortering van lijsten.",
-        "fr": "Correction de l'ordre de tri des tables json.\nAjout d'une option d'espace réservé pour les tables vides à json-table-widget.\nCorrection du \"passer à ce bouton de widget\" pour les widgets avec une URL de remplacement.\nAjout d'options d'horodatage supplémentaires à la détection de points de données de json-table-widget.\nAmélioration du tri des listes.",
-        "it": "Risolto l'ordine di ordinamento della tabella json.\nAggiunta opzione segnaposto per tabelle vuote a json-table-widget.\nRisolto il problema con il \"pulsante passa a questo widget\" per i widget con l'URL di sostituzione.\nAggiunte più opzioni di timestamp al rilevamento del punto dati di json-table-widget.\nOrdinamento avanzato delle liste.",
-        "es": "Se corrigió el orden de clasificación de la tabla json.\nSe agregó la opción de marcador de posición para tablas vacías a json-table-widget.\nSe corrigió 'cambiar a este botón de widget' para widgets con URL de reemplazo.\nSe agregaron más opciones de marca de tiempo a la detección de puntos de datos de json-table-widget.\nClasificación mejorada de listas.",
-        "pl": "Naprawiono porządek sortowania tabeli json.\nDodano opcję zastępczą dla pustych tabel do json-table-widget.\nNaprawiono „przełącz do tego przycisku widżetu” dla widżetów z zastępczym adresem URL.\nDodano więcej opcji sygnatur czasowych do wykrywania punktów danych json-table-widget.\nUlepszone sortowanie list.",
-        "zh-cn": "修复了 json-table 排序顺序。\n将空表的占位符选项添加到 json-table-widget。\n修复了带有替换 URL 的小部件的“切换到此小部件按钮”。\n为 json-table-widget 的数据点检测添加了更多时间戳选项。\n增强的列表排序。"
-      },
-      "2.0.0": {
-        "en": "There are many changes since the last stable version. Here are the most breaking changes:\nAdded dark-mode, \nAdded lists and counters with powerful widgets to display for example empty batteries, opened windows, burning lights and much more,\nAdded new and modern and fluent icons and the ability to quicly change default icons,\nAdded upload for your own font-files, \nSubheaders can now be configured to be collapsible, \nThe map-widget can now have multiple instances,\nAdded a preview mode to quickly test changes of your configuration,\nBetter performance and connection-time,\nBugfixes and many more. For complete changelog have a look at the readme.\n",
-        "de": "Es gibt viele Änderungen seit der letzten stabilen Version. Hier sind die wichtigsten Änderungen:\nDunkelmodus hinzugefügt,\nListen und Zähler mit leistungsstarken Widgets hinzugefügt, um beispielsweise leere Batterien, geöffnete Fenster, brennende Lichter und vieles mehr anzuzeigen,\nNeue und moderne und flüssige Symbole hinzugefügt und die Möglichkeit, Standardsymbole schnell zu ändern,\nUpload für eigene Font-Dateien hinzugefügt,\nSubheader können jetzt so konfiguriert werden, dass sie reduzierbar sind,\nDas Karten-Widget kann jetzt mehrere Instanzen haben,\nVorschaumodus hinzugefügt, um Änderungen Ihrer Konfiguration schnell zu testen,\nBessere Leistung und Verbindungszeit,\nBugfixes und vieles mehr. Das vollständige Änderungsprotokoll finden Sie in der Readme.\n",
-        "ru": "Есть много изменений по сравнению с последней стабильной версией. Вот самые важные изменения:\nДобавлен темный режим,\nДобавлены списки и счетчики с мощными виджетами для отображения, например, разряженных батарей, открытых окон, горящих огней и многого другого,\nДобавлены новые, современные и плавные значки, а также возможность быстро менять значки по умолчанию,\nДобавлена загрузка собственных файлов шрифтов,\nПодзаголовки теперь можно сворачивать,\nВиджет карты теперь может иметь несколько экземпляров,\nДобавлен режим предварительного просмотра для быстрого тестирования изменений вашей конфигурации,\nЛучшая производительность и время соединения,\nИсправления ошибок и многое другое. Полный список изменений можно найти в файле readme.\n",
-        "pt": "Há muitas mudanças desde a última versão estável. Aqui estão as mudanças mais importantes:\nAdicionado modo escuro,\nAdicionadas listas e contadores com widgets poderosos para exibir, por exemplo, baterias vazias, janelas abertas, luzes acesas e muito mais,\nAdicionados ícones novos e modernos e fluentes e a capacidade de alterar rapidamente os ícones padrão,\nAdicionado upload para seus próprios arquivos de fonte,\nOs subtítulos agora podem ser configurados para serem recolhíveis,\nO map-widget agora pode ter várias instâncias,\nAdicionado um modo de visualização para testar rapidamente as alterações de sua configuração,\nMelhor desempenho e tempo de conexão,\nCorreções de bugs e muito mais. Para o changelog completo, dê uma olhada no arquivo readme.\n",
-        "nl": "Er zijn veel veranderingen sinds de laatste stabiele versie. Dit zijn de meest baanbrekende wijzigingen:\nDonkere modus toegevoegd,\nLijsten en tellers toegevoegd met krachtige widgets om bijvoorbeeld lege batterijen, geopende ramen, brandende lichten en nog veel meer weer te geven,\nNieuwe en moderne en vloeiende pictogrammen toegevoegd en de mogelijkheid om snel standaardpictogrammen te wijzigen,\nUpload toegevoegd voor uw eigen font-bestanden,\nSubheaders kunnen nu worden geconfigureerd om inklapbaar te zijn,\nDe map-widget kan nu meerdere instanties hebben,\nEen voorbeeldmodus toegevoegd om snel wijzigingen in uw configuratie te testen,\nBetere prestaties en verbindingstijd,\nBugfixes en nog veel meer. Voor de volledige changelog kijk eens in de readme.\n",
-        "fr": "Il y a beaucoup de changements depuis la dernière version stable. Voici les modifications les plus importantes :\nAjout du mode sombre,\nAjout de listes et de compteurs avec de puissants widgets pour afficher par exemple des piles vides, des fenêtres ouvertes, des lumières allumées et bien plus encore,\nAjout de nouvelles icônes modernes et fluides et de la possibilité de changer rapidement les icônes par défaut,\nAjout du téléchargement pour vos propres fichiers de polices,\nLes sous-titres peuvent désormais être configurés pour être réductibles,\nLe widget carte peut maintenant avoir plusieurs instances,\nAjout d'un mode aperçu pour tester rapidement les modifications de votre configuration,\nMeilleures performances et temps de connexion,\nCorrections de bugs et bien d'autres. Pour un journal des modifications complet, consultez le fichier readme.\n",
-        "it": "Ci sono molti cambiamenti rispetto all'ultima versione stabile. Ecco le modifiche più importanti:\nAggiunta la modalità oscura,\nAggiunti elenchi e contatori con potenti widget per visualizzare ad esempio batterie scariche, finestre aperte, luci accese e molto altro,\nAggiunte icone nuove, moderne e fluide e la possibilità di cambiare rapidamente le icone predefinite,\nAggiunto caricamento per i tuoi file di font,\nI sottotitoli ora possono essere configurati per essere comprimibili,\nIl widget mappa ora può avere più istanze,\nAggiunta una modalità di anteprima per testare rapidamente le modifiche alla tua configurazione,\nMigliori prestazioni e tempo di connessione,\nBugfix e molti altri. Per il changelog completo dai un'occhiata al readme.\n",
-        "es": "Hay muchos cambios desde la última versión estable. Estos son los cambios más importantes:\nAñadido modo oscuro,\nSe agregaron listas y contadores con poderosos widgets para mostrar, por ejemplo, baterías vacías, ventanas abiertas, luces encendidas y mucho más.\nSe agregaron íconos nuevos, modernos y fluidos y la capacidad de cambiar rápidamente los íconos predeterminados,\nCarga agregada para sus propios archivos de fuentes,\nLos subtítulos ahora se pueden configurar para que sean plegables,\nEl widget de mapa ahora puede tener múltiples instancias,\nSe agregó un modo de vista previa para probar rápidamente los cambios de su configuración,\nMejor rendimiento y tiempo de conexión,\nCorrección de errores y muchos más. Para ver el registro de cambios completo, eche un vistazo al archivo Léame.\n",
-        "pl": "Jest wiele zmian od ostatniej stabilnej wersji. Oto najbardziej przełomowe zmiany:\nDodano tryb ciemny,\nDodano listy i liczniki z potężnymi widżetami do wyświetlania np. wyczerpanych baterii, otwartych okien, palących się świateł i wielu innych,\nDodano nowe, nowoczesne i płynne ikony oraz możliwość szybkiej zmiany ikon domyślnych,\nDodano możliwość przesyłania własnych plików czcionek,\nPodnagłówki można teraz skonfigurować tak, aby były zwijane,\nWidżet mapy może teraz mieć wiele instancji,\nDodano tryb podglądu, aby szybko przetestować zmiany w Twojej konfiguracji,\nLepsza wydajność i czas połączenia,\nPoprawki błędów i wiele innych. Aby zobaczyć pełny dziennik zmian, zajrzyj do readme.\n",
-        "zh-cn": "自上一个稳定版本以来有很多变化。以下是最重大的变化：\n添加了暗模式，\n添加了带有强大小部件的列表和计数器，以显示例如空电池、打开的窗户、燃烧的灯等等，\n添加了新的现代流畅的图标以及快速更改默认图标的能力，\n为您自己的字体文件添加了上传，\n子标题现在可以配置为可折叠，\nmap-widget 现在可以有多个实例，\n添加了预览模式以快速测试您的配置更改，\n更好的性能和连接时间，\n错误修正等等。有关完整的变更日志，请查看自述文件。\n"
-      }
+    "common": {
+        "name": "iqontrol",
+        "version": "3.1.0",
+        "news": {
+            "3.1.0": {
+                "en": "Some polish translations have been adapted\nAdapter requires node.js >= 22 now\nAdapter requires admin >= 7.7.22 now\nAdapter requires js-controller >= 6.0.11 now",
+                "de": "Einige polnische Texte wurden angepasst\nAdapter benötigt jetzt node.js >= 22\nAdapter benötigt jetzt admin >= 7.7.22\nAdapter benötigt jetzt JS-Controller >= 6.0.11",
+                "ru": "Некоторые польские переводы были адаптированы\nТеперь для адаптера требуется файл node.js >= 22\nДля адаптера теперь требуется администратор >= 7.7.22\nТеперь для адаптера требуется js-контроллер >= 6.0.11",
+                "pt": "Algumas traduções polacas foram adaptadas\nO adaptador exige node.js >= 2\nAgora o adaptador exige admin >= 7.7.2\nO adaptador exige js-controller >= 6.0.11",
+                "nl": "Sommige Poolse vertalingen zijn aangepast\nVoor de adapter is nu node.js >= 22 nodig\nAdapter vereist nu admin >= 7.7.22\nVoor de adapter is nu een js-controller >= 6.0.11 nodig",
+                "fr": "Certaines traductions polonaises ont été adaptées\nAdapter nécessite node.js >= 22\nAdapter nécessite admin >= 7.7.22\nAdapter nécessite JS-Controller >= 6.0.11",
+                "it": "Alcune traduzioni polacche sono adattate\nAdapter richiede node.js =2 ora\nAdapter richiede admin >= 7.7.2 ora\nAdapter richiede js-controller >= 6.0.11 ora",
+                "es": "Se han adaptado algunas traducciones al polaco\nEl adaptador necesita node.js >= 22 ahora\nEl adaptador necesita admin >= 7.7.22 ahora\nEl adaptador ahora requiere js-controller >= 6.0.11",
+                "pl": "Niektóre polskie tłumaczenia zostały dostosowane\nAdapter wymaga teraz node.js >= 22\nAdapter wymaga administratora >= 7.7.22 teraz\nAdapter wymaga kontrolera js->= 6.0.11 teraz",
+                "uk": "Деякі польські переклади були адаптовані\nАдаптер вимагає node.js >= 22 зараз\nАдаптер вимагає адміністратора >= 7.7.22 зараз\nАдаптер вимагає js-контролера >= 6.0.11 зараз",
+                "zh-cn": "一些波兰语译本已改编\n适配器现在需要 node.js >= 22\n适配器现在需要管理员 >= 7.7.22\n适配器现在需要 js-controller >= 6.0.11"
+            },
+            "3.0.0": {
+                "en": "Adapter has been moved to iobroker-community-adapter organisation.\nAdapter requires js-controller 5, admin 6 and node.js 20 now.\nDependencies have been updated.",
+                "de": "Adapter wurde in die iobroker-community-Adapter-Organisation verschoben.\nAdapter benötigt jetzt js-controller 5, admin 6 und node.js 20.\nAbhängigkeiten wurden aktualisiert.",
+                "ru": "Адаптер был перемещен в организацию iobroker-community-adapter.\nAdapter requires js-controller 5, admin 6 and node.js 20 now.\nЗависимость была обновлена.",
+                "pt": "Adapter foi transferido para a organização iobroker-community-adapter.\nAdaptador requer js-controller 5, admin 6 e node.js 20 agora.\nAs dependências foram atualizadas.",
+                "nl": "Adapter is verplaatst naar iobroker-community-adapter organisatie.\nAdapter vereist js-controller 5, admin 6 en node.js 20 nu.\nAfhankelijkheden zijn bijgewerkt.",
+                "fr": "L'adaptateur a été transféré à l'organisation iobroker-community-adaptateur.\nAdaptateur nécessite js-controller 5, admin 6 et node.js 20 maintenant.\nLes dépendances ont été actualisées.",
+                "it": "L'adattatore è stato spostato nell'organizzazione di iobroker-community-adapter.\nAdattatore richiede js-controller 5, admin 6 e node.js 20 ora.\nLe dipendenze sono state aggiornate.",
+                "es": "El adaptador ha sido trasladado a la organización yobroker-community-adapter.\nAdaptador requiere js-controller 5, admin 6 y node.js 20 ahora.\nSe han actualizado las dependencias.",
+                "pl": "Adapter został przeniesiony do organizacji iobroker- community- adapter.\nAdapter wymaga sterownika js- controller 5, admin 6 i node.js 20.\nZaktualizowano zależność.",
+                "uk": "Переміщено перехід на iobroker-community-adapter.\nАдаптер вимагає js-controller 5, admin 6 і node.js 20 тепер.\nОновлено залежність.",
+                "zh-cn": "适应者已经转移到了职业经纪人-社区适应者组织.\n适配器现在需要js控制器5,admin 6和节点20.js.\n附属关系已经更新."
+            },
+            "2.3.0": {
+                "en": "Fixes for new js-controller",
+                "de": "Fixes für neuen js-controller",
+                "ru": "Исправления для нового JS-контроллера",
+                "pt": "Correções para novos js-controller",
+                "nl": "Vertaling:",
+                "fr": "Fixes pour un nouveau contrôleur js",
+                "it": "Fissazioni per nuovo js-controller",
+                "es": "Arreglos para nuevo js-controller",
+                "pl": "Fiksy dla nowego js-kontrolera",
+                "uk": "Виправлення нових js-controller",
+                "zh-cn": "新的控制容忍的先决条件"
+            },
+            "2.2.0": {
+                "en": "You can now chose destination when copying devices.\nAdded new options for media, badge and sliders (see readme).\nAdded ability to set links to other views with anchor to sub-headings.\nAdded new options for popup-messages and introduced persistent popups.\nUploading of userfiles via ZIP-File is now possible.\nFixed CONTROL_MODE of HP-IP-Thermostat.",
+                "de": "Sie können nun das Ziel beim Kopieren von Geräten wählen.\nNeue Optionen für Medien, Badge und Slider hinzugefügt (siehe readme.).\nZusätzlich Fähigkeit, Links zu anderen Ansichten mit Anker zu Unterköpfen zu setzen.\nNeue Optionen für Popup-Nachrichten und eingeführte persistente Popups.\nDas Hochladen von Benutzerdateien über ZIP-File ist jetzt möglich.\nFixed CONTROL_MODE von HP-IP-Thermostat.",
+                "ru": "Теперь вы можете выбрать пункт назначения при копировании устройств.\nДобавлены новые опции для медиа, бейдж и слайдеров (см. readme.).\nДобавлена возможность установки ссылок на другие виды с анкером на подзаголовки.\nДобавлены новые опции для popup-messages и ввели настойчивые попапы.\nЗагрузка пользовательских файлов через ZIP-File теперь возможно.\nФиксированный CONTROL_MODE HP-IP-Thermostat.",
+                "pt": "Agora você pode escolher o destino ao copiar dispositivos.\nAdicionado novas opções para mídia, crachá e controles deslizantes (veja readme.).\nAdicionado capacidade de definir links para outras vistas com âncora para sub-cabeças.\nAdicionado novas opções para popup-messages e introduziu popups persistentes.\nO upload de arquivos de usuário via ZIP-File agora é possível.\nCONTROL_MODE fixo de HP-IP-Thermostat.",
+                "nl": "Je kunt nu de bestemming kiezen als kopieerapparatuur.\nIk heb nieuwe opties toegevoegd voor media, badge en glinsteraars.\nToegevoegd vermogen om verbanden te leggen met een anker naar sub-headings.\nVoegde nieuwe opties toe voor popup-messages en stelde volhardende popups voor.\nHet uploaden van gebruikers via ZIP-File is nu mogelijk.\nGerepareerd CONTROLDE van HP-IP-IP-Thermostat.",
+                "fr": "Vous pouvez maintenant choisir la destination lors de la copie des appareils.\nAjout de nouvelles options pour les médias, les badges et les curseurs (voir readme.).\nPossibilité d'ajouter des liens à d'autres vues avec ancre aux sous-positions.\nAjout de nouvelles options pour les popup-messages et les popups persistants introduits.\nLe téléchargement de fichiers utilisateur via ZIP-File est maintenant possible.\nFixed CONTROL_MODE of HP-IP-Thermostat.",
+                "it": "Ora è possibile scegliere la destinazione quando si copiano i dispositivi.\nAggiunte nuove opzioni per media, badge e cursori (vedi readme.).\nAggiunta la capacità di impostare collegamenti ad altre viste con ancora a sotto-headings.\nAggiunto nuove opzioni per popup-messages e introdotto popup persistenti.\nIl caricamento dei file utente tramite ZIP-File è ora possibile.\nCONTROL_MODE fisso di HP-IP-Thermostat.",
+                "es": "Ahora puede elegir el destino al copiar dispositivos.\nSe agregaron nuevas opciones para los medios de comunicación, placa y deslizadores (ver readme.).\nPosibilidad de establecer enlaces a otras vistas con ancla a subpartidas.\nSe agregaron nuevas opciones para los mensajes popup e introdujo popups persistentes.\nLa carga de los archivos de usuario a través de ZIP-File es ahora posible.\nCONTROL_MODE fijo de HP-IP-Thermostat.",
+                "pl": "Obecnie można wybrać docelowo, gdy urządzenie kopiowające.\nDodano nowe opcje dla mediów, odznaki i odznaki (zob.\nZadaniowe zdolności do tworzenia linków do innych poglądów z kotwicowiskiem.\nDodano nowe opcje dotyczące tematów pop-upu i wprowadziły uporczywe popupy.\nObecnie możliwe jest pobieranie plików przez ZIP-File.\nCONTROL_MODE of HP-IP-Thermostat (ang.).",
+                "uk": "Ви можете вибрати пункт призначення при копіюванні пристроїв.\nДодано нові можливості для медіа, значок та слайдерів (див. читати).\nДодано можливість встановити посилання на інші види з анкером на підголовки.\nДодано нові параметри для спливаючих вікон і введених персистентних спливаючих вікон.\nЗавантаження файлів користувача через ZIP-File тепер можливо.\nВиправлено CONTROL_MODE HP-IP-Thermostat.",
+                "zh-cn": "你现在可以选择印件的目的地。.\n增加新的媒体、恶英和黑暗的备选办法(见读者)。.\n提高与其他观点建立联系的能力,以分派为主。.\n增加新的人口方案,并引进了长期人口。.\n现在有可能通过ZIP-File进行用户渗透。.\nFixedCONTROL_MODE of HP-IP-Themostat."
+            },
+            "2.1.0": {
+                "en": "Added option to hide STATE and LEVEL in dialog.\nAdded DISCHARGE to Battery.\nEnhanced JSON-Table to work with alexa-shoppinglist-adapter.\nAdded badges to toolbar.\nAdded option to protect instance by passphrase.\nEnhanced FLOT-Chart-Widget to display more Datapoints.\nAdded option to set favorite values for LEVEL.\nMany more fixes and changes, see changelog",
+                "de": "Hinzugefügt Option, STATE und LEVEL im Dialog zu verstecken.\nHinzugefügt DISCHARGE zu Battery.\nVerbessert JSON-Table, um mit alexa-shoppinglist-Adapter zu arbeiten.\nHinzugefügt Abzeichen zu toolbar.\nOption zum Schutz der Instanz durch Passphrase.\nVerbessertes FLOT-Chart-Widget, um mehr Datapoints anzuzeigen.\nOption hinzugefügt, um Lieblingswerte für LEVEL einzustellen.\nViele weitere Korrekturen und Änderungen, siehe changelog",
+                "ru": "Добавлена возможность скрыть ГОСУДАРСТВО и LEVEL в диалоге.\nДобавлен DISCHARGE в аккумулятор.\nУлучшенный JSON-Table для работы с alexa-shoppinglist-adapter.\nДобавлены значки в панель инструментов.\nДобавлена опция для защиты экземпляра с помощью passphrase.\nУвеличенный FLOT-Chart-Widget для отображения больше точек данных.\nДобавлена возможность установить любимые значения для LEVEL.\nМножество исправлений и изменений, см. changelog",
+                "pt": "Adicionado opção para esconder ESTADO e LEVEL em diálogo.\nAdicionado DISCHARGE à bateria.\nMelhorado JSON-Table para trabalhar com alexa-shoppinglist-adapter.\nAdicionados crachás à barra de ferramentas.\nOpção adicionada para proteger instância por senha.\nFLOT-Chart-Widget aprimorado para exibir mais Datapoints.\nOpção adicionada para definir valores favoritos para LEVEL.\nMuitas mais correções e mudanças, veja changelog",
+                "nl": "Voeg de optie toe om STATE en LeveL in dialog te verbergen.\nVoegde DISCHARGE toe aan Battery.\nVerbeterde JSON-Table om te werken met Alexa-shoppinglist-papier.\nVoeg badges toe.\nToegevoegd optie te beschermen door passphrase.\nVerbeterde FLOT-Chart-Widget om meer Datapoints te laten zien.\nToegevoegd optie om favoriete waarden voor LEVL te zetten.\nVeel meer reparaties en veranderingen",
+                "fr": "Ajout de l'option pour cacher STATE et LEVEL dans le dialogue.\nAjouté DISCHARGE à Battery.\nJSON-Table améliorée pour travailler avec l'adaptateur alexa-shoppinglist.\nAjout de badges à la barre d'outils.\nAjout d'option pour protéger l'instance par passphrase.\nFLOT-Chart-Widget amélioré pour afficher plus de points de données.\nAjout de l'option pour définir les valeurs favorites pour LEVEL.\nBeaucoup plus de corrections et de changements, voir changelog",
+                "it": "Aggiunta opzione per nascondere STATO e LEVEL nella finestra di dialogo.\nAggiunta DISCHARGE a batteria.\nJSON-Table migliorato per lavorare con alexa-shoppinglist-adapter.\nAggiunto distintivi alla barra degli strumenti.\nAggiunta opzione per proteggere l'istanza da passphrase.\nFLOT-Chart-Widget migliorato per visualizzare più Datapoint.\nAggiunta opzione per impostare i valori preferiti per LEVEL.\nMolte altre correzioni e modifiche, vedi changelog",
+                "es": "Añadido opción para ocultar STATE y LEVEL en diálogo.\nAgregado DISCHARGE a la batería.\nMejorado JSON-Tabla para trabajar con alexa-shoppinglist-adapter.\nInsignias agregadas a la barra de herramientas.\nAñadido opción para proteger instancia por contraseña.\nEnhanced FLOT-Chart-Widget para mostrar más Puntos de datos.\nAñadido opción para establecer valores favoritos para LEVEL.\nMuchos más correcciones y cambios, ver cambio",
+                "pl": "W trybie dialogowym ukrywamy STATE i LEVEL.\nAdded DISCHARGE to Battery (ang.).\nJSON-Table współpracował z alexa-shoppinglist.\nOdznaki do narzędzia.\nWstępna opcja do ochrony przykładu poprzez hasło.\nEnhanced FLOT-Chart-Widget wyświetla więcej danych.\nWstępna opcja, aby utworzyć ulubione wartości dla LEVEL.\nWiele zmian i zmian widzących zmiany",
+                "uk": "Додано варіант, щоб приховати ДЕРЖАВИ і LEVEL у діалоговому вікні.\nДодано DISCHARGE до акумулятора.\nРозширений JSON-Table для роботи з alexa-shoppinglist-adapter.\nДодано значки до панелі інструментів.\nДодана опція захисту екземпляра при проході.\nРозширений FLOT-Chart-Widget для відображення більше точок даних.\nДодана можливість встановити улюблені значення для LEVEL.\nБільшість виправлень і змін див. статтю",
+                "zh-cn": "增加在口号里掩藏国家和LEVEL的选择。.\n添加了综合安全分遣队到Battery。.\n增强联合协商会的作用是与单一的商议名单。.\n增加工具包的缺点。.\n增加保护通行证的备选办法。.\n增加FLOT-Chart-Widget以展示更多的数据点。.\n增加确定LEVEL的有利价值的选择。.\n许多缺陷和变化,见改变口号。"
+            },
+            "2.0.1": {
+                "en": "Fixed json-table sorting order.\nAdded placeholder-option for empty tables to json-table-widget.\nFixed 'switch to this widget button' for widgets with replace-url.\nAdded more timestamp options to datapoint-detection of json-table-widget.\nEnhanced sorting of lists.",
+                "de": "Die Sortierreihenfolge der json-Tabelle wurde korrigiert.\nPlatzhalter-Option für leere Tabellen zu json-table-widget hinzugefügt.\n„Zu diesem Widget wechseln“-Button für Widgets mit Ersetzungs-URL behoben.\nWeitere Zeitstempeloptionen zur Datenpunkterkennung von json-table-widget hinzugefügt.\nVerbesserte Sortierung von Listen.",
+                "ru": "Исправлен порядок сортировки json-таблицы.\nВ json-table-widget добавлен параметр-заполнитель для пустых таблиц.\nИсправлено «переключиться на эту кнопку виджета» для виджетов с заменой-url.\nДобавлено больше параметров временной метки для определения точек данных json-table-widget.\nУлучшенная сортировка списков.",
+                "pt": "Corrigida a ordem de classificação da tabela json.\nAdicionada opção de espaço reservado para tabelas vazias ao json-table-widget.\nCorrigido 'mudar para este botão de widget' para widgets com URL de substituição.\nAdicionadas mais opções de carimbo de data/hora para detecção de ponto de dados de json-table-widget.\nClassificação aprimorada de listas.",
+                "nl": "Vaste json-tabel sorteervolgorde.\nTijdelijke aanduiding-optie voor lege tabellen toegevoegd aan json-table-widget.\nVaste 'overschakelen naar deze widget-knop' voor widgets met vervang-url.\nMeer tijdstempelopties toegevoegd aan datapuntdetectie van json-table-widget.\nVerbeterde sortering van lijsten.",
+                "fr": "Correction de l'ordre de tri des tables json.\nAjout d'une option d'espace réservé pour les tables vides à json-table-widget.\nCorrection du \"passer à ce bouton de widget\" pour les widgets avec une URL de remplacement.\nAjout d'options d'horodatage supplémentaires à la détection de points de données de json-table-widget.\nAmélioration du tri des listes.",
+                "it": "Risolto l'ordine di ordinamento della tabella json.\nAggiunta opzione segnaposto per tabelle vuote a json-table-widget.\nRisolto il problema con il \"pulsante passa a questo widget\" per i widget con l'URL di sostituzione.\nAggiunte più opzioni di timestamp al rilevamento del punto dati di json-table-widget.\nOrdinamento avanzato delle liste.",
+                "es": "Se corrigió el orden de clasificación de la tabla json.\nSe agregó la opción de marcador de posición para tablas vacías a json-table-widget.\nSe corrigió 'cambiar a este botón de widget' para widgets con URL de reemplazo.\nSe agregaron más opciones de marca de tiempo a la detección de puntos de datos de json-table-widget.\nClasificación mejorada de listas.",
+                "pl": "Naprawiono porządek sortowania tabeli json.\nDodano opcję zastępczą dla pustych tabel do json-table-widget.\nNaprawiono „przełącz do tego przycisku widżetu” dla widżetów z zastępczym adresem URL.\nDodano więcej opcji sygnatur czasowych do wykrywania punktów danych json-table-widget.\nUlepszone sortowanie list.",
+                "zh-cn": "修复了 json-table 排序顺序。\n将空表的占位符选项添加到 json-table-widget。\n修复了带有替换 URL 的小部件的“切换到此小部件按钮”。\n为 json-table-widget 的数据点检测添加了更多时间戳选项。\n增强的列表排序。"
+            },
+            "2.0.0": {
+                "en": "There are many changes since the last stable version. Here are the most breaking changes:\nAdded dark-mode, \nAdded lists and counters with powerful widgets to display for example empty batteries, opened windows, burning lights and much more,\nAdded new and modern and fluent icons and the ability to quicly change default icons,\nAdded upload for your own font-files, \nSubheaders can now be configured to be collapsible, \nThe map-widget can now have multiple instances,\nAdded a preview mode to quickly test changes of your configuration,\nBetter performance and connection-time,\nBugfixes and many more. For complete changelog have a look at the readme.\n",
+                "de": "Es gibt viele Änderungen seit der letzten stabilen Version. Hier sind die wichtigsten Änderungen:\nDunkelmodus hinzugefügt,\nListen und Zähler mit leistungsstarken Widgets hinzugefügt, um beispielsweise leere Batterien, geöffnete Fenster, brennende Lichter und vieles mehr anzuzeigen,\nNeue und moderne und flüssige Symbole hinzugefügt und die Möglichkeit, Standardsymbole schnell zu ändern,\nUpload für eigene Font-Dateien hinzugefügt,\nSubheader können jetzt so konfiguriert werden, dass sie reduzierbar sind,\nDas Karten-Widget kann jetzt mehrere Instanzen haben,\nVorschaumodus hinzugefügt, um Änderungen Ihrer Konfiguration schnell zu testen,\nBessere Leistung und Verbindungszeit,\nBugfixes und vieles mehr. Das vollständige Änderungsprotokoll finden Sie in der Readme.\n",
+                "ru": "Есть много изменений по сравнению с последней стабильной версией. Вот самые важные изменения:\nДобавлен темный режим,\nДобавлены списки и счетчики с мощными виджетами для отображения, например, разряженных батарей, открытых окон, горящих огней и многого другого,\nДобавлены новые, современные и плавные значки, а также возможность быстро менять значки по умолчанию,\nДобавлена загрузка собственных файлов шрифтов,\nПодзаголовки теперь можно сворачивать,\nВиджет карты теперь может иметь несколько экземпляров,\nДобавлен режим предварительного просмотра для быстрого тестирования изменений вашей конфигурации,\nЛучшая производительность и время соединения,\nИсправления ошибок и многое другое. Полный список изменений можно найти в файле readme.\n",
+                "pt": "Há muitas mudanças desde a última versão estável. Aqui estão as mudanças mais importantes:\nAdicionado modo escuro,\nAdicionadas listas e contadores com widgets poderosos para exibir, por exemplo, baterias vazias, janelas abertas, luzes acesas e muito mais,\nAdicionados ícones novos e modernos e fluentes e a capacidade de alterar rapidamente os ícones padrão,\nAdicionado upload para seus próprios arquivos de fonte,\nOs subtítulos agora podem ser configurados para serem recolhíveis,\nO map-widget agora pode ter várias instâncias,\nAdicionado um modo de visualização para testar rapidamente as alterações de sua configuração,\nMelhor desempenho e tempo de conexão,\nCorreções de bugs e muito mais. Para o changelog completo, dê uma olhada no arquivo readme.\n",
+                "nl": "Er zijn veel veranderingen sinds de laatste stabiele versie. Dit zijn de meest baanbrekende wijzigingen:\nDonkere modus toegevoegd,\nLijsten en tellers toegevoegd met krachtige widgets om bijvoorbeeld lege batterijen, geopende ramen, brandende lichten en nog veel meer weer te geven,\nNieuwe en moderne en vloeiende pictogrammen toegevoegd en de mogelijkheid om snel standaardpictogrammen te wijzigen,\nUpload toegevoegd voor uw eigen font-bestanden,\nSubheaders kunnen nu worden geconfigureerd om inklapbaar te zijn,\nDe map-widget kan nu meerdere instanties hebben,\nEen voorbeeldmodus toegevoegd om snel wijzigingen in uw configuratie te testen,\nBetere prestaties en verbindingstijd,\nBugfixes en nog veel meer. Voor de volledige changelog kijk eens in de readme.\n",
+                "fr": "Il y a beaucoup de changements depuis la dernière version stable. Voici les modifications les plus importantes :\nAjout du mode sombre,\nAjout de listes et de compteurs avec de puissants widgets pour afficher par exemple des piles vides, des fenêtres ouvertes, des lumières allumées et bien plus encore,\nAjout de nouvelles icônes modernes et fluides et de la possibilité de changer rapidement les icônes par défaut,\nAjout du téléchargement pour vos propres fichiers de polices,\nLes sous-titres peuvent désormais être configurés pour être réductibles,\nLe widget carte peut maintenant avoir plusieurs instances,\nAjout d'un mode aperçu pour tester rapidement les modifications de votre configuration,\nMeilleures performances et temps de connexion,\nCorrections de bugs et bien d'autres. Pour un journal des modifications complet, consultez le fichier readme.\n",
+                "it": "Ci sono molti cambiamenti rispetto all'ultima versione stabile. Ecco le modifiche più importanti:\nAggiunta la modalità oscura,\nAggiunti elenchi e contatori con potenti widget per visualizzare ad esempio batterie scariche, finestre aperte, luci accese e molto altro,\nAggiunte icone nuove, moderne e fluide e la possibilità di cambiare rapidamente le icone predefinite,\nAggiunto caricamento per i tuoi file di font,\nI sottotitoli ora possono essere configurati per essere comprimibili,\nIl widget mappa ora può avere più istanze,\nAggiunta una modalità di anteprima per testare rapidamente le modifiche alla tua configurazione,\nMigliori prestazioni e tempo di connessione,\nBugfix e molti altri. Per il changelog completo dai un'occhiata al readme.\n",
+                "es": "Hay muchos cambios desde la última versión estable. Estos son los cambios más importantes:\nAñadido modo oscuro,\nSe agregaron listas y contadores con poderosos widgets para mostrar, por ejemplo, baterías vacías, ventanas abiertas, luces encendidas y mucho más.\nSe agregaron íconos nuevos, modernos y fluidos y la capacidad de cambiar rápidamente los íconos predeterminados,\nCarga agregada para sus propios archivos de fuentes,\nLos subtítulos ahora se pueden configurar para que sean plegables,\nEl widget de mapa ahora puede tener múltiples instancias,\nSe agregó un modo de vista previa para probar rápidamente los cambios de su configuración,\nMejor rendimiento y tiempo de conexión,\nCorrección de errores y muchos más. Para ver el registro de cambios completo, eche un vistazo al archivo Léame.\n",
+                "pl": "Jest wiele zmian od ostatniej stabilnej wersji. Oto najbardziej przełomowe zmiany:\nDodano tryb ciemny,\nDodano listy i liczniki z potężnymi widżetami do wyświetlania np. wyczerpanych baterii, otwartych okien, palących się świateł i wielu innych,\nDodano nowe, nowoczesne i płynne ikony oraz możliwość szybkiej zmiany ikon domyślnych,\nDodano możliwość przesyłania własnych plików czcionek,\nPodnagłówki można teraz skonfigurować tak, aby były zwijane,\nWidżet mapy może teraz mieć wiele instancji,\nDodano tryb podglądu, aby szybko przetestować zmiany w Twojej konfiguracji,\nLepsza wydajność i czas połączenia,\nPoprawki błędów i wiele innych. Aby zobaczyć pełny dziennik zmian, zajrzyj do readme.\n",
+                "zh-cn": "自上一个稳定版本以来有很多变化。以下是最重大的变化：\n添加了暗模式，\n添加了带有强大小部件的列表和计数器，以显示例如空电池、打开的窗户、燃烧的灯等等，\n添加了新的现代流畅的图标以及快速更改默认图标的能力，\n为您自己的字体文件添加了上传，\n子标题现在可以配置为可折叠，\nmap-widget 现在可以有多个实例，\n添加了预览模式以快速测试您的配置更改，\n更好的性能和连接时间，\n错误修正等等。有关完整的变更日志，请查看自述文件。\n"
+            }
+        },
+        "titleLang": {
+            "en": "iQontrol Vis",
+            "de": "iQontrol Vis",
+            "ru": "iQontrol Vis",
+            "pt": "iQontrol Vis",
+            "nl": "iQontrol Vis",
+            "fr": "iQontrol Vis",
+            "it": "iQontrol Vis",
+            "es": "iQontrol Vis",
+            "pl": "iQontrol Vis",
+            "zh-cn": "iQontrol Vis"
+        },
+        "desc": {
+            "en": "Fast Web-App for Visualization",
+            "de": "Schnelle Web-App zur Visualisierung",
+            "ru": "Быстрое веб-приложение для визуализации",
+            "pt": "Fast Web-App para visualização",
+            "nl": "Snelle web-app voor visualisatie",
+            "fr": "Web-App rapide pour la visualisation",
+            "it": "App Web veloce per visualizzazione",
+            "es": "Rápida aplicación web para visualización",
+            "pl": "Szybka aplikacja internetowa do wizualizacji",
+            "zh-cn": "用于可视化的快速Web应用程序"
+        },
+        "authors": [
+            "Sebastian Bormann <sebastian@bormann.net>",
+            "Iobroker Community<iobroker-community-adapters@gmx.de>"
+        ],
+        "keywords": ["visualization", "user", "interface", "webapp", "ui"],
+        "licenseInformation": {
+            "type": "free",
+            "license": "MIT"
+        },
+        "platform": "Javascript/Node.js",
+        "icon": "iqontrol.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/iobroker-community-adapters/ioBroker.iqontrol/master/admin/iqontrol.png",
+        "readme": "https://github.com/iobroker-community-adapters/ioBroker.iqontrol/blob/master/README.md",
+        "loglevel": "info",
+        "mode": "daemon",
+        "tier": 3,
+        "type": "visualization",
+        "compact": true,
+        "singleton": false,
+        "materializeTab": true,
+        "adminTab": {
+            "name": {
+                "en": "iQontrol",
+                "de": "iQontrol",
+                "ru": "iQontrol",
+                "pt": "iQontrol",
+                "nl": "iQontrol",
+                "fr": "iQontrol",
+                "it": "iQontrol",
+                "es": "iQontrol",
+                "pl": "iQontrol",
+                "zh-cn": "iQontrol"
+            },
+            "singleton": false,
+            "link": "/adapter/iqontrol/index_m.html?noCloseButtons"
+        },
+        "onlyWWW": false,
+        "blockly": true,
+        "messagebox": true,
+        "subscribe": "messagebox",
+        "localLink": "%web_protocol%://%ip%:%web_port%/iqontrol/index.html?namespace=iqontrol.%instance%",
+        "welcomeScreen": false,
+        "welcomeScreenPro": {
+            "link": "iqontrol/index.html",
+            "name": "iQontrol",
+            "img": "iqontrol.admin/iqontrol.png",
+            "color": "gray",
+            "order": 1,
+            "localLink": false
+        },
+        "noIntro": false,
+        "supportCustoms": true,
+        "jsonCustom": true,
+        "plugins": {
+            "sentry": {
+                "dsn": "https://1bc875a7a671418dbe4d5765e4e3cd2f@sentry.iobroker.net/96"
+            }
+        },
+        "connectionType": "local",
+        "dataSource": "push",
+        "dependencies": [
+            {
+                "js-controller": ">=6.0.11"
+            },
+            {
+                "web": ">=3.0.12"
+            }
+        ],
+        "globalDependencies": [
+            {
+                "admin": ">=7.7.22"
+            }
+        ],
+        "adminUI": {
+            "config": "materialize"
+        }
     },
-    "titleLang": {
-      "en": "iQontrol Vis",
-      "de": "iQontrol Vis",
-      "ru": "iQontrol Vis",
-      "pt": "iQontrol Vis",
-      "nl": "iQontrol Vis",
-      "fr": "iQontrol Vis",
-      "it": "iQontrol Vis",
-      "es": "iQontrol Vis",
-      "pl": "iQontrol Vis",
-      "zh-cn": "iQontrol Vis"
+    "native": {
+        "demotoolbar": [
+            {
+                "commonName": "Home",
+                "nativeLinkedView": "Home",
+                "nativeIcon": "home"
+            },
+            {
+                "commonName": "Rooms",
+                "nativeLinkedView": "Rooms",
+                "nativeIcon": "grid"
+            },
+            {
+                "commonName": "Functions",
+                "nativeLinkedView": "Functions",
+                "nativeIcon": "gear"
+            }
+        ],
+        "demoviews": [
+            {
+                "commonName": "Home",
+                "nativeBackgroundImage": "./images/wallpaper/bakestone.jpg",
+                "devices": [
+                    {
+                        "commonName": "Clock",
+                        "nativeHeading": "Clock",
+                        "nativeLinkedView": "",
+                        "nativeBackgroundImage": "",
+                        "commonRole": "iQontrolWidget",
+                        "options": [
+                            {
+                                "option": "icon_on",
+                                "type": "icon",
+                                "value": ""
+                            },
+                            {
+                                "option": "icon_off",
+                                "type": "icon",
+                                "value": ""
+                            },
+                            {
+                                "option": "transparentIfInactive",
+                                "type": "checkbox",
+                                "value": "true"
+                            },
+                            {
+                                "option": "noOverlayInactive",
+                                "type": "checkbox",
+                                "value": "true"
+                            },
+                            {
+                                "option": "hideDeviceNameIfInactive",
+                                "type": "checkbox",
+                                "value": "true"
+                            },
+                            {
+                                "option": "hideStateIfInactive",
+                                "type": "checkbox",
+                                "value": "true"
+                            },
+                            {
+                                "option": "sizeEnlarged",
+                                "type": "select",
+                                "value": "fullWidthIfEnlarged fullHeightIfEnlarged"
+                            },
+                            {
+                                "option": "tileEnlargeShowButtonInactive",
+                                "type": "checkbox",
+                                "value": "true"
+                            },
+                            {
+                                "option": "tileEnlargeShowButtonActive",
+                                "type": "checkbox",
+                                "value": "true"
+                            },
+                            {
+                                "option": "tileEnlargeShowInPressureMenuInactive",
+                                "type": "checkbox",
+                                "value": "true"
+                            },
+                            {
+                                "option": "tileEnlargeShowInPressureMenuActive",
+                                "type": "checkbox",
+                                "value": "true"
+                            }
+                        ],
+                        "states": [
+                            {
+                                "state": "BACKGROUND_URL",
+                                "commonRole": "const",
+                                "value": "./images/widgets/clock/clock_analog.html?--background-color=rgba(104,164,255,0%25)&--clock-edge-color=rgba(16,16,16,100%25)&--clock-face-color=rgba(255,255,255,100%25)&--clock-hands-color=rgba(132,132,132,100%25)&--clock-hands-seconds-color=rgba(255,103,103,100%25)"
+                            }
+                        ]
+                    },
+                    {
+                        "commonName": "ioBroker uptime",
+                        "nativeHeading": "ioBroker",
+                        "nativeLinkedView": "",
+                        "nativeBackgroundImage": "./images/wallpaper/orangedrops.jpg",
+                        "commonRole": "iQontrolValue",
+                        "states": [
+                            {
+                                "state": "STATE",
+                                "value": "system.adapter.admin.0.uptime"
+                            },
+                            {
+                                "state": "LEVEL",
+                                "value": ""
+                            },
+                            {
+                                "state": "BATTERY",
+                                "value": ""
+                            },
+                            {
+                                "state": "UNREACH",
+                                "value": ""
+                            },
+                            {
+                                "state": "ERROR",
+                                "value": ""
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "commonName": "Rooms",
+                "nativeBackgroundImage": "./images/wallpaper/grass.jpg",
+                "devices": [
+                    {
+                        "commonName": "Living Room",
+                        "nativeHeading": "1st floor",
+                        "nativeLinkedView": "Living-Room",
+                        "nativeBackgroundImage": "./images/wallpaper/bottle.jpg",
+                        "commonRole": "iQontrolView",
+                        "states": [
+                            {
+                                "state": "BATTERY",
+                                "value": ""
+                            },
+                            {
+                                "state": "UNREACH",
+                                "value": ""
+                            },
+                            {
+                                "state": "ERROR",
+                                "value": ""
+                            }
+                        ]
+                    },
+                    {
+                        "commonName": "Kitchen",
+                        "nativeHeading": "2nd floor",
+                        "nativeLinkedView": "Kitchen",
+                        "nativeBackgroundImage": "./images/wallpaper/whitestone.jpg",
+                        "commonRole": "iQontrolView",
+                        "states": [
+                            {
+                                "state": "BATTERY",
+                                "value": ""
+                            },
+                            {
+                                "state": "UNREACH",
+                                "value": ""
+                            },
+                            {
+                                "state": "ERROR",
+                                "value": ""
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "commonName": "Functions",
+                "nativeBackgroundImage": "./images/wallpaper/decor.jpg",
+                "devices": [
+                    {
+                        "commonName": "Lights",
+                        "nativeHeading": "",
+                        "nativeLinkedView": "Lights",
+                        "nativeBackgroundImage": "",
+                        "commonRole": "iQontrolView",
+                        "states": [
+                            {
+                                "state": "BATTERY",
+                                "value": ""
+                            },
+                            {
+                                "state": "UNREACH",
+                                "value": ""
+                            },
+                            {
+                                "state": "ERROR",
+                                "value": ""
+                            }
+                        ]
+                    },
+                    {
+                        "commonName": "Climate-Control",
+                        "nativeHeading": "",
+                        "nativeLinkedView": "Climate-Control",
+                        "nativeBackgroundImage": "",
+                        "commonRole": "iQontrolView",
+                        "states": [
+                            {
+                                "state": "BATTERY",
+                                "value": ""
+                            },
+                            {
+                                "state": "UNREACH",
+                                "value": ""
+                            },
+                            {
+                                "state": "ERROR",
+                                "value": ""
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "commonName": "Living-Room",
+                "nativeBackgroundImage": "./images/wallpaper/bottle.jpg",
+                "devices": [
+                    {
+                        "commonName": "Light",
+                        "nativeHeading": "",
+                        "nativeLinkedView": "",
+                        "nativeBackgroundImage": "",
+                        "commonRole": "iQontrolLight",
+                        "states": [
+                            {
+                                "state": "STATE",
+                                "value": ""
+                            },
+                            {
+                                "state": "LEVEL",
+                                "value": ""
+                            },
+                            {
+                                "state": "HUE",
+                                "value": ""
+                            },
+                            {
+                                "state": "BATTERY",
+                                "value": ""
+                            },
+                            {
+                                "state": "UNREACH",
+                                "value": ""
+                            },
+                            {
+                                "state": "ERROR",
+                                "value": ""
+                            }
+                        ]
+                    },
+                    {
+                        "commonName": "Heater",
+                        "nativeHeading": "",
+                        "nativeLinkedView": "",
+                        "nativeBackgroundImage": "",
+                        "commonRole": "iQontrolThermostat",
+                        "states": [
+                            {
+                                "state": "SET_TEMPERATURE",
+                                "value": ""
+                            },
+                            {
+                                "state": "TEMPERATURE",
+                                "value": ""
+                            },
+                            {
+                                "state": "HUMIDITY",
+                                "value": ""
+                            },
+                            {
+                                "state": "CONTROL_MODE",
+                                "value": ""
+                            },
+                            {
+                                "state": "VALVE_STATES",
+                                "value": ""
+                            },
+                            {
+                                "state": "BATTERY",
+                                "value": ""
+                            },
+                            {
+                                "state": "UNREACH",
+                                "value": ""
+                            },
+                            {
+                                "state": "ERROR",
+                                "value": ""
+                            }
+                        ]
+                    },
+                    {
+                        "commonName": "TV",
+                        "nativeHeading": "",
+                        "nativeLinkedView": "",
+                        "nativeBackgroundImage": "",
+                        "commonRole": "iQontrolSwitch",
+                        "states": [
+                            {
+                                "state": "STATE",
+                                "value": ""
+                            },
+                            {
+                                "state": "BATTERY",
+                                "value": ""
+                            },
+                            {
+                                "state": "UNREACH",
+                                "value": ""
+                            },
+                            {
+                                "state": "ERROR",
+                                "value": ""
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "commonName": "Kitchen",
+                "nativeBackgroundImage": "./images/wallpaper/whitestone.jpg",
+                "devices": [
+                    {
+                        "commonName": "Fan",
+                        "nativeHeading": "",
+                        "nativeLinkedView": "",
+                        "nativeBackgroundImage": "",
+                        "commonRole": "iQontrolFan",
+                        "states": [
+                            {
+                                "state": "STATE",
+                                "value": ""
+                            },
+                            {
+                                "state": "BATTERY",
+                                "value": ""
+                            },
+                            {
+                                "state": "UNREACH",
+                                "value": ""
+                            },
+                            {
+                                "state": "ERROR",
+                                "value": ""
+                            }
+                        ]
+                    },
+                    {
+                        "commonName": "Light",
+                        "nativeHeading": "",
+                        "nativeLinkedView": "",
+                        "nativeBackgroundImage": "",
+                        "commonRole": "iQontrolLight",
+                        "states": [
+                            {
+                                "state": "STATE",
+                                "value": ""
+                            },
+                            {
+                                "state": "LEVEL",
+                                "value": ""
+                            },
+                            {
+                                "state": "HUE",
+                                "value": ""
+                            },
+                            {
+                                "state": "BATTERY",
+                                "value": ""
+                            },
+                            {
+                                "state": "UNREACH",
+                                "value": ""
+                            },
+                            {
+                                "state": "ERROR",
+                                "value": ""
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "commonName": "Lights",
+                "nativeBackgroundImage": "./images/wallpaper/orangedrops.jpg",
+                "devices": [
+                    {
+                        "commonName": "Living Room",
+                        "nativeHeading": "",
+                        "nativeLinkedView": "",
+                        "nativeBackgroundImage": "",
+                        "commonRole": "iQontrolLight",
+                        "states": [
+                            {
+                                "state": "STATE",
+                                "value": ""
+                            },
+                            {
+                                "state": "LEVEL",
+                                "value": ""
+                            },
+                            {
+                                "state": "HUE",
+                                "value": ""
+                            },
+                            {
+                                "state": "BATTERY",
+                                "value": ""
+                            },
+                            {
+                                "state": "UNREACH",
+                                "value": ""
+                            },
+                            {
+                                "state": "ERROR",
+                                "value": ""
+                            }
+                        ]
+                    },
+                    {
+                        "commonName": "Kitchen",
+                        "nativeHeading": "",
+                        "nativeLinkedView": "",
+                        "nativeBackgroundImage": "",
+                        "commonRole": "iQontrolLight",
+                        "states": [
+                            {
+                                "state": "STATE",
+                                "value": ""
+                            },
+                            {
+                                "state": "LEVEL",
+                                "value": ""
+                            },
+                            {
+                                "state": "HUE",
+                                "value": ""
+                            },
+                            {
+                                "state": "BATTERY",
+                                "value": ""
+                            },
+                            {
+                                "state": "UNREACH",
+                                "value": ""
+                            },
+                            {
+                                "state": "ERROR",
+                                "value": ""
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "commonName": "Climate-Control",
+                "nativeBackgroundImage": "./images/wallpaper/green.jpg",
+                "devices": [
+                    {
+                        "commonName": "Living Room",
+                        "nativeHeading": "",
+                        "nativeLinkedView": "",
+                        "nativeBackgroundImage": "",
+                        "commonRole": "iQontrolThermostat",
+                        "states": [
+                            {
+                                "state": "SET_TEMPERATURE",
+                                "value": ""
+                            },
+                            {
+                                "state": "TEMPERATURE",
+                                "value": ""
+                            },
+                            {
+                                "state": "HUMIDITY",
+                                "value": ""
+                            },
+                            {
+                                "state": "CONTROL_MODE",
+                                "value": ""
+                            },
+                            {
+                                "state": "VALVE_STATES",
+                                "value": ""
+                            },
+                            {
+                                "state": "BATTERY",
+                                "value": ""
+                            },
+                            {
+                                "state": "UNREACH",
+                                "value": ""
+                            },
+                            {
+                                "state": "ERROR",
+                                "value": ""
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "demooptionsLayoutDefaultIcons": {
+            "ERROR": {
+                "errorIcon_on": "./images/icons/fluent/fluent_ERROR.png"
+            },
+            "UNREACH": {
+                "unreachIcon_on": "./images/icons/fluent/fluent_UNREACH.png"
+            },
+            "BATTERY": {
+                "batteryIcon_on": "./images/icons/fluent/fluent_BATTERY.png"
+            },
+            "iQontrolView": {
+                "icon_on": "./images/icons/blank.png"
+            },
+            "iQontrolSwitch": {
+                "icon_on": "./images/icons/fluent/fluent_switch_on.png",
+                "icon_off": "./images/icons/fluent/fluent_switch_off.png"
+            },
+            "iQontrolButton": {
+                "icon_on": "./images/icons/fluent/fluent_button.png",
+                "icon_off": "./images/icons/fluent/fluent_button.png"
+            },
+            "iQontrolLight": {
+                "icon_on": "./images/icons/fluent/fluent_light_on.png",
+                "icon_off": "./images/icons/fluent/fluent_light_off.png"
+            },
+            "iQontrolFan": {
+                "icon_on": "./images/icons/fluent/fluent_fan_on.png",
+                "icon_off": "./images/icons/fluent/fluent_fan_off.png"
+            },
+            "iQontrolThermostat": {
+                "icon_on": "./images/icons/fluent/fluent_radiator.png",
+                "icon_off": "./images/icons/fluent/fluent_radiator.png"
+            },
+            "iQontrolHomematicThermostat": {
+                "icon_on": "./images/icons/fluent/fluent_radiator.png",
+                "icon_off": "./images/icons/fluent/fluent_radiator.png"
+            },
+            "iQontrolHomematicIpThermostat": {
+                "icon_on": "./images/icons/fluent/fluent_radiator.png",
+                "icon_off": "./images/icons/fluent/fluent_radiator.png"
+            },
+            "iQontrolTemperature": {
+                "icon_on": "./images/icons/fluent/fluent_temperature.png",
+                "icon_off": "./images/icons/fluent/fluent_temperature.png"
+            },
+            "iQontrolHumidity": {
+                "icon_on": "./images/icons/fluent/fluent_humidity.png",
+                "icon_off": "./images/icons/fluent/fluent_humidity.png"
+            },
+            "iQontrolPressure": {
+                "icon_on": "./images/icons/fluent/fluent_pressure.png",
+                "icon_off": "./images/icons/fluent/fluent_pressure.png"
+            },
+            "iQontrolBrightness": {
+                "icon_on": "./images/icons/fluent/fluent_brightness_light.png",
+                "icon_off": "./images/icons/fluent/fluent_brightness_dark.png"
+            },
+            "iQontrolMotion": {
+                "icon_on": "./images/icons/fluent/fluent_motion_on.png",
+                "icon_off": "./images/icons/fluent/fluent_motion_off.png"
+            },
+            "iQontrolDoor": {
+                "icon_on": "./images/icons/fluent/fluent_door_opened.png",
+                "icon_off": "./images/icons/fluent/fluent_door_closed.png"
+            },
+            "iQontrolGarageDoor": {
+                "icon_on": "./images/icons/fluent/fluent_garagedoor_opened.png",
+                "icon_off": "./images/icons/fluent/fluent_garagedoor_closed.png"
+            },
+            "iQontrolDoorWithLock": {
+                "icon_on": "./images/icons/fluent/fluent_door_opened.png",
+                "icon_off": "./images/icons/fluent/fluent_door_closed.png",
+                "icon_locked": "./images/icons/fluent/fluent_door_locked.png",
+                "icon_unlocked": "./images/icons/fluent/fluent_door_unlocked.png"
+            },
+            "iQontrolWindow": {
+                "icon_on": "./images/icons/fluent/fluent_window_opened.png",
+                "icon_off": "./images/icons/fluent/fluent_window_closed.png",
+                "icon_tilted": "./images/icons/fluent/fluent_window_tilted.png"
+            },
+            "iQontrolBlind": {
+                "icon_on": "./images/icons/fluent/fluent_blind_opened.png",
+                "icon_off": "./images/icons/fluent/fluent_blind_closed.png",
+                "icon_middle": "./images/icons/fluent/fluent_blind_middle.png",
+                "icon_closing": "./images/icons/fluent/fluent_blind_closing.png",
+                "icon_opening": "./images/icons/fluent/fluent_blind_opening.png"
+            },
+            "iQontrolFire": {
+                "icon_on": "./images/icons/fluent/fluent_fire_on.png",
+                "icon_off": "./images/icons/fluent/fluent_fire_off.png"
+            },
+            "iQontrolFlood": {
+                "icon_on": "./images/icons/fluent/fluent_flood_on.png",
+                "icon_off": "./images/icons/fluent/fluent_flood_off.png"
+            },
+            "iQontrolAlarm": {
+                "icon_triggered": "./images/icons/fluent/fluent_alarm_on_triggered.png",
+                "icon_on": "./images/icons/fluent/fluent_alarm_on.png",
+                "icon_off": "./images/icons/fluent/fluent_alarm_off.png"
+            },
+            "iQontrolBattery": {
+                "icon_on": "./images/icons/fluent/fluent_battery_full.png",
+                "icon_off": "./images/icons/fluent/fluent_battery_empty.png",
+                "icon_charged75": "./images/icons/fluent/fluent_battery_75.png",
+                "icon_charged50": "./images/icons/fluent/fluent_battery_50.png",
+                "icon_charged25": "./images/icons/fluent/fluent_battery_25.png",
+                "icon_charged10": "./images/icons/fluent/fluent_battery_10.png",
+                "icon_charging": "./images/icons/fluent/fluent_battery_charging_overlay.png"
+            },
+            "iQontrolDateAndTime": {
+                "icon_on": "./images/icons/fluent/fluent_time_alarmclock_on.png",
+                "icon_off": "./images/icons/fluent/fluent_time_alarmclock_off.png",
+                "icon_ringing": "./images/icons/fluent/fluent_bell_ringing_overlay.png"
+            },
+            "iQontrolValue": {
+                "icon_on": "./images/icons/fluent/fluent_value_on.png",
+                "icon_off": "./images/icons/fluent/fluent_value_off.png"
+            },
+            "iQontrolProgram": {
+                "icon_on": "./images/icons/fluent/fluent_play_on.png",
+                "icon_off": "./images/icons/fluent/fluent_play.png"
+            },
+            "iQontrolScene": {
+                "icon_on": "./images/icons/fluent/fluent_play.png",
+                "icon_off": "./images/icons/fluent/fluent_play.png"
+            },
+            "iQontrolMedia": {
+                "icon_on": "./images/icons/fluent/fluent_media_on.png",
+                "icon_off": "./images/icons/fluent/fluent_media_off.png"
+            },
+            "iQontrolPopup": {
+                "icon_on": "./images/icons/fluent/fluent_popup.png",
+                "icon_off": "./images/icons/fluent/fluent_popup.png"
+            },
+            "iQontrolExternalLink": {
+                "icon_on": "./images/icons/fluent/fluent_link.png",
+                "icon_off": "./images/icons/fluent/fluent_link.png"
+            },
+            "iQontrolWidget": {
+                "icon_on": "./images/icons/blank.png",
+                "icon_off": "./images/icons/blank.png"
+            },
+            "iQontrolInfoText": {
+                "icon_on": "./images/icons/fluent/fluent_info_bubble_off.png",
+                "icon_off": "./images/icons/blank.png"
+            }
+        }
     },
-    "desc": {
-      "en": "Fast Web-App for Visualization",
-      "de": "Schnelle Web-App zur Visualisierung",
-      "ru": "Быстрое веб-приложение для визуализации",
-      "pt": "Fast Web-App para visualização",
-      "nl": "Snelle web-app voor visualisatie",
-      "fr": "Web-App rapide pour la visualisation",
-      "it": "App Web veloce per visualizzazione",
-      "es": "Rápida aplicación web para visualización",
-      "pl": "Szybka aplikacja internetowa do wizualizacji",
-      "zh-cn": "用于可视化的快速Web应用程序"
-    },
-    "authors": [
-      "Sebastian Bormann <sebastian@bormann.net>",
-      "Iobroker Community<iobroker-community-adapters@gmx.de>"
+    "objects": [
+        {
+            "_id": "iqontrol.meta",
+            "type": "meta",
+            "common": {
+                "name": "userfiles and images for iQontrol",
+                "type": "meta.user",
+                "expert": true
+            },
+            "native": {}
+        }
     ],
-    "keywords": [
-      "visualization",
-      "user",
-      "interface",
-      "webapp",
-      "ui"
-    ],
-    "licenseInformation": {
-      "type": "free",
-      "license": "MIT"
-    },
-    "platform": "Javascript/Node.js",
-    "icon": "iqontrol.png",
-    "enabled": true,
-    "extIcon": "https://raw.githubusercontent.com/iobroker-community-adapters/ioBroker.iqontrol/master/admin/iqontrol.png",
-    "readme": "https://github.com/iobroker-community-adapters/ioBroker.iqontrol/blob/master/README.md",
-    "loglevel": "info",
-    "mode": "daemon",
-    "tier": 3,
-    "type": "visualization",
-    "compact": true,
-    "singleton": false,
-    "materializeTab": true,
-    "adminTab": {
-      "name": {
-        "en": "iQontrol",
-        "de": "iQontrol",
-        "ru": "iQontrol",
-        "pt": "iQontrol",
-        "nl": "iQontrol",
-        "fr": "iQontrol",
-        "it": "iQontrol",
-        "es": "iQontrol",
-        "pl": "iQontrol",
-        "zh-cn": "iQontrol"
-      },
-      "singleton": false,
-      "link": "/adapter/iqontrol/index_m.html?noCloseButtons"
-    },
-    "onlyWWW": false,
-    "blockly": true,
-    "messagebox": true,
-    "subscribe": "messagebox",
-    "localLink": "%web_protocol%://%ip%:%web_port%/iqontrol/index.html?namespace=iqontrol.%instance%",
-    "welcomeScreen": false,
-    "welcomeScreenPro": {
-      "link": "iqontrol/index.html",
-      "name": "iQontrol",
-      "img": "iqontrol.admin/iqontrol.png",
-      "color": "gray",
-      "order": 1,
-      "localLink": false
-    },
-    "noIntro": false,
-    "supportCustoms": true,
-    "jsonCustom": true,
-    "plugins": {
-      "sentry": {
-        "dsn": "https://1bc875a7a671418dbe4d5765e4e3cd2f@sentry.iobroker.net/96"
-      }
-    },
-    "connectionType": "local",
-    "dataSource": "push",
-    "dependencies": [
-      {
-        "js-controller": ">=6.0.11"
-      },
-      {
-        "web": ">=3.0.12"
-      }
-    ],
-    "globalDependencies": [
-      {
-        "admin": ">=7.7.22"
-      }
-    ],
-    "adminUI": {
-      "config": "materialize"
-    }
-  },
-  "native": {
-    "demotoolbar": [
-      {
-        "commonName": "Home",
-        "nativeLinkedView": "Home",
-        "nativeIcon": "home"
-      },
-      {
-        "commonName": "Rooms",
-        "nativeLinkedView": "Rooms",
-        "nativeIcon": "grid"
-      },
-      {
-        "commonName": "Functions",
-        "nativeLinkedView": "Functions",
-        "nativeIcon": "gear"
-      }
-    ],
-    "demoviews": [
-      {
-        "commonName": "Home",
-        "nativeBackgroundImage": "./images/wallpaper/bakestone.jpg",
-        "devices": [
-          {
-            "commonName": "Clock",
-            "nativeHeading": "Clock",
-            "nativeLinkedView": "",
-            "nativeBackgroundImage": "",
-            "commonRole": "iQontrolWidget",
-            "options": [
-              {
-                "option": "icon_on",
-                "type": "icon",
-                "value": ""
-              },
-              {
-                "option": "icon_off",
-                "type": "icon",
-                "value": ""
-              },
-              {
-                "option": "transparentIfInactive",
-                "type": "checkbox",
-                "value": "true"
-              },
-              {
-                "option": "noOverlayInactive",
-                "type": "checkbox",
-                "value": "true"
-              },
-              {
-                "option": "hideDeviceNameIfInactive",
-                "type": "checkbox",
-                "value": "true"
-              },
-              {
-                "option": "hideStateIfInactive",
-                "type": "checkbox",
-                "value": "true"
-              },
-              {
-                "option": "sizeEnlarged",
-                "type": "select",
-                "value": "fullWidthIfEnlarged fullHeightIfEnlarged"
-              },
-              {
-                "option": "tileEnlargeShowButtonInactive",
-                "type": "checkbox",
-                "value": "true"
-              },
-              {
-                "option": "tileEnlargeShowButtonActive",
-                "type": "checkbox",
-                "value": "true"
-              },
-              {
-                "option": "tileEnlargeShowInPressureMenuInactive",
-                "type": "checkbox",
-                "value": "true"
-              },
-              {
-                "option": "tileEnlargeShowInPressureMenuActive",
-                "type": "checkbox",
-                "value": "true"
-              }
-            ],
-            "states": [
-              {
-                "state": "BACKGROUND_URL",
-                "commonRole": "const",
-                "value": "./images/widgets/clock/clock_analog.html?--background-color=rgba(104,164,255,0%25)&--clock-edge-color=rgba(16,16,16,100%25)&--clock-face-color=rgba(255,255,255,100%25)&--clock-hands-color=rgba(132,132,132,100%25)&--clock-hands-seconds-color=rgba(255,103,103,100%25)"
-              }
-            ]
-          },
-          {
-            "commonName": "ioBroker uptime",
-            "nativeHeading": "ioBroker",
-            "nativeLinkedView": "",
-            "nativeBackgroundImage": "./images/wallpaper/orangedrops.jpg",
-            "commonRole": "iQontrolValue",
-            "states": [
-              {
-                "state": "STATE",
-                "value": "system.adapter.admin.0.uptime"
-              },
-              {
-                "state": "LEVEL",
-                "value": ""
-              },
-              {
-                "state": "BATTERY",
-                "value": ""
-              },
-              {
-                "state": "UNREACH",
-                "value": ""
-              },
-              {
-                "state": "ERROR",
-                "value": ""
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "commonName": "Rooms",
-        "nativeBackgroundImage": "./images/wallpaper/grass.jpg",
-        "devices": [
-          {
-            "commonName": "Living Room",
-            "nativeHeading": "1st floor",
-            "nativeLinkedView": "Living-Room",
-            "nativeBackgroundImage": "./images/wallpaper/bottle.jpg",
-            "commonRole": "iQontrolView",
-            "states": [
-              {
-                "state": "BATTERY",
-                "value": ""
-              },
-              {
-                "state": "UNREACH",
-                "value": ""
-              },
-              {
-                "state": "ERROR",
-                "value": ""
-              }
-            ]
-          },
-          {
-            "commonName": "Kitchen",
-            "nativeHeading": "2nd floor",
-            "nativeLinkedView": "Kitchen",
-            "nativeBackgroundImage": "./images/wallpaper/whitestone.jpg",
-            "commonRole": "iQontrolView",
-            "states": [
-              {
-                "state": "BATTERY",
-                "value": ""
-              },
-              {
-                "state": "UNREACH",
-                "value": ""
-              },
-              {
-                "state": "ERROR",
-                "value": ""
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "commonName": "Functions",
-        "nativeBackgroundImage": "./images/wallpaper/decor.jpg",
-        "devices": [
-          {
-            "commonName": "Lights",
-            "nativeHeading": "",
-            "nativeLinkedView": "Lights",
-            "nativeBackgroundImage": "",
-            "commonRole": "iQontrolView",
-            "states": [
-              {
-                "state": "BATTERY",
-                "value": ""
-              },
-              {
-                "state": "UNREACH",
-                "value": ""
-              },
-              {
-                "state": "ERROR",
-                "value": ""
-              }
-            ]
-          },
-          {
-            "commonName": "Climate-Control",
-            "nativeHeading": "",
-            "nativeLinkedView": "Climate-Control",
-            "nativeBackgroundImage": "",
-            "commonRole": "iQontrolView",
-            "states": [
-              {
-                "state": "BATTERY",
-                "value": ""
-              },
-              {
-                "state": "UNREACH",
-                "value": ""
-              },
-              {
-                "state": "ERROR",
-                "value": ""
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "commonName": "Living-Room",
-        "nativeBackgroundImage": "./images/wallpaper/bottle.jpg",
-        "devices": [
-          {
-            "commonName": "Light",
-            "nativeHeading": "",
-            "nativeLinkedView": "",
-            "nativeBackgroundImage": "",
-            "commonRole": "iQontrolLight",
-            "states": [
-              {
-                "state": "STATE",
-                "value": ""
-              },
-              {
-                "state": "LEVEL",
-                "value": ""
-              },
-              {
-                "state": "HUE",
-                "value": ""
-              },
-              {
-                "state": "BATTERY",
-                "value": ""
-              },
-              {
-                "state": "UNREACH",
-                "value": ""
-              },
-              {
-                "state": "ERROR",
-                "value": ""
-              }
-            ]
-          },
-          {
-            "commonName": "Heater",
-            "nativeHeading": "",
-            "nativeLinkedView": "",
-            "nativeBackgroundImage": "",
-            "commonRole": "iQontrolThermostat",
-            "states": [
-              {
-                "state": "SET_TEMPERATURE",
-                "value": ""
-              },
-              {
-                "state": "TEMPERATURE",
-                "value": ""
-              },
-              {
-                "state": "HUMIDITY",
-                "value": ""
-              },
-              {
-                "state": "CONTROL_MODE",
-                "value": ""
-              },
-              {
-                "state": "VALVE_STATES",
-                "value": ""
-              },
-              {
-                "state": "BATTERY",
-                "value": ""
-              },
-              {
-                "state": "UNREACH",
-                "value": ""
-              },
-              {
-                "state": "ERROR",
-                "value": ""
-              }
-            ]
-          },
-          {
-            "commonName": "TV",
-            "nativeHeading": "",
-            "nativeLinkedView": "",
-            "nativeBackgroundImage": "",
-            "commonRole": "iQontrolSwitch",
-            "states": [
-              {
-                "state": "STATE",
-                "value": ""
-              },
-              {
-                "state": "BATTERY",
-                "value": ""
-              },
-              {
-                "state": "UNREACH",
-                "value": ""
-              },
-              {
-                "state": "ERROR",
-                "value": ""
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "commonName": "Kitchen",
-        "nativeBackgroundImage": "./images/wallpaper/whitestone.jpg",
-        "devices": [
-          {
-            "commonName": "Fan",
-            "nativeHeading": "",
-            "nativeLinkedView": "",
-            "nativeBackgroundImage": "",
-            "commonRole": "iQontrolFan",
-            "states": [
-              {
-                "state": "STATE",
-                "value": ""
-              },
-              {
-                "state": "BATTERY",
-                "value": ""
-              },
-              {
-                "state": "UNREACH",
-                "value": ""
-              },
-              {
-                "state": "ERROR",
-                "value": ""
-              }
-            ]
-          },
-          {
-            "commonName": "Light",
-            "nativeHeading": "",
-            "nativeLinkedView": "",
-            "nativeBackgroundImage": "",
-            "commonRole": "iQontrolLight",
-            "states": [
-              {
-                "state": "STATE",
-                "value": ""
-              },
-              {
-                "state": "LEVEL",
-                "value": ""
-              },
-              {
-                "state": "HUE",
-                "value": ""
-              },
-              {
-                "state": "BATTERY",
-                "value": ""
-              },
-              {
-                "state": "UNREACH",
-                "value": ""
-              },
-              {
-                "state": "ERROR",
-                "value": ""
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "commonName": "Lights",
-        "nativeBackgroundImage": "./images/wallpaper/orangedrops.jpg",
-        "devices": [
-          {
-            "commonName": "Living Room",
-            "nativeHeading": "",
-            "nativeLinkedView": "",
-            "nativeBackgroundImage": "",
-            "commonRole": "iQontrolLight",
-            "states": [
-              {
-                "state": "STATE",
-                "value": ""
-              },
-              {
-                "state": "LEVEL",
-                "value": ""
-              },
-              {
-                "state": "HUE",
-                "value": ""
-              },
-              {
-                "state": "BATTERY",
-                "value": ""
-              },
-              {
-                "state": "UNREACH",
-                "value": ""
-              },
-              {
-                "state": "ERROR",
-                "value": ""
-              }
-            ]
-          },
-          {
-            "commonName": "Kitchen",
-            "nativeHeading": "",
-            "nativeLinkedView": "",
-            "nativeBackgroundImage": "",
-            "commonRole": "iQontrolLight",
-            "states": [
-              {
-                "state": "STATE",
-                "value": ""
-              },
-              {
-                "state": "LEVEL",
-                "value": ""
-              },
-              {
-                "state": "HUE",
-                "value": ""
-              },
-              {
-                "state": "BATTERY",
-                "value": ""
-              },
-              {
-                "state": "UNREACH",
-                "value": ""
-              },
-              {
-                "state": "ERROR",
-                "value": ""
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "commonName": "Climate-Control",
-        "nativeBackgroundImage": "./images/wallpaper/green.jpg",
-        "devices": [
-          {
-            "commonName": "Living Room",
-            "nativeHeading": "",
-            "nativeLinkedView": "",
-            "nativeBackgroundImage": "",
-            "commonRole": "iQontrolThermostat",
-            "states": [
-              {
-                "state": "SET_TEMPERATURE",
-                "value": ""
-              },
-              {
-                "state": "TEMPERATURE",
-                "value": ""
-              },
-              {
-                "state": "HUMIDITY",
-                "value": ""
-              },
-              {
-                "state": "CONTROL_MODE",
-                "value": ""
-              },
-              {
-                "state": "VALVE_STATES",
-                "value": ""
-              },
-              {
-                "state": "BATTERY",
-                "value": ""
-              },
-              {
-                "state": "UNREACH",
-                "value": ""
-              },
-              {
-                "state": "ERROR",
-                "value": ""
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "demooptionsLayoutDefaultIcons": {
-      "ERROR": {
-        "errorIcon_on": "./images/icons/fluent/fluent_ERROR.png"
-      },
-      "UNREACH": {
-        "unreachIcon_on": "./images/icons/fluent/fluent_UNREACH.png"
-      },
-      "BATTERY": {
-        "batteryIcon_on": "./images/icons/fluent/fluent_BATTERY.png"
-      },
-      "iQontrolView": {
-        "icon_on": "./images/icons/blank.png"
-      },
-      "iQontrolSwitch": {
-        "icon_on": "./images/icons/fluent/fluent_switch_on.png",
-        "icon_off": "./images/icons/fluent/fluent_switch_off.png"
-      },
-      "iQontrolButton": {
-        "icon_on": "./images/icons/fluent/fluent_button.png",
-        "icon_off": "./images/icons/fluent/fluent_button.png"
-      },
-      "iQontrolLight": {
-        "icon_on": "./images/icons/fluent/fluent_light_on.png",
-        "icon_off": "./images/icons/fluent/fluent_light_off.png"
-      },
-      "iQontrolFan": {
-        "icon_on": "./images/icons/fluent/fluent_fan_on.png",
-        "icon_off": "./images/icons/fluent/fluent_fan_off.png"
-      },
-      "iQontrolThermostat": {
-        "icon_on": "./images/icons/fluent/fluent_radiator.png",
-        "icon_off": "./images/icons/fluent/fluent_radiator.png"
-      },
-      "iQontrolHomematicThermostat": {
-        "icon_on": "./images/icons/fluent/fluent_radiator.png",
-        "icon_off": "./images/icons/fluent/fluent_radiator.png"
-      },
-      "iQontrolHomematicIpThermostat": {
-        "icon_on": "./images/icons/fluent/fluent_radiator.png",
-        "icon_off": "./images/icons/fluent/fluent_radiator.png"
-      },
-      "iQontrolTemperature": {
-        "icon_on": "./images/icons/fluent/fluent_temperature.png",
-        "icon_off": "./images/icons/fluent/fluent_temperature.png"
-      },
-      "iQontrolHumidity": {
-        "icon_on": "./images/icons/fluent/fluent_humidity.png",
-        "icon_off": "./images/icons/fluent/fluent_humidity.png"
-      },
-      "iQontrolPressure": {
-        "icon_on": "./images/icons/fluent/fluent_pressure.png",
-        "icon_off": "./images/icons/fluent/fluent_pressure.png"
-      },
-      "iQontrolBrightness": {
-        "icon_on": "./images/icons/fluent/fluent_brightness_light.png",
-        "icon_off": "./images/icons/fluent/fluent_brightness_dark.png"
-      },
-      "iQontrolMotion": {
-        "icon_on": "./images/icons/fluent/fluent_motion_on.png",
-        "icon_off": "./images/icons/fluent/fluent_motion_off.png"
-      },
-      "iQontrolDoor": {
-        "icon_on": "./images/icons/fluent/fluent_door_opened.png",
-        "icon_off": "./images/icons/fluent/fluent_door_closed.png"
-      },
-      "iQontrolGarageDoor": {
-        "icon_on": "./images/icons/fluent/fluent_garagedoor_opened.png",
-        "icon_off": "./images/icons/fluent/fluent_garagedoor_closed.png"
-      },
-      "iQontrolDoorWithLock": {
-        "icon_on": "./images/icons/fluent/fluent_door_opened.png",
-        "icon_off": "./images/icons/fluent/fluent_door_closed.png",
-        "icon_locked": "./images/icons/fluent/fluent_door_locked.png",
-        "icon_unlocked": "./images/icons/fluent/fluent_door_unlocked.png"
-      },
-      "iQontrolWindow": {
-        "icon_on": "./images/icons/fluent/fluent_window_opened.png",
-        "icon_off": "./images/icons/fluent/fluent_window_closed.png",
-        "icon_tilted": "./images/icons/fluent/fluent_window_tilted.png"
-      },
-      "iQontrolBlind": {
-        "icon_on": "./images/icons/fluent/fluent_blind_opened.png",
-        "icon_off": "./images/icons/fluent/fluent_blind_closed.png",
-        "icon_middle": "./images/icons/fluent/fluent_blind_middle.png",
-        "icon_closing": "./images/icons/fluent/fluent_blind_closing.png",
-        "icon_opening": "./images/icons/fluent/fluent_blind_opening.png"
-      },
-      "iQontrolFire": {
-        "icon_on": "./images/icons/fluent/fluent_fire_on.png",
-        "icon_off": "./images/icons/fluent/fluent_fire_off.png"
-      },
-      "iQontrolFlood": {
-        "icon_on": "./images/icons/fluent/fluent_flood_on.png",
-        "icon_off": "./images/icons/fluent/fluent_flood_off.png"
-      },
-      "iQontrolAlarm": {
-        "icon_triggered": "./images/icons/fluent/fluent_alarm_on_triggered.png",
-        "icon_on": "./images/icons/fluent/fluent_alarm_on.png",
-        "icon_off": "./images/icons/fluent/fluent_alarm_off.png"
-      },
-      "iQontrolBattery": {
-        "icon_on": "./images/icons/fluent/fluent_battery_full.png",
-        "icon_off": "./images/icons/fluent/fluent_battery_empty.png",
-        "icon_charged75": "./images/icons/fluent/fluent_battery_75.png",
-        "icon_charged50": "./images/icons/fluent/fluent_battery_50.png",
-        "icon_charged25": "./images/icons/fluent/fluent_battery_25.png",
-        "icon_charged10": "./images/icons/fluent/fluent_battery_10.png",
-        "icon_charging": "./images/icons/fluent/fluent_battery_charging_overlay.png"
-      },
-      "iQontrolDateAndTime": {
-        "icon_on": "./images/icons/fluent/fluent_time_alarmclock_on.png",
-        "icon_off": "./images/icons/fluent/fluent_time_alarmclock_off.png",
-        "icon_ringing": "./images/icons/fluent/fluent_bell_ringing_overlay.png"
-      },
-      "iQontrolValue": {
-        "icon_on": "./images/icons/fluent/fluent_value_on.png",
-        "icon_off": "./images/icons/fluent/fluent_value_off.png"
-      },
-      "iQontrolProgram": {
-        "icon_on": "./images/icons/fluent/fluent_play_on.png",
-        "icon_off": "./images/icons/fluent/fluent_play.png"
-      },
-      "iQontrolScene": {
-        "icon_on": "./images/icons/fluent/fluent_play.png",
-        "icon_off": "./images/icons/fluent/fluent_play.png"
-      },
-      "iQontrolMedia": {
-        "icon_on": "./images/icons/fluent/fluent_media_on.png",
-        "icon_off": "./images/icons/fluent/fluent_media_off.png"
-      },
-      "iQontrolPopup": {
-        "icon_on": "./images/icons/fluent/fluent_popup.png",
-        "icon_off": "./images/icons/fluent/fluent_popup.png"
-      },
-      "iQontrolExternalLink": {
-        "icon_on": "./images/icons/fluent/fluent_link.png",
-        "icon_off": "./images/icons/fluent/fluent_link.png"
-      },
-      "iQontrolWidget": {
-        "icon_on": "./images/icons/blank.png",
-        "icon_off": "./images/icons/blank.png"
-      },
-      "iQontrolInfoText": {
-        "icon_on": "./images/icons/fluent/fluent_info_bubble_off.png",
-        "icon_off": "./images/icons/blank.png"
-      }
-    }
-  },
-  "objects": [
-    {
-      "_id": "iqontrol.meta",
-      "type": "meta",
-      "common": {
-        "name": "userfiles and images for iQontrol",
-        "type": "meta.user",
-        "expert": true
-      },
-      "native": {}
-    }
-  ],
-  "instanceObjects": []
+    "instanceObjects": []
 }

@@ -1,9 +1,17 @@
 <!doctype html>
-<html style="width: 100%; height: 100%; margin: 0px;">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<meta name="widget-description" content="This is an analog clock widget, inspired by OT Online Tutorials, (C) by Sebastian Bormann"/> 
-	<meta name="widget-urlparameters" content="
+<html style="width: 100%; height: 100%; margin: 0px">
+    <head>
+        <meta
+            http-equiv="Content-Type"
+            content="text/html; charset=UTF-8"
+        />
+        <meta
+            name="widget-description"
+            content="This is an analog clock widget, inspired by OT Online Tutorials, (C) by Sebastian Bormann"
+        />
+        <meta
+            name="widget-urlparameters"
+            content="
 												//Colors/section;
 												--background-color/rgba(104,164,255,0)/Background-Color/color;
 												--clock-edge-color/rgba(16,16,16,1)/Clock-Edge Color/color;
@@ -13,127 +21,195 @@
 												//Time/section;
 												useDatapoint/false/Use time from Datapoint instead of system time/checkbox;
 												useThisDatapoint//Use this Datapoint (if empty, the default Datapoint (e.g. the Datapoint defined in STATE of this device) will be used)/datapoint
-	">	
-	<meta name="widget-options" content="{'noZoomOnHover': 'true', 'hideDeviceName': 'true', 'sizeInactive': 'xwideIfInactive highIfInactive', 'iconNoPointerEventsInactive': 'true', 'hideDeviceNameIfInactive': 'true', 'hideStateIfInactive': 'true', 'sizeActive': 'fullWidthIfActive fullHeightIfActive', 'bigIconActive': 'true', 'iconNoPointerEventsActive': 'true', 'hideDeviceNameIfActive': 'true', 'hideStateIfActive': 'true', 'sizeEnlarged': 'fullWidthIfEnlarged fullHeightIfEnlarged', 'bigIconEnlarged': 'true', 'iconNoPointerEventsEnlarged': 'false', 'noOverlayEnlarged': 'true', 'hideDeviceNameIfEnlarged': 'true', 'hideStateIfEnlarged': 'true', 'popupAllowPostMessage': 'true', 'backgroundURLAllowPostMessage': 'true', 'backgroundURLNoPointerEvents': 'true'}"/>
-	<link rel="stylesheet" type="text/css" href="clock_analog.css" />
-	<title>iQontrol Clock Widget</title>
-	<style>
-	</style>
-</head>
-<body style="width: 100%; height: 100%; margin: 0px;">
-	<div class="clockWrapper" id="clockWrapper" style="display: none;">
-		<div class="clock" id="clock">
-			<div class="hour">
-				<div class="hh" id="hh"></div>
-			</div>
-			<div class="min">
-				<div class="mm" id="mm"></div>
-			</div>
-			<div class="sec">
-				<div class="ss" id="ss"></div>
-			</div>
-		</div>
-	</div>
-	<script type="text/javascript">
-		//Get colors from URL-Parameters
-		document.querySelector(':root').style.setProperty("--background-color", getUrlParameter("--background-color") || "rgba(104,164,255,0%)");
-		document.querySelector(':root').style.setProperty("--clock-edge-color", getUrlParameter("--clock-edge-color") || "rgba(16,16,16,100%)");
-		document.querySelector(':root').style.setProperty("--clock-face-color", getUrlParameter("--clock-face-color") || "rgba(255,255,255,100%)");
-		document.querySelector(':root').style.setProperty("--clock-hands-color", getUrlParameter("--clock-hands-color") || "rgba(132,132,132,100%)");
-		document.querySelector(':root').style.setProperty("--clock-hands-seconds-color", getUrlParameter("--clock-hands-seconds-color") || "rgba(255,103,103,100%)");
-		
-		//Check for datapoint
-		var USE_THIS_DATAPOINT;
-		var TIME;
-		var STATE;
-		var LEVEL;
-		var useDatapoint = (getUrlParameter("useDatapoint") == "true");
-		if(useDatapoint){
-			if (getUrlParameter("useThisDatapoint")) sendPostMessage("getStateSubscribed", getUrlParameter("useThisDatapoint")); else USE_THIS_DATAPOINT = null;
-			sendPostMessage("getWidgetDeviceStateSubscribed", "TIME");
-			sendPostMessage("getWidgetDeviceStateSubscribed", "STATE");
-			sendPostMessage("getWidgetDeviceStateSubscribed", "LEVEL");
-		}
-		
-		//Run the clock
-		var clockRuns = false;
-		runTheClock();
-		function runTheClock(){
-			if (clockRuns) return;
-			if (useDatapoint && (typeof USE_THIS_DATAPOINT == "undefined" || typeof TIME == "undefined" || typeof STATE == "undefined" || typeof LEVEL == "undefined")) return; //Only do this, if all necessary states are fetched
-			console.log("Run the clock");
-			const deg = 6;
-			const hh = document.querySelector("#hh");
-			const mm = document.querySelector("#mm");
-			const ss = document.querySelector("#ss");
-			setInterval(function(){ drawClock(); }, 1000);
-			drawClock();
-			document.querySelector("#clockWrapper").style.setProperty('display', 'block');
-			function drawClock(){
-				let day;
-				if(useDatapoint){
-					var dp = USE_THIS_DATAPOINT || TIME || LEVEL || STATE || null;
-					if (!(dp == null || typeof dp.val == "undefined" || dp.val == null || dp.val == "" || !dp.Date)){
-						day = dp.Date;
-					}
-				}
-				if (typeof day == "undefined") day = new Date();
-				let h = (day.getHours() % 12) * 30;
-				let m = day.getMinutes() * deg;
-				let s = day.getSeconds() * deg;
-				hh.style.transform = 'rotateZ(' + (h + (m / 12)) + 'deg)';
-				mm.style.transform = 'rotateZ(' + m + 'deg)';
-				ss.style.transform = 'rotateZ(' + s + 'deg)';
-			}
-		}
+	"
+        />
+        <meta
+            name="widget-options"
+            content="{'noZoomOnHover': 'true', 'hideDeviceName': 'true', 'sizeInactive': 'xwideIfInactive highIfInactive', 'iconNoPointerEventsInactive': 'true', 'hideDeviceNameIfInactive': 'true', 'hideStateIfInactive': 'true', 'sizeActive': 'fullWidthIfActive fullHeightIfActive', 'bigIconActive': 'true', 'iconNoPointerEventsActive': 'true', 'hideDeviceNameIfActive': 'true', 'hideStateIfActive': 'true', 'sizeEnlarged': 'fullWidthIfEnlarged fullHeightIfEnlarged', 'bigIconEnlarged': 'true', 'iconNoPointerEventsEnlarged': 'false', 'noOverlayEnlarged': 'true', 'hideDeviceNameIfEnlarged': 'true', 'hideStateIfEnlarged': 'true', 'popupAllowPostMessage': 'true', 'backgroundURLAllowPostMessage': 'true', 'backgroundURLNoPointerEvents': 'true'}"
+        />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="clock_analog.css"
+        />
+        <title>iQontrol Clock Widget</title>
+        <style></style>
+    </head>
+    <body style="width: 100%; height: 100%; margin: 0px">
+        <div
+            class="clockWrapper"
+            id="clockWrapper"
+            style="display: none"
+        >
+            <div
+                class="clock"
+                id="clock"
+            >
+                <div class="hour">
+                    <div
+                        class="hh"
+                        id="hh"
+                    ></div>
+                </div>
+                <div class="min">
+                    <div
+                        class="mm"
+                        id="mm"
+                    ></div>
+                </div>
+                <div class="sec">
+                    <div
+                        class="ss"
+                        id="ss"
+                    ></div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            //Get colors from URL-Parameters
+            document
+                .querySelector(':root')
+                .style.setProperty(
+                    '--background-color',
+                    getUrlParameter('--background-color') || 'rgba(104,164,255,0%)',
+                );
+            document
+                .querySelector(':root')
+                .style.setProperty(
+                    '--clock-edge-color',
+                    getUrlParameter('--clock-edge-color') || 'rgba(16,16,16,100%)',
+                );
+            document
+                .querySelector(':root')
+                .style.setProperty(
+                    '--clock-face-color',
+                    getUrlParameter('--clock-face-color') || 'rgba(255,255,255,100%)',
+                );
+            document
+                .querySelector(':root')
+                .style.setProperty(
+                    '--clock-hands-color',
+                    getUrlParameter('--clock-hands-color') || 'rgba(132,132,132,100%)',
+                );
+            document
+                .querySelector(':root')
+                .style.setProperty(
+                    '--clock-hands-seconds-color',
+                    getUrlParameter('--clock-hands-seconds-color') || 'rgba(255,103,103,100%)',
+                );
 
-		//send postMessages
-		function sendPostMessage(command, stateId, value){
-			message = { command: command, stateId: stateId, value: value };
-			window.parent.postMessage(message, "*");
-		}
+            //Check for datapoint
+            var USE_THIS_DATAPOINT;
+            var TIME;
+            var STATE;
+            var LEVEL;
+            var useDatapoint = getUrlParameter('useDatapoint') == 'true';
+            if (useDatapoint) {
+                if (getUrlParameter('useThisDatapoint'))
+                    sendPostMessage('getStateSubscribed', getUrlParameter('useThisDatapoint'));
+                else USE_THIS_DATAPOINT = null;
+                sendPostMessage('getWidgetDeviceStateSubscribed', 'TIME');
+                sendPostMessage('getWidgetDeviceStateSubscribed', 'STATE');
+                sendPostMessage('getWidgetDeviceStateSubscribed', 'LEVEL');
+            }
 
-		//receive postMessages
-		window.addEventListener("message", receivePostMessage, false);
-		function receivePostMessage(event) { //event = {data: message data, origin: url of origin, source: id of sending element}
-			if (event.data && event.data.command) switch(event.data.command){
-				case "getState":
-					if (event.data.stateId) switch(event.data.stateId){
-						case getUrlParameter("useThisDatapoint") || "---undefined---":
-						console.log("Received USE_THIS_DATAPOINT");
-						USE_THIS_DATAPOINT = event.data.value;
-						runTheClock();
-						break;
+            //Run the clock
+            var clockRuns = false;
+            runTheClock();
+            function runTheClock() {
+                if (clockRuns) return;
+                if (
+                    useDatapoint &&
+                    (typeof USE_THIS_DATAPOINT == 'undefined' ||
+                        typeof TIME == 'undefined' ||
+                        typeof STATE == 'undefined' ||
+                        typeof LEVEL == 'undefined')
+                )
+                    return; //Only do this, if all necessary states are fetched
+                console.log('Run the clock');
+                const deg = 6;
+                const hh = document.querySelector('#hh');
+                const mm = document.querySelector('#mm');
+                const ss = document.querySelector('#ss');
+                setInterval(function () {
+                    drawClock();
+                }, 1000);
+                drawClock();
+                document.querySelector('#clockWrapper').style.setProperty('display', 'block');
+                function drawClock() {
+                    let day;
+                    if (useDatapoint) {
+                        var dp = USE_THIS_DATAPOINT || TIME || LEVEL || STATE || null;
+                        if (!(
+                            dp == null ||
+                            typeof dp.val == 'undefined' ||
+                            dp.val == null ||
+                            dp.val == '' ||
+                            !dp.Date
+                        )) {
+                            day = dp.Date;
+                        }
+                    }
+                    if (typeof day == 'undefined') day = new Date();
+                    let h = (day.getHours() % 12) * 30;
+                    let m = day.getMinutes() * deg;
+                    let s = day.getSeconds() * deg;
+                    hh.style.transform = 'rotateZ(' + (h + m / 12) + 'deg)';
+                    mm.style.transform = 'rotateZ(' + m + 'deg)';
+                    ss.style.transform = 'rotateZ(' + s + 'deg)';
+                }
+            }
 
-						case "TIME":
-						console.log("Received TIME");
-						TIME = event.data.value;
-						runTheClock();
-						break;
+            //send postMessages
+            function sendPostMessage(command, stateId, value) {
+                message = { command: command, stateId: stateId, value: value };
+                window.parent.postMessage(message, '*');
+            }
 
-						case "STATE":
-						console.log("Received STATE");
-						STATE = event.data.value;
-						runTheClock();
-						break;
+            //receive postMessages
+            window.addEventListener('message', receivePostMessage, false);
+            function receivePostMessage(event) {
+                //event = {data: message data, origin: url of origin, source: id of sending element}
+                if (event.data && event.data.command)
+                    switch (event.data.command) {
+                        case 'getState':
+                            if (event.data.stateId)
+                                switch (event.data.stateId) {
+                                    case getUrlParameter('useThisDatapoint') || '---undefined---':
+                                        console.log('Received USE_THIS_DATAPOINT');
+                                        USE_THIS_DATAPOINT = event.data.value;
+                                        runTheClock();
+                                        break;
 
-						case "LEVEL":
-						console.log("Received LEVEL");
-						LEVEL = event.data.value;
-						runTheClock();
-						break;
-					}
-				break;				
-			}
-		}
+                                    case 'TIME':
+                                        console.log('Received TIME');
+                                        TIME = event.data.value;
+                                        runTheClock();
+                                        break;
 
-		//GetUrlParameter
-		function getUrlParameter(name) {
-			name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-			var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-			var results = regex.exec(location.search);
-			return results === null ? null : decodeURIComponent(results[1].replace(/\+/g, ' '));
-		};
-	</script>
-</body>
+                                    case 'STATE':
+                                        console.log('Received STATE');
+                                        STATE = event.data.value;
+                                        runTheClock();
+                                        break;
+
+                                    case 'LEVEL':
+                                        console.log('Received LEVEL');
+                                        LEVEL = event.data.value;
+                                        runTheClock();
+                                        break;
+                                }
+                            break;
+                    }
+            }
+
+            //GetUrlParameter
+            function getUrlParameter(name) {
+                name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+                var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+                var results = regex.exec(location.search);
+                return results === null ? null : decodeURIComponent(results[1].replace(/\+/g, ' '));
+            }
+        </script>
+    </body>
 </html>
