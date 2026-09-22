@@ -10,14 +10,14 @@ const utils = require('@iobroker/adapter-core');
 
 // Load your modules here, e.g.:
 // const fs = require("fs");
-var createdObjects = [];
-var allObjects = [];
-var usedStates = [];
-var systemLanguage = 'en';
-var lists = [];
-var triggerIntervals = [];
-var udef = 'undefined';
-var collator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
+const createdObjects = [];
+let allObjects = [];
+const usedStates = [];
+let systemLanguage = 'en';
+const lists = [];
+let triggerIntervals = [];
+const udef = 'undefined';
+const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
 const emptyState = { val: null, ack: false, ts: 0, lc: 0 };
 const translations = {
     opened: {
@@ -109,169 +109,181 @@ const translations = {
 };
 
 //++++++++++ HELPERS: GENERAL FUNCTIONS ++++++++++
-function idEncode(id) {
-    return id.replace(/[\.\]\[\*,;'"`<>?]/g, '_').replace(/\.$/g, ''); //Unallowed chars: .][*,;'"`<>?
-}
-
 function idEncodePointAllowed(id) {
-    return id.replace(/[\]\[\*,;'"`<>?]/g, '_').replace(/\.$/g, ''); //Unallowed chars: ][*,;'"`<>?
+    return id.replace(/[\][*,;'"`<>?]/g, '_').replace(/\.$/g, ''); //Unallowed chars: ][*,;'"`<>?
 }
 
 function checkCondition(value, condition, conditionValue, conditionValueSeparator) {
-    if (typeof conditionValue == udef) return null;
+    if (typeof conditionValue === udef) {
+        return null;
+    }
     let conditionValues = [];
-    if (typeof conditionValue == 'string' && conditionValueSeparator) {
+    if (typeof conditionValue === 'string' && conditionValueSeparator) {
         conditionValues = conditionValue.split(conditionValueSeparator).map(str => str.trim());
     } else {
         conditionValues = [conditionValue];
     }
-    if (typeof value == 'undefined' || value === null) value = 'null';
+    value ??= 'null';
     switch (condition || '') {
         case 'at':
             return true;
-            break;
 
         case 'af':
             return false;
-            break;
 
         case 'eqt':
             if (
-                value.toString().toLowerCase() == 'false' ||
-                value.toString().toLowerCase() == 'null' ||
-                value.toString().toLowerCase() == '0' ||
-                value.toString().toLowerCase() == '-1' ||
-                value.toString().toLowerCase() == ''
+                value.toString().toLowerCase() === 'false' ||
+                value.toString().toLowerCase() === 'null' ||
+                value.toString().toLowerCase() === '0' ||
+                value.toString().toLowerCase() === '-1' ||
+                value.toString().toLowerCase() === ''
             ) {
                 return false;
-            } else {
-                return true;
             }
+            return true;
 
         case 'eqf':
             if (
-                value.toString().toLowerCase() == 'false' ||
-                value.toString().toLowerCase() == 'null' ||
-                value.toString().toLowerCase() == '0' ||
-                value.toString().toLowerCase() == '-1' ||
-                value.toString().toLowerCase() == ''
+                value.toString().toLowerCase() === 'false' ||
+                value.toString().toLowerCase() === 'null' ||
+                value.toString().toLowerCase() === '0' ||
+                value.toString().toLowerCase() === '-1' ||
+                value.toString().toLowerCase() === ''
             ) {
                 return true;
-            } else {
-                return false;
             }
-            break;
+            return false;
 
         case 'eq':
             for (let i = 0; i < conditionValues.length; i++) {
-                if (value.toString().toLowerCase() == conditionValues[i].toString().toLowerCase()) return true;
+                if (value.toString().toLowerCase() == conditionValues[i].toString().toLowerCase()) {
+                    return true;
+                }
             }
             return false;
-            break;
 
         case 'ne':
             for (let i = 0; i < conditionValues.length; i++) {
-                if (value.toString().toLowerCase() == conditionValues[i].toString().toLowerCase()) return false;
+                if (value.toString().toLowerCase() == conditionValues[i].toString().toLowerCase()) {
+                    return false;
+                }
             }
             return true;
-            break;
 
         case 'gt':
-            value = value || 0;
-            if (value == 'null') value = 0;
+            value ||= 0;
+            if (value === 'null') {
+                value = 0;
+            }
             for (let i = 0; i < conditionValues.length; i++) {
-                if (!isNaN(value) && !isNaN(conditionValues[i]) && parseFloat(value) > parseFloat(conditionValues[i]))
+                if (!isNaN(value) && !isNaN(conditionValues[i]) && parseFloat(value) > parseFloat(conditionValues[i])) {
                     return true;
+                }
             }
             return false;
-            break;
 
         case 'ge':
-            value = value || 0;
-            if (value == 'null') value = 0;
+            value ||= 0;
+            if (value === 'null') {
+                value = 0;
+            }
             for (let i = 0; i < conditionValues.length; i++) {
-                if (!isNaN(value) && !isNaN(conditionValues[i]) && parseFloat(value) >= parseFloat(conditionValues[i]))
+                if (
+                    !isNaN(value) &&
+                    !isNaN(conditionValues[i]) &&
+                    parseFloat(value) >= parseFloat(conditionValues[i])
+                ) {
                     return true;
+                }
             }
             return false;
-            break;
 
         case 'lt':
-            value = value || 0;
-            if (value == 'null') value = 0;
+            value ||= 0;
+            if (value === 'null') {
+                value = 0;
+            }
             for (let i = 0; i < conditionValues.length; i++) {
-                if (!isNaN(value) && !isNaN(conditionValues[i]) && parseFloat(value) < parseFloat(conditionValues[i]))
+                if (!isNaN(value) && !isNaN(conditionValues[i]) && parseFloat(value) < parseFloat(conditionValues[i])) {
                     return true;
+                }
             }
             return false;
-            break;
 
         case 'le':
-            value = value || 0;
-            if (value == 'null') value = 0;
+            value ||= 0;
+            if (value === 'null') {
+                value = 0;
+            }
             for (let i = 0; i < conditionValues.length; i++) {
-                if (!isNaN(value) && !isNaN(conditionValues[i]) && parseFloat(value) <= parseFloat(conditionValues[i]))
+                if (
+                    !isNaN(value) &&
+                    !isNaN(conditionValues[i]) &&
+                    parseFloat(value) <= parseFloat(conditionValues[i])
+                ) {
                     return true;
+                }
             }
             return false;
-            break;
 
         case 'c':
             for (let i = 0; i < conditionValues.length; i++) {
-                if (value.toString().toLowerCase().indexOf(conditionValues[i].toString().toLowerCase()) > -1)
+                if (value.toString().toLowerCase().includes(conditionValues[i].toString().toLowerCase())) {
                     return true;
+                }
             }
             return false;
-            break;
 
         case 'nc':
             for (let i = 0; i < conditionValues.length; i++) {
-                if (value.toString().toLowerCase().indexOf(conditionValues[i].toString().toLowerCase()) > -1)
+                if (value.toString().toLowerCase().includes(conditionValues[i].toString().toLowerCase())) {
                     return false;
+                }
             }
             return true;
-            break;
 
         case 'bw':
             for (let i = 0; i < conditionValues.length; i++) {
-                if (value.toString().toLowerCase().indexOf(conditionValues[i].toString().toLowerCase()) == 0)
+                if (value.toString().toLowerCase().startsWith(conditionValues[i].toString().toLowerCase())) {
                     return true;
+                }
             }
             return false;
-            break;
 
         case 'nbw':
             for (let i = 0; i < conditionValues.length; i++) {
-                if (value.toString().toLowerCase().indexOf(conditionValues[i].toString().toLowerCase()) == 0)
+                if (value.toString().toLowerCase().startsWith(conditionValues[i].toString().toLowerCase())) {
                     return false;
+                }
             }
             return true;
-            break;
 
         case 'ew':
             for (let i = 0; i < conditionValues.length; i++) {
-                if (value.toString().toLowerCase().endsWith(conditionValues[i].toString().toLowerCase())) return true;
+                if (value.toString().toLowerCase().endsWith(conditionValues[i].toString().toLowerCase())) {
+                    return true;
+                }
             }
             return false;
-            break;
 
         case 'new':
             for (let i = 0; i < conditionValues.length; i++) {
-                if (value.toString().toLowerCase().endsWith(conditionValues[i].toString().toLowerCase())) return false;
+                if (value.toString().toLowerCase().endsWith(conditionValues[i].toString().toLowerCase())) {
+                    return false;
+                }
             }
             return true;
-            break;
 
         default:
             return null;
     }
-    return null;
 }
 
 function tryParseJSON(jsonString) {
     //Returns parsed object or false, if jsonString is not valid
     try {
-        var o = JSON.parse(jsonString);
+        const o = JSON.parse(jsonString);
         // Handle non-exception-throwing cases:
         // Neither JSON.parse(false) or JSON.parse(1234) throw errors, hence the type-checking,
         // but... JSON.parse(null) returns null, and typeof null === "object",
@@ -279,31 +291,37 @@ function tryParseJSON(jsonString) {
         if (o && typeof o === 'object') {
             return o;
         }
-    } catch (e) {}
+    } catch {
+        // ignore
+    }
     return false;
 }
 
 function removeDuplicates(array) {
-    //Removes duplicates from an array
+    // Removes duplicates from an array
     let seen = {};
-    return array.filter(function (item) {
-        return seen.hasOwnProperty(item) ? false : (seen[item] = true);
-    });
+    return array.filter(item => (Object.prototype.hasOwnProperty.call(seen, item) ? false : (seen[item] = true)));
 }
 
 function getName(id) {
-    let name = (allObjects[id] && allObjects[id].common && allObjects[id].common.name) || id;
-    if (typeof name == 'object') {
-        if (name[systemLanguage]) name = name[systemLanguage];
-        else if (name['en']) name = name['en'];
-        else if (Object.keys(name).length && typeof Object.keys(name)[0] == 'string' && name[Object.keys(name)[0]])
+    let name = allObjects[id]?.common?.name || id;
+    if (typeof name === 'object') {
+        if (name[systemLanguage]) {
+            name = name[systemLanguage];
+        } else if (name['en']) {
+            name = name['en'];
+        } else if (Object.keys(name).length && typeof Object.keys(name)[0] === 'string' && name[Object.keys(name)[0]]) {
             name = name[Object.keys(name)[0]];
-        else name = JSON.stringify(name);
+        } else {
+            name = JSON.stringify(name);
+        }
     }
-    if (allObjects[id] && allObjects[id].type && allObjects[id].type == 'instance' && id.lastIndexOf('.') > -1) {
+    if (allObjects[id]?.type && allObjects[id].type === 'instance' && id.lastIndexOf('.') > -1) {
         //Special: If instance number > 0 add the number to name
         let instanceNumber = id.substring(id.lastIndexOf('.') + 1);
-        if (instanceNumber && !isNaN(instanceNumber) && parseInt(instanceNumber) > 0) name += ' ' + instanceNumber;
+        if (instanceNumber && !isNaN(instanceNumber) && parseInt(instanceNumber) > 0) {
+            name += ` ${instanceNumber}`;
+        }
     }
     return name || id;
 }
@@ -312,14 +330,15 @@ function getParentName(id, mode) {
     let parentId;
     let parentName;
     let useId = false;
-    if (mode && mode.endsWith('Id')) useId = true;
-    if (mode == 'parentChannelId' || mode == 'parentChannelName') {
+    if (mode?.endsWith('Id')) {
+        useId = true;
+    }
+    if (mode === 'parentChannelId' || mode === 'parentChannelName') {
         let nextParentId = id.substring(0, id.lastIndexOf('.'));
         while (!parentId && nextParentId) {
             if (
-                allObjects[nextParentId] &&
-                allObjects[nextParentId].type &&
-                allObjects[nextParentId].type.toString().toLowerCase() == 'channel'
+                allObjects[nextParentId]?.type &&
+                allObjects[nextParentId].type.toString().toLowerCase() === 'channel'
             ) {
                 parentId = nextParentId;
             }
@@ -327,70 +346,66 @@ function getParentName(id, mode) {
         }
     }
     if (
-        ((mode == 'parentChannelId' || mode == 'parentChannelName') && !parentId) ||
-        mode == 'parentDeviceId' ||
-        mode == 'parentDeviceName'
+        ((mode === 'parentChannelId' || mode === 'parentChannelName') && !parentId) ||
+        mode === 'parentDeviceId' ||
+        mode === 'parentDeviceName'
     ) {
         let nextParentId = id.substring(0, id.lastIndexOf('.'));
         while (!parentId && nextParentId) {
-            if (
-                allObjects[nextParentId] &&
-                allObjects[nextParentId].type &&
-                allObjects[nextParentId].type.toString().toLowerCase() == 'device'
-            ) {
+            if (allObjects[nextParentId]?.type && allObjects[nextParentId].type.toString().toLowerCase() === 'device') {
                 parentId = nextParentId;
             }
             nextParentId = nextParentId.substring(0, nextParentId.lastIndexOf('.'));
         }
     }
-    if (!parentId) {
-        parentId = id.substring(0, id.lastIndexOf('.'));
-    }
+    parentId ||= id.substring(0, id.lastIndexOf('.'));
     if (useId) {
         parentName = parentId;
     } else {
         parentName = getName(parentId);
-        if (parentName == id) parentName = getName(id); //parentName not set - use name
-        if (parentName == id) {
+        if (parentName === id) {
+            parentName = getName(id);
+        } //parentName not set - use name
+        if (parentName === id) {
             //name also not set - build name from id
             parentName = id.substring(0, id.lastIndexOf('.'));
             parentName = parentName.substring(parentName.lastIndexOf('.') + 1);
         }
-        if (parentName.substr(-2) == ':0') {
+        if (parentName.substr(-2) === ':0') {
             //Homematic Maintenence-Kanal
             parentName = parentName.substr(0, parentName.length - 2);
         }
     }
-    if (parentName == '') parentName = id;
+    parentName ||= id;
     return parentName;
 }
 
 function getPlainTextWithUnit(id, that) {
     function _(string) {
-        return (translations[string] && translations[string][systemLanguage]) || string;
+        return translations[string]?.[systemLanguage] || string;
     }
-    let val = usedStates[id] && typeof usedStates[id].val != 'undefined' ? usedStates[id].val : '-';
+    let val = usedStates[id] && typeof usedStates[id].val !== 'undefined' ? usedStates[id].val : '-';
     let plainText;
     let custom =
-        (allObjects[id] &&
-            allObjects[id].common &&
+        (allObjects[id]?.common &&
             typeof allObjects[id].common.custom !== udef &&
             allObjects[id].common.custom !== null &&
             typeof allObjects[id].common.custom[that.namespace] !== udef &&
             allObjects[id].common.custom[that.namespace]) ||
         {};
-    let role = (allObjects[id] && allObjects[id].common && allObjects[id].common.role) || 'state';
-    if (typeof custom.role !== udef && custom.role !== '') role = custom.role;
-    var parentId = id.substring(0, id.lastIndexOf('.'));
+    let role = allObjects[id]?.common?.role || 'state';
+    if (typeof custom.role !== udef && custom.role !== '') {
+        role = custom.role;
+    }
+    const parentId = id.substring(0, id.lastIndexOf('.'));
     if (
-        role == 'state' &&
+        role === 'state' &&
         allObjects[parentId] &&
-        typeof allObjects[parentId].common.role != udef &&
+        typeof allObjects[parentId].common.role !== udef &&
         allObjects[parentId].common.role
     ) {
-        //For role 'state' look if there are more informations about the role in the parentObject
-        let parentRole =
-            (allObjects[parentId] && allObjects[parentId].common && allObjects[parentId].common.role) || '';
+        //For role 'state' look if there are more information about the role in the parentObject
+        let parentRole = allObjects[parentId]?.common?.role || '';
         switch (parentRole) {
             case 'switch':
             case 'sensor.alarm':
@@ -399,19 +414,25 @@ function getPlainTextWithUnit(id, that) {
                 break;
         }
     }
-    //--Modify informations depending on the role
+    // --Modify information depending on the role
     switch (role) {
         case 'value.window':
         case 'sensor.window':
         case 'sensor.door':
         case 'sensor.lock':
-            if (val) plainText = _('opened');
-            else plainText = _('closed');
+            if (val) {
+                plainText = _('opened');
+            } else {
+                plainText = _('closed');
+            }
             break;
 
         case 'sensor.alarm':
-            if (val) plainText = _('OK');
-            else plainText = _('Alarm');
+            if (val) {
+                plainText = _('OK');
+            } else {
+                plainText = _('Alarm');
+            }
             break;
 
         case 'sensor.alarm.fire':
@@ -427,8 +448,11 @@ function getPlainTextWithUnit(id, that) {
         case 'indicator.alarm.water':
         case 'indicator.water':
         case 'indicator.leakage':
-            if (val) plainText = _('triggered');
-            else plainText = ' ';
+            if (val) {
+                plainText = _('triggered');
+            } else {
+                plainText = ' ';
+            }
             break;
 
         case 'switch':
@@ -439,41 +463,72 @@ function getPlainTextWithUnit(id, that) {
         case 'switch.enable':
         case 'switch.active':
         case 'scene.state':
-            if (typeof val == 'string')
-                if (val.toLowerCase() == 'false' || val.toLowerCase() == 'off' || val.toLowerCase() == '0' || val == '')
+            if (typeof val === 'string') {
+                if (
+                    val.toLowerCase() === 'false' ||
+                    val.toLowerCase() === 'off' ||
+                    val.toLowerCase() === '0' ||
+                    val === ''
+                ) {
                     val = false;
-                else val = true;
-            if (val) plainText = _('on');
-            else plainText = _('off');
+                } else {
+                    val = true;
+                }
+            }
+            if (val) {
+                plainText = _('on');
+            } else {
+                plainText = _('off');
+            }
             break;
 
         case 'button':
         case 'action.execute':
-            if (typeof val == 'string')
-                if (val.toLowerCase() == 'false' || val.toLowerCase() == 'off' || val.toLowerCase() == '0' || val == '')
+            if (typeof val === 'string') {
+                if (
+                    val.toLowerCase() === 'false' ||
+                    val.toLowerCase() === 'off' ||
+                    val.toLowerCase() === '0' ||
+                    val === ''
+                ) {
                     val = false;
-                else val = true;
-            if (val) plainText = _('on');
-            else plainText = _('off');
+                } else {
+                    val = true;
+                }
+            }
+            if (val) {
+                plainText = _('on');
+            } else {
+                plainText = _('off');
+            }
             break;
 
         case 'state':
-            if (allObjects[id] && typeof allObjects[id].native != udef && allObjects[id].native.CONTROL) {
+            if (allObjects[id] && typeof allObjects[id].native !== udef && allObjects[id].native.CONTROL) {
                 //if role is not set correctly it can try to determine role from native.CONTROL
                 switch (allObjects[id].native.CONTROL) {
                     case 'DOOR_SENSOR.STATE':
-                        if (val) plainText = _('opened');
-                        else plainText = _('closed');
+                        if (val) {
+                            plainText = _('opened');
+                        } else {
+                            plainText = _('closed');
+                        }
                         break;
 
                     case 'DANGER.STATE':
-                        if (val) plainText = _('triggered');
-                        else plainText = ' ';
+                        if (val) {
+                            plainText = _('triggered');
+                        } else {
+                            plainText = ' ';
+                        }
                         break;
 
                     case 'SWITCH.STATE':
-                        if (val) plainText = _('on');
-                        else plainText = _('off');
+                        if (val) {
+                            plainText = _('on');
+                        } else {
+                            plainText = _('off');
+                        }
                         break;
                 }
             }
@@ -483,13 +538,13 @@ function getPlainTextWithUnit(id, that) {
     let valueList = {};
     let statesSet = false;
     let valueListString;
-    if (typeof custom.states && custom.states) {
+    if (typeof custom.states !== 'undefined' && custom.states) {
         valueListString = custom.states;
         statesSet = true;
-    } else if (allObjects[id] && typeof allObjects[id].native != udef && allObjects[id].native.states) {
+    } else if (allObjects[id] && typeof allObjects[id].native !== udef && allObjects[id].native.states) {
         valueListString = allObjects[id].native.states;
         statesSet = true;
-    } else if (allObjects[id] && allObjects[id].common.states) {
+    } else if (allObjects[id]?.common.states) {
         valueListString = allObjects[id].common.states;
         statesSet = true;
     }
@@ -497,9 +552,9 @@ function getPlainTextWithUnit(id, that) {
         //----Check format of valueList
         if (typeof valueListString !== 'object') {
             if (tryParseJSON(valueListString) == false) {
-                if (typeof valueListString == 'string')
-                    valueListString =
-                        '{"' + valueListString.replace(/;/g, ',').replace(/:/g, '":"').replace(/,/g, '","') + '"}';
+                if (typeof valueListString === 'string') {
+                    valueListString = `{"${valueListString.replace(/;/g, ',').replace(/:/g, '":"').replace(/,/g, '","')}"}`;
+                }
                 if (tryParseJSON(valueListString) == false) {
                     statesSet = false;
                 } else {
@@ -516,15 +571,19 @@ function getPlainTextWithUnit(id, that) {
         if (
             typeof val !== udef &&
             val !== null &&
-            (typeof val == 'boolean' ||
-                val.toString().toLowerCase() == 'true' ||
-                val.toString().toLowerCase() == 'false')
+            (typeof val === 'boolean' ||
+                val.toString().toLowerCase() === 'true' ||
+                val.toString().toLowerCase() === 'false')
         ) {
             //Convert valueList-Keys to boolean, if they are numbers
             for (let key in valueList) {
                 let newKey = null;
-                if (key == -1 || key == 0 || key == false) newKey = 'false';
-                if (key == 1 || key == true) newKey = 'true';
+                if (key == -1 || key == 0 || key == false) {
+                    newKey = 'false';
+                }
+                if (key == 1 || key == true) {
+                    newKey = 'true';
+                }
                 if (newKey != null) {
                     let dummy = {};
                     dummy[newKey] = valueList[key];
@@ -532,31 +591,37 @@ function getPlainTextWithUnit(id, that) {
                 }
             }
         }
-        if (typeof val !== udef && val !== null && typeof valueList[val.toString()] !== udef)
-            plainText = _(valueList[val]); //Modify plainText if val matchs a valueList-Entry
+        if (typeof val !== udef && val !== null && typeof valueList[val.toString()] !== udef) {
+            plainText = _(valueList[val]);
+        } //Modify plainText if val matchs a valueList-Entry
     }
     //--Try to set a plainText, if it has not been set before
     if (plainText == null) {
-        if (typeof val == 'string') {
-            var number = val * 1;
-            if (number.toString() == val) val = number;
+        if (typeof val === 'string') {
+            const number = val * 1;
+            if (number.toString() == val) {
+                val = number;
+            }
         }
-        if (typeof val == 'number') {
-            var n = typeof custom.roundDigits != udef && custom.roundDigits !== '' ? custom.roundDigits : 2;
+        if (typeof val === 'number') {
+            const n = typeof custom.roundDigits !== 'undefined' && custom.roundDigits !== '' ? custom.roundDigits : 2;
             val = Math.round(val * Math.pow(10, n)) / Math.pow(10, n);
-        } else {
         }
         let unit =
-            allObjects[id] && allObjects[id].common && typeof allObjects[id].common.unit != 'undefined'
+            allObjects[id]?.common && typeof allObjects[id].common.unit !== 'undefined'
                 ? allObjects[id].common.unit
                 : '';
-        if (unit == '%') plainText = val + unit;
-        else if (unit != '') plainText = val + ' ' + unit;
-        else plainText = val;
+        if (unit === '%') {
+            plainText = val + unit;
+        } else if (unit) {
+            plainText = `${val} ${unit}`;
+        } else {
+            plainText = val;
+        }
     }
     //--Prevent injecting of <script> tags
-    if (typeof plainText == 'string') {
-        plainText = plainText.replace(/<script/gi, '&lt;script').replace(/<\/script/gi, '\&lt;\/script');
+    if (typeof plainText === 'string') {
+        plainText = plainText.replace(/<script/gi, '&lt;script').replace(/<\/script/gi, '&lt;/script');
     }
     return plainText;
 }
@@ -576,7 +641,7 @@ async function fetchStates(ids, that) {
 //++++++++++ ADAPTER FUNCTIONS ++++++++++
 class Iqontrol extends utils.Adapter {
     /**
-     * @param {Partial<ioBroker.AdapterOptions>} [options={}]
+     * @param {Partial<ioBroker.AdapterOptions>} [options]
      */
     constructor(options) {
         //super( Object.assign({name: "iqontrol"}, options) );
@@ -817,26 +882,30 @@ class Iqontrol extends utils.Adapter {
 
     //++++++++++ WIDGETS ++++++++++
     async createWidgets() {
-        if (typeof this.config.widgetsDatapoints != 'undefined') {
-            for (var index = 0; index < this.config.widgetsDatapoints.length; index++) {
+        if (typeof this.config.widgetsDatapoints !== 'undefined') {
+            for (let index = 0; index < this.config.widgetsDatapoints.length; index++) {
                 let objName =
                     this.config.widgetsDatapoints[index].name ||
                     idEncodePointAllowed(this.config.widgetsDatapoints[index].id);
-                let objId = 'Widgets.' + idEncodePointAllowed(this.config.widgetsDatapoints[index].id);
+                let objId = `Widgets.${idEncodePointAllowed(this.config.widgetsDatapoints[index].id)}`;
                 let commonOptions = {
                     name: objName,
                     type: this.config.widgetsDatapoints[index].type || 'string',
                     role: this.config.widgetsDatapoints[index].role || '',
                     desc: 'Widget-State created by iQontrol',
                 };
-                if (this.config.widgetsDatapoints[index].min)
+                if (this.config.widgetsDatapoints[index].min) {
                     commonOptions.min = this.config.widgetsDatapoints[index].min;
-                if (this.config.widgetsDatapoints[index].max)
+                }
+                if (this.config.widgetsDatapoints[index].max) {
                     commonOptions.max = this.config.widgetsDatapoints[index].max;
-                if (this.config.widgetsDatapoints[index].def)
+                }
+                if (this.config.widgetsDatapoints[index].def) {
                     commonOptions.def = this.config.widgetsDatapoints[index].def;
-                if (this.config.widgetsDatapoints[index].unit)
+                }
+                if (this.config.widgetsDatapoints[index].unit) {
                     commonOptions.unit = this.config.widgetsDatapoints[index].unit;
+                }
                 await this.createOrUpdateObject(objId, { type: 'state' }, commonOptions);
             }
         }
@@ -844,30 +913,34 @@ class Iqontrol extends utils.Adapter {
 
     //++++++++++ LISTS ++++++++++
     async createLists() {
-        if (typeof this.config.lists != 'undefined') {
+        if (typeof this.config.lists !== 'undefined') {
             let that = this;
             //Lists
             for (let configListIndex = 0; configListIndex < this.config.lists.length; configListIndex++) {
-                if (!this.config.lists[configListIndex].active) continue;
+                if (!this.config.lists[configListIndex].active) {
+                    continue;
+                }
                 let listName = this.config.lists[configListIndex].name || configListIndex.toString();
-                this.log.debug('Creating List ' + listName + '...');
+                this.log.debug(`Creating List ${listName}...`);
                 let listItems = [];
                 //--##### Selectors #####
-                if (this.config.lists[configListIndex].selectors)
+                if (this.config.lists[configListIndex].selectors) {
                     for (
                         let selectorIndex = 0;
                         selectorIndex < this.config.lists[configListIndex].selectors.length;
                         selectorIndex++
                     ) {
-                        this.log.debug('...processing Selector ' + (selectorIndex + 1) + '...');
+                        this.log.debug(`...processing Selector ${selectorIndex + 1}...`);
                         let selector = this.config.lists[configListIndex].selectors[selectorIndex];
                         switch (selector.type) {
                             case 'all':
-                                if (selector.modifier == 'add') {
+                                if (selector.modifier === 'add') {
                                     //Add all
                                     for (let object in allObjects) {
                                         let listItemIndex = listItems.indexOf(allObjects[object]._id);
-                                        if (listItemIndex == -1) listItems.push(allObjects[object]._id);
+                                        if (listItemIndex === -1) {
+                                            listItems.push(allObjects[object]._id);
+                                        }
                                     }
                                 } else {
                                     //Remove all (just in any case :))
@@ -875,50 +948,46 @@ class Iqontrol extends utils.Adapter {
                                 }
                                 break;
 
-                            case 'enum':
-                                var enumerationMembers =
-                                    (allObjects[selector.value] &&
-                                        allObjects[selector.value].common &&
-                                        allObjects[selector.value].common.members) ||
-                                    [];
+                            case 'enum': {
+                                const enumerationMembers = allObjects[selector.value]?.common?.members || [];
                                 for (
                                     let enumerationMemberIndex = 0;
                                     enumerationMemberIndex < enumerationMembers.length;
                                     enumerationMemberIndex++
                                 ) {
                                     let listItemIndex = listItems.indexOf(enumerationMembers[enumerationMemberIndex]);
-                                    if (selector.modifier == 'add') {
+                                    if (selector.modifier === 'add') {
                                         //Add Enum
-                                        if (listItemIndex == -1)
+                                        if (listItemIndex === -1) {
                                             listItems.push(enumerationMembers[enumerationMemberIndex]);
+                                        }
                                     } else {
                                         //Remove Enum
-                                        if (listItemIndex > -1) listItems.splice(listItemIndex, 1);
+                                        if (listItemIndex > -1) {
+                                            listItems.splice(listItemIndex, 1);
+                                        }
                                     }
                                 }
                                 break;
+                            }
 
-                            case 'enumWithChilds':
-                                var enumerationMembers =
-                                    (allObjects[selector.value] &&
-                                        allObjects[selector.value].common &&
-                                        allObjects[selector.value].common.members) ||
-                                    [];
-                                if (selector.modifier == 'add') {
-                                    //Add enumWithChilds
+                            case 'enumWithChilds': {
+                                const enumerationMembers1 = allObjects[selector.value]?.common?.members || [];
+                                if (selector.modifier === 'add') {
+                                    // Add enumWithChilds
                                     for (let object in allObjects) {
                                         let listItemIndex = listItems.indexOf(allObjects[object]._id);
-                                        if (listItemIndex == -1) {
+                                        if (listItemIndex === -1) {
                                             for (
                                                 let enumerationMemberIndex = 0;
-                                                enumerationMemberIndex < enumerationMembers.length;
+                                                enumerationMemberIndex < enumerationMembers1.length;
                                                 enumerationMemberIndex++
                                             ) {
                                                 if (
                                                     checkCondition(
                                                         allObjects[object]._id,
                                                         'bw',
-                                                        enumerationMembers[enumerationMemberIndex],
+                                                        enumerationMembers1[enumerationMemberIndex],
                                                         ',',
                                                     )
                                                 ) {
@@ -929,18 +998,18 @@ class Iqontrol extends utils.Adapter {
                                         }
                                     }
                                 } else {
-                                    //Remove enumWithChilds
+                                    // Remove enumWithChilds
                                     for (let listItemIndex = 0; listItemIndex < listItems.length; listItemIndex++) {
                                         for (
                                             let enumerationMemberIndex = 0;
-                                            enumerationMemberIndex < enumerationMembers.length;
+                                            enumerationMemberIndex < enumerationMembers1.length;
                                             enumerationMemberIndex++
                                         ) {
                                             if (
                                                 checkCondition(
                                                     listItems[listItemIndex],
                                                     'bw',
-                                                    enumerationMembers[enumerationMemberIndex],
+                                                    enumerationMembers1[enumerationMemberIndex],
                                                     ',',
                                                 )
                                             ) {
@@ -952,22 +1021,24 @@ class Iqontrol extends utils.Adapter {
                                     }
                                 }
                                 break;
+                            }
 
                             case 'id':
-                                if (selector.modifier == 'add') {
-                                    //Add ids
+                                if (selector.modifier === 'add') {
+                                    // Add ids
                                     for (let object in allObjects) {
                                         let listItemIndex = listItems.indexOf(allObjects[object]._id);
                                         if (
-                                            listItemIndex == -1 &&
+                                            listItemIndex === -1 &&
                                             checkCondition(
                                                 allObjects[object]._id,
                                                 selector.operator,
                                                 selector.value,
                                                 ',',
                                             )
-                                        )
+                                        ) {
                                             listItems.push(allObjects[object]._id);
+                                        }
                                     }
                                 } else {
                                     //Remove ids
@@ -988,20 +1059,21 @@ class Iqontrol extends utils.Adapter {
                                 break;
 
                             case 'type':
-                                if (selector.modifier == 'add') {
-                                    //Add types
+                                if (selector.modifier === 'add') {
+                                    // Add types
                                     for (let object in allObjects) {
                                         let listItemIndex = listItems.indexOf(allObjects[object]._id);
                                         if (
-                                            listItemIndex == -1 &&
+                                            listItemIndex === -1 &&
                                             checkCondition(
                                                 allObjects[object].type,
                                                 selector.operator,
                                                 selector.value,
                                                 ',',
                                             )
-                                        )
+                                        ) {
                                             listItems.push(allObjects[object]._id);
+                                        }
                                     }
                                 } else {
                                     //Remove types
@@ -1023,12 +1095,12 @@ class Iqontrol extends utils.Adapter {
                                 break;
 
                             case 'commonType':
-                                if (selector.modifier == 'add') {
-                                    //Add commonType
+                                if (selector.modifier === 'add') {
+                                    // Add commonType
                                     for (let object in allObjects) {
                                         let listItemIndex = listItems.indexOf(allObjects[object]._id);
                                         if (
-                                            listItemIndex == -1 &&
+                                            listItemIndex === -1 &&
                                             checkCondition(
                                                 allObjects[object] &&
                                                     allObjects[object].common &&
@@ -1037,11 +1109,12 @@ class Iqontrol extends utils.Adapter {
                                                 selector.value,
                                                 ',',
                                             )
-                                        )
+                                        ) {
                                             listItems.push(allObjects[object]._id);
+                                        }
                                     }
                                 } else {
-                                    //Remove commonType
+                                    // Remove commonType
                                     for (let listItemIndex = 0; listItemIndex < listItems.length; listItemIndex++) {
                                         if (
                                             allObjects[listItems[listItemIndex]] &&
@@ -1062,12 +1135,12 @@ class Iqontrol extends utils.Adapter {
                                 break;
 
                             case 'commonRole':
-                                if (selector.modifier == 'add') {
-                                    //Add commonRole
+                                if (selector.modifier === 'add') {
+                                    // Add commonRole
                                     for (let object in allObjects) {
                                         let listItemIndex = listItems.indexOf(allObjects[object]._id);
                                         if (
-                                            listItemIndex == -1 &&
+                                            listItemIndex === -1 &&
                                             checkCondition(
                                                 allObjects[object] &&
                                                     allObjects[object].common &&
@@ -1076,8 +1149,9 @@ class Iqontrol extends utils.Adapter {
                                                 selector.value,
                                                 ',',
                                             )
-                                        )
+                                        ) {
                                             listItems.push(allObjects[object]._id);
+                                        }
                                     }
                                 } else {
                                     //Remove commonRole
@@ -1101,12 +1175,12 @@ class Iqontrol extends utils.Adapter {
                                 break;
 
                             case 'commonMode':
-                                if (selector.modifier == 'add') {
-                                    //Add commonMode
+                                if (selector.modifier === 'add') {
+                                    // Add commonMode
                                     for (let object in allObjects) {
                                         let listItemIndex = listItems.indexOf(allObjects[object]._id);
                                         if (
-                                            listItemIndex == -1 &&
+                                            listItemIndex === -1 &&
                                             checkCondition(
                                                 allObjects[object] &&
                                                     allObjects[object].common &&
@@ -1115,8 +1189,9 @@ class Iqontrol extends utils.Adapter {
                                                 selector.value,
                                                 ',',
                                             )
-                                        )
+                                        ) {
                                             listItems.push(allObjects[object]._id);
+                                        }
                                     }
                                 } else {
                                     //Remove commonMode
@@ -1140,12 +1215,12 @@ class Iqontrol extends utils.Adapter {
                                 break;
 
                             case 'commonEnabled':
-                                if (selector.modifier == 'add') {
+                                if (selector.modifier === 'add') {
                                     //Add commonEnabled
                                     for (let object in allObjects) {
                                         let listItemIndex = listItems.indexOf(allObjects[object]._id);
                                         if (
-                                            listItemIndex == -1 &&
+                                            listItemIndex === -1 &&
                                             checkCondition(
                                                 allObjects[object] &&
                                                     allObjects[object].common &&
@@ -1154,8 +1229,9 @@ class Iqontrol extends utils.Adapter {
                                                 selector.value,
                                                 ',',
                                             )
-                                        )
+                                        ) {
                                             listItems.push(allObjects[object]._id);
+                                        }
                                     }
                                 } else {
                                     //Remove commonEnabled
@@ -1179,27 +1255,33 @@ class Iqontrol extends utils.Adapter {
                                 break;
                         }
                     }
+                }
                 //--Filtering Aliases
                 if (
-                    this.config.lists[configListIndex].selectors &&
-                    this.config.lists[configListIndex].selectors.length &&
+                    this.config.lists[configListIndex].selectors?.length &&
                     this.config.lists[configListIndex].filterAliases
                 ) {
                     this.log.debug('...filtering Aliases...');
                     let removeTheseItems = [];
                     for (let listItemIndex = 0; listItemIndex < listItems.length; listItemIndex++) {
-                        if (checkCondition(listItems[listItemIndex], 'nbw', 'alias.')) continue;
+                        if (checkCondition(listItems[listItemIndex], 'nbw', 'alias.')) {
+                            continue;
+                        }
                         let itemAlias =
                             allObjects[listItems[listItemIndex]] &&
                             allObjects[listItems[listItemIndex]].common &&
                             allObjects[listItems[listItemIndex]].common.alias;
                         let itemAliasLinks = [];
-                        if (itemAlias && itemAlias.id) {
-                            if (typeof itemAlias.id == 'string') {
+                        if (itemAlias?.id) {
+                            if (typeof itemAlias.id === 'string') {
                                 itemAliasLinks.push(itemAlias.id);
                             } else {
-                                if (itemAlias.id && itemAlias.id.read) itemAliasLinks.push(itemAlias.id.read);
-                                if (itemAlias.id && itemAlias.id.write) itemAliasLinks.push(itemAlias.id.write);
+                                if (itemAlias.id?.read) {
+                                    itemAliasLinks.push(itemAlias.id.read);
+                                }
+                                if (itemAlias.id?.write) {
+                                    itemAliasLinks.push(itemAlias.id.write);
+                                }
                             }
                         }
                         for (
@@ -1207,8 +1289,9 @@ class Iqontrol extends utils.Adapter {
                             itemAliasLinkIndex < itemAliasLinks.length;
                             itemAliasLinkIndex++
                         ) {
-                            if (listItems.indexOf(itemAliasLinks[itemAliasLinkIndex]) > -1)
+                            if (listItems.includes(itemAliasLinks[itemAliasLinkIndex])) {
                                 removeTheseItems.push(itemAliasLinks[itemAliasLinkIndex]);
+                            }
                         }
                     }
                     for (
@@ -1221,7 +1304,7 @@ class Iqontrol extends utils.Adapter {
                             listItems.splice(listItemsRemoveIndex, 1);
                         }
                     }
-                    this.log.debug('...found and removed ' + removeTheseItems.length + ' items which had aliases...');
+                    this.log.debug(`...found and removed ${removeTheseItems.length} items which had aliases...`);
                 }
                 //--Sorting
                 let sorting = this.config.lists[configListIndex].sorting || '';
@@ -1231,51 +1314,40 @@ class Iqontrol extends utils.Adapter {
                 let createParentNamesListMode = this.config.lists[configListIndex].createParentNamesListMode;
                 let separator = this.config.lists[configListIndex].separator || ', ';
                 let sortingFunction;
-                if (
-                    this.config.lists[configListIndex].selectors &&
-                    this.config.lists[configListIndex].selectors.length
-                ) {
-                    if (typeof sorting != 'string') sorting = '';
-                    if (sorting.indexOf('id') > -1) {
+                if (this.config.lists[configListIndex].selectors?.length) {
+                    if (typeof sorting !== 'string') {
+                        sorting = '';
+                    }
+                    if (sorting.includes('id')) {
                         //id
-                        listItems.sort(function (a, b) {
-                            return collator.compare(a, b);
-                        });
-                    } else if (sorting.indexOf('values') > -1) {
-                        //values
+                        listItems.sort((a, b) => collator.compare(a, b));
+                    } else if (sorting.includes('values')) {
+                        // values
                         await fetchStates(listItems || [], that);
-                        listItems.sort(function (a, b) {
-                            return collator.compare(
-                                usedStates[a] && typeof usedStates[a].val != 'undefined' ? usedStates[a].val : null,
-                                usedStates[b] && typeof usedStates[b].val != 'undefined' ? usedStates[b].val : null,
-                            );
-                        });
-                        //-- --Special: Sorting TOTAL-Lists by values is also saved as counterFunction to ensure sorting after a value has changed
+                        listItems.sort((a, b) =>
+                            collator.compare(usedStates[a]?.val ?? null, usedStates[b]?.val ?? null),
+                        );
+                        // -- --Special: Sorting TOTAL-Lists by values is also saved as counterFunction to ensure sorting after a value has changed
                         (function () {
                             //Closure--> (everything declared inside keeps its value as ist is at the time the function is created)
                             let _listName = listName;
-                            let _sortDesc = sorting.indexOf('desc') > -1;
+                            let _sortDesc = sorting.includes('desc');
                             let _createValuesList = createValuesList;
                             let _createNamesList = createNamesList;
                             let _createParentNamesList = createParentNamesList;
                             let _createParentNamesListMode = createParentNamesListMode;
-                            let _sortingFunction = async function (_listItems, triggeredBy) {
-                                _listItems.sort(function (a, b) {
-                                    return collator.compare(
-                                        usedStates[a] && typeof usedStates[a].val != 'undefined'
-                                            ? usedStates[a].val
-                                            : null,
-                                        usedStates[b] && typeof usedStates[b].val != 'undefined'
-                                            ? usedStates[b].val
-                                            : null,
-                                    );
-                                });
-                                if (_sortDesc) _listItems.reverse();
+                            let _sortingFunction = async function (_listItems) {
+                                _listItems.sort((a, b) =>
+                                    collator.compare(usedStates[a]?.val ?? null, usedStates[b]?.val ?? null),
+                                );
+                                if (_sortDesc) {
+                                    _listItems.reverse();
+                                }
                                 await that.createOrUpdateObject(
-                                    'Lists.' + idEncodePointAllowed(_listName) + '.TOTAL_LIST',
+                                    `Lists.${idEncodePointAllowed(_listName)}.TOTAL_LIST`,
                                     { type: 'state' },
                                     {
-                                        name: _listName + ' - TOTAL - LIST',
+                                        name: `${_listName} - TOTAL - LIST`,
                                         type: 'string',
                                         role: 'list',
                                         read: true,
@@ -1287,10 +1359,10 @@ class Iqontrol extends utils.Adapter {
                                     true,
                                 );
                                 await that.createOrUpdateObject(
-                                    'Lists.' + idEncodePointAllowed(_listName) + '.TOTAL_LIST_JSON',
+                                    `Lists.${idEncodePointAllowed(_listName)}.TOTAL_LIST_JSON`,
                                     { type: 'state' },
                                     {
-                                        name: _listName + ' - TOTAL - LIST JSON',
+                                        name: `${_listName} - TOTAL - LIST JSON`,
                                         type: 'json',
                                         role: 'list.json',
                                         read: true,
@@ -1312,34 +1384,34 @@ class Iqontrol extends utils.Adapter {
                                         let value;
                                         if (_createValuesList) {
                                             value = getPlainTextWithUnit(_listItems[listItemIndex], that);
-                                            listWithValues.push(_listItems[listItemIndex] + ': ' + value);
+                                            listWithValues.push(`${_listItems[listItemIndex]}: ${value}`);
                                         }
                                         if (_createNamesList) {
                                             names.push(getName(_listItems[listItemIndex]));
-                                            if (_createValuesList)
-                                                namesWithValues.push(getName(_listItems[listItemIndex]) + ': ' + value);
+                                            if (_createValuesList) {
+                                                namesWithValues.push(`${getName(_listItems[listItemIndex])}: ${value}`);
+                                            }
                                         }
                                         if (_createParentNamesList) {
                                             parentNames.push(
                                                 getParentName(_listItems[listItemIndex], _createParentNamesListMode),
                                             );
-                                            if (_createValuesList)
+                                            if (_createValuesList) {
                                                 parentNamesWithValues.push(
-                                                    getParentName(
+                                                    `${getParentName(
                                                         _listItems[listItemIndex],
                                                         _createParentNamesListMode,
-                                                    ) +
-                                                        ': ' +
-                                                        value,
+                                                    )}: ${value}`,
                                                 );
+                                            }
                                         }
                                     }
                                     if (_createValuesList) {
                                         await that.createOrUpdateObject(
-                                            'Lists.' + idEncodePointAllowed(listName) + '.TOTAL_LIST_WITH_VALUES',
+                                            `Lists.${idEncodePointAllowed(listName)}.TOTAL_LIST_WITH_VALUES`,
                                             { type: 'state' },
                                             {
-                                                name: listName + ' - TOTAL - LIST WITH VALUES',
+                                                name: `${listName} - TOTAL - LIST WITH VALUES`,
                                                 type: 'string',
                                                 role: 'list',
                                                 read: true,
@@ -1353,10 +1425,10 @@ class Iqontrol extends utils.Adapter {
                                     }
                                     if (_createNamesList) {
                                         await that.createOrUpdateObject(
-                                            'Lists.' + idEncodePointAllowed(listName) + '.TOTAL_NAMES_LIST',
+                                            `Lists.${idEncodePointAllowed(listName)}.TOTAL_NAMES_LIST`,
                                             { type: 'state' },
                                             {
-                                                name: listName + ' - TOTAL - NAMES LIST',
+                                                name: `${listName} - TOTAL - NAMES LIST`,
                                                 type: 'string',
                                                 role: 'list',
                                                 read: true,
@@ -1368,14 +1440,12 @@ class Iqontrol extends utils.Adapter {
                                             true,
                                         );
                                         //await that.createOrUpdateObject("Lists." + idEncodePointAllowed(listName) + ".TOTAL_NAMES_LIST_JSON", 										{type: "state"}, 	{name: listName + " - TOTAL - NAMES LIST JSON", 				type: "json", 		role: "list.json", 	read: true, write: false, desc: "List created by iQontrol"}, 			{iQontrolDatapointList: true}, 				JSON.stringify(names), true);
-                                        if (_createValuesList)
+                                        if (_createValuesList) {
                                             await that.createOrUpdateObject(
-                                                'Lists.' +
-                                                    idEncodePointAllowed(listName) +
-                                                    '.TOTAL_NAMES_LIST_WITH_VALUES',
+                                                `Lists.${idEncodePointAllowed(listName)}.TOTAL_NAMES_LIST_WITH_VALUES`,
                                                 { type: 'state' },
                                                 {
-                                                    name: listName + ' - TOTAL - NAMES LIST WITH VALUES',
+                                                    name: `${listName} - TOTAL - NAMES LIST WITH VALUES`,
                                                     type: 'string',
                                                     role: 'list',
                                                     read: true,
@@ -1386,13 +1456,14 @@ class Iqontrol extends utils.Adapter {
                                                 namesWithValues.join(separator),
                                                 true,
                                             );
+                                        }
                                     }
                                     if (_createParentNamesList) {
                                         await that.createOrUpdateObject(
-                                            'Lists.' + idEncodePointAllowed(listName) + '.TOTAL_PARENTNAMES_LIST',
+                                            `Lists.${idEncodePointAllowed(listName)}.TOTAL_PARENTNAMES_LIST`,
                                             { type: 'state' },
                                             {
-                                                name: listName + ' - TOTAL - PARENTNAMES LIST',
+                                                name: `${listName} - TOTAL - PARENTNAMES LIST`,
                                                 type: 'string',
                                                 role: 'list',
                                                 read: true,
@@ -1404,14 +1475,14 @@ class Iqontrol extends utils.Adapter {
                                             true,
                                         );
                                         //await that.createOrUpdateObject("Lists." + idEncodePointAllowed(listName) + ".TOTAL_PARENTNAMES_LIST_JSON", 									{type: "state"}, 	{name: listName + " - TOTAL - PARENTNAMES LIST JSON", 			type: "json", 		role: "list.json", 	read: true, write: false, desc: "List created by iQontrol"}, 			{iQontrolDatapointList: true}, 				JSON.stringify(parentNames), true);
-                                        if (_createValuesList)
+                                        if (_createValuesList) {
                                             await that.createOrUpdateObject(
-                                                'Lists.' +
-                                                    idEncodePointAllowed(listName) +
-                                                    '.TOTAL_PARENTNAMES_LIST_WITH_VALUES',
+                                                `Lists.${idEncodePointAllowed(
+                                                    listName,
+                                                )}.TOTAL_PARENTNAMES_LIST_WITH_VALUES`,
                                                 { type: 'state' },
                                                 {
-                                                    name: listName + ' - TOTAL - PARENTNAMES LIST WITH VALUES',
+                                                    name: `${listName} - TOTAL - PARENTNAMES LIST WITH VALUES`,
                                                     type: 'string',
                                                     role: 'list',
                                                     read: true,
@@ -1422,37 +1493,30 @@ class Iqontrol extends utils.Adapter {
                                                 parentNamesWithValues.join(separator),
                                                 true,
                                             );
+                                        }
                                     }
                                 }
                             };
                             sortingFunction = _sortingFunction;
-                        })(); //<--End Closure
-                    } else if (sorting.indexOf('names') > -1) {
-                        //names
-                        listItems.sort(function (a, b) {
-                            return collator.compare(getName(a), getName(b));
-                        });
+                        })(); // <--End Closure
+                    } else if (sorting.includes('names')) {
+                        // names
+                        listItems.sort((a, b) => collator.compare(getName(a), getName(b)));
                     } else {
-                        //parentNames
-                        listItems.sort(function (a, b) {
-                            return collator.compare(
-                                getParentName(a, createParentNamesListMode),
-                                getParentName(b, createParentNamesListMode),
-                            );
-                        });
+                        // parentNames
+                        listItems.sort((a, b) => collator.compare(getParentName(a, createParentNamesListMode), getParentName(b, createParentNamesListMode)));
                     }
-                    if (sorting.indexOf('desc') > -1) listItems.reverse();
+                    if (sorting.includes('desc')) {
+                        listItems.reverse();
+                    }
                 }
                 //--Create TOTAL lists and set States
-                if (
-                    this.config.lists[configListIndex].selectors &&
-                    this.config.lists[configListIndex].selectors.length
-                ) {
+                if (this.config.lists[configListIndex].selectors?.length) {
                     await this.createOrUpdateObject(
-                        'Lists.' + idEncodePointAllowed(listName) + '.TOTAL',
+                        `Lists.${idEncodePointAllowed(listName)}.TOTAL`,
                         { type: 'state' },
                         {
-                            name: listName + ' - TOTAL',
+                            name: `${listName} - TOTAL`,
                             type: 'number',
                             role: 'value',
                             read: true,
@@ -1464,10 +1528,10 @@ class Iqontrol extends utils.Adapter {
                         true,
                     );
                     await this.createOrUpdateObject(
-                        'Lists.' + idEncodePointAllowed(listName) + '.TOTAL_LIST',
+                        `Lists.${idEncodePointAllowed(listName)}.TOTAL_LIST`,
                         { type: 'state' },
                         {
-                            name: listName + ' - TOTAL - LIST',
+                            name: `${listName} - TOTAL - LIST`,
                             type: 'string',
                             role: 'list',
                             read: true,
@@ -1479,10 +1543,10 @@ class Iqontrol extends utils.Adapter {
                         true,
                     );
                     await this.createOrUpdateObject(
-                        'Lists.' + idEncodePointAllowed(listName) + '.TOTAL_LIST_JSON',
+                        `Lists.${idEncodePointAllowed(listName)}.TOTAL_LIST_JSON`,
                         { type: 'state' },
                         {
-                            name: listName + ' - TOTAL - LIST JSON',
+                            name: `${listName} - TOTAL - LIST JSON`,
                             type: 'json',
                             role: 'list.json',
                             read: true,
@@ -1499,13 +1563,13 @@ class Iqontrol extends utils.Adapter {
                         let listWithValues = [];
                         for (let listItemIndex = 0; listItemIndex < listItems.length; listItemIndex++) {
                             let value = getPlainTextWithUnit(listItems[listItemIndex], this);
-                            listWithValues.push(listItems[listItemIndex] + ': ' + value);
+                            listWithValues.push(`${listItems[listItemIndex]}: ${value}`);
                         }
                         await this.createOrUpdateObject(
-                            'Lists.' + idEncodePointAllowed(listName) + '.TOTAL_LIST_WITH_VALUES',
+                            `Lists.${idEncodePointAllowed(listName)}.TOTAL_LIST_WITH_VALUES`,
                             { type: 'state' },
                             {
-                                name: listName + ' - TOTAL - LIST WITH VALUES',
+                                name: `${listName} - TOTAL - LIST WITH VALUES`,
                                 type: 'string',
                                 role: 'list',
                                 read: true,
@@ -1530,42 +1594,36 @@ class Iqontrol extends utils.Adapter {
                             }
                             if (createNamesList) {
                                 names.push(getName(listItems[listItemIndex]));
-                                if (createValuesList)
-                                    namesWithValues.push(getName(listItems[listItemIndex]) + ': ' + value);
+                                if (createValuesList) {
+                                    namesWithValues.push(`${getName(listItems[listItemIndex])}: ${value}`);
+                                }
                             }
                             if (createParentNamesList) {
                                 parentNames.push(getParentName(listItems[listItemIndex], createParentNamesListMode));
-                                if (createValuesList)
+                                if (createValuesList) {
                                     parentNamesWithValues.push(
-                                        getParentName(listItems[listItemIndex], createParentNamesListMode) +
-                                            ': ' +
-                                            value,
+                                        `${getParentName(listItems[listItemIndex], createParentNamesListMode)}: ${
+                                            value
+                                        }`,
                                     );
+                                }
                             }
                         }
                         //-- --Sorting
-                        if (sorting.indexOf('values') == -1) {
+                        if (!sorting.includes('values')) {
                             //Do not re-sort, if sorting by values is active
-                            names.sort(function (a, b) {
-                                return collator.compare(a, b);
-                            });
-                            namesWithValues.sort(function (a, b) {
-                                return collator.compare(a, b);
-                            });
-                            parentNames.sort(function (a, b) {
-                                return collator.compare(a, b);
-                            });
-                            parentNamesWithValues.sort(function (a, b) {
-                                return collator.compare(a, b);
-                            });
+                            names.sort((a, b) => collator.compare(a, b));
+                            namesWithValues.sort((a, b) => collator.compare(a, b));
+                            parentNames.sort((a, b) => collator.compare(a, b));
+                            parentNamesWithValues.sort((a, b) => collator.compare(a, b));
                         }
                         //-- --Set states
                         if (createNamesList) {
                             await this.createOrUpdateObject(
-                                'Lists.' + idEncodePointAllowed(listName) + '.TOTAL_NAMES_LIST',
+                                `Lists.${idEncodePointAllowed(listName)}.TOTAL_NAMES_LIST`,
                                 { type: 'state' },
                                 {
-                                    name: listName + ' - TOTAL - NAMES LIST',
+                                    name: `${listName} - TOTAL - NAMES LIST`,
                                     type: 'string',
                                     role: 'list',
                                     read: true,
@@ -1577,12 +1635,12 @@ class Iqontrol extends utils.Adapter {
                                 true,
                             );
                             //await this.createOrUpdateObject("Lists." + idEncodePointAllowed(listName) + ".TOTAL_NAMES_LIST_JSON", 									{type: "state"}, 	{name: listName + " - TOTAL - NAMES LIST JSON", 				type: "json", 		role: "list.json", 	read: true, write: false, desc: "List created by iQontrol"}, 			{iQontrolDatapointList: true}, 				JSON.stringify(names), true);
-                            if (createValuesList)
+                            if (createValuesList) {
                                 await this.createOrUpdateObject(
-                                    'Lists.' + idEncodePointAllowed(listName) + '.TOTAL_NAMES_LIST_WITH_VALUES',
+                                    `Lists.${idEncodePointAllowed(listName)}.TOTAL_NAMES_LIST_WITH_VALUES`,
                                     { type: 'state' },
                                     {
-                                        name: listName + ' - TOTAL - NAMES LIST WITH VALUES',
+                                        name: `${listName} - TOTAL - NAMES LIST WITH VALUES`,
                                         type: 'string',
                                         role: 'list',
                                         read: true,
@@ -1593,13 +1651,14 @@ class Iqontrol extends utils.Adapter {
                                     namesWithValues.join(separator),
                                     true,
                                 );
+                            }
                         }
                         if (createParentNamesList) {
                             await this.createOrUpdateObject(
-                                'Lists.' + idEncodePointAllowed(listName) + '.TOTAL_PARENTNAMES_LIST',
+                                `Lists.${idEncodePointAllowed(listName)}.TOTAL_PARENTNAMES_LIST`,
                                 { type: 'state' },
                                 {
-                                    name: listName + ' - TOTAL - PARENTNAMES LIST',
+                                    name: `${listName} - TOTAL - PARENTNAMES LIST`,
                                     type: 'string',
                                     role: 'list',
                                     read: true,
@@ -1611,12 +1670,12 @@ class Iqontrol extends utils.Adapter {
                                 true,
                             );
                             //await this.createOrUpdateObject("Lists." + idEncodePointAllowed(listName) + ".TOTAL_PARENTNAMES_LIST_JSON", 								{type: "state"}, 	{name: listName + " - TOTAL - PARENTNAMES LIST JSON", 			type: "json", 		role: "list.json", 	read: true, write: false, desc: "List created by iQontrol"}, 			{iQontrolDatapointList: true}, 				JSON.stringify(parentNames), true);
-                            if (createValuesList)
+                            if (createValuesList) {
                                 await this.createOrUpdateObject(
-                                    'Lists.' + idEncodePointAllowed(listName) + '.TOTAL_PARENTNAMES_LIST_WITH_VALUES',
+                                    `Lists.${idEncodePointAllowed(listName)}.TOTAL_PARENTNAMES_LIST_WITH_VALUES`,
                                     { type: 'state' },
                                     {
-                                        name: listName + ' - TOTAL - PARENTNAMES LIST WITH VALUES',
+                                        name: `${listName} - TOTAL - PARENTNAMES LIST WITH VALUES`,
                                         type: 'string',
                                         role: 'list',
                                         read: true,
@@ -1627,6 +1686,7 @@ class Iqontrol extends utils.Adapter {
                                     parentNamesWithValues.join(separator),
                                     true,
                                 );
+                            }
                         }
                     }
                 }
@@ -1652,28 +1712,27 @@ class Iqontrol extends utils.Adapter {
                     logClearTimeouts: [],
                 });
                 let listIndex = lists.length - 1;
-                if (sortingFunction) lists[listIndex].counterFunctions.push(sortingFunction);
+                if (sortingFunction) {
+                    lists[listIndex].counterFunctions.push(sortingFunction);
+                }
                 //--##### Counters #####
-                if (this.config.lists[configListIndex].counters)
+                if (this.config.lists[configListIndex].counters) {
                     for (
                         let counterIndex = 0;
                         counterIndex < this.config.lists[configListIndex].counters.length;
                         counterIndex++
                     ) {
                         this.log.debug(
-                            '...processing counter ' +
-                                listName +
-                                '_' +
-                                this.config.lists[configListIndex].counters[counterIndex].name +
-                                '...',
+                            `...processing counter ${listName}_${
+                                this.config.lists[configListIndex].counters[counterIndex].name
+                            }...`,
                         );
                         let counterName =
                             this.config.lists[configListIndex].counters[counterIndex].name || counterIndex.toString();
                         let separator = this.config.lists[configListIndex].separator || ', ';
                         //-- --Create counter-objects
-                        let idRoot =
-                            'Lists.' + idEncodePointAllowed(listName) + '.' + idEncodePointAllowed(counterName);
-                        let commonName = listName + ' - ' + counterName;
+                        let idRoot = `Lists.${idEncodePointAllowed(listName)}.${idEncodePointAllowed(counterName)}`;
+                        let commonName = `${listName} - ${counterName}`;
                         await this.createOrUpdateObject(
                             idRoot,
                             { type: 'state' },
@@ -1688,10 +1747,10 @@ class Iqontrol extends utils.Adapter {
                             },
                         );
                         await this.createOrUpdateObject(
-                            idRoot + '_LIST',
+                            `${idRoot}_LIST`,
                             { type: 'state' },
                             {
-                                name: commonName + ' - LIST',
+                                name: `${commonName} - LIST`,
                                 type: 'string',
                                 role: 'list',
                                 read: true,
@@ -1701,10 +1760,10 @@ class Iqontrol extends utils.Adapter {
                             { iQontrolListSeparator: separator },
                         );
                         await this.createOrUpdateObject(
-                            idRoot + '_LIST_JSON',
+                            `${idRoot}_LIST_JSON`,
                             { type: 'state' },
                             {
-                                name: commonName + ' - LIST JSON',
+                                name: `${commonName} - LIST JSON`,
                                 type: 'json',
                                 role: 'list.json',
                                 read: true,
@@ -1716,10 +1775,10 @@ class Iqontrol extends utils.Adapter {
                         //-- --Create optional LIST_WITH_VALUES
                         if (this.config.lists[configListIndex].createValuesList) {
                             await this.createOrUpdateObject(
-                                idRoot + '_LIST_WITH_VALUES',
+                                `${idRoot}_LIST_WITH_VALUES`,
                                 { type: 'state' },
                                 {
-                                    name: commonName + ' - LIST WITH VALUES',
+                                    name: `${commonName} - LIST WITH VALUES`,
                                     type: 'string',
                                     role: 'list',
                                     read: true,
@@ -1732,10 +1791,10 @@ class Iqontrol extends utils.Adapter {
                         //-- --Create optional NAMES_LIST
                         if (this.config.lists[configListIndex].createNamesList) {
                             await this.createOrUpdateObject(
-                                idRoot + '_NAMES_LIST',
+                                `${idRoot}_NAMES_LIST`,
                                 { type: 'state' },
                                 {
-                                    name: commonName + ' - NAMES LIST',
+                                    name: `${commonName} - NAMES LIST`,
                                     type: 'string',
                                     role: 'list',
                                     read: true,
@@ -1748,10 +1807,10 @@ class Iqontrol extends utils.Adapter {
                             //-- --Create optional NAMES_LIST_WITH_VALUES
                             if (this.config.lists[configListIndex].createValuesList) {
                                 await this.createOrUpdateObject(
-                                    idRoot + '_NAMES_LIST_WITH_VALUES',
+                                    `${idRoot}_NAMES_LIST_WITH_VALUES`,
                                     { type: 'state' },
                                     {
-                                        name: commonName + ' - NAMES LIST WITH VALUES',
+                                        name: `${commonName} - NAMES LIST WITH VALUES`,
                                         type: 'string',
                                         role: 'list',
                                         read: true,
@@ -1765,10 +1824,10 @@ class Iqontrol extends utils.Adapter {
                         //-- --Create optional PARENTNAMES_LIST
                         if (this.config.lists[configListIndex].createParentNamesList) {
                             await this.createOrUpdateObject(
-                                idRoot + '_PARENTNAMES_LIST',
+                                `${idRoot}_PARENTNAMES_LIST`,
                                 { type: 'state' },
                                 {
-                                    name: commonName + ' - PARENTNAMES LIST',
+                                    name: `${commonName} - PARENTNAMES LIST`,
                                     type: 'string',
                                     role: 'list',
                                     read: true,
@@ -1781,10 +1840,10 @@ class Iqontrol extends utils.Adapter {
                             //-- --Create optional PARENTNAMES_LIST_WITH_VALUES
                             if (this.config.lists[configListIndex].createValuesList) {
                                 await this.createOrUpdateObject(
-                                    idRoot + '_PARENTNAMES_LIST_WITH_VALUES',
+                                    `${idRoot}_PARENTNAMES_LIST_WITH_VALUES`,
                                     { type: 'state' },
                                     {
-                                        name: commonName + ' - PARENTNAMES LIST WITH VALUES',
+                                        name: `${commonName} - PARENTNAMES LIST WITH VALUES`,
                                         type: 'string',
                                         role: 'list',
                                         read: true,
@@ -1803,16 +1862,11 @@ class Iqontrol extends utils.Adapter {
                             let counterFunction = async function (_listItems, triggeredBy) {
                                 // ###### COUNTER FUNCTION ###### -->
                                 that.log.debug(
-                                    'COUNTER ' +
-                                        listName +
-                                        ' ' +
-                                        counter.name +
-                                        ' function started, TRIGGERED BY ' +
-                                        triggeredBy,
+                                    `COUNTER ${listName} ${counter.name} function started, TRIGGERED BY ${triggeredBy}`,
                                 );
                                 counter.listItems = [];
                                 counter.repeatTimeouts = [];
-                                counter.conditions = counter.conditions || [];
+                                counter.conditions ||= [];
                                 //-- -- -- --Loop through the listItems the counter belongs to
                                 for (let _listItemIndex = 0; _listItemIndex < _listItems.length; _listItemIndex++) {
                                     let conditionFullyFulfilled = false;
@@ -1823,18 +1877,16 @@ class Iqontrol extends utils.Adapter {
                                         conditionIndex < counter.conditions.length;
                                         conditionIndex++
                                     ) {
-                                        if (counter.conditions[conditionIndex].modifier == '||') {
+                                        if (counter.conditions[conditionIndex].modifier === '||') {
                                             //New condition OR-Part
                                             that.log.silly(
-                                                'COUNTER ' +
-                                                    listName +
-                                                    ' ' +
-                                                    counter.name +
-                                                    ', item ' +
-                                                    _listItems[_listItemIndex] +
-                                                    ' |||| New OR-Part',
+                                                `COUNTER ${listName} ${counter.name}, item ${
+                                                    _listItems[_listItemIndex]
+                                                } |||| New OR-Part`,
                                             );
-                                            if (conditionPartFulfilled) conditionFullyFulfilled = true;
+                                            if (conditionPartFulfilled) {
+                                                conditionFullyFulfilled = true;
+                                            }
                                             conditionPartFulfilled = true;
                                         }
                                         let value;
@@ -1848,72 +1900,56 @@ class Iqontrol extends utils.Adapter {
                                         }
                                         switch (counter.conditions[conditionIndex].type) {
                                             case 'value':
-                                                value =
-                                                    usedStates[_listItems[_listItemIndex]] &&
-                                                    usedStates[_listItems[_listItemIndex]].val;
+                                                value = usedStates[_listItems[_listItemIndex]]?.val;
                                                 break;
 
                                             case 'valuelistValue':
-                                                value =
-                                                    usedStates[_listItems[_listItemIndex]] &&
-                                                    usedStates[_listItems[_listItemIndex]].val;
+                                                value = usedStates[_listItems[_listItemIndex]]?.val;
                                                 if (
-                                                    allObjects[_listItems[_listItemIndex]] &&
-                                                    allObjects[_listItems[_listItemIndex]].common &&
-                                                    allObjects[_listItems[_listItemIndex]].common.states &&
+                                                    allObjects[_listItems[_listItemIndex]]?.common?.states &&
                                                     typeof allObjects[_listItems[_listItemIndex]].common.states[
                                                         value
-                                                    ] != 'undefined'
+                                                    ] !== 'undefined'
                                                 ) {
                                                     value = allObjects[_listItems[_listItemIndex]].common.states[value];
                                                 }
                                                 break;
 
                                             case 'ack':
-                                                value =
-                                                    usedStates[_listItems[_listItemIndex]] &&
-                                                    usedStates[_listItems[_listItemIndex]].ack;
+                                                value = usedStates[_listItems[_listItemIndex]]?.ack;
                                                 break;
 
                                             case 'lc':
-                                                value =
-                                                    usedStates[_listItems[_listItemIndex]] &&
-                                                    usedStates[_listItems[_listItemIndex]].lc;
+                                                value = usedStates[_listItems[_listItemIndex]]?.lc;
                                                 break;
 
                                             case 'lcs':
                                                 value =
-                                                    (new Date() -
-                                                        ((usedStates[_listItems[_listItemIndex]] &&
-                                                            usedStates[_listItems[_listItemIndex]].lc) ||
-                                                            0)) /
+                                                    (new Date().getTime() -
+                                                        (usedStates[_listItems[_listItemIndex]]?.lc || 0)) /
                                                     1000;
                                                 counter.repeatTimeouts.push(counter.conditions[conditionIndex].value);
                                                 break;
 
                                             case 'ts':
-                                                value =
-                                                    usedStates[_listItems[_listItemIndex]] &&
-                                                    usedStates[_listItems[_listItemIndex]].ts;
+                                                value = usedStates[_listItems[_listItemIndex]]?.ts;
                                                 break;
 
                                             case 'tss':
                                                 value =
-                                                    (new Date() -
-                                                        ((usedStates[_listItems[_listItemIndex]] &&
-                                                            usedStates[_listItems[_listItemIndex]].ts) ||
-                                                            0)) /
+                                                    (new Date().getTime() -
+                                                        (usedStates[_listItems[_listItemIndex]]?.ts || 0)) /
                                                     1000;
                                                 counter.repeatTimeouts.push(counter.conditions[conditionIndex].value);
                                                 break;
 
                                             case 'alive':
                                                 if (
-                                                    _listItems[_listItemIndex].indexOf('system.adapter.' == 0) &&
+                                                    _listItems[_listItemIndex].startsWith('system.adapter.') &&
                                                     _listItems[_listItemIndex].split('.').length >= 4
                                                 ) {
                                                     let id = _listItems[_listItemIndex].split('.');
-                                                    id = id.splice(0, 4).join('.') + '.alive';
+                                                    id = `${id.splice(0, 4).join('.')}.alive`;
                                                     if (!usedStates[id]) {
                                                         try {
                                                             usedStates[id] = await that.getForeignStateAsync(id);
@@ -1921,19 +1957,12 @@ class Iqontrol extends utils.Adapter {
                                                             usedStates[id] = emptyState;
                                                         }
                                                     }
-                                                    value = usedStates[id] && usedStates[id].val;
-                                                    if (
-                                                        lists[_listIndex].counterAdditionalTriggerItems.indexOf(id) ==
-                                                        -1
-                                                    ) {
+                                                    value = usedStates[id]?.val;
+                                                    if (!lists[_listIndex].counterAdditionalTriggerItems.includes(id)) {
                                                         that.log.debug(
-                                                            '...subscribing to additional counter trigger item of list ' +
-                                                                listName +
-                                                                ' ' +
-                                                                counter.name +
-                                                                ' (' +
-                                                                id +
-                                                                ')...',
+                                                            `...subscribing to additional counter trigger item of list ${
+                                                                listName
+                                                            } ${counter.name} (${id})...`,
                                                         );
                                                         that.subscribeForeignStates(id);
                                                         lists[_listIndex].counterAdditionalTriggerItems.push(id);
@@ -1943,11 +1972,11 @@ class Iqontrol extends utils.Adapter {
 
                                             case 'lcsAlive':
                                                 if (
-                                                    _listItems[_listItemIndex].indexOf('system.adapter.' == 0) &&
+                                                    _listItems[_listItemIndex].startsWith('system.adapter.') &&
                                                     _listItems[_listItemIndex].split('.').length >= 4
                                                 ) {
                                                     let id = _listItems[_listItemIndex].split('.');
-                                                    id = id.splice(0, 4).join('.') + '.alive';
+                                                    id = `${id.splice(0, 4).join('.')}.alive`;
                                                     if (!usedStates[id]) {
                                                         try {
                                                             usedStates[id] = await that.getForeignStateAsync(id);
@@ -1955,24 +1984,15 @@ class Iqontrol extends utils.Adapter {
                                                             usedStates[id] = emptyState;
                                                         }
                                                     }
-                                                    value =
-                                                        (new Date() - ((usedStates[id] && usedStates[id].lc) || 0)) /
-                                                        1000;
+                                                    value = (new Date().getTime() - (usedStates[id]?.lc || 0)) / 1000;
                                                     counter.repeatTimeouts.push(
                                                         counter.conditions[conditionIndex].value,
                                                     );
-                                                    if (
-                                                        lists[_listIndex].counterAdditionalTriggerItems.indexOf(id) ==
-                                                        -1
-                                                    ) {
+                                                    if (!lists[_listIndex].counterAdditionalTriggerItems.includes(id)) {
                                                         that.log.debug(
-                                                            '...subscribing to additional counter trigger item of list ' +
-                                                                listName +
-                                                                ' ' +
-                                                                counter.name +
-                                                                ' (' +
-                                                                id +
-                                                                ')...',
+                                                            `...subscribing to additional counter trigger item of list ${
+                                                                listName
+                                                            } ${counter.name} (${id})...`,
                                                         );
                                                         that.subscribeForeignStates(id);
                                                         lists[_listIndex].counterAdditionalTriggerItems.push(id);
@@ -1982,12 +2002,12 @@ class Iqontrol extends utils.Adapter {
 
                                             case 'connection':
                                                 if (
-                                                    _listItems[_listItemIndex].indexOf('system.adapter.' == 0) &&
+                                                    _listItems[_listItemIndex].startsWith('system.adapter.') &&
                                                     _listItems[_listItemIndex].split('.').length >= 4
                                                 ) {
                                                     let id = _listItems[_listItemIndex].split('.');
                                                     id.splice(0, 2);
-                                                    id = id[0] + '.' + id[1] + '.info.connection';
+                                                    id = `${id[0]}.${id[1]}.info.connection`;
                                                     if (!usedStates[id]) {
                                                         try {
                                                             usedStates[id] = await that.getForeignStateAsync(id);
@@ -1995,19 +2015,12 @@ class Iqontrol extends utils.Adapter {
                                                             usedStates[id] = emptyState;
                                                         }
                                                     }
-                                                    value = usedStates[id] && usedStates[id].val;
-                                                    if (
-                                                        lists[_listIndex].counterAdditionalTriggerItems.indexOf(id) ==
-                                                        -1
-                                                    ) {
+                                                    value = usedStates[id]?.val;
+                                                    if (!lists[_listIndex].counterAdditionalTriggerItems.includes(id)) {
                                                         that.log.debug(
-                                                            '...subscribing to additional counter trigger item of list ' +
-                                                                listName +
-                                                                ' ' +
-                                                                counter.name +
-                                                                ' (' +
-                                                                id +
-                                                                ')...',
+                                                            `...subscribing to additional counter trigger item of list ${
+                                                                listName
+                                                            } ${counter.name} (${id})...`,
                                                         );
                                                         that.subscribeForeignStates(id);
                                                         lists[_listIndex].counterAdditionalTriggerItems.push(id);
@@ -2017,12 +2030,12 @@ class Iqontrol extends utils.Adapter {
 
                                             case 'lcsConnection':
                                                 if (
-                                                    _listItems[_listItemIndex].indexOf('system.adapter.' == 0) &&
+                                                    _listItems[_listItemIndex].startsWith('system.adapter.') &&
                                                     _listItems[_listItemIndex].split('.').length >= 4
                                                 ) {
                                                     let id = _listItems[_listItemIndex].split('.');
                                                     id.splice(0, 2);
-                                                    id = id[0] + '.' + id[1] + '.info.connection';
+                                                    id = `${id[0]}.${id[1]}.info.connection`;
                                                     if (!usedStates[id]) {
                                                         try {
                                                             usedStates[id] = await that.getForeignStateAsync(id);
@@ -2030,24 +2043,15 @@ class Iqontrol extends utils.Adapter {
                                                             usedStates[id] = emptyState;
                                                         }
                                                     }
-                                                    value =
-                                                        (new Date() - ((usedStates[id] && usedStates[id].lc) || 0)) /
-                                                        1000;
+                                                    value = (new Date().getTime() - (usedStates[id]?.lc || 0)) / 1000;
                                                     counter.repeatTimeouts.push(
                                                         counter.conditions[conditionIndex].value,
                                                     );
-                                                    if (
-                                                        lists[_listIndex].counterAdditionalTriggerItems.indexOf(id) ==
-                                                        -1
-                                                    ) {
+                                                    if (!lists[_listIndex].counterAdditionalTriggerItems.includes(id)) {
                                                         that.log.debug(
-                                                            '...subscribing to additional counter trigger item of list ' +
-                                                                listName +
-                                                                ' ' +
-                                                                counter.name +
-                                                                ' (' +
-                                                                id +
-                                                                ')...',
+                                                            `...subscribing to additional counter trigger item of list ${
+                                                                listName
+                                                            } ${counter.name} (${id})...`,
                                                         );
                                                         that.subscribeForeignStates(id);
                                                         lists[_listIndex].counterAdditionalTriggerItems.push(id);
@@ -2061,114 +2065,78 @@ class Iqontrol extends utils.Adapter {
                                             counter.conditions[conditionIndex].value,
                                             ',',
                                         );
-                                        conditionPartFulfilled = conditionPartFulfilled && check;
+                                        conditionPartFulfilled &&= check;
                                         that.log.silly(
-                                            'COUNTER ' +
-                                                listName +
-                                                ' ' +
-                                                counter.name +
-                                                ', item ' +
-                                                _listItems[_listItemIndex] +
-                                                ' >>>> check condition ' +
-                                                (conditionIndex + 1) +
-                                                ' von ' +
-                                                counter.conditions.length +
-                                                ': type: ' +
-                                                counter.conditions[conditionIndex].type +
-                                                ', value: ' +
-                                                value +
-                                                ', op: ' +
-                                                counter.conditions[conditionIndex].operator +
-                                                ', condVal: ' +
-                                                counter.conditions[conditionIndex].value +
-                                                ' --> check: ' +
-                                                check +
-                                                ' ==> fulfilled: ' +
-                                                conditionPartFulfilled,
+                                            `COUNTER ${listName} ${counter.name}, item ${
+                                                _listItems[_listItemIndex]
+                                            } >>>> check condition ${conditionIndex + 1} von ${
+                                                counter.conditions.length
+                                            }: type: ${counter.conditions[conditionIndex].type}, value: ${value}, op: ${
+                                                counter.conditions[conditionIndex].operator
+                                            }, condVal: ${counter.conditions[conditionIndex].value} --> check: ${
+                                                check
+                                            } ==> fulfilled: ${conditionPartFulfilled}`,
                                         );
                                         //if(conditionFullyFulfilled) break;
                                     }
-                                    if (conditionPartFulfilled) conditionFullyFulfilled = true;
+                                    if (conditionPartFulfilled) {
+                                        conditionFullyFulfilled = true;
+                                    }
                                     that.log.silly(
-                                        'COUNTER ' +
-                                            listName +
-                                            ' ' +
-                                            counter.name +
-                                            ', item: ' +
-                                            _listItems[_listItemIndex] +
-                                            ' >>>>>>>> check completed ==> fulfilled: ' +
-                                            conditionFullyFulfilled,
+                                        `COUNTER ${listName} ${counter.name}, item: ${
+                                            _listItems[_listItemIndex]
+                                        } >>>>>>>> check completed ==> fulfilled: ${conditionFullyFulfilled}`,
                                     );
-                                    if (conditionFullyFulfilled) counter.listItems.push(_listItems[_listItemIndex]);
+                                    if (conditionFullyFulfilled) {
+                                        counter.listItems.push(_listItems[_listItemIndex]);
+                                    }
                                 }
                                 //--Sorting
                                 let sorting = that.config.lists[configListIndex].sorting || '';
                                 let createParentNamesListMode =
                                     that.config.lists[configListIndex].createParentNamesListMode;
-                                if (sorting.indexOf('id') > -1) {
+                                if (sorting.includes('id')) {
                                     //id
-                                    counter.listItems.sort(function (a, b) {
-                                        return collator.compare(a, b);
-                                    });
-                                } else if (sorting.indexOf('values') > -1) {
+                                    counter.listItems.sort((a, b) => collator.compare(a, b));
+                                } else if (sorting.includes('values')) {
                                     //values
                                     await fetchStates(counter.listItems || [], that);
-                                    counter.listItems.sort(function (a, b) {
-                                        return collator.compare(
-                                            usedStates[a] && typeof usedStates[a].val != 'undefined'
-                                                ? usedStates[a].val
-                                                : null,
-                                            usedStates[b] && typeof usedStates[b].val != 'undefined'
-                                                ? usedStates[b].val
-                                                : null,
-                                        );
-                                    });
-                                } else if (sorting.indexOf('names') > -1) {
+                                    counter.listItems.sort((a, b) =>
+                                        collator.compare(usedStates[a]?.val ?? null, usedStates[b]?.val ?? null),
+                                    );
+                                } else if (sorting.includes('names')) {
                                     //names
-                                    counter.listItems.sort(function (a, b) {
-                                        return collator.compare(getName(a), getName(b));
-                                    });
+                                    counter.listItems.sort((a, b) => collator.compare(getName(a), getName(b)));
                                 } else {
                                     //parentNames
-                                    counter.listItems.sort(function (a, b) {
-                                        return collator.compare(
+                                    counter.listItems.sort((a, b) =>
+                                        collator.compare(
                                             getParentName(a, createParentNamesListMode),
                                             getParentName(b, createParentNamesListMode),
-                                        );
-                                    });
+                                        ),
+                                    );
                                 }
-                                if (sorting.indexOf('desc') > -1) counter.listItems.reverse();
+                                if (sorting.includes('desc')) {
+                                    counter.listItems.reverse();
+                                }
                                 that.log.info(
-                                    'COUNTER ' +
-                                        listName +
-                                        ' ' +
-                                        counter.name +
-                                        ': ' +
-                                        counter.listItems.length +
-                                        ' of ' +
-                                        lists[listIndex].listItems.length,
+                                    `COUNTER ${listName} ${counter.name}: ${counter.listItems.length} of ${
+                                        lists[listIndex].listItems.length
+                                    }`,
                                 );
                                 //--Set States
                                 let separator = that.config.lists[configListIndex].separator || ', ';
-                                let objId =
-                                    'Lists.' +
-                                    idEncodePointAllowed(listName) +
-                                    '.' +
-                                    idEncodePointAllowed(counter.name);
+                                let objId = `Lists.${idEncodePointAllowed(listName)}.${idEncodePointAllowed(
+                                    counter.name,
+                                )}`;
                                 await that.setStateValue(objId, { val: counter.listItems.length, ack: true });
-                                objId =
-                                    'Lists.' +
-                                    idEncodePointAllowed(listName) +
-                                    '.' +
-                                    idEncodePointAllowed(counter.name) +
-                                    '_LIST';
+                                objId = `Lists.${idEncodePointAllowed(listName)}.${idEncodePointAllowed(
+                                    counter.name,
+                                )}_LIST`;
                                 await that.setStateValue(objId, { val: counter.listItems.join(separator), ack: true });
-                                objId =
-                                    'Lists.' +
-                                    idEncodePointAllowed(listName) +
-                                    '.' +
-                                    idEncodePointAllowed(counter.name) +
-                                    '_LIST_JSON';
+                                objId = `Lists.${idEncodePointAllowed(listName)}.${idEncodePointAllowed(
+                                    counter.name,
+                                )}_LIST_JSON`;
                                 await that.setStateValue(objId, { val: JSON.stringify(counter.listItems), ack: true });
                                 //--Set States of LIST_WITH_VALUES
                                 if (that.config.lists[configListIndex].createValuesList) {
@@ -2180,15 +2148,12 @@ class Iqontrol extends utils.Adapter {
                                     ) {
                                         let value = getPlainTextWithUnit(counter.listItems[counterListItemIndex], this);
                                         counterListWithValues.push(
-                                            counter.listItems[counterListItemIndex] + ': ' + value,
+                                            `${counter.listItems[counterListItemIndex]}: ${value}`,
                                         );
                                     }
-                                    objId =
-                                        'Lists.' +
-                                        idEncodePointAllowed(listName) +
-                                        '.' +
-                                        idEncodePointAllowed(counter.name) +
-                                        '_LIST_WITH_VALUES';
+                                    objId = `Lists.${idEncodePointAllowed(listName)}.${idEncodePointAllowed(
+                                        counter.name,
+                                    )}_LIST_WITH_VALUES`;
                                     await that.setStateValue(objId, {
                                         val: counterListWithValues.join(separator),
                                         ack: true,
@@ -2216,7 +2181,7 @@ class Iqontrol extends utils.Adapter {
                                             names.push(getName(counter.listItems[counterListItemIndex]));
                                             if (that.config.lists[configListIndex].createValuesList) {
                                                 namesWithValues.push(
-                                                    getName(counter.listItems[counterListItemIndex]) + ': ' + value,
+                                                    `${getName(counter.listItems[counterListItemIndex])}: ${value}`,
                                                 );
                                             }
                                         }
@@ -2229,49 +2194,33 @@ class Iqontrol extends utils.Adapter {
                                             );
                                             if (that.config.lists[configListIndex].createValuesList) {
                                                 parentNamesWithValues.push(
-                                                    getParentName(
+                                                    `${getParentName(
                                                         counter.listItems[counterListItemIndex],
                                                         createParentNamesListMode,
-                                                    ) +
-                                                        ': ' +
-                                                        value,
+                                                    )}: ${value}`,
                                                 );
                                             }
                                         }
                                     }
                                     //-- --Sorting
-                                    if (sorting.indexOf('values') == -1) {
+                                    if (!sorting.includes('values')) {
                                         //Do not re-sort, if sorting by values is active
-                                        names.sort(function (a, b) {
-                                            return collator.compare(a, b);
-                                        });
-                                        namesWithValues.sort(function (a, b) {
-                                            return collator.compare(a, b);
-                                        });
-                                        parentNames.sort(function (a, b) {
-                                            return collator.compare(a, b);
-                                        });
-                                        parentNamesWithValues.sort(function (a, b) {
-                                            return collator.compare(a, b);
-                                        });
+                                        names.sort((a, b) => collator.compare(a, b));
+                                        namesWithValues.sort((a, b) => collator.compare(a, b));
+                                        parentNames.sort((a, b) => collator.compare(a, b));
+                                        parentNamesWithValues.sort((a, b) => collator.compare(a, b));
                                     }
                                     if (that.config.lists[configListIndex].createNamesList) {
-                                        objId =
-                                            'Lists.' +
-                                            idEncodePointAllowed(listName) +
-                                            '.' +
-                                            idEncodePointAllowed(counter.name) +
-                                            '_NAMES_LIST';
+                                        objId = `Lists.${idEncodePointAllowed(listName)}.${idEncodePointAllowed(
+                                            counter.name,
+                                        )}_NAMES_LIST`;
                                         await that.setStateValue(objId, { val: names.join(separator), ack: true });
                                         //objId = "Lists." + idEncodePointAllowed(listName) + "." + idEncodePointAllowed(counter.name) + "_NAMES_LIST_JSON";
                                         //await that.setStateValue(objId, {val: JSON.stringify(names), ack: true});
                                         if (that.config.lists[configListIndex].createValuesList) {
-                                            objId =
-                                                'Lists.' +
-                                                idEncodePointAllowed(listName) +
-                                                '.' +
-                                                idEncodePointAllowed(counter.name) +
-                                                '_NAMES_LIST_WITH_VALUES';
+                                            objId = `Lists.${idEncodePointAllowed(listName)}.${idEncodePointAllowed(
+                                                counter.name,
+                                            )}_NAMES_LIST_WITH_VALUES`;
                                             await that.setStateValue(objId, {
                                                 val: namesWithValues.join(separator),
                                                 ack: true,
@@ -2279,12 +2228,9 @@ class Iqontrol extends utils.Adapter {
                                         }
                                     }
                                     if (that.config.lists[configListIndex].createParentNamesList) {
-                                        objId =
-                                            'Lists.' +
-                                            idEncodePointAllowed(listName) +
-                                            '.' +
-                                            idEncodePointAllowed(counter.name) +
-                                            '_PARENTNAMES_LIST';
+                                        objId = `Lists.${idEncodePointAllowed(listName)}.${idEncodePointAllowed(
+                                            counter.name,
+                                        )}_PARENTNAMES_LIST`;
                                         await that.setStateValue(objId, {
                                             val: parentNames.join(separator),
                                             ack: true,
@@ -2292,12 +2238,9 @@ class Iqontrol extends utils.Adapter {
                                         //objId = "Lists." + idEncodePointAllowed(listName) + "." + idEncodePointAllowed(counter.name) + "_PARENTNAMES_LIST_JSON";
                                         //await that.setStateValue(objId, {val: JSON.stringify(parentNames), ack: true});
                                         if (that.config.lists[configListIndex].createValuesList) {
-                                            objId =
-                                                'Lists.' +
-                                                idEncodePointAllowed(listName) +
-                                                '.' +
-                                                idEncodePointAllowed(counter.name) +
-                                                '_PARENTNAMES_LIST_WITH_VALUES';
+                                            objId = `Lists.${idEncodePointAllowed(listName)}.${idEncodePointAllowed(
+                                                counter.name,
+                                            )}_PARENTNAMES_LIST_WITH_VALUES`;
                                             await that.setStateValue(objId, {
                                                 val: parentNamesWithValues.join(separator),
                                                 ack: true,
@@ -2308,10 +2251,10 @@ class Iqontrol extends utils.Adapter {
                                 //-- -- -- --Call repeatTimeouts (for conditions, that contain distances to timestamps as argument, the counterFunction has to be called again after that distance)
                                 counter.repeatTimeouts = removeDuplicates(counter.repeatTimeouts);
                                 if (
-                                    triggeredBy != 'triggeredByRepeatTimeout' &&
-                                    triggeredBy != 'triggeredByInterval' &&
-                                    triggeredBy != 'triggeredByCreation'
-                                )
+                                    triggeredBy !== 'triggeredByRepeatTimeout' &&
+                                    triggeredBy !== 'triggeredByInterval' &&
+                                    triggeredBy !== 'triggeredByCreation'
+                                ) {
                                     for (
                                         let repeatTimeoutIndex = 0;
                                         repeatTimeoutIndex < counter.repeatTimeouts.length;
@@ -2325,45 +2268,43 @@ class Iqontrol extends utils.Adapter {
                                                 //Closure--> (everything declared inside keeps its value as ist is at the time the function is created)
                                                 let _listIndex = listIndex;
                                                 that.log.debug(
-                                                    'set trigger repeat-timeout for list ' +
-                                                        lists[_listIndex].name +
-                                                        ' to ' +
-                                                        parseInt(counter.repeatTimeouts[repeatTimeoutIndex] + 's'),
+                                                    `set trigger repeat-timeout for list ${
+                                                        lists[_listIndex].name
+                                                    } to ${parseInt(`${counter.repeatTimeouts[repeatTimeoutIndex]}s`)}`,
                                                 );
                                                 setTimeout(
                                                     function () {
-                                                        if (!lists[_listIndex].counterTimeout)
-                                                            lists[_listIndex].counterTimeout = setTimeout(function () {
-                                                                //Debouncing
-                                                                for (
-                                                                    let counterFunctionIndex = 0;
-                                                                    counterFunctionIndex <
-                                                                    lists[_listIndex].counterFunctions.length;
-                                                                    counterFunctionIndex++
-                                                                ) {
-                                                                    lists[_listIndex].counterFunctions[
-                                                                        counterFunctionIndex
-                                                                    ](
-                                                                        lists[_listIndex].listItems,
-                                                                        'triggeredByRepeatTimeout',
-                                                                    );
-                                                                }
-                                                                lists[_listIndex].counterTimeout = false;
-                                                            }, 200);
+                                                        lists[_listIndex].counterTimeout ||= setTimeout(() => {
+                                                            // Debouncing
+                                                            for (
+                                                                let counterFunctionIndex = 0;
+                                                                counterFunctionIndex <
+                                                                lists[_listIndex].counterFunctions.length;
+                                                                counterFunctionIndex++
+                                                            ) {
+                                                                lists[_listIndex].counterFunctions[
+                                                                    counterFunctionIndex
+                                                                ](
+                                                                    lists[_listIndex].listItems,
+                                                                    'triggeredByRepeatTimeout',
+                                                                );
+                                                            }
+                                                            lists[_listIndex].counterTimeout = false;
+                                                        }, 200);
                                                     },
                                                     parseInt(counter.repeatTimeouts[repeatTimeoutIndex] * 1000),
                                                 );
-                                            })(); //<--End Closure
+                                            })(); // <--End Closure
                                         }
                                     }
-                            }; //<-- End of ##### COUNTER FUNCTION #####
+                                }
+                            }; // <-- End of ##### COUNTER FUNCTION #####
                             lists[listIndex].counterFunctions.push(counterFunction);
-                        })(); //<--End Closure
+                        })(); // <--End Closure
                     }
+                }
                 //--Subscribe to the list items
-                this.log.debug(
-                    '...subscribing to items of list ' + listName + ' (' + listItems.length + ' objects)...',
-                );
+                this.log.debug(`...subscribing to items of list ${listName} (${listItems.length} objects)...`);
                 this.subscribeForeignStates(listItems);
                 //--Start trigger interval (if activated)
                 if (
@@ -2371,11 +2312,9 @@ class Iqontrol extends utils.Adapter {
                     !isNaN(this.config.lists[configListIndex].triggerInterval)
                 ) {
                     this.log.debug(
-                        '...setting trigger interval of list ' +
-                            listName +
-                            ' to ' +
-                            parseInt(that.config.lists[configListIndex].triggerInterval) +
-                            's...',
+                        `...setting trigger interval of list ${listName} to ${parseInt(
+                            that.config.lists[configListIndex].triggerInterval,
+                        )}s...`,
                     );
                     (function () {
                         //Closure--> (everything declared inside keeps its value as ist is at the time the function is created)
@@ -2383,84 +2322,76 @@ class Iqontrol extends utils.Adapter {
                         triggerIntervals.push(
                             setInterval(
                                 function () {
-                                    if (!lists[_listIndex].counterTimeout)
-                                        lists[_listIndex].counterTimeout = setTimeout(function () {
-                                            //Debouncing
-                                            for (
-                                                let counterFunctionIndex = 0;
-                                                counterFunctionIndex < lists[_listIndex].counterFunctions.length;
-                                                counterFunctionIndex++
-                                            ) {
-                                                lists[_listIndex].counterFunctions[counterFunctionIndex](
-                                                    lists[_listIndex].listItems,
-                                                    'triggeredByInterval',
-                                                );
-                                            }
-                                            lists[_listIndex].counterTimeout = false;
-                                        }, 200);
+                                    lists[_listIndex].counterTimeout ||= setTimeout(() => {
+                                        // Debouncing
+                                        for (
+                                            let counterFunctionIndex = 0;
+                                            counterFunctionIndex < lists[_listIndex].counterFunctions.length;
+                                            counterFunctionIndex++
+                                        ) {
+                                            lists[_listIndex].counterFunctions[counterFunctionIndex](
+                                                lists[_listIndex].listItems,
+                                                'triggeredByInterval',
+                                            );
+                                        }
+                                        lists[_listIndex].counterTimeout = false;
+                                    }, 200);
                                 },
                                 parseInt(that.config.lists[configListIndex].triggerInterval * 1000),
                             ),
                         );
-                    })(); //<--End Closure
+                    })(); // <--End Closure
                 } else {
-                    this.log.debug('...no trigger interval for list ' + listName + '...');
+                    this.log.debug(`...no trigger interval for list ${listName}...`);
                 }
                 //--Call function now one time
-                this.log.debug('...triggering counter functions of list ' + listName + ' by creation...');
+                this.log.debug(`...triggering counter functions of list ${listName} by creation...`);
                 (function () {
                     //Closure--> (everything declared inside keeps its value as ist is at the time the function is created)
                     let _listIndex = listIndex;
-                    setTimeout(function () {
-                        if (!lists[_listIndex].counterTimeout)
-                            lists[_listIndex].counterTimeout = setTimeout(function () {
-                                //Debouncing
-                                for (
-                                    let counterFunctionIndex = 0;
-                                    counterFunctionIndex < lists[_listIndex].counterFunctions.length;
-                                    counterFunctionIndex++
-                                ) {
-                                    that.log.silly(
-                                        '...triggering counter function ' +
-                                            counterFunctionIndex +
-                                            '/' +
-                                            lists[_listIndex].counterFunctions.length +
-                                            ' of list ' +
-                                            lists[_listIndex].name +
-                                            ' by creation NOW...',
-                                    );
-                                    lists[_listIndex].counterFunctions[counterFunctionIndex](
-                                        lists[_listIndex].listItems,
-                                        'triggeredByCreation',
-                                    );
-                                }
-                                lists[_listIndex].counterTimeout = false;
-                            }, 200);
+                    setTimeout(() => {
+                        lists[_listIndex].counterTimeout ||= setTimeout(() => {
+                            //Debouncing
+                            for (
+                                let counterFunctionIndex = 0;
+                                counterFunctionIndex < lists[_listIndex].counterFunctions.length;
+                                counterFunctionIndex++
+                            ) {
+                                that.log.silly(
+                                    `...triggering counter function ${counterFunctionIndex}/${
+                                        lists[_listIndex].counterFunctions.length
+                                    } of list ${lists[_listIndex].name} by creation NOW...`,
+                                );
+                                lists[_listIndex].counterFunctions[counterFunctionIndex](
+                                    lists[_listIndex].listItems,
+                                    'triggeredByCreation',
+                                );
+                            }
+                            lists[_listIndex].counterTimeout = false;
+                        }, 200);
                     }, 200);
-                })(); //<--End Closure
+                })(); // <--End Closure
                 //--##### Calculations #####
-                if (this.config.lists[configListIndex].calculations)
+                if (this.config.lists[configListIndex].calculations) {
                     for (
                         let calculationIndex = 0;
                         calculationIndex < this.config.lists[configListIndex].calculations.length;
                         calculationIndex++
                     ) {
                         this.log.debug(
-                            '...processing calculation ' +
-                                listName +
-                                '_' +
-                                this.config.lists[configListIndex].calculations[calculationIndex].name +
-                                '...',
+                            `...processing calculation ${listName}_${
+                                this.config.lists[configListIndex].calculations[calculationIndex].name
+                            }...`,
                         );
                         let calculationName =
                             this.config.lists[configListIndex].calculations[calculationIndex].name ||
-                            'Calculation ' + calculationIndex.toString();
+                            `Calculation ${calculationIndex.toString()}`;
                         //-- --Create combination-object
                         await that.createOrUpdateObject(
-                            'Lists.' + idEncodePointAllowed(listName) + '.' + idEncodePointAllowed(calculationName),
+                            `Lists.${idEncodePointAllowed(listName)}.${idEncodePointAllowed(calculationName)}`,
                             { type: 'state' },
                             {
-                                name: listName + ' - ' + calculationName,
+                                name: `${listName} - ${calculationName}`,
                                 unit: this.config.lists[configListIndex].calculations[calculationIndex].unit || '',
                                 read: true,
                                 write: false,
@@ -2469,7 +2400,7 @@ class Iqontrol extends utils.Adapter {
                         );
                         //-- --Get used IDs
                         lists[listIndex].calculationItems[calculationIndex] = [];
-                        if (that.config.lists[configListIndex].calculations[calculationIndex].calculationSteps)
+                        if (that.config.lists[configListIndex].calculations[calculationIndex].calculationSteps) {
                             for (
                                 let calculationStepIndex = 0;
                                 calculationStepIndex <
@@ -2483,29 +2414,26 @@ class Iqontrol extends utils.Adapter {
                                     ].id;
                                 lists[listIndex].calculationItems[calculationIndex].push(id);
                             }
-                        //-- --Creating calculationFunctions
+                        }
+                        // -- --Creating calculationFunctions
                         (function () {
-                            //Closure--> (everything declared inside keeps its value as ist is at the time the function is created)
-                            let _configListIndex = configListIndex;
+                            // Closure--> (everything declared inside keeps its value as ist is at the time the function is created)
                             let _calculationIndex = calculationIndex;
                             let calculation = that.config.lists[configListIndex].calculations[_calculationIndex];
                             let calculationFunction = async function (_listItems, triggeredBy) {
                                 // ###### CALCULATION FUNCTION ###### -->
                                 that.log.debug(
-                                    'CALCULATION ' +
-                                        listName +
-                                        ' ' +
-                                        calculation.name +
-                                        ' function started, TRIGGERED BY ' +
-                                        triggeredBy,
+                                    `CALCULATION ${listName} ${calculation.name} function started, TRIGGERED BY ${
+                                        triggeredBy
+                                    }`,
                                 );
-                                calculation.calculationSteps = calculation.calculationSteps || [];
+                                calculation.calculationSteps ||= [];
                                 let result;
                                 let calculationType = null;
                                 let iQontrolDatapointList = null;
                                 let iQontrolListSeparator = null;
                                 //-- -- --Loop through the calculationSteps of this counter
-                                if (calculation.calculationSteps)
+                                if (calculation.calculationSteps) {
                                     for (
                                         let calculationStepIndex = 0;
                                         calculationStepIndex < calculation.calculationSteps.length;
@@ -2519,30 +2447,23 @@ class Iqontrol extends utils.Adapter {
                                                 usedStates[id] = emptyState;
                                             }
                                         }
-                                        let value = usedStates[id] && usedStates[id].val;
+                                        let value = usedStates[id]?.val;
                                         iQontrolDatapointList =
-                                            (iQontrolDatapointList == null ? true : iQontrolDatapointList) &&
-                                            allObjects[id] &&
-                                            allObjects[id].native &&
-                                            allObjects[id].native.iQontrolDatapointList;
+                                            (iQontrolDatapointList ?? true) &&
+                                            allObjects[id]?.native?.iQontrolDatapointList;
                                         if (iQontrolListSeparator == null) {
                                             iQontrolListSeparator =
-                                                (allObjects[id] &&
-                                                    allObjects[id].native &&
-                                                    allObjects[id].native.iQontrolListSeparator) ||
-                                                false;
-                                        } else {
-                                            if (
-                                                (iQontrolListSeparator != iQontrolListSeparator) == null &&
-                                                allObjects[id] &&
-                                                allObjects[id].native &&
-                                                allObjects[id].native.iQontrolListSeparator
-                                            )
-                                                iQontrolListSeparator = false;
+                                                allObjects[id]?.native?.iQontrolListSeparator || false;
+                                        } else if (
+                                            allObjects[id]?.native?.iQontrolListSeparator &&
+                                            iQontrolListSeparator != allObjects[id].native.iQontrolListSeparator
+                                        ) {
+                                            // datapoints use different list separators - lists can't be joined consistently
+                                            iQontrolListSeparator = false;
                                         }
-                                        if (typeof value != udef) {
+                                        if (typeof value !== udef) {
                                             if (iQontrolListSeparator) {
-                                                if (value == null || value == '') {
+                                                if (value == null || value === '') {
                                                     value = [];
                                                 } else {
                                                     value = value.toString().split(iQontrolListSeparator);
@@ -2551,12 +2472,14 @@ class Iqontrol extends utils.Adapter {
                                                 value = tryParseJSON(value);
                                             }
                                         }
-                                        if (typeof value == udef) continue;
+                                        if (typeof value === udef) {
+                                            continue;
+                                        }
                                         if (calculationType == null) {
                                             if (Array.isArray(value)) {
                                                 calculationType = 'arrays';
                                                 result = [];
-                                            } else if (typeof value == 'object') {
+                                            } else if (typeof value === 'object') {
                                                 calculationType = 'objects';
                                                 iQontrolDatapointList = false;
                                                 iQontrolListSeparator = false;
@@ -2566,7 +2489,7 @@ class Iqontrol extends utils.Adapter {
                                                 iQontrolDatapointList = false;
                                                 iQontrolListSeparator = false;
                                                 result = 0;
-                                            } else if (typeof value == 'string') {
+                                            } else if (typeof value === 'string') {
                                                 calculationType = 'string';
                                                 iQontrolDatapointList = false;
                                                 iQontrolListSeparator = false;
@@ -2576,22 +2499,13 @@ class Iqontrol extends utils.Adapter {
                                             }
                                         }
                                         that.log.silly(
-                                            'CALCULATION ' +
-                                                listName +
-                                                '_' +
-                                                calculation.name +
-                                                ' value: ' +
-                                                value +
-                                                ', typeof: ' +
-                                                typeof value +
-                                                ', isArray: ' +
-                                                Array.isArray(value) +
-                                                ', isNaN: ' +
-                                                isNaN(value) +
-                                                ', calculationType: ' +
-                                                calculationType,
+                                            `CALCULATION ${listName}_${calculation.name} value: ${
+                                                value
+                                            }, typeof: ${typeof value}, isArray: ${Array.isArray(
+                                                value,
+                                            )}, isNaN: ${isNaN(value)}, calculationType: ${calculationType}`,
                                         );
-                                        if (calculationType == 'arrays' && Array.isArray(value)) {
+                                        if (calculationType === 'arrays' && Array.isArray(value)) {
                                             switch (calculation.calculationSteps[calculationStepIndex].operator) {
                                                 case '+':
                                                     result = result.concat(value);
@@ -2601,7 +2515,7 @@ class Iqontrol extends utils.Adapter {
                                                     result = result.filter(o => !value.includes(o));
                                                     break;
                                             }
-                                        } else if (calculationType == 'objects' && typeof value == 'object') {
+                                        } else if (calculationType === 'objects' && typeof value === 'object') {
                                             switch (calculation.calculationSteps[calculationStepIndex].operator) {
                                                 case '+':
                                                     Object.assign(result, value);
@@ -2609,12 +2523,14 @@ class Iqontrol extends utils.Adapter {
 
                                                 case '-':
                                                     Object.keys(value).forEach(key => {
-                                                        if (typeof result[key] != 'undefined') delete result[key];
+                                                        if (typeof result[key] !== 'undefined') {
+                                                            delete result[key];
+                                                        }
                                                     });
                                                     break;
                                             }
-                                        } else if (calculationType == 'numbers' && !isNaN(value)) {
-                                            if (!value) value = 0;
+                                        } else if (calculationType === 'numbers' && !isNaN(value)) {
+                                            value ||= 0;
                                             value = parseFloat(value);
                                             switch (calculation.calculationSteps[calculationStepIndex].operator) {
                                                 case '+':
@@ -2629,11 +2545,13 @@ class Iqontrol extends utils.Adapter {
                                                     result *= value;
                                                     break;
 
-                                                case '\/':
-                                                    if (value != 0) result /= value;
+                                                case '/':
+                                                    if (value != 0) {
+                                                        result /= value;
+                                                    }
                                                     break;
                                             }
-                                        } else if (calculationType == 'string' && value != null) {
+                                        } else if (calculationType === 'string' && value != null) {
                                             value = value.toString();
                                             switch (calculation.calculationSteps[calculationStepIndex].operator) {
                                                 case '+':
@@ -2644,20 +2562,14 @@ class Iqontrol extends utils.Adapter {
                                             continue;
                                         }
                                     }
-                                that.log.info('CALCULATION ' + listName + ' ' + calculation.name + ' has changed');
-                                if (calculationType == 'arrays' || calculationType == 'objects') {
+                                }
+                                that.log.info(`CALCULATION ${listName} ${calculation.name} has changed`);
+                                if (calculationType === 'arrays' || calculationType === 'objects') {
                                     that.log.debug(
-                                        'CALCULATION ' +
-                                            listName +
-                                            ' ' +
-                                            calculation.name +
-                                            ' result: ' +
-                                            JSON.stringify(result),
+                                        `CALCULATION ${listName} ${calculation.name} result: ${JSON.stringify(result)}`,
                                     );
                                 } else {
-                                    that.log.debug(
-                                        'CALCULATION ' + listName + ' ' + calculation.name + ' result: ' + result,
-                                    );
+                                    that.log.debug(`CALCULATION ${listName} ${calculation.name} result: ${result}`);
                                 }
                                 //-- -- -- --Create calculation-object and set state
                                 let type = 'number';
@@ -2674,7 +2586,9 @@ class Iqontrol extends utils.Adapter {
                                         } else {
                                             type = 'json';
                                             role = 'list.json';
-                                            if (iQontrolDatapointList) native = { iQontrolDatapointList: true };
+                                            if (iQontrolDatapointList) {
+                                                native = { iQontrolDatapointList: true };
+                                            }
                                             result = JSON.stringify(result);
                                         }
                                         break;
@@ -2684,85 +2598,72 @@ class Iqontrol extends utils.Adapter {
                                         break;
                                 }
                                 await that.createOrUpdateObject(
-                                    'Lists.' +
-                                        idEncodePointAllowed(listName) +
-                                        '.' +
-                                        idEncodePointAllowed(calculation.name),
+                                    `Lists.${idEncodePointAllowed(listName)}.${idEncodePointAllowed(calculation.name)}`,
                                     false,
                                     { type: type, role: role },
                                     native,
                                     result,
                                     true,
                                 );
-                            }; //<-- End of ##### CALCULATION FUNCTION #####
+                            }; // <-- End of ##### CALCULATION FUNCTION #####
                             lists[listIndex].calculationFunctions.push(calculationFunction);
-                        })(); //<--End Closure
+                        })(); // <--End Closure
                         //-- --Subscribe to the calculation items
                         this.log.debug(
-                            '...subscribing to items of calculation ' +
-                                listName +
-                                ' ' +
-                                that.config.lists[configListIndex].calculations[calculationIndex].name +
-                                ' (' +
-                                lists[listIndex].calculationItems[calculationIndex].length +
-                                ' objects)...',
+                            `...subscribing to items of calculation ${listName} ${
+                                that.config.lists[configListIndex].calculations[calculationIndex].name
+                            } (${lists[listIndex].calculationItems[calculationIndex].length} objects)...`,
                         );
                         this.subscribeForeignStates(lists[listIndex].calculationItems[calculationIndex]);
                         //-- --Call function now one time
                         this.log.debug(
-                            '...triggering calculation function ' +
-                                listName +
-                                ' ' +
-                                that.config.lists[configListIndex].calculations[calculationIndex].name +
-                                ' by creation...',
+                            `...triggering calculation function ${listName} ${
+                                that.config.lists[configListIndex].calculations[calculationIndex].name
+                            } by creation...`,
                         );
                         (function () {
                             //Closure--> (everything declared inside keeps its value as ist is at the time the function is created)
                             let _listIndex = listIndex;
                             let _calculationIndex = calculationIndex;
                             setTimeout(function () {
-                                if (!lists[_listIndex].calculationTimeouts[_calculationIndex])
-                                    lists[_listIndex].calculationTimeouts[_calculationIndex] = setTimeout(function () {
-                                        //Debouncing
-                                        that.log.silly(
-                                            '...triggering calculation function ' +
-                                                _calculationIndex +
-                                                ' of list ' +
-                                                lists[_listIndex].name +
-                                                ' by creation NOW...',
-                                        );
-                                        lists[_listIndex].calculationFunctions[_calculationIndex](
-                                            lists[_listIndex].calculationItems[_calculationIndex],
-                                            'triggeredByCreation',
-                                        );
-                                        lists[_listIndex].calculationTimeouts[_calculationIndex] = false;
-                                    }, 200);
+                                lists[_listIndex].calculationTimeouts[_calculationIndex] ||= setTimeout(function () {
+                                    //Debouncing
+                                    that.log.silly(
+                                        `...triggering calculation function ${_calculationIndex} of list ${
+                                            lists[_listIndex].name
+                                        } by creation NOW...`,
+                                    );
+                                    lists[_listIndex].calculationFunctions[_calculationIndex](
+                                        lists[_listIndex].calculationItems[_calculationIndex],
+                                        'triggeredByCreation',
+                                    );
+                                    lists[_listIndex].calculationTimeouts[_calculationIndex] = false;
+                                }, 200);
                             }, 200);
-                        })(); //<--End Closure
+                        })(); // <--End Closure
                     }
+                }
                 //--##### Combinations #####
-                if (this.config.lists[configListIndex].combinations)
+                if (this.config.lists[configListIndex].combinations) {
                     for (
                         let combinationIndex = 0;
                         combinationIndex < this.config.lists[configListIndex].combinations.length;
                         combinationIndex++
                     ) {
                         this.log.debug(
-                            '...processing combination ' +
-                                listName +
-                                ' ' +
-                                this.config.lists[configListIndex].combinations[combinationIndex].name +
-                                '...',
+                            `...processing combination ${listName} ${
+                                this.config.lists[configListIndex].combinations[combinationIndex].name
+                            }...`,
                         );
                         let combinationName =
                             this.config.lists[configListIndex].combinations[combinationIndex].name ||
-                            'Combination ' + combinationIndex.toString();
+                            `Combination ${combinationIndex.toString()}`;
                         //-- --Create combination-object
                         await that.createOrUpdateObject(
-                            'Lists.' + idEncodePointAllowed(listName) + '.' + idEncodePointAllowed(combinationName),
+                            `Lists.${idEncodePointAllowed(listName)}.${idEncodePointAllowed(combinationName)}`,
                             { type: 'state' },
                             {
-                                name: listName + ' - ' + combinationName,
+                                name: `${listName} - ${combinationName}`,
                                 type: 'string',
                                 role: 'text',
                                 unit: this.config.lists[configListIndex].combinations[combinationIndex].unit || '',
@@ -2773,7 +2674,7 @@ class Iqontrol extends utils.Adapter {
                         );
                         //-- --Get used IDs
                         lists[listIndex].combinationItems[combinationIndex] = [];
-                        if (that.config.lists[configListIndex].combinations[combinationIndex].combinationSteps)
+                        if (that.config.lists[configListIndex].combinations[combinationIndex].combinationSteps) {
                             for (
                                 let combinationStepIndex = 0;
                                 combinationStepIndex <
@@ -2787,6 +2688,7 @@ class Iqontrol extends utils.Adapter {
                                     ].id;
                                 lists[listIndex].combinationItems[combinationIndex].push(id);
                             }
+                        }
                         //-- --Creating combinationFunctions
                         (function () {
                             //Closure--> (everything declared inside keeps its value as ist is at the time the function is created)
@@ -2794,17 +2696,14 @@ class Iqontrol extends utils.Adapter {
                             let combinationFunction = async function (_listItems, triggeredBy) {
                                 // ###### COMBINATION FUNCTION ###### -->
                                 that.log.debug(
-                                    'COMBINATION ' +
-                                        listName +
-                                        '_' +
-                                        combination.name +
-                                        ' function started, TRIGGERED BY ' +
-                                        triggeredBy,
+                                    `COMBINATION ${listName}_${combination.name} function started, TRIGGERED BY ${
+                                        triggeredBy
+                                    }`,
                                 );
-                                combination.combinationSteps = combination.combinationSteps || [];
+                                combination.combinationSteps ||= [];
                                 let result = '';
                                 //-- -- --Loop through the combinationSteps of this combination
-                                if (combination.combinationSteps)
+                                if (combination.combinationSteps) {
                                     for (
                                         let combinationStepIndex = 0;
                                         combinationStepIndex < combination.combinationSteps.length;
@@ -2823,10 +2722,8 @@ class Iqontrol extends utils.Adapter {
                                             case 'valuelistValue':
                                                 value = usedStates[id] && usedStates[id].val;
                                                 if (
-                                                    allObjects[id] &&
-                                                    allObjects[id].common &&
-                                                    allObjects[id].common.states &&
-                                                    typeof allObjects[id].common.states[value] != 'undefined'
+                                                    allObjects[id]?.common?.states &&
+                                                    typeof allObjects[id].common.states[value] !== 'undefined'
                                                 ) {
                                                     value = allObjects[id].common.states[value];
                                                 }
@@ -2841,8 +2738,7 @@ class Iqontrol extends utils.Adapter {
                                                 break;
 
                                             case 'lcs':
-                                                value =
-                                                    (new Date() - ((usedStates[id] && usedStates[id].lc) || 0)) / 1000;
+                                                value = (new Date().getTime() - (usedStates[id]?.lc || 0)) / 1000;
                                                 break;
 
                                             case 'ts':
@@ -2850,8 +2746,7 @@ class Iqontrol extends utils.Adapter {
                                                 break;
 
                                             case 'tss':
-                                                value =
-                                                    (new Date() - ((usedStates[id] && usedStates[id].lc) || 0)) / 1000;
+                                                value = (new Date().getTime() - (usedStates[id]?.lc || 0)) / 1000;
                                                 break;
 
                                             case 'value':
@@ -2860,20 +2755,17 @@ class Iqontrol extends utils.Adapter {
                                                 value = usedStates[id] && usedStates[id].val;
                                                 break;
                                         }
-                                        if (typeof value == udef) continue;
+                                        if (typeof value === udef) {
+                                            continue;
+                                        }
                                         let onlyIfOperator =
                                             combination.combinationSteps[combinationStepIndex].onlyIfOperator;
                                         that.log.silly(
-                                            'COMBINATION ' +
-                                                listName +
-                                                '_' +
-                                                combination.name +
-                                                ' value: ' +
-                                                value +
-                                                ', onlyIfOperator: ' +
-                                                onlyIfOperator +
-                                                ', onlyIfValue: ' +
-                                                combination.combinationSteps[combinationStepIndex].onlyIfValue,
+                                            `COMBINATION ${listName}_${combination.name} value: ${
+                                                value
+                                            }, onlyIfOperator: ${onlyIfOperator}, onlyIfValue: ${
+                                                combination.combinationSteps[combinationStepIndex].onlyIfValue
+                                            }`,
                                         );
                                         if (
                                             !onlyIfOperator ||
@@ -2883,18 +2775,15 @@ class Iqontrol extends utils.Adapter {
                                                 combination.combinationSteps[combinationStepIndex].onlyIfValue,
                                             )
                                         ) {
-                                            if (combination.combinationSteps[combinationStepIndex].prefix)
+                                            if (combination.combinationSteps[combinationStepIndex].prefix) {
                                                 result += combination.combinationSteps[combinationStepIndex].prefix;
+                                            }
                                             if (!combination.combinationSteps[combinationStepIndex].onlyIfJustPrefix) {
                                                 let iQontrolDatapointList =
-                                                    allObjects[id] &&
-                                                    allObjects[id].native &&
-                                                    allObjects[id].native.iQontrolDatapointList;
+                                                    allObjects[id]?.native?.iQontrolDatapointList;
                                                 let iQontrolListSeparator =
-                                                    allObjects[id] &&
-                                                    allObjects[id].native &&
-                                                    allObjects[id].native.iQontrolListSeparator;
-                                                if (typeof value != udef) {
+                                                    allObjects[id]?.native?.iQontrolListSeparator;
+                                                if (typeof value !== udef) {
                                                     if (iQontrolListSeparator) {
                                                         if (value == null) {
                                                             value = [];
@@ -2911,9 +2800,9 @@ class Iqontrol extends utils.Adapter {
                                                                 iQontrolListSeparator ||
                                                                 ', ',
                                                         );
-                                                    } else if (typeof value == 'object') {
+                                                    } else if (typeof value === 'object') {
                                                         let valueArray = [];
-                                                        for (valueItem in value) {
+                                                        for (let valueItem in value) {
                                                             valueArray.push(JSON.stringify(value[valueItem]));
                                                         }
                                                         result += valueArray.join(
@@ -2930,91 +2819,79 @@ class Iqontrol extends utils.Adapter {
                                             if (
                                                 !combination.combinationSteps[combinationStepIndex].onlyIfJustPrefix &&
                                                 combination.combinationSteps[combinationStepIndex].postfix
-                                            )
+                                            ) {
                                                 result += combination.combinationSteps[combinationStepIndex].postfix;
+                                            }
                                         } else {
-                                            if (combination.combinationSteps[combinationStepIndex].onlyIfElse)
+                                            if (combination.combinationSteps[combinationStepIndex].onlyIfElse) {
                                                 result += combination.combinationSteps[combinationStepIndex].onlyIfElse;
+                                            }
                                         }
                                     }
-                                that.log.info('COMBINATION ' + listName + ' ' + combination.name + ' has changed');
-                                that.log.debug(
-                                    'COMBINATION ' + listName + ' ' + combination.name + ' result: ' + result,
-                                );
+                                }
+                                that.log.info(`COMBINATION ${listName} ${combination.name} has changed`);
+                                that.log.debug(`COMBINATION ${listName} ${combination.name} result: ${result}`);
                                 //-- -- -- --Set States
                                 result = result.replace(/\\r/g, '\r').replace(/\\n/g, '\n');
                                 result = result.replace(/[\r\n]+$/, ''); //remove trailing new line and cr characters
                                 await that.setStateValue(
-                                    'Lists.' +
-                                        idEncodePointAllowed(listName) +
-                                        '.' +
-                                        idEncodePointAllowed(combination.name),
+                                    `Lists.${idEncodePointAllowed(listName)}.${idEncodePointAllowed(combination.name)}`,
                                     { val: result, ack: true },
                                 );
-                            }; //<-- End of ##### COMBINATION FUNCTION #####
+                            }; // <-- End of ##### COMBINATION FUNCTION #####
                             lists[listIndex].combinationFunctions.push(combinationFunction);
-                        })(); //<--End Closure
+                        })(); // <--End Closure
                         //-- --Subscribe to the combination items
                         this.log.debug(
-                            '...subscribing to items of combination ' +
-                                listName +
-                                ' ' +
-                                that.config.lists[configListIndex].combinations[combinationIndex].name +
-                                ' (' +
-                                lists[listIndex].combinationItems[combinationIndex].length +
-                                ' objects)...',
+                            `...subscribing to items of combination ${listName} ${
+                                that.config.lists[configListIndex].combinations[combinationIndex].name
+                            } (${lists[listIndex].combinationItems[combinationIndex].length} objects)...`,
                         );
                         this.subscribeForeignStates(lists[listIndex].combinationItems[combinationIndex]);
                         //-- --Call function now one time
                         this.log.debug(
-                            '...triggering combination function ' +
-                                listName +
-                                ' ' +
-                                that.config.lists[configListIndex].combinations[combinationIndex].name +
-                                ' by creation...',
+                            `...triggering combination function ${listName} ${
+                                that.config.lists[configListIndex].combinations[combinationIndex].name
+                            } by creation...`,
                         );
                         (function () {
                             //Closure--> (everything declared inside keeps its value as ist is at the time the function is created)
                             let _listIndex = listIndex;
                             let _combinationIndex = combinationIndex;
                             setTimeout(function () {
-                                if (!lists[_listIndex].combinationTimeouts[_combinationIndex])
-                                    lists[_listIndex].combinationTimeouts[_combinationIndex] = setTimeout(function () {
-                                        //Debouncing
-                                        that.log.silly(
-                                            '...triggering combination function ' +
-                                                _combinationIndex +
-                                                ' of list ' +
-                                                lists[_listIndex].name +
-                                                ' by creation NOW...',
-                                        );
-                                        lists[_listIndex].combinationFunctions[_combinationIndex](
-                                            lists[_listIndex].combinationItems[_combinationIndex],
-                                            'triggeredByCreation',
-                                        );
-                                        lists[_listIndex].combinationTimeouts[_combinationIndex] = false;
-                                    }, 200);
+                                lists[_listIndex].combinationTimeouts[_combinationIndex] ||= setTimeout(function () {
+                                    //Debouncing
+                                    that.log.silly(
+                                        `...triggering combination function ${_combinationIndex} of list ${
+                                            lists[_listIndex].name
+                                        } by creation NOW...`,
+                                    );
+                                    lists[_listIndex].combinationFunctions[_combinationIndex](
+                                        lists[_listIndex].combinationItems[_combinationIndex],
+                                        'triggeredByCreation',
+                                    );
+                                    lists[_listIndex].combinationTimeouts[_combinationIndex] = false;
+                                }, 200);
                             }, 200);
-                        })(); //<--End Closure
+                        })(); // <--End Closure
                     }
+                }
                 //--##### Logs #####
-                if (this.config.lists[configListIndex].logs)
+                if (this.config.lists[configListIndex].logs) {
                     for (let logIndex = 0; logIndex < this.config.lists[configListIndex].logs.length; logIndex++) {
                         this.log.debug(
-                            '...processing log ' +
-                                listName +
-                                ' ' +
-                                this.config.lists[configListIndex].logs[logIndex].name +
-                                '...',
+                            `...processing log ${listName} ${
+                                this.config.lists[configListIndex].logs[logIndex].name
+                            }...`,
                         );
                         let logName =
-                            this.config.lists[configListIndex].logs[logIndex].name || 'Log ' + logIndex.toString();
+                            this.config.lists[configListIndex].logs[logIndex].name || `Log ${logIndex.toString()}`;
                         //-- --Create log-object
                         await that.createOrUpdateObject(
-                            'Lists.' + idEncodePointAllowed(listName) + '.' + idEncodePointAllowed(logName),
+                            `Lists.${idEncodePointAllowed(listName)}.${idEncodePointAllowed(logName)}`,
                             { type: 'state' },
                             {
-                                name: listName + ' - ' + logName,
+                                name: `${listName} - ${logName}`,
                                 type: 'json',
                                 role: 'table',
                                 read: true,
@@ -3023,10 +2900,10 @@ class Iqontrol extends utils.Adapter {
                             },
                         );
                         await that.createOrUpdateObject(
-                            'Lists.' + idEncodePointAllowed(listName) + '.' + idEncodePointAllowed(logName) + '_COUNT',
+                            `Lists.${idEncodePointAllowed(listName)}.${idEncodePointAllowed(logName)}_COUNT`,
                             { type: 'state' },
                             {
-                                name: listName + ' - ' + logName + ' - COUNT',
+                                name: `${listName} - ${logName} - COUNT`,
                                 type: 'number',
                                 role: 'indicator.count',
                                 read: true,
@@ -3035,10 +2912,10 @@ class Iqontrol extends utils.Adapter {
                             },
                         );
                         await that.createOrUpdateObject(
-                            'Lists.' + idEncodePointAllowed(listName) + '.' + idEncodePointAllowed(logName) + '_CLEAR',
+                            `Lists.${idEncodePointAllowed(listName)}.${idEncodePointAllowed(logName)}_CLEAR`,
                             { type: 'state' },
                             {
-                                name: listName + ' - ' + logName + ' - CLEAR',
+                                name: `${listName} - ${logName} - CLEAR`,
                                 type: 'boolean',
                                 role: 'button',
                                 read: true,
@@ -3048,7 +2925,7 @@ class Iqontrol extends utils.Adapter {
                         );
                         //-- --Get used IDs
                         lists[listIndex].logItems[logIndex] = [];
-                        if (that.config.lists[configListIndex].logs[logIndex].onChangeIds)
+                        if (that.config.lists[configListIndex].logs[logIndex].onChangeIds) {
                             for (
                                 let onChangeIdIndex = 0;
                                 onChangeIdIndex < that.config.lists[configListIndex].logs[logIndex].onChangeIds.length;
@@ -3056,60 +2933,47 @@ class Iqontrol extends utils.Adapter {
                             ) {
                                 let id =
                                     that.config.lists[configListIndex].logs[logIndex].onChangeIds[onChangeIdIndex].id;
-                                if (id && id != '' && lists[listIndex].logItems[logIndex].indexOf(id) == -1)
+                                if (id && !lists[listIndex].logItems[logIndex].includes(id)) {
                                     lists[listIndex].logItems[logIndex].push(id);
+                                }
                             }
+                        }
                         if (
                             that.config.lists[configListIndex].logs[logIndex].onChangeAddAllLogStepIds &&
                             that.config.lists[configListIndex].logs[logIndex].logSteps
-                        )
+                        ) {
                             for (
                                 let logStepIndex = 0;
                                 logStepIndex < that.config.lists[configListIndex].logs[logIndex].logSteps.length;
                                 logStepIndex++
                             ) {
                                 let id = that.config.lists[configListIndex].logs[logIndex].logSteps[logStepIndex].id;
-                                if (id && id != '' && lists[listIndex].logItems[logIndex].indexOf(id) == -1)
+                                if (id && !lists[listIndex].logItems[logIndex].includes(id)) {
                                     lists[listIndex].logItems[logIndex].push(id);
+                                }
                             }
+                        }
                         that.log.debug(
-                            'LOG ' +
-                                listName +
-                                '_' +
-                                logName +
-                                ' Added log items: ' +
-                                JSON.stringify(lists[listIndex].logItems),
+                            `LOG ${listName}_${logName} Added log items: ${JSON.stringify(lists[listIndex].logItems)}`,
                         );
                         //-- --Creating logFunctions
                         (function () {
                             //Closure--> (everything declared inside keeps its value as ist is at the time the function is created)
                             let log = that.config.lists[configListIndex].logs[logIndex];
-                            let logStateId =
-                                'Lists.' + idEncodePointAllowed(listName) + '.' + idEncodePointAllowed(log.name);
-                            let foreignLogStateId = that.namespace + '.' + logStateId;
-                            let logCountId =
-                                'Lists.' +
-                                idEncodePointAllowed(listName) +
-                                '.' +
-                                idEncodePointAllowed(logName) +
-                                '_COUNT';
-                            let foreignLogCountId = that.namespace + '.' + logCountId;
-                            let logClearId =
-                                'Lists.' +
-                                idEncodePointAllowed(listName) +
-                                '.' +
-                                idEncodePointAllowed(logName) +
-                                '_CLEAR';
-                            let foreignLogClearId = that.namespace + '.' + logClearId;
+                            let logStateId = `Lists.${idEncodePointAllowed(listName)}.${idEncodePointAllowed(log.name)}`;
+                            let foreignLogStateId = `${that.namespace}.${logStateId}`;
+                            let logCountId = `Lists.${idEncodePointAllowed(listName)}.${idEncodePointAllowed(
+                                logName,
+                            )}_COUNT`;
+                            let foreignLogCountId = `${that.namespace}.${logCountId}`;
+                            let logClearId = `Lists.${idEncodePointAllowed(listName)}.${idEncodePointAllowed(
+                                logName,
+                            )}_CLEAR`;
+                            let foreignLogClearId = `${that.namespace}.${logClearId}`;
                             let logFunction = async function (_listItems, triggeredBy) {
                                 // ###### LOG FUNCTION ###### -->
                                 that.log.debug(
-                                    'LOG ' +
-                                        listName +
-                                        '_' +
-                                        logName +
-                                        ' function started, TRIGGERED BY ' +
-                                        triggeredBy,
+                                    `LOG ${listName}_${logName} function started, TRIGGERED BY ${triggeredBy}`,
                                 );
                                 if (!usedStates[foreignLogCountId]) {
                                     try {
@@ -3119,15 +2983,17 @@ class Iqontrol extends utils.Adapter {
                                         usedStates[foreignLogCountId] = emptyState;
                                     }
                                 }
-                                let logCount =
-                                    (usedStates[foreignLogCountId] && usedStates[foreignLogCountId].val) || 0;
-                                if (isNaN(logCount)) logCount = 0;
-                                else logCount = parseInt(logCount);
+                                let logCount = usedStates[foreignLogCountId]?.val || 0;
+                                if (isNaN(logCount)) {
+                                    logCount = 0;
+                                } else {
+                                    logCount = parseInt(logCount);
+                                }
                                 logCount += 1;
-                                log.logSteps = log.logSteps || [];
+                                log.logSteps ||= [];
                                 let result = {};
                                 //-- -- --Loop through the logSteps of this log
-                                if (log.logSteps)
+                                if (log.logSteps) {
                                     for (let logStepIndex = 0; logStepIndex < log.logSteps.length; logStepIndex++) {
                                         let key = log.logSteps[logStepIndex].key || logStepIndex;
                                         let id = log.logSteps[logStepIndex].id;
@@ -3150,43 +3016,32 @@ class Iqontrol extends utils.Adapter {
                                                 break;
 
                                             case 'octsDMYHMS':
-                                                value =
-                                                    ('0' + date.getDate()).slice(-2) +
-                                                    '.' +
-                                                    ('0' + (date.getMonth() + 1)).slice(-2) +
-                                                    '.' +
-                                                    date.getFullYear() +
-                                                    ', ' +
-                                                    ('0' + date.getHours()).slice(-2) +
-                                                    ':' +
-                                                    ('0' + date.getMinutes()).slice(-2) +
-                                                    ':' +
-                                                    ('0' + date.getSeconds()).slice(-2);
+                                                value = `${`0${date.getDate()}`.slice(-2)}.${`0${`0${date.getMonth() + 1}`.slice(
+                                                    -2,
+                                                )}`.slice(-2)}.${date.getFullYear()}, ${`0${date.getHours()}`.slice(
+                                                    -2,
+                                                )}:${`0${date.getMinutes()}`.slice(-2)}:${`0${date.getSeconds()}`.slice(
+                                                    -2,
+                                                )}`;
                                                 break;
 
                                             case 'octsYMDhMSa':
-                                                value =
-                                                    date.getFullYear() +
-                                                    '-' +
-                                                    ('0' + (date.getMonth() + 1)).slice(-2) +
-                                                    '-' +
-                                                    ('0' + date.getDate()).slice(-2) +
-                                                    ', ' +
-                                                    ('0' + (date.getHours() % 12)).slice(-2) +
-                                                    ':' +
-                                                    ('0' + date.getMinutes()).slice(-2) +
-                                                    ':' +
-                                                    ('0' + date.getSeconds()).slice(-2) +
-                                                    (date.getHours() > 12 ? 'pm' : 'am');
+                                                value = `${date.getFullYear()}-${`0${date.getMonth() + 1}`.slice(
+                                                    -2,
+                                                )}-${`0${date.getDate()}`.slice(-2)}, ${`0${`0${date.getHours() % 12}`.slice(
+                                                    -2,
+                                                )}`.slice(
+                                                    -2,
+                                                )}:${`0${date.getMinutes()}`.slice(-2)}:${`0${date.getSeconds()}`.slice(
+                                                    -2,
+                                                )}${date.getHours() > 12 ? 'pm' : 'am'}`;
                                                 break;
 
                                             case 'valuelistValue':
                                                 value = usedStates[id] && usedStates[id].val;
                                                 if (
-                                                    allObjects[id] &&
-                                                    allObjects[id].common &&
-                                                    allObjects[id].common.states &&
-                                                    typeof allObjects[id].common.states[value] != 'undefined'
+                                                    allObjects[id]?.common?.states &&
+                                                    typeof allObjects[id].common.states[value] !== 'undefined'
                                                 ) {
                                                     value = allObjects[id].common.states[value];
                                                 }
@@ -3201,8 +3056,7 @@ class Iqontrol extends utils.Adapter {
                                                 break;
 
                                             case 'lcs':
-                                                value =
-                                                    (new Date() - ((usedStates[id] && usedStates[id].lc) || 0)) / 1000;
+                                                value = (new Date().getTime() - (usedStates[id]?.lc || 0)) / 1000;
                                                 break;
 
                                             case 'ts':
@@ -3210,8 +3064,7 @@ class Iqontrol extends utils.Adapter {
                                                 break;
 
                                             case 'tss':
-                                                value =
-                                                    (new Date() - ((usedStates[id] && usedStates[id].lc) || 0)) / 1000;
+                                                value = (new Date().getTime() - (usedStates[id]?.lc || 0)) / 1000;
                                                 break;
 
                                             case 'value':
@@ -3221,36 +3074,19 @@ class Iqontrol extends utils.Adapter {
                                                 break;
                                         }
                                         that.log.silly(
-                                            'LOG ' +
-                                                listName +
-                                                ' ' +
-                                                logName +
-                                                ' add entry ' +
-                                                logCount +
-                                                ' step ' +
-                                                logStepIndex +
-                                                ': ' +
-                                                key +
-                                                ' -> ' +
-                                                value +
-                                                ' (' +
-                                                log.logSteps[logStepIndex].type +
-                                                ')',
+                                            `LOG ${listName} ${logName} add entry ${logCount} step ${logStepIndex}: ${
+                                                key
+                                            } -> ${value} (${log.logSteps[logStepIndex].type})`,
                                         );
-                                        if (typeof value != udef && value != null)
+                                        if (typeof value !== udef && value != null) {
                                             value = value.toString().replace(/\\r\\n/g, '\r\n');
+                                        }
                                         result[key] = value;
                                     }
-                                that.log.info('LOG ' + listName + ' ' + logName + ' add entry ' + logCount);
+                                }
+                                that.log.info(`LOG ${listName} ${logName} add entry ${logCount}`);
                                 that.log.debug(
-                                    'LOG ' +
-                                        listName +
-                                        ' ' +
-                                        logName +
-                                        ' add entry ' +
-                                        logCount +
-                                        ': ' +
-                                        JSON.stringify(result),
+                                    `LOG ${listName} ${logName} add entry ${logCount}: ${JSON.stringify(result)}`,
                                 );
                                 //-- -- -- --Set States
                                 if (!usedStates[foreignLogStateId]) {
@@ -3263,40 +3099,38 @@ class Iqontrol extends utils.Adapter {
                                 }
                                 let stateResult = usedStates[foreignLogStateId] && usedStates[foreignLogStateId].val;
                                 stateResult = tryParseJSON(stateResult) || [];
-                                if (log.addTo == 'bottom') stateResult.push(result);
-                                else stateResult.unshift(result);
+                                if (log.addTo === 'bottom') {
+                                    stateResult.push(result);
+                                } else {
+                                    stateResult.unshift(result);
+                                }
                                 await that.setStateValue(logStateId, { val: JSON.stringify(stateResult), ack: true });
                                 await that.setStateValue(logCountId, { val: logCount, ack: true });
-                            }; //<-- End of ##### LOG FUNCTION #####
+                            }; // <-- End of ##### LOG FUNCTION #####
                             let logClearFunction = async function (triggeredBy) {
                                 // ###### LOG CLEAR FUNCTION ###### -->
-                                that.log.debug(
-                                    'LOG ' + listName + '_' + logName + ' CLEAR, TRIGGERED BY ' + triggeredBy,
-                                );
+                                that.log.debug(`LOG ${listName}_${logName} CLEAR, TRIGGERED BY ${triggeredBy}`);
                                 await that.setStateValue(logClearId, { val: true, ack: true });
                                 await that.setStateValue(logCountId, { val: 0, ack: true });
                                 await that.setStateValue(logStateId, { val: JSON.stringify([]), ack: true });
                                 await that.setStateValue(logClearId, { val: false, ack: true });
-                                that.log.debug('LOG ' + listName + ' ' + logName + ' has been cleared');
-                            }; //<-- End of ##### LOG CLEAR FUNCTION #####
+                                that.log.debug(`LOG ${listName} ${logName} has been cleared`);
+                            }; // <-- End of ##### LOG CLEAR FUNCTION #####
                             lists[listIndex].logFunctions.push(logFunction);
                             lists[listIndex].logClearFunctions.push(logClearFunction);
                             lists[listIndex].logClearIds.push(foreignLogClearId);
                             that.subscribeStates([logClearId, logCountId]);
                             that.setStateValue(logClearId, { val: false, ack: true });
-                        })(); //<--End Closure
+                        })(); // <--End Closure
                         //-- --Subscribe to the log items
                         this.log.debug(
-                            '...subscribing to items of log ' +
-                                listName +
-                                ' ' +
-                                that.config.lists[configListIndex].logs[logIndex].name +
-                                ' (' +
-                                lists[listIndex].logItems[logIndex].length +
-                                ' objects)...',
+                            `...subscribing to items of log ${listName} ${
+                                that.config.lists[configListIndex].logs[logIndex].name
+                            } (${lists[listIndex].logItems[logIndex].length} objects)...`,
                         );
                         this.subscribeForeignStates(lists[listIndex].logItems[logIndex]);
                     }
+                }
             }
         }
     }
@@ -3305,7 +3139,7 @@ class Iqontrol extends utils.Adapter {
         for (let listIndex = 0; listIndex < lists.length; listIndex++) {
             //Check, if id belongs to listItems and then trigger counterFunctions
             let triggerItems = lists[listIndex].listItems.concat(lists[listIndex].counterAdditionalTriggerItems);
-            if (triggerItems.indexOf(id) > -1 && !lists[listIndex].counterTimeout) {
+            if (triggerItems.includes(id) && !lists[listIndex].counterTimeout) {
                 (function () {
                     //Closure--> (everything declared inside keeps its value as ist is at the time the function is created)
                     let _id = id;
@@ -3321,7 +3155,7 @@ class Iqontrol extends utils.Adapter {
                         }
                         lists[_listIndex].counterTimeout = false;
                     }, 200);
-                })(); //<--End Closure
+                })(); // <--End Closure
             }
             //Check, if id belongs to calculation
             for (
@@ -3330,7 +3164,7 @@ class Iqontrol extends utils.Adapter {
                 calculationIndex++
             ) {
                 if (
-                    lists[listIndex].calculationItems[calculationIndex].indexOf(id) > -1 &&
+                    lists[listIndex].calculationItems[calculationIndex].includes(id) &&
                     !lists[listIndex].calculationTimeouts[calculationIndex]
                 ) {
                     (function () {
@@ -3346,17 +3180,17 @@ class Iqontrol extends utils.Adapter {
                             );
                             lists[_listIndex].calculationTimeouts[_calculationIndex] = false;
                         }, 200);
-                    })(); //<--End Closure
+                    })(); // <--End Closure
                 }
             }
-            //Check, if id belongs to combinations
+            // Check, if id belongs to combinations
             for (
                 let combinationIndex = 0;
                 combinationIndex < lists[listIndex].combinationFunctions.length;
                 combinationIndex++
             ) {
                 if (
-                    lists[listIndex].combinationItems[combinationIndex].indexOf(id) > -1 &&
+                    lists[listIndex].combinationItems[combinationIndex].includes(id) &&
                     !lists[listIndex].combinationTimeouts[combinationIndex]
                 ) {
                     (function () {
@@ -3372,11 +3206,11 @@ class Iqontrol extends utils.Adapter {
                             );
                             lists[_listIndex].combinationTimeouts[_combinationIndex] = false;
                         }, 200);
-                    })(); //<--End Closure
+                    })(); // <--End Closure
                 }
             }
-            //Check, if id belongs to logs
-            if (usedStates[id] && usedStates[id].val && !usedStates[id].ack)
+            // Check, if id belongs to logs
+            if (usedStates[id]?.val && !usedStates[id].ack) {
                 for (let logIndex = 0; logIndex < lists[listIndex].logClearFunctions.length; logIndex++) {
                     if (lists[listIndex].logClearIds[logIndex] == id && !lists[listIndex].logClearTimeouts[logIndex]) {
                         //Clear
@@ -3390,11 +3224,12 @@ class Iqontrol extends utils.Adapter {
                                 lists[_listIndex].logClearFunctions[_logIndex](_id);
                                 lists[_listIndex].logClearTimeouts[_logIndex] = false;
                             }, 100);
-                        })(); //<--End Closure
+                        })(); // <--End Closure
                     }
                 }
+            }
             for (let logIndex = 0; logIndex < lists[listIndex].logFunctions.length; logIndex++) {
-                if (lists[listIndex].logItems[logIndex].indexOf(id) > -1 && !lists[listIndex].logTimeouts[logIndex]) {
+                if (lists[listIndex].logItems[logIndex].includes(id) && !lists[listIndex].logTimeouts[logIndex]) {
                     //Log
                     (function () {
                         //Closure--> (everything declared inside keeps its value as ist is at the time the function is created)
@@ -3402,13 +3237,15 @@ class Iqontrol extends utils.Adapter {
                         let _listIndex = listIndex;
                         let _logIndex = logIndex;
                         let _debounce = lists[_listIndex].logDebounces[_logIndex] || 1000;
-                        if (isNaN(_debounce)) _debounce = 1000;
+                        if (isNaN(_debounce)) {
+                            _debounce = 1000;
+                        }
                         lists[_listIndex].logTimeouts[_logIndex] = setTimeout(function () {
                             //Debouncing
                             lists[_listIndex].logFunctions[_logIndex](lists[_listIndex].logItems[_logIndex], _id);
                             lists[_listIndex].logTimeouts[_logIndex] = false;
                         }, _debounce);
-                    })(); //<--End Closure
+                    })(); // <--End Closure
                 }
             }
         }
@@ -3416,19 +3253,24 @@ class Iqontrol extends utils.Adapter {
 
     //++++++++++ OBJECT AND STATES-FUNCTIONS ++++++++++
     async createOrUpdateObject(objId, rootOptions, commonOptions, nativeOptions, setValue, ack) {
-        if (!objId) return;
+        if (!objId) {
+            return;
+        }
         objId = objId.replace(/\.$/g, ''); //Remove trailing dot
-        if (ack) ack = true;
-        else ack = false;
+        if (ack) {
+            ack = true;
+        } else {
+            ack = false;
+        }
         let that = this;
         let created = false;
         let obj = {};
         if (allObjects[objId]) {
-            this.log.silly('createOrUpdateObject: Object ' + objId + ' found in allObjects');
+            this.log.silly(`createOrUpdateObject: Object ${objId} found in allObjects`);
             obj = allObjects[objId];
         } else {
             this.log.silly(
-                'createOrUpdateObject: Object ' + objId + ' NOT found in allObjects, fetching it now from ioBroker...',
+                `createOrUpdateObject: Object ${objId} NOT found in allObjects, fetching it now from ioBroker...`,
             );
             try {
                 obj = await this.getObjectAsync(objId);
@@ -3437,7 +3279,7 @@ class Iqontrol extends utils.Adapter {
             }
         }
         if (!obj) {
-            this.log.silly('createOrUpdateObject: Object ' + objId + ' NOT found - creating a new object...');
+            this.log.silly(`createOrUpdateObject: Object ${objId} NOT found - creating a new object...`);
             created = true;
             obj = {
                 type: 'state',
@@ -3451,24 +3293,26 @@ class Iqontrol extends utils.Adapter {
                 native: {},
             };
         }
-        if (rootOptions) Object.assign(obj, rootOptions);
-        if (!obj.common) obj.common = {};
+        if (rootOptions) {
+            Object.assign(obj, rootOptions);
+        }
+        obj.common ||= {};
         if (commonOptions) {
             Object.assign(obj.common, commonOptions);
         }
-        if (!obj.native) obj.native = {};
+        obj.native ||= {};
         if (nativeOptions) {
             Object.assign(obj.native, nativeOptions);
         }
         createdObjects.push(objId);
         await this.setObjectAsync(objId, obj).then(
-            async function () {
-                that.log.debug((created ? 'created' : 'updated') + ' object: ' + objId);
-                if (typeof setValue != udef) await that.setStateValue(objId, { val: setValue, ack: ack });
+            async () => {
+                that.log.debug(`${created ? 'created' : 'updated'} object: ${objId}`);
+                if (typeof setValue !== udef) {
+                    await that.setStateValue(objId, { val: setValue, ack: ack });
+                }
             },
-            function (err) {
-                that.log.error('ERROR ' + (created ? 'creating' : 'updating') + ' object: ' + objId + ': ' + err);
-            },
+            err => that.log.error(`ERROR ${created ? 'creating' : 'updating'} object: ${objId}: ${err}`),
         );
     }
 
@@ -3476,39 +3320,41 @@ class Iqontrol extends utils.Adapter {
         let that = this;
         await this.setStateAsync(id, value).then(
             function () {
-                that.log.debug('set state: ' + id + ' --> ' + JSON.stringify(value));
-                usedStates[that.namespace + '.' + id] = value;
+                that.log.debug(`set state: ${id} --> ${JSON.stringify(value)}`);
+                usedStates[`${that.namespace}.${id}`] = value;
             },
             function (err) {
-                that.log.debug('ERROR setting state ' + id + ' --> ' + JSON.stringify(value) + ': ' + err);
+                that.log.debug(`ERROR setting state ${id} --> ${JSON.stringify(value)}: ${err}`);
             },
         );
     }
 
     async deleteUnusedObjects() {
         let that = this;
-        this.getAdapterObjectsAsync().then(function (obj) {
+        this.getAdapterObjectsAsync().then(obj => {
             that.log.debug('Got Adapter Objects');
-            var ids = [];
-            for (var key in obj) {
-                if (!obj.hasOwnProperty(key)) continue;
+            const ids = [];
+            for (const key in obj) {
+                if (!Object.prototype.hasOwnProperty.call(obj, key)) {
+                    continue;
+                }
                 ids.push(key);
             }
-            that.log.debug('Adapter Object IDs: ' + ids.length + ' (' + ids.toString() + ')');
-            for (var i = 0; i < ids.length; i++) {
+            that.log.debug(`Adapter Object IDs: ${ids.length} (${ids.toString()})`);
+            for (let i = 0; i < ids.length; i++) {
                 let filter = ['Images'];
                 let name = ids[i].substr(that.namespace.length + 1);
-                if (createdObjects.indexOf(name) >= 0 || filter.indexOf(name) >= 0) {
-                    that.log.silly('DeviceObject ' + name + ' ist still in use - not deleting.');
+                if (createdObjects.includes(name) || filter.includes(name)) {
+                    that.log.silly(`DeviceObject ${name} ist still in use - not deleting.`);
                 } else {
                     if (name.substr(-1) !== '.') {
-                        that.log.debug('<<<deleteObject ' + name);
+                        that.log.debug(`<<<deleteObject ${name}`);
                         that.delObjectAsync(name).then(
                             function () {
-                                that.log.debug('deleted Object ' + name);
+                                that.log.debug(`deleted Object ${name}`);
                             },
                             function (err) {
-                                that.log.debug('ERROR deleting Object ' + name + ': ' + err);
+                                that.log.debug(`ERROR deleting Object ${name}: ${err}`);
                             },
                         );
                     }
@@ -3520,33 +3366,31 @@ class Iqontrol extends utils.Adapter {
     async saveThisConfig() {
         this.log.debug('saveThisConfig...');
         //Saving this.config
-        let objId = 'system.adapter.iqontrol.' + this.instance;
+        let objId = `system.adapter.iqontrol.${this.instance}`;
         let obj;
         let that = this;
         if (allObjects[objId]) {
-            this.log.silly('saveThisConfig: Object ' + objId + ' found in allObjects');
+            this.log.silly(`saveThisConfig: Object ${objId} found in allObjects`);
             obj = allObjects[objId];
         } else {
-            this.log.silly(
-                'saveThisConfig: Object ' + objId + ' NOT found in allObjects, fetching it now from ioBroker...',
-            );
+            this.log.silly(`saveThisConfig: Object ${objId} NOT found in allObjects, fetching it now from ioBroker...`);
             obj = { ...(await this.getForeignObjectAsync(objId)) };
         }
         if (!obj || !obj.common || !obj.native) {
             this.log.error(
-                'saveThisConfig: Object ' +
-                    objId +
-                    ' NOT found in ioBroker Objects or common or native part is missing! ERROR',
+                `saveThisConfig: Object ${
+                    objId
+                } NOT found in ioBroker Objects or common or native part is missing! ERROR`,
             );
         } else {
             Object.assign(obj.native, this.config);
-            this.log.silly('saveThisConfig: writing object ' + objId + ' now to ioBroker...');
+            this.log.silly(`saveThisConfig: writing object ${objId} now to ioBroker...`);
             await this.setForeignObjectAsync(objId, obj, true).then(
                 async function () {
-                    that.log.debug('saveThisConfig: Updated object: ' + objId);
+                    that.log.debug(`saveThisConfig: Updated object: ${objId}`);
                 },
                 function (err) {
-                    that.log.error('saveThisConfig: ERROR updating object: ' + objId + ': ' + err);
+                    that.log.error(`saveThisConfig: ERROR updating object: ${objId}: ${err}`);
                 },
             );
         }
@@ -3562,8 +3406,8 @@ class Iqontrol extends utils.Adapter {
         this.setState('info.connection', { val: false, ack: true });
 
         let systemConfig = await this.getForeignObjectAsync('system.config');
-        systemLanguage = (systemConfig && systemConfig.common && systemConfig.common.language) || 'en';
-        this.log.info('systemLanguage = ' + systemLanguage);
+        systemLanguage = systemConfig?.common?.language || 'en';
+        this.log.info(`systemLanguage = ${systemLanguage}`);
 
         this.log.info('Creating Passphrase...');
         await this.createPassphrase();
@@ -3584,7 +3428,7 @@ class Iqontrol extends utils.Adapter {
                 ...(await this.getForeignObjectsAsync('', 'enum')),
                 ...(await this.getForeignObjectsAsync('', 'instance')),
             };
-            this.log.debug('fetched ' + Object.keys(allObjects).length + ' objects from ioBroker.');
+            this.log.debug(`fetched ${Object.keys(allObjects).length} objects from ioBroker.`);
             await this.createLists();
         } else {
             this.log.info('Lists deactivated.');
@@ -3651,6 +3495,7 @@ class Iqontrol extends utils.Adapter {
     //++++++++++ SOCKET-FUNCTIONS ++++++++++
     /**
      * Is called when adapter shuts down - callback has to be called under any circumstances!
+     *
      * @param {() => void} callback
      */
     onUnload(callback) {
@@ -3663,13 +3508,14 @@ class Iqontrol extends utils.Adapter {
             triggerIntervals = [];
             this.log.info('cleaned everything up...');
             callback();
-        } catch (e) {
+        } catch {
             callback();
         }
     }
 
     /**
      * Is called if a subscribed object changes
+     *
      * @param {string} id
      * @param {ioBroker.Object | null | undefined} obj
      */
@@ -3682,13 +3528,16 @@ class Iqontrol extends utils.Adapter {
             } else {
                 // The object was deleted
                 this.log.info(`object ${id} deleted`);
-                if (allObjects[id]) delete allObjects.id;
+                if (allObjects[id]) {
+                    delete allObjects.id;
+                }
             }
         }
     }
 
     /**
      * Is called if a subscribed state changes
+     *
      * @param {string} id
      * @param {ioBroker.State | null | undefined} state
      */
@@ -3699,7 +3548,7 @@ class Iqontrol extends utils.Adapter {
                 `state ${id} updated: ${state.val} (ack = ${state.ack}) ts = ${state.ts} lc = ${state.lc} state changed: ${state.ts == state.lc}`,
             );
             switch (id) {
-                case this.namespace + '.Popup.CLEAR':
+                case `${this.namespace}.Popup.CLEAR`:
                     this.log.info('Popup.CLEAR');
                     this.setState('Popup.Message', { val: '', ack: true });
                     this.setState('Popup.PersistentMessage', { val: '', ack: true });
@@ -3717,30 +3566,33 @@ class Iqontrol extends utils.Adapter {
                     this.setState('Popup.ClickedDestinationState', { val: '', ack: true });
                     break;
 
-                case this.namespace + '.Popup.PersistentMessage':
-                    var persistentMessageState = await this.getStateAsync('Popup.PersistentMessage');
-                    if (persistentMessageState && persistentMessageState.val) {
+                case `${this.namespace}.Popup.PersistentMessage`: {
+                    const persistentMessageState = await this.getStateAsync('Popup.PersistentMessage');
+                    if (persistentMessageState?.val) {
                         this.log.info('Persistent Popup Message received');
-                        var persistentMessage = persistentMessageState.val;
-                        var persistentExpires = ((await this.getStateAsync('Popup.PersistentExpires')) || {}).val || 0;
-                        var persistentUndismissible =
+                        const persistentMessage = persistentMessageState.val;
+                        const persistentExpires =
+                            ((await this.getStateAsync('Popup.PersistentExpires')) || {}).val || 0;
+                        const persistentUndismissible =
                             ((await this.getStateAsync('Popup.PersistentUndismissible')) || {}).val || false;
-                        var persistentId = ((await this.getStateAsync('Popup.PersistentId')) || {}).val || '';
-                        var persistentMessagesPending =
+                        const persistentId = ((await this.getStateAsync('Popup.PersistentId')) || {}).val || '';
+                        let persistentMessagesPending =
                             ((await this.getStateAsync('Popup.PERSISTENT_MESSAGES_PENDING')) || {}).val || '[]';
-                        if (!Array.isArray(persistentMessagesPending)) persistentMessagesPending = [];
-                        var duration = ((await this.getStateAsync('Popup.Duration')) || {}).val || 0;
-                        var clickKeepsOpen = ((await this.getStateAsync('Popup.ClickKeepsOpen')) || {}).val || false;
-                        var clickedValue = ((await this.getStateAsync('Popup.ClickedValue')) || {}).val || '';
-                        var clickedDestinationState =
+                        if (!Array.isArray(persistentMessagesPending)) {
+                            persistentMessagesPending = [];
+                        }
+                        const duration = ((await this.getStateAsync('Popup.Duration')) || {}).val || 0;
+                        const clickKeepsOpen = ((await this.getStateAsync('Popup.ClickKeepsOpen')) || {}).val || false;
+                        const clickedValue = ((await this.getStateAsync('Popup.ClickedValue')) || {}).val || '';
+                        const clickedDestinationState =
                             ((await this.getStateAsync('Popup.ClickedDestinationState')) || {}).val || '';
-                        var buttonNames = ((await this.getStateAsync('Popup.ButtonNames')) || {}).val || '';
-                        var buttonValues = ((await this.getStateAsync('Popup.ButtonValues')) || {}).val || '';
-                        var buttonDestinationStates =
+                        const buttonNames = ((await this.getStateAsync('Popup.ButtonNames')) || {}).val || '';
+                        const buttonValues = ((await this.getStateAsync('Popup.ButtonValues')) || {}).val || '';
+                        const buttonDestinationStates =
                             ((await this.getStateAsync('Popup.ButtonDestinationStates')) || {}).val || '';
-                        var buttonCloses = ((await this.getStateAsync('Popup.ButtonCloses')) || {}).val || '';
-                        var buttonClears = ((await this.getStateAsync('Popup.ButtonClears')) || {}).val || '';
-                        var popup = {
+                        const buttonCloses = ((await this.getStateAsync('Popup.ButtonCloses')) || {}).val || '';
+                        const buttonClears = ((await this.getStateAsync('Popup.ButtonClears')) || {}).val || '';
+                        const popup = {
                             message: persistentMessage,
                             persistentExpires: persistentExpires,
                             persistentUndismissible: persistentUndismissible,
@@ -3763,26 +3615,30 @@ class Iqontrol extends utils.Adapter {
                         });
                     }
                     break;
+                }
 
-                case this.namespace + '.Popup.PERSISTENT_MESSAGES_DELETE_ID':
-                    var deleteId = ((await this.getStateAsync('Popup.PERSISTENT_MESSAGES_DELETE_ID')) || {}).val;
-                    this.log.info('PERSISTENT_MESSAGES_DELETE_ID: ' + deleteId);
-                    if (deleteId === null || deleteId == 'null') {
+                case `${this.namespace}.Popup.PERSISTENT_MESSAGES_DELETE_ID`: {
+                    const deleteId = ((await this.getStateAsync('Popup.PERSISTENT_MESSAGES_DELETE_ID')) || {}).val;
+                    this.log.info(`PERSISTENT_MESSAGES_DELETE_ID: ${deleteId}`);
+                    if (deleteId === null || deleteId === 'null') {
                         this.log.info('Deleting all pending persistent messages');
                         this.setState('Popup.PERSISTENT_MESSAGES_PENDING', { val: [], ack: true });
                     } else {
-                        var persistentMessagesPending =
+                        let persistentMessagesPending1 =
                             ((await this.getStateAsync('Popup.PERSISTENT_MESSAGES_PENDING')) || {}).val || '[]';
-                        if (!Array.isArray(persistentMessagesPending)) persistentMessagesPending = [];
-                        persistentMessagesPending = persistentMessagesPending.filter(function (item) {
+                        if (!Array.isArray(persistentMessagesPending1)) {
+                            persistentMessagesPending1 = [];
+                        }
+                        persistentMessagesPending1 = persistentMessagesPending1.filter(function (item) {
                             return item.persistentId != deleteId;
                         });
                         this.setState('Popup.PERSISTENT_MESSAGES_PENDING', {
-                            val: persistentMessagesPending,
+                            val: persistentMessagesPending1,
                             ack: true,
                         });
                     }
                     break;
+                }
             }
             if (this.config.listsActive && state.lc == state.ts) {
                 //State has CHANGED
@@ -3802,6 +3658,7 @@ class Iqontrol extends utils.Adapter {
     /**
      * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
      * Using this method requires "common.message" property to be set to true in io-package.json
+     *
      * @param {ioBroker.Message} obj
      */
     onMessage(obj) {
@@ -3858,43 +3715,45 @@ class Iqontrol extends utils.Adapter {
                     if (typeof obj.message.PopupButtonClears !== 'undefined') {
                         PopupButtonClears = obj.message.PopupButtonClears;
                     }
-                    this.log.debug('PopupDuration: ' + PopupDuration);
+                    this.log.debug(`PopupDuration: ${PopupDuration}`);
                     this.setState('Popup.Duration', { val: PopupDuration, ack: true });
-                    this.log.debug('PopupPersistentExpires: ' + PopupPersistentExpires);
+                    this.log.debug(`PopupPersistentExpires: ${PopupPersistentExpires}`);
                     this.setState('Popup.PersistentExpires', { val: PopupPersistentExpires, ack: true });
-                    this.log.debug('PopupPersistentUndismissible: ' + PopupPersistentUndismissible);
+                    this.log.debug(`PopupPersistentUndismissible: ${PopupPersistentUndismissible}`);
                     this.setState('Popup.PersistentUndismissible', { val: PopupPersistentUndismissible, ack: true });
-                    this.log.debug('PopupPersistentId: ' + PopupPersistentId);
+                    this.log.debug(`PopupPersistentId: ${PopupPersistentId}`);
                     this.setState('Popup.PersistentId', { val: PopupPersistentId, ack: true });
-                    this.log.debug('PopupClickKeepsOpen: ' + PopupClickKeepsOpen);
+                    this.log.debug(`PopupClickKeepsOpen: ${PopupClickKeepsOpen}`);
                     this.setState('Popup.ClickKeepsOpen', { val: PopupClickKeepsOpen, ack: true });
-                    this.log.debug('PopupClickedValue: ' + PopupClickedValue);
+                    this.log.debug(`PopupClickedValue: ${PopupClickedValue}`);
                     this.setState('Popup.ClickedValue', { val: PopupClickedValue, ack: true });
-                    this.log.debug('PopupClickedDestinationState: ' + PopupClickedDestinationState);
+                    this.log.debug(`PopupClickedDestinationState: ${PopupClickedDestinationState}`);
                     this.setState('Popup.ClickedDestinationState', { val: PopupClickedDestinationState, ack: true });
-                    this.log.debug('PopupButtonNames: ' + PopupButtonNames);
+                    this.log.debug(`PopupButtonNames: ${PopupButtonNames}`);
                     this.setState('Popup.ButtonNames', { val: PopupButtonNames, ack: true });
-                    this.log.debug('PopupButtonValues: ' + PopupButtonValues);
+                    this.log.debug(`PopupButtonValues: ${PopupButtonValues}`);
                     this.setState('Popup.ButtonValues', { val: PopupButtonValues, ack: true });
-                    this.log.debug('PopupButtonDestinationStates: ' + PopupButtonDestinationStates);
+                    this.log.debug(`PopupButtonDestinationStates: ${PopupButtonDestinationStates}`);
                     this.setState('Popup.ButtonDestinationStates', { val: PopupButtonDestinationStates, ack: true });
-                    this.log.debug('PopupButtonCloses: ' + PopupButtonCloses);
+                    this.log.debug(`PopupButtonCloses: ${PopupButtonCloses}`);
                     this.setState('Popup.ButtonCloses', { val: PopupButtonCloses, ack: true });
-                    this.log.debug('PopupButtonClears: ' + PopupButtonClears);
+                    this.log.debug(`PopupButtonClears: ${PopupButtonClears}`);
                     this.setState('Popup.ButtonClears', { val: PopupButtonClears, ack: true });
                     if (obj.message.PopupPersistentMessage) {
-                        this.log.info('Popup Persistent Message: ' + obj.message.PopupPersistentMessage);
+                        this.log.info(`Popup Persistent Message: ${obj.message.PopupPersistentMessage}`);
                         this.setState('Popup.PersistentMessage', {
                             val: obj.message.PopupPersistentMessage,
                             ack: true,
                         });
                     } else {
-                        this.log.info('Popup Message: ' + obj.message.PopupMessage);
+                        this.log.info(`Popup Message: ${obj.message.PopupMessage}`);
                         this.setState('Popup.Message', { val: obj.message.PopupMessage, ack: true });
                     }
                 }
                 // Send response in callback if required
-                if (obj.callback) this.sendTo(obj.from, obj.command, 'Message received', obj.callback);
+                if (obj.callback) {
+                    this.sendTo(obj.from, obj.command, 'Message received', obj.callback);
+                }
             }
         }
     }
@@ -3903,7 +3762,7 @@ class Iqontrol extends utils.Adapter {
 if (module.parent) {
     // Export the constructor in compact mode
     /**
-     * @param {Partial<ioBroker.AdapterOptions>} [options={}]
+     * @param {Partial<ioBroker.AdapterOptions>} [options]
      */
     module.exports = options => new Iqontrol(options);
 } else {

@@ -2231,6 +2231,8 @@ This device has some special predefined size- and display-settings to show a tex
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+- (@GermanBluefox) Refactoring
 
 ### 3.1.0 (2026-09-20)
 
