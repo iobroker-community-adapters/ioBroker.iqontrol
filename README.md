@@ -2233,6 +2233,8 @@ This device has some special predefined size- and display-settings to show a tex
 -->
 ### **WORK IN PROGRESS**
 - (@GermanBluefox) Refactoring
+- (@GermanBluefox) Repository checker issues have been fixed (#566)
+- (@GermanBluefox) node.js 26 has been added to the test matrix (#566)
 
 ### 3.1.0 (2026-09-20)
 
