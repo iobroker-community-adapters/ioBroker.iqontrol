@@ -157,20 +157,21 @@
         "onlyWWW": false,
         "blockly": true,
         "messagebox": true,
-        "subscribe": "messagebox",
-        "localLink": "%web_protocol%://%ip%:%web_port%/iqontrol/index.html?namespace=iqontrol.%instance%",
-        "welcomeScreen": false,
-        "welcomeScreenPro": {
-            "link": "iqontrol/index.html",
-            "name": "iQontrol",
-            "img": "iqontrol.admin/iqontrol.png",
-            "color": "gray",
-            "order": 1,
-            "localLink": false
+        "localLinks": {
+            "_default": "%web_protocol%://%ip%:%web_port%/iqontrol/index.html?namespace=iqontrol.%instance%"
         },
+        "welcomeScreenPro": [
+            {
+                "link": "iqontrol/index.html",
+                "name": "iQontrol",
+                "img": "iqontrol.admin/iqontrol.png",
+                "color": "gray",
+                "order": 1,
+                "localLink": false
+            }
+        ],
         "noIntro": false,
         "supportCustoms": true,
-        "jsonCustom": true,
         "plugins": {
             "sentry": {
                 "dsn": "https://1bc875a7a671418dbe4d5765e4e3cd2f@sentry.iobroker.net/96"
