@@ -1,0 +1,20 @@
+# Dependencies / generated
+node_modules/
+package-lock.json
+.dev-server/
+admin/words.js
+www/words.js
+
+# Third-party libraries
+*.min.js
+*.min.css
+admin/codemirror/
+admin/fancytree/
+admin/materialize-colorpicker/
+admin/jszip.min.js
+admin/jquery.ui.touch-punch.min.js
+admin/type-detector.js
+admin/conn.js
+www/conn.js
+www/jquery/
+www/images/widgets/flot-chart/flot-chart.js

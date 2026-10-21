@@ -1,95 +1,104 @@
 :root {
-  --background-color: rgb(104 164 255 / 0%);
-  --clock-edge-color: rgb(16 16 16);
-  --clock-face-color: rgb(255 255 255);
-  --clock-hands-color: rgba(132,132,132,1);
-  --clock-hands-seconds-color: rgba(255,103,103,1);
+    --background-color: rgb(104 164 255 / 0%);
+    --clock-edge-color: rgb(16 16 16);
+    --clock-face-color: rgb(255 255 255);
+    --clock-hands-color: rgba(132, 132, 132, 1);
+    --clock-hands-seconds-color: rgba(255, 103, 103, 1);
 }
 * {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
 body {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	min-height: 100vh;
-	background: var(--background-color);
-	overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: var(--background-color);
+    overflow: hidden;
 }
 .clockWrapper {
-	width:min(100vw, 100vh);
-	height:min(100vw, 100vh);
-	padding: 10px;
+    width: min(100vw, 100vh);
+    height: min(100vw, 100vh);
+    padding: 10px;
 }
 .clock {
-	width: 100%;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background: var(--clock-face-color) url(clockface.png);
-	background-size: cover;
-	border-radius: 50%;
-	border: calc(min(100vw, 100vh) * 0.05) solid var(--clock-edge-color);
-	box-shadow: inset 0 0 calc(min(100vw, 100vh) * 0.06) rgba(0,0,0,0.1),
-		0 calc(min(100vw, 100vh) * 0.05) calc(min(100vw, 100vh) * 0.05) rgba(0,0,0,0.2),
-		0 0 0 calc(min(100vw, 100vh) * 0.006) var(--clock-edge-color);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--clock-face-color) url(clockface.png);
+    background-size: cover;
+    border-radius: 50%;
+    border: calc(min(100vw, 100vh) * 0.05) solid var(--clock-edge-color);
+    box-shadow:
+        inset 0 0 calc(min(100vw, 100vh) * 0.06) rgba(0, 0, 0, 0.1),
+        0 calc(min(100vw, 100vh) * 0.05) calc(min(100vw, 100vh) * 0.05) rgba(0, 0, 0, 0.2),
+        0 0 0 calc(min(100vw, 100vh) * 0.006) var(--clock-edge-color);
 }
-.clock::before { /*dot*/
-	content: '';
-	position: absolute;
-	width: calc(min(100vw, 100vh) * 0.04);
-	height: calc(min(100vw, 100vh) * 0.04);
-	background: var(--clock-hands-color);
-	border: calc(min(100vw, 100vh) * 0.005) solid var(--clock-face-color);
-	z-index: 100000;
-	border-radius: 50%;
+.clock::before {
+    /*dot*/
+    content: '';
+    position: absolute;
+    width: calc(min(100vw, 100vh) * 0.04);
+    height: calc(min(100vw, 100vh) * 0.04);
+    background: var(--clock-hands-color);
+    border: calc(min(100vw, 100vh) * 0.005) solid var(--clock-face-color);
+    z-index: 100000;
+    border-radius: 50%;
 }
-.hour, .min, .sec {
-	position: absolute;
+.hour,
+.min,
+.sec {
+    position: absolute;
 }
-.hour, .hh {
-	width: calc(min(100vw, 100vh) * 0.46);
-	height: calc(min(100vw, 100vh) * 0.46);
+.hour,
+.hh {
+    width: calc(min(100vw, 100vh) * 0.46);
+    height: calc(min(100vw, 100vh) * 0.46);
 }
 .hh::before {
-	content: '';
-	position: absolute;
-	width: calc(min(100vw, 100vh) * 0.023);
-	height: calc(min(100vw, 100vh) * 0.23);
-	background: var(--clock-hands-color);
-	z-index: 10;
-	border-radius: calc(min(100vw, 100vh) * 0.017) calc(min(100vw, 100vh) * 0.017) 0 0;
+    content: '';
+    position: absolute;
+    width: calc(min(100vw, 100vh) * 0.023);
+    height: calc(min(100vw, 100vh) * 0.23);
+    background: var(--clock-hands-color);
+    z-index: 10;
+    border-radius: calc(min(100vw, 100vh) * 0.017) calc(min(100vw, 100vh) * 0.017) 0 0;
 }
-.min, .mm {
-	width: calc(min(100vw, 100vh) * 0.54);
-	height: calc(min(100vw, 100vh) * 0.54);
+.min,
+.mm {
+    width: calc(min(100vw, 100vh) * 0.54);
+    height: calc(min(100vw, 100vh) * 0.54);
 }
 .mm::before {
-	content: '';
-	position: absolute;
-	width: calc(min(100vw, 100vh) * 0.01);
-	height: calc(min(100vw, 100vh) * 0.26);
-	background: var(--clock-hands-color);
-	z-index: 11;
-	border-radius: calc(min(100vw, 100vh) * 0.017) calc(min(100vw, 100vh) * 0.017) 0 0;
+    content: '';
+    position: absolute;
+    width: calc(min(100vw, 100vh) * 0.01);
+    height: calc(min(100vw, 100vh) * 0.26);
+    background: var(--clock-hands-color);
+    z-index: 11;
+    border-radius: calc(min(100vw, 100vh) * 0.017) calc(min(100vw, 100vh) * 0.017) 0 0;
 }
-.sec, .ss {
-	width: calc(min(100vw, 100vh) * 0.66);
-	height: calc(min(100vw, 100vh) * 0.66);
+.sec,
+.ss {
+    width: calc(min(100vw, 100vh) * 0.66);
+    height: calc(min(100vw, 100vh) * 0.66);
 }
 .ss::before {
-	content: '';
-	position: absolute;
-	width: calc(min(100vw, 100vh) * 0.006);
-	height: calc(min(100vw, 100vh) * 0.43);
-	background: var(--clock-hands-seconds-color);
-	z-index: 12;
-	border-radius: calc(min(100vw, 100vh) * 0.017) calc(min(100vw, 100vh) * 0.017) 0 0;
+    content: '';
+    position: absolute;
+    width: calc(min(100vw, 100vh) * 0.006);
+    height: calc(min(100vw, 100vh) * 0.43);
+    background: var(--clock-hands-seconds-color);
+    z-index: 12;
+    border-radius: calc(min(100vw, 100vh) * 0.017) calc(min(100vw, 100vh) * 0.017) 0 0;
 }
-.hh, .mm, .ss {
-	display: flex;
-	justify-content: center;
-	position: absolute;
-	border-radius: 50%;
+.hh,
+.mm,
+.ss {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    border-radius: 50%;
 }

@@ -1,22 +1,24 @@
 <html>
-<head>
-	<script type="text/javascript">
-		function getUrlParameter(name) {
-			name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-			var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-			var results = regex.exec(location.search);
-			return results === null ? null : decodeURIComponent(results[1].replace(/\+/g, ' '));
-		};
-		var webProtocol = location.protocol;
-		var webHostname  = location.hostname;
-		var webPort = getUrlParameter("webPort");
-		webPort = (isNaN(webPort) ? 8082 : Number(webPort));
-		var namespace = "iqontrol.0";
-		location.replace(webProtocol + "//" + webHostname  + ":" + webPort + "/iqontrol/index.html?namespace=" + namespace);
-		//%web_protocol%://%ip%:%web_port%/iqontrol/index.html?namespace=iqontrol.0
-	</script>
-</head>
-<body>
-	Redirecting...
-</body>
+    <head>
+        <script type="text/javascript">
+            function getUrlParameter(name) {
+                name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+                var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+                var results = regex.exec(location.search);
+                return results === null ? null : decodeURIComponent(results[1].replace(/\+/g, ' '));
+            }
+            var webProtocol = location.protocol;
+            var webHostname = location.hostname;
+            var webPort = getUrlParameter('webPort');
+            webPort = isNaN(webPort) ? 8082 : Number(webPort);
+            var namespace = 'iqontrol.0';
+            location.replace(
+                webProtocol + '//' + webHostname + ':' + webPort + '/iqontrol/index.html?namespace=' + namespace,
+            );
+            //%web_protocol%://%ip%:%web_port%/iqontrol/index.html?namespace=iqontrol.0
+        </script>
+    </head>
+    <body>
+        Redirecting...
+    </body>
 </html>

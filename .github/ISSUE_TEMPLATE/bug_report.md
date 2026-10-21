@@ -11,6 +11,7 @@ A clear and concise description of what the bug is.
 
 **To Reproduce**  
 Steps to reproduce the behavior:
+
 1. Go to '...'
 2. Click on '...'
 3. Scroll down to '....'
@@ -22,11 +23,12 @@ A clear and concise description of what you expected to happen.
 **Screenshots & Logfiles**  
 If applicable, add screenshots and logfiles to help explain your problem.
 
-**Versions:**  
- - Adapter version: <adapter-version>
- - JS-Controller version: <js-controller-version> <!-- determine this with `iobroker -v` on the console -->
- - Node version: <node-version> <!-- determine this with `node -v` on the console -->
- - Operating system: <os-name>
+**Versions:**
+
+- Adapter version: <adapter-version>
+- JS-Controller version: <js-controller-version> <!-- determine this with `iobroker -v` on the console -->
+- Node version: <node-version> <!-- determine this with `node -v` on the console -->
+- Operating system: <os-name>
 
 **Additional context**  
 Add any other context about the problem here.

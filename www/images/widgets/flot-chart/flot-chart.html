@@ -1,9 +1,17 @@
 <!doctype html>
-<html style="width: 100%; height: 100%; margin: 0px;">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<meta name="widget-description" content="This is a flot-chart widget. It will display the history of the datapoint linked to STATE or LEVEL. You need to have a history adapter up and running and the linked Datapoint needs to be logged to get this working! (C) by Sebastian Bormann"/> 
-	<meta name="widget-urlparameters" content= "chartColor/rgb(104,164,255)/Chart color/color;
+<html style="width: 100%; height: 100%; margin: 0px">
+    <head>
+        <meta
+            http-equiv="Content-Type"
+            content="text/html; charset=UTF-8"
+        />
+        <meta
+            name="widget-description"
+            content="This is a flot-chart widget. It will display the history of the datapoint linked to STATE or LEVEL. You need to have a history adapter up and running and the linked Datapoint needs to be logged to get this working! (C) by Sebastian Bormann"
+        />
+        <meta
+            name="widget-urlparameters"
+            content="chartColor/rgb(104,164,255)/Chart color/color;
 												fill/0.25/Fill area (0-1)/number/0.0,1.0,0.01;
 												range/360/Period of time to display (minutes)/number/1,525600,1;
 												min//Minimum (leave empty to use datapoint-settings);
@@ -32,8 +40,10 @@
 												min3//Minimum (leave empty to use datapoint-settings);
 												max3//Maximum (leave empty to use datapoint-settings);
 												ignoreMinMax3/false/Ignore Min and Max from datapoint settings (automatic scaling). Min and Max set here are always respected./checkbox"
-	/>
-	<meta name="widget-options" content="{
+        />
+        <meta
+            name="widget-options"
+            content="{
 												'sizeEnlarged': 'fullWidthIfEnlarged fullHeightIfEnlarged', 
 												'bigIconEnlarged': 'true', 
 												'popupAllowPostMessage': 'true', 
@@ -44,313 +54,391 @@
 												'tileEnlargeShowInPressureMenuInactive': 'true', 
 												'tileEnlargeShowInPressureMenuActive': 'true'
 										}"
-	/>
-	<link rel="stylesheet" href="flot-chart.css" />
-	<script type="text/javascript" src="../../../../lib/js/jquery-1.11.2.min.js"></script>
-	<script type="text/javascript" src="../../../../lib/js/socket.io.js"></script>
-	<script type="text/javascript" src="../../../../_socket/info.js"></script>
-	<title>iQontrol Flot-Chart Widget</title>
-</head>
-<body style="width: 100%; height: 100%; margin: 0px; overflow: hidden;">
-	<div id="chart_container">
-		<!--div id="server-disconnect"><div class="splash-screen-text">...</div><div class="splash-screen-circle-outer"></div><div class="splash-screen-circle-inner"></div></div-->
-		<!--div id="no-connection" style="position: absolute; left: 50%; top: 50%; display: none; font-size: 3em; background: rgba(0, 0, 0, 0.1); border-radius: 10px; text-align: center">No connection to server</div-->
-		<div id="chart_placeholder" class="chart-placeholder"></div>
-		<div id="title" style="position:absolute"></div>
-	</div>
-	<div id="edit" style="display: none">
-		<svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-			<path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path>
-			<path d="M0 0h24v24H0z" fill="none"></path>
-		</svg>
-	</div>
-	<svg style="display: none" title="Reset zoom" id="resetZoom" height="35" width="35" fill="#000000" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 126.308 118.728" enable-background="new 0 0 126.308 118.728" xml:space="preserve">
-		<path fill="#DDDDDD" d="M123.962,99.037c-0.082-0.076-0.172-0.116-0.246-0.181L100.929,76.46l-5.749-5.648c5.875-12.929,5.905-28.35-1.279-41.82  C81.632,6.015,52.957-2.707,29.979,9.555c-0.486,0.257-0.944,0.549-1.418,0.826c-7.41,4.288-13.254,10.305-17.261,17.284  c-2.663-1.367-4.591-2.553-4.868-2.73c0.261,0.17,0.083,0.008-0.245-0.225c-0.237-0.198-0.505-0.352-0.798-0.482  c-0.11-0.056-0.229-0.103-0.324-0.135c-0.253-0.079-0.514-0.11-0.767-0.118c-0.063-0.008-0.11-0.004-0.182-0.004  c-0.221,0.004-0.442,0.027-0.656,0.075c-0.024,0.008-0.047,0.008-0.071,0.016c-1.035,0.257-1.92,1.027-2.256,2.134  c-0.13,0.407-0.154,0.822-0.118,1.225c0,0-0.012,0.012-0.004,0.016c0,0,0,0,0,0.008c0.008,0.355,0.047,0.735,0.142,1.138  L5.259,46.24l1.284,5.544l1.142,4.892l0.367,1.572c0.751,3.265,3.375,4.062,5.825,1.771l5.469-5.109l1.549-1.454l3.563-3.331  l10.954-10.246l0.707-0.66c0.083-0.079,0.139-0.158,0.209-0.237l0.459-0.451l-0.032-0.008c0.285-0.324,0.53-0.695,0.664-1.13  c0.036-0.115,0.048-0.229,0.071-0.34c0.213-0.846,0.047-1.651-0.482-2.331c-0.391-0.581-0.964-1.043-1.684-1.261  c0,0-4.259,0.296-10.384-0.929c1.415-2.062,3.066-3.975,4.947-5.702c1.999-1.829,4.252-3.449,6.749-4.781  c4.687-2.497,9.705-3.746,14.676-3.872c12.131-0.312,24.001,6.069,30.094,17.485c7.713,14.462,3.564,32.133-9.033,41.802  c-0.438,0.332-0.877,0.66-1.327,0.973c-0.174,0.118-0.348,0.236-0.521,0.352c-0.11,0.079-0.229,0.15-0.348,0.225  c-0.593,0.384-1.21,0.735-1.834,1.087c-9.049,4.991-20.302,5.698-30.315,0.894c-1.304-0.629-2.545-1.344-3.73-2.118  c-0.34-0.222-0.684-0.45-1.019-0.688c-0.245-0.079-0.498-0.135-0.771-0.135c-0.447,0.008-0.857,0.139-1.209,0.355l-0.455,0.36  l-7.239,5.643l-0.829,0.644c-0.34,0.411-0.546,0.929-0.546,1.506c0.008,0.485,0.158,0.937,0.411,1.312  c0.355,0.289,0.719,0.577,1.083,0.857c2.505,1.917,5.231,3.611,8.183,5.026c10.437,5.011,21.809,5.82,32.225,3.13  c0.031,0,0.063,0.016,0.103,0.016c0.442-0.119,0.89-0.237,1.328-0.363c3.026-0.886,6.006-2.079,8.898-3.62  c1.165-0.624,2.284-1.3,3.382-2.007c0.15-0.095,0.305-0.189,0.455-0.289c0.32-0.209,0.628-0.431,0.944-0.644  c0.11-0.078,0.216-0.156,0.325-0.232l4.841,4.768l22.066,21.671c0.049,0.05,0.09,0.134,0.14,0.189  c3.776,3.76,10.697,2.926,15.472-1.867C126.878,109.723,127.713,102.788,123.962,99.037z"></path>
-	</svg>
-	<!--div class="loader" style="display: none"></div-->
-	<script type="text/javascript">
-		//Declarations
-		var USE_THIS_DATAPOINT = [];
-		var STATE;
-		var LEVEL;
-		var TEMPERATURE;
-		var SET_TEMPERATURE;
+        />
+        <link
+            rel="stylesheet"
+            href="flot-chart.css"
+        />
+        <script
+            type="text/javascript"
+            src="../../../../lib/js/jquery-1.11.2.min.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="../../../../lib/js/socket.io.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="../../../../_socket/info.js"
+        ></script>
+        <title>iQontrol Flot-Chart Widget</title>
+    </head>
+    <body style="width: 100%; height: 100%; margin: 0px; overflow: hidden">
+        <div id="chart_container">
+            <!--div id="server-disconnect"><div class="splash-screen-text">...</div><div class="splash-screen-circle-outer"></div><div class="splash-screen-circle-inner"></div></div-->
+            <!--div id="no-connection" style="position: absolute; left: 50%; top: 50%; display: none; font-size: 3em; background: rgba(0, 0, 0, 0.1); border-radius: 10px; text-align: center">No connection to server</div-->
+            <div
+                id="chart_placeholder"
+                class="chart-placeholder"
+            ></div>
+            <div
+                id="title"
+                style="position: absolute"
+            ></div>
+        </div>
+        <div
+            id="edit"
+            style="display: none"
+        >
+            <svg
+                fill="#000000"
+                height="24"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path
+                    d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                ></path>
+                <path
+                    d="M0 0h24v24H0z"
+                    fill="none"
+                ></path>
+            </svg>
+        </div>
+        <svg
+            style="display: none"
+            title="Reset zoom"
+            id="resetZoom"
+            height="35"
+            width="35"
+            fill="#000000"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            x="0px"
+            y="0px"
+            viewBox="0 0 126.308 118.728"
+            enable-background="new 0 0 126.308 118.728"
+            xml:space="preserve"
+        >
+            <path
+                fill="#DDDDDD"
+                d="M123.962,99.037c-0.082-0.076-0.172-0.116-0.246-0.181L100.929,76.46l-5.749-5.648c5.875-12.929,5.905-28.35-1.279-41.82  C81.632,6.015,52.957-2.707,29.979,9.555c-0.486,0.257-0.944,0.549-1.418,0.826c-7.41,4.288-13.254,10.305-17.261,17.284  c-2.663-1.367-4.591-2.553-4.868-2.73c0.261,0.17,0.083,0.008-0.245-0.225c-0.237-0.198-0.505-0.352-0.798-0.482  c-0.11-0.056-0.229-0.103-0.324-0.135c-0.253-0.079-0.514-0.11-0.767-0.118c-0.063-0.008-0.11-0.004-0.182-0.004  c-0.221,0.004-0.442,0.027-0.656,0.075c-0.024,0.008-0.047,0.008-0.071,0.016c-1.035,0.257-1.92,1.027-2.256,2.134  c-0.13,0.407-0.154,0.822-0.118,1.225c0,0-0.012,0.012-0.004,0.016c0,0,0,0,0,0.008c0.008,0.355,0.047,0.735,0.142,1.138  L5.259,46.24l1.284,5.544l1.142,4.892l0.367,1.572c0.751,3.265,3.375,4.062,5.825,1.771l5.469-5.109l1.549-1.454l3.563-3.331  l10.954-10.246l0.707-0.66c0.083-0.079,0.139-0.158,0.209-0.237l0.459-0.451l-0.032-0.008c0.285-0.324,0.53-0.695,0.664-1.13  c0.036-0.115,0.048-0.229,0.071-0.34c0.213-0.846,0.047-1.651-0.482-2.331c-0.391-0.581-0.964-1.043-1.684-1.261  c0,0-4.259,0.296-10.384-0.929c1.415-2.062,3.066-3.975,4.947-5.702c1.999-1.829,4.252-3.449,6.749-4.781  c4.687-2.497,9.705-3.746,14.676-3.872c12.131-0.312,24.001,6.069,30.094,17.485c7.713,14.462,3.564,32.133-9.033,41.802  c-0.438,0.332-0.877,0.66-1.327,0.973c-0.174,0.118-0.348,0.236-0.521,0.352c-0.11,0.079-0.229,0.15-0.348,0.225  c-0.593,0.384-1.21,0.735-1.834,1.087c-9.049,4.991-20.302,5.698-30.315,0.894c-1.304-0.629-2.545-1.344-3.73-2.118  c-0.34-0.222-0.684-0.45-1.019-0.688c-0.245-0.079-0.498-0.135-0.771-0.135c-0.447,0.008-0.857,0.139-1.209,0.355l-0.455,0.36  l-7.239,5.643l-0.829,0.644c-0.34,0.411-0.546,0.929-0.546,1.506c0.008,0.485,0.158,0.937,0.411,1.312  c0.355,0.289,0.719,0.577,1.083,0.857c2.505,1.917,5.231,3.611,8.183,5.026c10.437,5.011,21.809,5.82,32.225,3.13  c0.031,0,0.063,0.016,0.103,0.016c0.442-0.119,0.89-0.237,1.328-0.363c3.026-0.886,6.006-2.079,8.898-3.62  c1.165-0.624,2.284-1.3,3.382-2.007c0.15-0.095,0.305-0.189,0.455-0.289c0.32-0.209,0.628-0.431,0.944-0.644  c0.11-0.078,0.216-0.156,0.325-0.232l4.841,4.768l22.066,21.671c0.049,0.05,0.09,0.134,0.14,0.189  c3.776,3.76,10.697,2.926,15.472-1.867C126.878,109.723,127.713,102.788,123.962,99.037z"
+            ></path>
+        </svg>
+        <!--div class="loader" style="display: none"></div-->
+        <script type="text/javascript">
+            //Declarations
+            var USE_THIS_DATAPOINT = [];
+            var STATE;
+            var LEVEL;
+            var TEMPERATURE;
+            var SET_TEMPERATURE;
 
-		//Check for some parameters
-		if(getUrlParameter("fullScreen") == "true"){
-			console.log("Switch to fullScreen-Mode");
-			$('head').append("<style>.chart-placeholder { height: calc(100% + 16px); margin: -8px 0px 0px -8px; }</style>");
-		}
-		
-		//Check, if datapoint is already configured in url-parameter
-		if(getUrlParameter(encodeURI("l[0][id]"))){
-			console.log("Flot-Datapoint in url found - call flot directly");
-			$.getScript("flot-chart.js", function() {
-				console.log("flot-chart.js loaded");
-			});
-		}
+            //Check for some parameters
+            if (getUrlParameter('fullScreen') == 'true') {
+                console.log('Switch to fullScreen-Mode');
+                $('head').append(
+                    '<style>.chart-placeholder { height: calc(100% + 16px); margin: -8px 0px 0px -8px; }</style>',
+                );
+            }
 
-		//Get URL-Parameters
-		var chartColor =  [getUrlParameter("chartColor") || "rgb(104,164,255)"];
-		chartColor.push(getUrlParameter("chartColor2") || "rgba(255,0,0,0.5)");
-		chartColor.push(getUrlParameter("chartColor3") || "rgba(255,0,0,0.5)");
-		var fill = [getUrlParameter("fill") || "0.25"];
-		fill.push(getUrlParameter("fill2") || "0.05");
-		fill.push(getUrlParameter("fill3") || "0.05");
-		var ignoreMinMax = [(getUrlParameter("ignoreMinMax") == "true")];
-		ignoreMinMax.push(getUrlParameter("ignoreMinMax2") == "true");
-		ignoreMinMax.push(getUrlParameter("ignoreMinMax3") == "true");
-		var min = [getUrlParameter("min") || ""];
-		min.push(getUrlParameter("min2") || "");
-		min.push(getUrlParameter("min3") || "");
-		var max = [getUrlParameter("max") || ""];
-		max.push(getUrlParameter("max2") || "");
-		max.push(getUrlParameter("max3") || "");
-		var useMinMaxFromMain = [""];
-		useMinMaxFromMain.push(!(getUrlParameter("useMinMaxFromMain2") == "false"));
-		useMinMaxFromMain.push(!(getUrlParameter("useMinMaxFromMain3") == "false"));
-		
-		var historyInstance = getUrlParameter("historyInstance");
-		var range = getUrlParameter("range") || "360";
-		var showXaxe = getUrlParameter("showXaxe") || "off";
-		var showYaxe = getUrlParameter("showYaxe") || "off";
-		var xticks = getUrlParameter("xticks") || "3";
-		var yticks = getUrlParameter("yticks") || "0";
+            //Check, if datapoint is already configured in url-parameter
+            if (getUrlParameter(encodeURI('l[0][id]'))) {
+                console.log('Flot-Datapoint in url found - call flot directly');
+                $.getScript('flot-chart.js', function () {
+                    console.log('flot-chart.js loaded');
+                });
+            }
 
-		//Subscribe to Datapoints
-		console.log("Subscribe to Datapoints");
-		if(getUrlParameter("useThisDatapoint")) sendPostMessage("getState", getUrlParameter("useThisDatapoint")); else USE_THIS_DATAPOINT[0] = null;
-		if(getUrlParameter("useThisDatapoint2")) sendPostMessage("getState", getUrlParameter("useThisDatapoint2")); else USE_THIS_DATAPOINT[1] = null;
-		if(getUrlParameter("useThisDatapoint3")) sendPostMessage("getState", getUrlParameter("useThisDatapoint3")); else USE_THIS_DATAPOINT[2] = null;
-		sendPostMessage("getWidgetDeviceState", "STATE");
-		sendPostMessage("getWidgetDeviceState", "LEVEL");
-		sendPostMessage("getWidgetDeviceState", "TEMPERATURE");
-		sendPostMessage("getWidgetDeviceState", "SET_TEMPERATURE");
-	
-		//Create configuration
-		function createConfiguration(noAnimation){
-			if(typeof USE_THIS_DATAPOINT[0] == "undefined" || typeof USE_THIS_DATAPOINT[1] == "undefined" || typeof USE_THIS_DATAPOINT[2] == "undefined" || typeof STATE == "undefined" || typeof LEVEL == "undefined" || typeof TEMPERATURE == "undefined" || typeof SET_TEMPERATURE == "undefined") return;
-			var dp = USE_THIS_DATAPOINT[0] || LEVEL || STATE || TEMPERATURE || SET_TEMPERATURE || null;
-			if(dp == null) return;
-			var configurations = {}
-			var datapointCount = 0;
-			for (var datapointIndex = 2; datapointIndex > 0; datapointIndex--){
-				if(USE_THIS_DATAPOINT[datapointIndex]){
-					if(!ignoreMinMax[datapointIndex]){
-						min[datapointIndex] = min[datapointIndex] || USE_THIS_DATAPOINT[datapointIndex].min || "";
-						max[datapointIndex] = max[datapointIndex] || USE_THIS_DATAPOINT[datapointIndex].max || "";
-					}
-					let configuration = {
-						["l[" + datapointCount + "][id]"]: USE_THIS_DATAPOINT[datapointIndex].id, 
-						["l[" + datapointCount + "][offset]"]: "0", 
-						["l[" + datapointCount + "][aggregate]"]: "average", 
-						["l[" + datapointCount + "][smoothing]"]: "0", 
-						["l[" + datapointCount + "][color]"]: chartColor[datapointIndex], 
-						["l[" + datapointCount + "][min]"]: min[datapointIndex], 
-						["l[" + datapointCount + "][max]"]: max[datapointIndex], 
-						["l[" + datapointCount + "][commonYAxis]"]: (datapointCount + 1).toString(), 
-						["l[" + datapointCount + "][thickness]"]: "3", 
-						["l[" + datapointCount + "][shadowsize]"]: "3", 
-						["l[" + datapointCount + "][name]"]: "Chart2", 
-						["l[" + datapointCount + "][yaxe]"]: "off", 
-						["l[" + datapointCount + "][xticks]"]: xticks,
-						["l[" + datapointCount + "][xaxe]"]: "off", 
-						["l[" + datapointCount + "][yticks]"]: yticks, 
-						["l[" + datapointCount + "][chartType]"]: "steps", 
-						["l[" + datapointCount + "][points]"]: "false", 
-						["l[" + datapointCount + "][fill]"]: fill[datapointIndex], 
-						["l[" + datapointCount + "][ignoreNull]"]: "true", 
-						["l[" + datapointCount + "][dashes]"]: "false", 
-						["l[" + datapointCount + "][dashLength]"]: "10", 
-						["l[" + datapointCount + "][spaceLength]"]: "10"
-					};
-					Object.assign(configurations, configuration);
-					datapointCount++;
-				}
-			}
-			datapointIndex = 0;
-			if(!ignoreMinMax[datapointIndex]){
-				min[datapointIndex] = min[datapointIndex] || dp.min || "";
-				max[datapointIndex] = max[datapointIndex] || dp.max || "";
-			}
-			let configuration = {
-				["l[" + datapointCount + "][id]"]: dp.id, 
-				["l[" + datapointCount + "][offset]"]: "0", 
-				["l[" + datapointCount + "][aggregate]"]: "average", 
-				["l[" + datapointCount + "][smoothing]"]: "0", 
-				["l[" + datapointCount + "][color]"]: chartColor[datapointIndex], 
-				["l[" + datapointCount + "][min]"]: min[datapointIndex], 
-				["l[" + datapointCount + "][max]"]: max[datapointIndex], 
-				["l[" + datapointCount + "][commonYAxis]"]: (datapointCount + 1).toString(), 
-				["l[" + datapointCount + "][thickness]"]: "3", 
-				["l[" + datapointCount + "][shadowsize]"]: "3", 
-				["l[" + datapointCount + "][name]"]: "Chart", 
-				["l[" + datapointCount + "][yaxe]"]: "off", 
-				["l[" + datapointCount + "][xticks]"]: xticks,
-				["l[" + datapointCount + "][xaxe]"]: "off", 
-				["l[" + datapointCount + "][yticks]"]: yticks, 
-				["l[" + datapointCount + "][chartType]"]: "steps", 
-				["l[" + datapointCount + "][points]"]: "false", 
-				["l[" + datapointCount + "][fill]"]: fill[datapointIndex], 
-				["l[" + datapointCount + "][ignoreNull]"]: "true", 
-				["l[" + datapointCount + "][dashes]"]: "false", 
-				["l[" + datapointCount + "][dashLength]"]: "10", 
-				["l[" + datapointCount + "][spaceLength]"]: "10", 
-				"timeType": "relative", 
-				"relativeEnd": "now", 
-				"range": range, 
-				"live": "30", 
-				"aggregateType": "step", 
-				"aggregateSpan": "0", 
-				"hoverDetail": "false", 
-				"useComma": "2", 
-				"zoom": "false", 
-				"noedit": "true", 
-				"animation": "1000", 
-				"border_width": "0",
-				"timeFormat": "%H:%M %d.%m."
-			};
-			Object.assign(configurations, configuration);
-			var datapointCount2 = 0;
-			for (var datapointIndex = 2; datapointIndex > 0; datapointIndex--){
-				if(USE_THIS_DATAPOINT[datapointIndex]){
-					if(useMinMaxFromMain[datapointIndex]) configurations["l[" + datapointCount2 + "][commonYAxis]"] = (datapointCount + 1).toString();
-					datapointCount2++;
-				}
-			}
-			if(noAnimation) configurations["animation"] = "0";
-			if(historyInstance) configurations["l[" + datapointCount + "][instance]"] = historyInstance; 
-			if(showXaxe == "bottom" || (showXaxe == "bottomIfBig" && window.innerHeight > 200)){
-				configurations["l[" + datapointCount + "][xaxe]"] = "bottom"; 
-			} else if(showXaxe == "bottomColor" || (showXaxe == "bottomColorIfBig" && window.innerHeight > 200)){
-				configurations["l[" + datapointCount + "][xaxe]"] = "bottomColor"; 
-			} else if(showXaxe == "top" || (showXaxe == "topIfBig" && window.innerHeight > 200)){
-				configurations["l[" + datapointCount + "][xaxe]"] = "top"; 
-			} else if(showXaxe == "topColor" || (showXaxe == "topColorIfBig" && window.innerHeight > 200)){
-				configurations["l[" + datapointCount + "][xaxe]"] = "topColor"; 
-			}
-			if(showYaxe == "right" || (showYaxe == "rightIfBig" && window.innerWidth > 200)){
-				configurations["l[" + datapointCount + "][yaxe]"] = "right"; 
-			} else if(showYaxe == "rightColor" || (showYaxe == "rightColorIfBig" && window.innerWidth > 200)){
-				configurations["l[" + datapointCount + "][yaxe]"] = "rightColor"; 
-			} else if(showYaxe == "left" || (showYaxe == "leftIfBig" && window.innerWidth > 200)){
-				configurations["l[" + datapointCount + "][yaxe]"] = "left"; 
-			} else if(showYaxe == "leftColor" || (showYaxe == "leftColorIfBig" && window.innerWidth > 200)){
-				configurations["l[" + datapointCount + "][yaxe]"] = "leftColor"; 
-			}
-			if((showXaxe + showYaxe).indexOf("IfBig") > -1) reCreateIfBig = true; else reCreateIfBig = false;
-			//Replace URL-Parameters
-			console.log("Replace URL");
-			var configurationArray = [];
-			for(element in configurations){ configurationArray.push(encodeURI(element) + "=" + encodeURI(configurations[element])); }
-			var query = configurationArray.join('&');
-			var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + "?" + query;
-			window.history.pushState({path: newurl}, '', newurl);
-			console.log("Call flot");
-			setTimeout(function(){
-				$.getScript("flot-chart.js", function() {
-					console.log("flot-chart.js loaded");
-					if(configurations["l[0][yaxe]"].indexOf("right") == 0){
-						$('.chart-placeholder').addClass('hasYaxeRight');
-					} else {
-						$('.chart-placeholder').removeClass('hasYaxeRight');
-					}
-					if(configurations["l[0][yaxe]"].indexOf("left") == 0){
-						$('.chart-placeholder').addClass('hasYaxeLeft');
-					} else {
-						$('.chart-placeholder').removeClass('hasYaxeLeft');
-					}
-					if(configurations["l[0][xaxe]"].indexOf("bottom") == 0){
-						$('.chart-placeholder').addClass('hasXaxeBottom');
-					} else {
-						$('.chart-placeholder').removeClass('hasXaxeBottom');
-					}
-					if(configurations["l[0][xaxe]"].indexOf("top") == 0){
-						$('.chart-placeholder').addClass('hasXaxeTop');
-					} else {
-						$('.chart-placeholder').removeClass('hasXaxeTop');
-					}					
-				});
-			}, 100);
-		}
-		
-		//viewport resize event
-		var resizeTimeout = false;
-		var reCreateIfBig = false;
-		window.addEventListener('resize', function(event){
-			if(resizeTimeout) clearTimeout(resizeTimeout);
-			resizeTimeout = setTimeout(function(){
-				resizeTimeout = false;
-				console.log("FLOT resized. New innerWidth: " + window.innerWidth + "px, new innerHeight: " + window.innerHeight + "px.");
-				if(reCreateIfBig) createConfiguration("noAnimation");
-			}, 100);
-		});		
+            //Get URL-Parameters
+            var chartColor = [getUrlParameter('chartColor') || 'rgb(104,164,255)'];
+            chartColor.push(getUrlParameter('chartColor2') || 'rgba(255,0,0,0.5)');
+            chartColor.push(getUrlParameter('chartColor3') || 'rgba(255,0,0,0.5)');
+            var fill = [getUrlParameter('fill') || '0.25'];
+            fill.push(getUrlParameter('fill2') || '0.05');
+            fill.push(getUrlParameter('fill3') || '0.05');
+            var ignoreMinMax = [getUrlParameter('ignoreMinMax') == 'true'];
+            ignoreMinMax.push(getUrlParameter('ignoreMinMax2') == 'true');
+            ignoreMinMax.push(getUrlParameter('ignoreMinMax3') == 'true');
+            var min = [getUrlParameter('min') || ''];
+            min.push(getUrlParameter('min2') || '');
+            min.push(getUrlParameter('min3') || '');
+            var max = [getUrlParameter('max') || ''];
+            max.push(getUrlParameter('max2') || '');
+            max.push(getUrlParameter('max3') || '');
+            var useMinMaxFromMain = [''];
+            useMinMaxFromMain.push(!(getUrlParameter('useMinMaxFromMain2') == 'false'));
+            useMinMaxFromMain.push(!(getUrlParameter('useMinMaxFromMain3') == 'false'));
 
-		//send postMessages
-		function sendPostMessage(command, stateId, value){
-			message = { command: command, stateId: stateId, value: value };
-			window.parent.postMessage(message, "*");
-		}
+            var historyInstance = getUrlParameter('historyInstance');
+            var range = getUrlParameter('range') || '360';
+            var showXaxe = getUrlParameter('showXaxe') || 'off';
+            var showYaxe = getUrlParameter('showYaxe') || 'off';
+            var xticks = getUrlParameter('xticks') || '3';
+            var yticks = getUrlParameter('yticks') || '0';
 
-		//receive postMessages
-		window.addEventListener("message", receivePostMessage, false);
-		function receivePostMessage(event) { //event = {data: message data, origin: url of origin, source: id of sending element}
-			if(event.data && event.data.command) switch(event.data.command){
-				case "getState":
-					if(event.data.stateId) switch(event.data.stateId){
-						case getUrlParameter("useThisDatapoint") || "---undefined---":
-							console.log("Received USE_THIS_DATAPOINT");
-							USE_THIS_DATAPOINT[0] = event.data.value;
-							createConfiguration();
-						break;
+            //Subscribe to Datapoints
+            console.log('Subscribe to Datapoints');
+            if (getUrlParameter('useThisDatapoint')) sendPostMessage('getState', getUrlParameter('useThisDatapoint'));
+            else USE_THIS_DATAPOINT[0] = null;
+            if (getUrlParameter('useThisDatapoint2')) sendPostMessage('getState', getUrlParameter('useThisDatapoint2'));
+            else USE_THIS_DATAPOINT[1] = null;
+            if (getUrlParameter('useThisDatapoint3')) sendPostMessage('getState', getUrlParameter('useThisDatapoint3'));
+            else USE_THIS_DATAPOINT[2] = null;
+            sendPostMessage('getWidgetDeviceState', 'STATE');
+            sendPostMessage('getWidgetDeviceState', 'LEVEL');
+            sendPostMessage('getWidgetDeviceState', 'TEMPERATURE');
+            sendPostMessage('getWidgetDeviceState', 'SET_TEMPERATURE');
 
-						case getUrlParameter("useThisDatapoint2") || "---undefined2---":
-							console.log("Received USE_THIS_DATAPOINT 2");
-							USE_THIS_DATAPOINT[1] = event.data.value;
-							createConfiguration();
-						break;
+            //Create configuration
+            function createConfiguration(noAnimation) {
+                if (
+                    typeof USE_THIS_DATAPOINT[0] == 'undefined' ||
+                    typeof USE_THIS_DATAPOINT[1] == 'undefined' ||
+                    typeof USE_THIS_DATAPOINT[2] == 'undefined' ||
+                    typeof STATE == 'undefined' ||
+                    typeof LEVEL == 'undefined' ||
+                    typeof TEMPERATURE == 'undefined' ||
+                    typeof SET_TEMPERATURE == 'undefined'
+                )
+                    return;
+                var dp = USE_THIS_DATAPOINT[0] || LEVEL || STATE || TEMPERATURE || SET_TEMPERATURE || null;
+                if (dp == null) return;
+                var configurations = {};
+                var datapointCount = 0;
+                for (var datapointIndex = 2; datapointIndex > 0; datapointIndex--) {
+                    if (USE_THIS_DATAPOINT[datapointIndex]) {
+                        if (!ignoreMinMax[datapointIndex]) {
+                            min[datapointIndex] = min[datapointIndex] || USE_THIS_DATAPOINT[datapointIndex].min || '';
+                            max[datapointIndex] = max[datapointIndex] || USE_THIS_DATAPOINT[datapointIndex].max || '';
+                        }
+                        let configuration = {
+                            ['l[' + datapointCount + '][id]']: USE_THIS_DATAPOINT[datapointIndex].id,
+                            ['l[' + datapointCount + '][offset]']: '0',
+                            ['l[' + datapointCount + '][aggregate]']: 'average',
+                            ['l[' + datapointCount + '][smoothing]']: '0',
+                            ['l[' + datapointCount + '][color]']: chartColor[datapointIndex],
+                            ['l[' + datapointCount + '][min]']: min[datapointIndex],
+                            ['l[' + datapointCount + '][max]']: max[datapointIndex],
+                            ['l[' + datapointCount + '][commonYAxis]']: (datapointCount + 1).toString(),
+                            ['l[' + datapointCount + '][thickness]']: '3',
+                            ['l[' + datapointCount + '][shadowsize]']: '3',
+                            ['l[' + datapointCount + '][name]']: 'Chart2',
+                            ['l[' + datapointCount + '][yaxe]']: 'off',
+                            ['l[' + datapointCount + '][xticks]']: xticks,
+                            ['l[' + datapointCount + '][xaxe]']: 'off',
+                            ['l[' + datapointCount + '][yticks]']: yticks,
+                            ['l[' + datapointCount + '][chartType]']: 'steps',
+                            ['l[' + datapointCount + '][points]']: 'false',
+                            ['l[' + datapointCount + '][fill]']: fill[datapointIndex],
+                            ['l[' + datapointCount + '][ignoreNull]']: 'true',
+                            ['l[' + datapointCount + '][dashes]']: 'false',
+                            ['l[' + datapointCount + '][dashLength]']: '10',
+                            ['l[' + datapointCount + '][spaceLength]']: '10',
+                        };
+                        Object.assign(configurations, configuration);
+                        datapointCount++;
+                    }
+                }
+                datapointIndex = 0;
+                if (!ignoreMinMax[datapointIndex]) {
+                    min[datapointIndex] = min[datapointIndex] || dp.min || '';
+                    max[datapointIndex] = max[datapointIndex] || dp.max || '';
+                }
+                let configuration = {
+                    ['l[' + datapointCount + '][id]']: dp.id,
+                    ['l[' + datapointCount + '][offset]']: '0',
+                    ['l[' + datapointCount + '][aggregate]']: 'average',
+                    ['l[' + datapointCount + '][smoothing]']: '0',
+                    ['l[' + datapointCount + '][color]']: chartColor[datapointIndex],
+                    ['l[' + datapointCount + '][min]']: min[datapointIndex],
+                    ['l[' + datapointCount + '][max]']: max[datapointIndex],
+                    ['l[' + datapointCount + '][commonYAxis]']: (datapointCount + 1).toString(),
+                    ['l[' + datapointCount + '][thickness]']: '3',
+                    ['l[' + datapointCount + '][shadowsize]']: '3',
+                    ['l[' + datapointCount + '][name]']: 'Chart',
+                    ['l[' + datapointCount + '][yaxe]']: 'off',
+                    ['l[' + datapointCount + '][xticks]']: xticks,
+                    ['l[' + datapointCount + '][xaxe]']: 'off',
+                    ['l[' + datapointCount + '][yticks]']: yticks,
+                    ['l[' + datapointCount + '][chartType]']: 'steps',
+                    ['l[' + datapointCount + '][points]']: 'false',
+                    ['l[' + datapointCount + '][fill]']: fill[datapointIndex],
+                    ['l[' + datapointCount + '][ignoreNull]']: 'true',
+                    ['l[' + datapointCount + '][dashes]']: 'false',
+                    ['l[' + datapointCount + '][dashLength]']: '10',
+                    ['l[' + datapointCount + '][spaceLength]']: '10',
+                    timeType: 'relative',
+                    relativeEnd: 'now',
+                    range: range,
+                    live: '30',
+                    aggregateType: 'step',
+                    aggregateSpan: '0',
+                    hoverDetail: 'false',
+                    useComma: '2',
+                    zoom: 'false',
+                    noedit: 'true',
+                    animation: '1000',
+                    border_width: '0',
+                    timeFormat: '%H:%M %d.%m.',
+                };
+                Object.assign(configurations, configuration);
+                var datapointCount2 = 0;
+                for (var datapointIndex = 2; datapointIndex > 0; datapointIndex--) {
+                    if (USE_THIS_DATAPOINT[datapointIndex]) {
+                        if (useMinMaxFromMain[datapointIndex])
+                            configurations['l[' + datapointCount2 + '][commonYAxis]'] = (datapointCount + 1).toString();
+                        datapointCount2++;
+                    }
+                }
+                if (noAnimation) configurations['animation'] = '0';
+                if (historyInstance) configurations['l[' + datapointCount + '][instance]'] = historyInstance;
+                if (showXaxe == 'bottom' || (showXaxe == 'bottomIfBig' && window.innerHeight > 200)) {
+                    configurations['l[' + datapointCount + '][xaxe]'] = 'bottom';
+                } else if (showXaxe == 'bottomColor' || (showXaxe == 'bottomColorIfBig' && window.innerHeight > 200)) {
+                    configurations['l[' + datapointCount + '][xaxe]'] = 'bottomColor';
+                } else if (showXaxe == 'top' || (showXaxe == 'topIfBig' && window.innerHeight > 200)) {
+                    configurations['l[' + datapointCount + '][xaxe]'] = 'top';
+                } else if (showXaxe == 'topColor' || (showXaxe == 'topColorIfBig' && window.innerHeight > 200)) {
+                    configurations['l[' + datapointCount + '][xaxe]'] = 'topColor';
+                }
+                if (showYaxe == 'right' || (showYaxe == 'rightIfBig' && window.innerWidth > 200)) {
+                    configurations['l[' + datapointCount + '][yaxe]'] = 'right';
+                } else if (showYaxe == 'rightColor' || (showYaxe == 'rightColorIfBig' && window.innerWidth > 200)) {
+                    configurations['l[' + datapointCount + '][yaxe]'] = 'rightColor';
+                } else if (showYaxe == 'left' || (showYaxe == 'leftIfBig' && window.innerWidth > 200)) {
+                    configurations['l[' + datapointCount + '][yaxe]'] = 'left';
+                } else if (showYaxe == 'leftColor' || (showYaxe == 'leftColorIfBig' && window.innerWidth > 200)) {
+                    configurations['l[' + datapointCount + '][yaxe]'] = 'leftColor';
+                }
+                if ((showXaxe + showYaxe).indexOf('IfBig') > -1) reCreateIfBig = true;
+                else reCreateIfBig = false;
+                //Replace URL-Parameters
+                console.log('Replace URL');
+                var configurationArray = [];
+                for (element in configurations) {
+                    configurationArray.push(encodeURI(element) + '=' + encodeURI(configurations[element]));
+                }
+                var query = configurationArray.join('&');
+                var newurl =
+                    window.location.protocol + '//' + window.location.host + window.location.pathname + '?' + query;
+                window.history.pushState({ path: newurl }, '', newurl);
+                console.log('Call flot');
+                setTimeout(function () {
+                    $.getScript('flot-chart.js', function () {
+                        console.log('flot-chart.js loaded');
+                        if (configurations['l[0][yaxe]'].indexOf('right') == 0) {
+                            $('.chart-placeholder').addClass('hasYaxeRight');
+                        } else {
+                            $('.chart-placeholder').removeClass('hasYaxeRight');
+                        }
+                        if (configurations['l[0][yaxe]'].indexOf('left') == 0) {
+                            $('.chart-placeholder').addClass('hasYaxeLeft');
+                        } else {
+                            $('.chart-placeholder').removeClass('hasYaxeLeft');
+                        }
+                        if (configurations['l[0][xaxe]'].indexOf('bottom') == 0) {
+                            $('.chart-placeholder').addClass('hasXaxeBottom');
+                        } else {
+                            $('.chart-placeholder').removeClass('hasXaxeBottom');
+                        }
+                        if (configurations['l[0][xaxe]'].indexOf('top') == 0) {
+                            $('.chart-placeholder').addClass('hasXaxeTop');
+                        } else {
+                            $('.chart-placeholder').removeClass('hasXaxeTop');
+                        }
+                    });
+                }, 100);
+            }
 
-						case getUrlParameter("useThisDatapoint3") || "---undefined3---":
-							console.log("Received USE_THIS_DATAPOINT 3");
-							USE_THIS_DATAPOINT[2] = event.data.value;
-							createConfiguration();
-						break;
+            //viewport resize event
+            var resizeTimeout = false;
+            var reCreateIfBig = false;
+            window.addEventListener('resize', function (event) {
+                if (resizeTimeout) clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(function () {
+                    resizeTimeout = false;
+                    console.log(
+                        'FLOT resized. New innerWidth: ' +
+                            window.innerWidth +
+                            'px, new innerHeight: ' +
+                            window.innerHeight +
+                            'px.',
+                    );
+                    if (reCreateIfBig) createConfiguration('noAnimation');
+                }, 100);
+            });
 
-						case "STATE":
-							console.log("Received STATE");
-							STATE = event.data.value;
-							createConfiguration();
-						break;
+            //send postMessages
+            function sendPostMessage(command, stateId, value) {
+                message = { command: command, stateId: stateId, value: value };
+                window.parent.postMessage(message, '*');
+            }
 
-						case "LEVEL":
-							console.log("Received LEVEL");
-							LEVEL = event.data.value;
-							createConfiguration();
-						break;
-						
-						case "TEMPERATURE":
-							console.log("Received TEMPERATURE");
-							TEMPERATURE = event.data.value;
-							createConfiguration();
-						break;
+            //receive postMessages
+            window.addEventListener('message', receivePostMessage, false);
+            function receivePostMessage(event) {
+                //event = {data: message data, origin: url of origin, source: id of sending element}
+                if (event.data && event.data.command)
+                    switch (event.data.command) {
+                        case 'getState':
+                            if (event.data.stateId)
+                                switch (event.data.stateId) {
+                                    case getUrlParameter('useThisDatapoint') || '---undefined---':
+                                        console.log('Received USE_THIS_DATAPOINT');
+                                        USE_THIS_DATAPOINT[0] = event.data.value;
+                                        createConfiguration();
+                                        break;
 
-						case "SET_TEMPERATURE":
-							console.log("Received SET_TEMPERATURE");
-							SET_TEMPERATURE = event.data.value;
-							createConfiguration();
-						break;
-					}
-				break;
-			}
-		}
-		
-		//GetUrlParameter
-		function getUrlParameter(name) {
-			name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-			var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-			var results = regex.exec(location.search);
-			return results === null ? null : decodeURIComponent(results[1].replace(/\+/g, ' '));
-		};
-	</script>
-</body>
+                                    case getUrlParameter('useThisDatapoint2') || '---undefined2---':
+                                        console.log('Received USE_THIS_DATAPOINT 2');
+                                        USE_THIS_DATAPOINT[1] = event.data.value;
+                                        createConfiguration();
+                                        break;
+
+                                    case getUrlParameter('useThisDatapoint3') || '---undefined3---':
+                                        console.log('Received USE_THIS_DATAPOINT 3');
+                                        USE_THIS_DATAPOINT[2] = event.data.value;
+                                        createConfiguration();
+                                        break;
+
+                                    case 'STATE':
+                                        console.log('Received STATE');
+                                        STATE = event.data.value;
+                                        createConfiguration();
+                                        break;
+
+                                    case 'LEVEL':
+                                        console.log('Received LEVEL');
+                                        LEVEL = event.data.value;
+                                        createConfiguration();
+                                        break;
+
+                                    case 'TEMPERATURE':
+                                        console.log('Received TEMPERATURE');
+                                        TEMPERATURE = event.data.value;
+                                        createConfiguration();
+                                        break;
+
+                                    case 'SET_TEMPERATURE':
+                                        console.log('Received SET_TEMPERATURE');
+                                        SET_TEMPERATURE = event.data.value;
+                                        createConfiguration();
+                                        break;
+                                }
+                            break;
+                    }
+            }
+
+            //GetUrlParameter
+            function getUrlParameter(name) {
+                name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+                var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+                var results = regex.exec(location.search);
+                return results === null ? null : decodeURIComponent(results[1].replace(/\+/g, ' '));
+            }
+        </script>
+    </body>
 </html>
