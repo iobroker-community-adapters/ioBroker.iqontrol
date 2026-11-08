@@ -46,10 +46,6 @@ Easy to set up, although it's fully customizable and responsive.
 
 > **This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers.** For more details and for information how to disable the error reporting see [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is used starting with js-controller 3.0.
 
-## Credits
-
-This adapter would not have been possible without the great work of @o0Shojo0o (https://github.com/o0Shojo0o), who developed former releases of this adapter.
-
 ## How to report issues and feature requests
 
 Ideally, please use GitHub issues for this, with the best method achieved by setting the adapter to Debug log mode (Instances -> Expert mode -> Column Log level). Then retrieve the logfile from disk via the 'log' ioBroker subdirectory, **not** from Admin, which will cut lines.
@@ -2225,12 +2221,16 @@ This device has some special predefined size- and display-settings to show a tex
 
 ---
 
-## Changelog
+## Credits
+
+This adapter would not have been possible without the great work of @o0Shojo0o (https://github.com/o0Shojo0o), who developed former releases of this adapter.
 
 <!--
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
+## Changelog
+
 ### **WORK IN PROGRESS**
 - (@GermanBluefox) Refactoring
 - (@GermanBluefox) Repository checker issues have been fixed (#566)
